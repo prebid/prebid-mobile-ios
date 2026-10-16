@@ -108,7 +108,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
         }
         
         mockWebView.mock_loadHTML = { (_, _, _) in
-            self.mockWebView.delegate?.webViewReady(toDisplay: self.mockWebView!)
+            self.mockWebView.delegate?.webViewReadyToDisplay(self.mockWebView!)
         }
         
         self.htmlCreative.display(rootViewController: UIViewController())
@@ -315,7 +315,7 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         
         logToFile = .init()
         
-        let webView = self.htmlCreative.view as! PBMWebView
+        let webView = self.htmlCreative.view as! WebView
         self.htmlCreative.webView(webView, failedToLoadWithError:PBMError.error(message: "Failed to load html", type: .internalError))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute:{
@@ -335,7 +335,7 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         self.htmlCreative.setupView()
         self.htmlCreative.display(rootViewController:mockViewController)
         
-        let webView = self.htmlCreative.view as! PBMWebView
+        let webView = self.htmlCreative.view as! WebView
         self.htmlCreative.webView(webView, receivedClickthroughLink:self.clickThroughURL)
         self.waitForExpectations(timeout: 5, handler: nil)
     }

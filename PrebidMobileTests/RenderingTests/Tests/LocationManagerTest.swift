@@ -14,6 +14,7 @@
  */
 
 import XCTest
+import CoreLocation
 @testable import PrebidMobile
 
 class LocationManagerTest: XCTestCase {

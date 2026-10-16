@@ -15,7 +15,7 @@
 
 import Foundation
 import XCTest
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMHTMLCreativeTest_NoMRAID : PBMHTMLCreativeTest_Base {
     
@@ -36,19 +36,17 @@ class PBMHTMLCreativeTest_NoMRAID : PBMHTMLCreativeTest_Base {
         serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         let mockWebView = MockPBMWebView()
-        let pbmHTMLCreative = PBMHTMLCreative(
+        let pbmHTMLCreative = HTMLCreative(
             creativeModel: MockPBMCreativeModel(),
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             webView: mockWebView,
             sdkConfiguration:sdkConfiguration
         )
-        let mockMRAIDController = PBMMRAIDController(creative:pbmHTMLCreative,
-                                                     viewControllerForPresenting:UIViewController(),
-                                                     webView:mockWebView,
-                                                     creativeViewDelegate:self,
-                                                     downloadBlock:createLoader(connection: serverConnection),
-                                                     deviceAccessManagerClass: DeviceAccessManager.self,
-                                                     sdkConfiguration: sdkConfiguration)
+        let mockMRAIDController = MRAIDController(creative:pbmHTMLCreative,
+                                                  viewControllerForPresenting:UIViewController(),
+                                                  webView:mockWebView,
+                                                  creativeViewDelegate:self,
+                                                  downloadBlock:createLoader(connection: serverConnection))
         pbmHTMLCreative.mraidController = mockMRAIDController
         pbmHTMLCreative.view = mockWebView
         

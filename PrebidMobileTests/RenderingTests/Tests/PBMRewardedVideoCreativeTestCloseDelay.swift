@@ -37,7 +37,7 @@ class PBMRewardedVideoCreativeTestCloseDelay : XCTestCase {
     
     private func calculateCloseDelay(with model: CreativeModel, pubCloseDelay:TimeInterval) -> TimeInterval {
         
-        let creative = PBMVideoCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData:Data())
+        let creative = VideoCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData:Data())
         return creative.calculateCloseDelay(forPubCloseDelay:pubCloseDelay)
     }
 }

@@ -38,7 +38,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
     var expectationDownloadCompleted:XCTestExpectation!
     var expectationTrackingEventMidpoint:XCTestExpectation!
     
-    var pbmVideoCreative:PBMVideoCreative!
+    var pbmVideoCreative:VideoCreative!
     
     override func setUp() {
         super.setUp()
@@ -101,7 +101,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
         
         let modelMaker = CreativeModelCollectionMakerVAST(serverConnection:connection, adConfiguration: adConfiguration)
         
-        var creativeFactory: PBMCreativeFactory?
+        var creativeFactory: CreativeFactory?
         
         modelMaker.makeModels(self.vastServerResponse!, successCallback: { models in
             // count should include 1 video creative and 1 html creative (end card) for a total of 2.
@@ -116,7 +116,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
             transaction.creativeModels = [creativeModel]
             
             //Get a Creative
-            creativeFactory = PBMCreativeFactory(serverConnection: connection,
+            creativeFactory = CreativeFactory(serverConnection: connection,
                                                  transaction: transaction, finishedCallback: { creatives, error in
                 if (error != nil) {
                     XCTFail("error: \(error?.localizedDescription ?? "")")
@@ -124,7 +124,7 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
                 
                 self.expectationDownloadCompleted.fulfill()
                 
-                guard let pbmVideoCreative = creatives?.first as? PBMVideoCreative else {
+                guard let pbmVideoCreative = creatives?.first as? VideoCreative else {
                     XCTFail("Could not cast creative as PBMRewardedVideoCreative")
                     return
                 }
@@ -271,8 +271,8 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
     func creativeFactorySuccess(creative: AbstractCreative)->() {
         self.expectationDownloadCompleted.fulfill()
         
-        guard let pbmVideoCreative = creative as? PBMVideoCreative else {
-            XCTFail("Could not cast \(creative) as PBMVideoCreative")
+        guard let pbmVideoCreative = creative as? VideoCreative else {
+            XCTFail("Could not cast \(creative) as VideoCreative")
             return
         }
         

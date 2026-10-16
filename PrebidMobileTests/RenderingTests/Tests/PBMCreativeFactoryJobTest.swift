@@ -40,16 +40,16 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let model = CreativeModel(adConfiguration: AdConfiguration())
         
-        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
+        let finishedCallback = { (job: CreativeFactoryJob, error: Error?) in
             if error != nil {
                 XCTAssertEqual(error?.localizedDescription ?? "", "PBMCreativeFactoryJob: Could not initialize VideoCreative without videoFileURL")
                 expectationFailure.fulfill()
             }
         }
         
-        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
         
-        job.state = PBMCreativeFactoryJobStateRunning
+        job.state = .running
         job.attemptVASTCreative()
         
         waitForExpectations(timeout: 5)
@@ -62,16 +62,16 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let transaction = UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true)
         let model = transaction.creativeModels[0]
         
-        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
+        let finishedCallback = { (job: CreativeFactoryJob, error: Error?) in
             if error != nil {
                 XCTAssertEqual(error?.localizedDescription ?? "", "SDK internal error: PBMCreativeFactoryJob: Failed to complete in specified time interval")
                 expectationFailure.fulfill()
             }
         }
         
-        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
         
-        job.start(withTimeInterval: 0.01)
+        job.start(timeInterval: 0.01)
         
         waitForExpectations(timeout: 5)
     }
@@ -83,16 +83,16 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let model = CreativeModel(adConfiguration: AdConfiguration())
         
-        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
+        let finishedCallback = { (job: CreativeFactoryJob, error: Error?) in
             if error != nil {
                 XCTAssertEqual(error?.localizedDescription ?? "", "SDK internal error: PBMCreativeFactoryJob: Tried to start PBMCreativeFactory twice")
                 expectationFailure.fulfill()
             }
         }
         
-        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
         
-        job.state = PBMCreativeFactoryJobStateRunning
+        job.state = .running
         job.start()
         
         waitForExpectations(timeout: 5)
@@ -105,20 +105,20 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let model = CreativeModel(adConfiguration: AdConfiguration())
         
-        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
-            if job.state == PBMCreativeFactoryJobStateSuccess && error == nil {
+        let finishedCallback = { (job: CreativeFactoryJob, error: Error?) in
+            if job.state == .success && error == nil {
                 expectationSuccess.fulfill()
             }
         }
         
-        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
         
-        job.state = PBMCreativeFactoryJobStateRunning
+        job.state = .running
         
-        job.success(with: UtilitiesForTesting.createHTMLCreative())
+        job.succeed(with: UtilitiesForTesting.createHTMLCreative())
         
         waitForExpectations(timeout: 5, handler: { _ in
-            XCTAssertEqual(job.state, PBMCreativeFactoryJobStateSuccess)
+            XCTAssertEqual(job.state, .success)
         })
     }
     
@@ -129,19 +129,19 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         let model = CreativeModel(adConfiguration: AdConfiguration())
         
-        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
+        let finishedCallback = { (job: CreativeFactoryJob, error: Error?) in
             if (error != nil) {
                 expectationFailure.fulfill()
             }
         }
         
-        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
         
-        job.state = PBMCreativeFactoryJobStateRunning
-        job.failWithError(PBMError.error(description: ""))
+        job.state = .running
+        job.fail(with: PBMError.error(description: ""))
         
         waitForExpectations(timeout: 5, handler: { _ in
-            XCTAssertEqual(job.state, PBMCreativeFactoryJobStateError)
+            XCTAssertEqual(job.state, .error)
         })
     }
     
@@ -152,9 +152,9 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let adConfig = AdConfiguration()
         let model = CreativeModel(adConfiguration: adConfig)
         
-        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
+        let finishedCallback = { (job: CreativeFactoryJob, error: Error?) in }
         
-        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
         
         // display banner
         XCTAssertEqual(job.getTimeInterval(), 6.0)
@@ -183,9 +183,9 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let adConfig = AdConfiguration()
         let model = CreativeModel(adConfiguration: adConfig)
         
-        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
+        let finishedCallback = { (job: CreativeFactoryJob, error: Error?) in }
         
-        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
         
         XCTAssertEqual(job.getTimeInterval(), creativeFactoryTimeout)
         
@@ -233,9 +233,9 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         let adConfig = AdConfiguration()
         let model = CreativeModel(adConfiguration: adConfig)
 
-        let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in }
+        let finishedCallback = { (job: CreativeFactoryJob, error: Error?) in }
 
-        let job = PBMCreativeFactoryJob(from: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection, finishedCallback: finishedCallback)
 
         XCTAssertEqual(job.getTimeInterval(), creativeFactoryTimeout)
         

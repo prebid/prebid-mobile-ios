@@ -21,14 +21,14 @@ import StoreKit
 class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
     
     var expectation:XCTestExpectation?
-    var pbmAbstractCreative: PBMAbstractCreative_Objc!
+    var pbmAbstractCreative: AbstractCreativeImpl!
     let msgAbstractFunctionCalled = "Abstract function called"
     
     private var logToFile: LogToFileLock?
     
     override func setUp() {
         super.setUp()
-        self.pbmAbstractCreative = PBMAbstractCreative_Objc(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
+        self.pbmAbstractCreative = AbstractCreativeImpl(creativeModel:CreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction())
         self.pbmAbstractCreative.creativeResolutionDelegate = self
     }
     
@@ -53,7 +53,7 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
     
     func testModalManagerDidFinishPop() {
         logToFile = .init()
-        let state = Factory.createModalState(view: PBMWebView(),
+        let state = Factory.createModalState(view: WebView(),
                                              adConfiguration:AdConfiguration(),
                                              displayProperties:InterstitialDisplayProperties())
         self.pbmAbstractCreative.modalManagerDidFinishPop(state)
@@ -63,7 +63,7 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
 
     func testModalManagerDidLeaveApp() {
         logToFile = .init()
-        let state = Factory.createModalState(view: PBMWebView(),
+        let state = Factory.createModalState(view: WebView(),
                                              adConfiguration:AdConfiguration(),
                                              displayProperties:InterstitialDisplayProperties())
         pbmAbstractCreative.modalManagerDidLeaveApp(state)
@@ -155,7 +155,7 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
 
         pbmAbstractCreative.clickthroughVisible = false
         pbmAbstractCreative.pendingModalStatePop = Factory.createModalState(
-            view: PBMWebView(),
+            view: WebView(),
             adConfiguration: AdConfiguration(),
             displayProperties: InterstitialDisplayProperties())
 
