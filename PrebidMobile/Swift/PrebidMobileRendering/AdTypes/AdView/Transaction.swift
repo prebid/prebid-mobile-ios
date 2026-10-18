@@ -21,16 +21,13 @@ protocol Transaction: NSObjectProtocol {
     var adConfiguration: AdConfiguration { get } // If need to change use resetAdConfiguration
     var creatives: [AbstractCreative] { get set }
     var creativeModels: [CreativeModel] { get set }
-    var measurementSession: OMSession { get set }
+    // Optional: a transaction has no measurement session until the first creative creates one.
+    var measurementSession: OMSession? { get set }
     var measurementWrapper: OMSessionWrapper { get set }
     
     var bid: Bid? { get set }
     
     weak var delegate: TransactionDelegate? { get set }
-    
-    init(serverConnection: PrebidServerConnectionProtocol,
-         adConfiguration: AdConfiguration,
-         models: [CreativeModel])
     
     func startCreativeFactory()
     func getAdDetails() -> AdDetails?
@@ -40,7 +37,7 @@ protocol Transaction: NSObjectProtocol {
     func resetAdConfiguration(_ adConfiguration: AdConfiguration)
     
 #if DEBUG
-    // Expose objc impl method to swift for tests
+    // Exposed for tests (`TransactionImpl.updateAdConfiguration`)
     func updateAdConfiguration()
 #endif
 }

@@ -9,16 +9,16 @@
 import Foundation
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MockPBMAbstractCreative: PBMAbstractCreative_Objc {
+class MockPBMAbstractCreative: AbstractCreativeImpl {
  
     var modalManagerDidFinishPopCallback: VoidBlock?
     var modalManagerDidLeaveAppCallback: VoidBlock?
     
-    override func modalManagerDidFinishPop(_ state: ModalState) {
+    override func modalManagerDidFinishPop(_ state: ModalState?) {
         modalManagerDidFinishPopCallback?()
     }
     
-    override func modalManagerDidLeaveApp(_ state: ModalState) {
+    override func modalManagerDidLeaveApp(_ state: ModalState?) {
         modalManagerDidLeaveAppCallback?()
     }
 }

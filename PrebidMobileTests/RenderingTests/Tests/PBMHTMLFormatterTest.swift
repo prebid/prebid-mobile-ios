@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMHTMLFormatterTest: XCTestCase {
     
@@ -44,19 +44,19 @@ class PBMHTMLFormatterTest: XCTestCase {
         let expected = properlyFormedHTML
         var actual:String
         
-        actual = PBMHTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlMissingHTMLTags)
+        actual = HTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlMissingHTMLTags)
         XCTAssert(expected == actual, "Expected ensureHTMLHasBodyAndHTMLTags to add html tags = \(expected), actual = \(actual)")
         
-        actual = PBMHTMLFormatter.ensureHTMLHasBodyAndHTMLTags(baseCreative)
+        actual = HTMLFormatter.ensureHTMLHasBodyAndHTMLTags(baseCreative)
         XCTAssert(expected == actual, "Expected ensureHTMLHasBodyAndHTMLTags to add html and body tags. Expected = \(expected), actual = \(actual)")
         
-        actual = PBMHTMLFormatter.ensureHTMLHasBodyAndHTMLTags(properlyFormedHTML)
+        actual = HTMLFormatter.ensureHTMLHasBodyAndHTMLTags(properlyFormedHTML)
         XCTAssert(expected == actual, "Expected ensureHTMLHasBodyAndHTMLTags to not modify properlyFormedHTML. Expected = \(expected), actual = \(actual)")
         
-        actual = PBMHTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlMissingHTMLOpeningTag)
+        actual = HTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlMissingHTMLOpeningTag)
         XCTAssert(expected == actual, "Expected ensureHTMLHasBodyAndHTMLTags to add missing tag. Expected = \(expected), actual = \(actual)")
         
-        actual = PBMHTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlMissingHTMLClosingTag)
+        actual = HTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlMissingHTMLClosingTag)
         XCTAssert(expected == actual, "Expected ensureHTMLHasBodyAndHTMLTags to add missing tag. Expected = \(expected), actual = \(actual)")
     }
     
@@ -68,7 +68,7 @@ class PBMHTMLFormatterTest: XCTestCase {
         
         var htmlWithScript = "\(htmlOpeningTag) <head> <script src=\"mraid.js\"></script> <script> function someFunc() { // some code } </script> </head> \(bodyOpeningTag)<div id=\"aroniabtestad\"></div>\(bodyClosingTag) \(htmlClosingTag)"
         var expected = htmlWithScript
-        var actual = PBMHTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlWithScript)
+        var actual = HTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlWithScript)
         XCTAssert(expected == actual, "Expected ensureHTMLHasBodyAndHTMLTags to add missing tag. Expected = \(expected), actual = \(actual)")
 
         
@@ -78,7 +78,7 @@ class PBMHTMLFormatterTest: XCTestCase {
         
         htmlWithScript = "<script src=\"mraid.js\"></script> <script> function someFunc() { // some code } </script> <div id=\"arontwopartwrap\"> <a href=\"#\" onclick=\"twopart(); return false;\" id=\"twopart\">blah blah</a> </div>"
         expected = "\(htmlOpeningTag)\(bodyOpeningTag)\(htmlWithScript)\(bodyClosingTag)\(htmlClosingTag)"
-        actual = PBMHTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlWithScript)
+        actual = HTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlWithScript)
         XCTAssert(expected == actual, "Expected ensureHTMLHasBodyAndHTMLTags to add missing tag. Expected = \(expected), actual = \(actual)")
     }
     
@@ -90,7 +90,7 @@ class PBMHTMLFormatterTest: XCTestCase {
         // <html style=“color:red”>blah blah</html>
         let htmlStileOpeningTag = "\(htmlStyleOpeningTag)\(redColorText)\(htmlClosingTag)"
         
-        let actual = PBMHTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlStileOpeningTag)
+        let actual = HTMLFormatter.ensureHTMLHasBodyAndHTMLTags(htmlStileOpeningTag)
         let expected = "\(htmlOpeningTag)\(bodyOpeningTag)\(htmlStyleOpeningTag)\(redColorText)\(bodyClosingTag)\(htmlClosingTag)"
         XCTAssert(expected == actual, "Expected ensureHTMLHasBodyAndHTMLTags to add missing tag. Expected = \(expected), actual = \(actual)")
     }

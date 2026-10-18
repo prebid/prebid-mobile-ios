@@ -14,6 +14,7 @@
  */
 
 import XCTest
+import CoreLocation
 import TestUtils
 @testable import PrebidMobile
 

@@ -29,7 +29,7 @@ class ModalPresentationControllerTest: XCTestCase, UIViewControllerTransitioning
         presentedVC.transitioningDelegate = self;
         
         XCTAssertNil(modalState)
-        modalState = Factory.createModalState(view: PBMWebView(),
+        modalState = Factory.createModalState(view: WebView(),
                                               adConfiguration:AdConfiguration(),
                                               displayProperties:InterstitialDisplayProperties())
         XCTAssertNil(modalPresentationController)

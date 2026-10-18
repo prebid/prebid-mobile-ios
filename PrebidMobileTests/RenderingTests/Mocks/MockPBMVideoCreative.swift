@@ -17,7 +17,7 @@ import Foundation
 
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MockPBMVideoCreative: PBMVideoCreative {
+class MockPBMVideoCreative: VideoCreative {
     
     var closurePause: (() -> Void)?
     var closureResume: (() -> Void)?

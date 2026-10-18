@@ -44,7 +44,7 @@ class PBMRewardedVideoCreativeTest: XCTestCase, CreativeResolutionDelegate, Crea
         model.videoFileURL = "example.com"
         model.hasCompanionAd = true
         
-        let videoCreative = PBMVideoCreative(creativeModel:model,transaction:UtilitiesForTesting.createEmptyTransaction(),videoData: Data())
+        let videoCreative = VideoCreative(creativeModel:model,transaction:UtilitiesForTesting.createEmptyTransaction(),videoData: Data())
         videoCreative.creativeViewDelegate = self
         videoCreative.videoViewCompletedDisplay()
         
@@ -63,7 +63,7 @@ class PBMRewardedVideoCreativeTest: XCTestCase, CreativeResolutionDelegate, Crea
         let modalManager = PBMModalManagerTest()
         modalManager.expectationCreativeDidComplete = self.expectationCreativeDidComplete
         
-        let videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(),  videoData: Data())
+        let videoCreative = VideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(),  videoData: Data())
         videoCreative.modalManager = modalManager
         videoCreative.creativeViewDelegate = self
         videoCreative.videoViewCompletedDisplay()

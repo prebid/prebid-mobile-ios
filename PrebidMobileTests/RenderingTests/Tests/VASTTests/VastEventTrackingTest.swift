@@ -25,14 +25,14 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
     let vc = UIViewController()
     let modalManager = ModalManager()
     
-    var creativeFactory: PBMCreativeFactory?
+    var creativeFactory: CreativeFactory?
     
     var vastRequestSuccessfulExpectation: XCTestExpectation?
     
     var expectations = [XCTestExpectation]()
 
     var vastServerRespose: AdRequestResponseVAST?
-    var videoCreative: PBMVideoCreative!
+    var videoCreative: VideoCreative!
     
     override func setUp() {
         super.setUp()
@@ -118,14 +118,14 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
             let transaction = UtilitiesForTesting.createTransactionWithHTMLCreative()
             transaction.creativeModels = [creativeModel]
             
-            self.creativeFactory = PBMCreativeFactory(serverConnection: connection, transaction: transaction,
+            self.creativeFactory = CreativeFactory(serverConnection: connection, transaction: transaction,
                 finishedCallback: { creatives, error in
                     if (error != nil) {
                         XCTFail("error: \(error?.localizedDescription ?? "")")
                     }
                     
-                    guard let creative = creatives?.first as? PBMVideoCreative else {
-                        XCTFail("Could not cast creative as PBMVideoCreative")
+                    guard let creative = creatives?.first as? VideoCreative else {
+                        XCTFail("Could not cast creative as VideoCreative")
                         return
                     }
                     

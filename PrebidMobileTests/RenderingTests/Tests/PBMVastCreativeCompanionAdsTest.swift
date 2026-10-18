@@ -31,10 +31,10 @@ class PBMVastCreativeCompanionAdsTest: XCTestCase {
     func testRequiredMode() {
         let creative = VastCreativeCompanionAds()
         
-        creative.requiredMode = PBMVastRequiredMode.all.rawValue
+        creative.requiredMode = "all"
         XCTAssert(creative.canPlayRequiredCompanions())
         
-        creative.requiredMode = PBMVastRequiredMode.any.rawValue
+        creative.requiredMode = "any"
         XCTAssert(creative.canPlayRequiredCompanions())
     }
 }

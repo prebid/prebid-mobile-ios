@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMCreativeFactoryTest: XCTestCase {
     
@@ -31,7 +31,7 @@ class PBMCreativeFactoryTest: XCTestCase {
         let transaction = UtilitiesForTesting.createEmptyTransaction()
         
         let creativeFactory =
-        PBMCreativeFactory(serverConnection: connection, transaction: transaction, finishedCallback: {
+        CreativeFactory(serverConnection: connection, transaction: transaction, finishedCallback: {
             creatives, error in
             if error != nil {
                 expectation.fulfill()
@@ -54,7 +54,7 @@ class PBMCreativeFactoryTest: XCTestCase {
         let transaction = UtilitiesForTesting.createTransactionWithHTMLCreative()
         
         let creativeFactory =
-        PBMCreativeFactory(serverConnection: connection, transaction: transaction, finishedCallback: {
+        CreativeFactory(serverConnection: connection, transaction: transaction, finishedCallback: {
             creatives, error in
             if error != nil {
                 expectationFail.fulfill()

@@ -37,7 +37,7 @@ protocol AbstractCreative: NSObjectProtocol {
     var modalManager: ModalManager? { get set }
     var dispatchQueue: DispatchQueue { get set }
     var viewabilityTracker: CreativeViewabilityTracker? { get set }
-    var dismissInterstitialModalState: VoidBlock { get }
+    var dismissInterstitialModalState: VoidBlock? { get }
     var isDownloaded: Bool { get set }
     
     // Indicates whether creative is opened with user action (expanded, clickthrough showed ...) or not
@@ -76,8 +76,10 @@ protocol AbstractCreative: NSObjectProtocol {
     func unmute()
     
     //Modal Manager Events
-    func modalManagerDidFinishPop(_ state: ModalState)
-    func modalManagerDidLeaveApp(_ state: ModalState)
+    // Optional: `SafariVCOpener` reports a closed clickthrough (and a clickthrough that leaves the app) with `nil`, and
+    // the creatives act on the call, not on the state.
+    func modalManagerDidFinishPop(_ state: ModalState?)
+    func modalManagerDidLeaveApp(_ state: ModalState?)
     
     func onViewabilityChanged(_ viewable: Bool, viewExposure: ViewExposure)
 }

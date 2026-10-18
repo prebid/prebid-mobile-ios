@@ -92,7 +92,7 @@ typealias JsonDictionary = [String:Any]
     }
     
     class func createHTMLCreative(with model: CreativeModel) -> AbstractCreative {
-        return PBMHTMLCreative(creativeModel: model,
+        return HTMLCreative(creativeModel: model,
                                transaction:UtilitiesForTesting.createEmptyTransaction())
     }
     
@@ -105,18 +105,18 @@ typealias JsonDictionary = [String:Any]
         creative.modalManager = modalManager
         
         if withView {
-            let webView = PBMWebView()
+            let webView = WebView()
             creative.view = webView
         }
         
         return creative
     }
     
-    class func createHTMLCreative(withModel model: CreativeModel, withView:Bool = true) -> PBMHTMLCreative {
-        let creative = PBMHTMLCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction())
+    class func createHTMLCreative(withModel model: CreativeModel, withView:Bool = true) -> HTMLCreative {
+        let creative = HTMLCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction())
         
         if withView {
-            let webView = PBMWebView()
+            let webView = WebView()
             creative.view = webView
         }
         
@@ -151,7 +151,7 @@ typealias JsonDictionary = [String:Any]
             model.html = "<html>test html</html>"
             model.revenue = "1234"
             
-            let creative = PBMHTMLCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction())
+            let creative = HTMLCreative(creativeModel: model, transaction:UtilitiesForTesting.createEmptyTransaction())
             
             let transaction = Factory.createTransaction(serverConnection:connection,
                                                         adConfiguration:configuration,
@@ -170,7 +170,7 @@ typealias JsonDictionary = [String:Any]
                                                     adConfiguration:adConfiguration,
                                                     models:[model])
         
-        let creative = PBMHTMLCreative(creativeModel: model, transaction: transaction)
+        let creative = HTMLCreative(creativeModel: model, transaction: transaction)
         
         transaction.creatives.append(creative)
         
