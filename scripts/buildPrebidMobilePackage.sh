@@ -25,8 +25,8 @@ TRIPLE="arm64-apple-ios15.0-simulator"
 
 # SwiftPM resolves binaryTarget xcframework slices against the *host* platform, so
 # cross-compiling this way it never adds a framework search path for OMSDK. Point
-# clang at the iOS simulator slice explicitly (the identifier comes from the
-# xcframework's Info.plist AvailableLibraries).
+# clang and swiftc (the Swift target imports OMSDK too) at the iOS simulator slice
+# explicitly (the identifier comes from the xcframework's Info.plist AvailableLibraries).
 OMSDK_SLICE="Frameworks/OMSDK_Prebidorg.xcframework/ios-arm64_x86_64-simulator"
 
 if [ ! -d "${OMSDK_SLICE}" ]; then
@@ -42,6 +42,7 @@ swift build \
     -Xswiftc -target -Xswiftc "${TRIPLE}" \
     -Xcc -isysroot -Xcc "${SDK_PATH}" \
     -Xcc -target -Xcc "${TRIPLE}" \
-    -Xcc -F -Xcc "${PWD}/${OMSDK_SLICE}"
+    -Xcc -F -Xcc "${PWD}/${OMSDK_SLICE}" \
+    -Xswiftc -F -Xswiftc "${PWD}/${OMSDK_SLICE}"
 
 echo "✅ SPM package build succeeded"
