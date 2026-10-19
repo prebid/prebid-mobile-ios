@@ -14,7 +14,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBMOpenMeasurementSession.h"
+#import "SwiftImport.h"
+#import <UIKit/UIKit.h>
 #import "PBMVoidBlock.h"
 
 @class WKWebView;

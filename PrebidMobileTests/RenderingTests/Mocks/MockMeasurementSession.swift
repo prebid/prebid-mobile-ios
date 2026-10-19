@@ -17,7 +17,7 @@ import Foundation
 
 @testable import PrebidMobile
 
-class MockMeasurementSession: PBMOpenMeasurementSession {
+class MockMeasurementSession: OpenMeasurementSession {
     
     var setupWebViewClosure: ((UIView) -> Void)?
     var startClosure: (() -> Void)?

@@ -138,7 +138,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     NSError *sessionError;
-    PBMOpenMeasurementSession *session = [[PBMOpenMeasurementSession alloc] initWithContext:context configuration:config];
+    PBMOpenMeasurementSession *session = [[PBMOpenMeasurementSession alloc] initWithContext:(NSObject *)context configuration:(NSObject *)config];
     if (!session) {
         PBMLogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
         return nil;
@@ -185,7 +185,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     NSError *sessionError;
-    PBMOpenMeasurementSession *session = [[PBMOpenMeasurementSession alloc] initWithContext:context configuration:config];
+    PBMOpenMeasurementSession *session = [[PBMOpenMeasurementSession alloc] initWithContext:(NSObject *)context configuration:(NSObject *)config];
     if (!session) {
         PBMLogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
         return nil;
@@ -242,7 +242,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     NSError *sessionError;
-    PBMOpenMeasurementSession *session = [[PBMOpenMeasurementSession alloc] initWithContext:context configuration:config];
+    PBMOpenMeasurementSession *session = [[PBMOpenMeasurementSession alloc] initWithContext:(NSObject *)context configuration:(NSObject *)config];
     if (!session) {
         PBMLogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
         return nil;
