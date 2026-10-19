@@ -37,12 +37,10 @@
 // 3dPartyWrappers
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMOpenMeasurementEventTracker.h"
 
 // Tests
 #import "PBMOpenMeasurementWrapper+PBMTestExtension.h"
 #import "PBMOpenMeasurementSession+PBMTestExtension.h"
-#import "PBMOpenMeasurementEventTracker+PBMTestExtension.h"
 
 // Prebid
 

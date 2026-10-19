@@ -25,7 +25,7 @@ class MockMeasurementSession: PBMOpenMeasurementSession {
     var notifyImpressionOccurredClosure: (() -> Void)?
     
     override var eventTracker: EventTrackerProtocol {
-        return PBMOpenMeasurementEventTracker()
+        return OpenMeasurementEventTracker()
     }
     
     func setupWebView(_ webView: UIView) {

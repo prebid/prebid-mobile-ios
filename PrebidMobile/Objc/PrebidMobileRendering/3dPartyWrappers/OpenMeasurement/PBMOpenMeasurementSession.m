@@ -14,7 +14,6 @@
  */
 
 #import "PBMOpenMeasurementSession.h"
-#import "PBMOpenMeasurementEventTracker.h"
 #import "Log+Extensions.h"
 
 #import "SwiftImport.h"
@@ -40,7 +39,7 @@
         if ([self initializeOMSessionWithContext:context configuration:configuration]) {
             // IMPORTANT: Event tracker must be created before session start
             // Otherwise, tracking of video events will be unavailable.
-            self.eventTracker = [[PBMOpenMeasurementEventTracker alloc] initWithSession:self.session];
+            self.eventTracker = [[PBMOpenMeasurementEventTracker alloc] initWithSession:(NSObject *)self.session];
         } else {
             self = nil;
         }
