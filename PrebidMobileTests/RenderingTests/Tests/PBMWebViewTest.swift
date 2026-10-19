@@ -722,11 +722,11 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         // I've not figure out the Response to the error from web view
         logToFile = .init()
         
-        webView.MRAID_error("test error", action: PBMMRAIDAction.log.rawValue)
+        webView.MRAID_error("test error", action: MRAIDAction.log.rawValue)
         
         let log = Log.getLogFileAsString() ?? ""
         
-        XCTAssertTrue(log.contains("Action: [\(PBMMRAIDAction.log.rawValue)] generated error with message [test error]"))
+        XCTAssertTrue(log.contains("Action: [\(MRAIDAction.log.rawValue)] generated error with message [test error]"))
     }
     
     func testMRAID_getResizeProperties() {
@@ -922,11 +922,11 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         webView.delegate = self
         
         let commandBlock = {
-            webView.MRAID_updatePlacementType(PBMMRAIDPlacementType.inline.rawValue) // < --- Test target
+            webView.MRAID_updatePlacementType(MRAIDPlacementType.inline.rawValue) // < --- Test target
         }
         
         let jsEvaluationBlock: ((String?, Any?, Error?) -> Bool) = { jsCommand, jsRes, error in
-            return jsCommand == MRAIDJavascriptCommands.updatePlacementType(PBMMRAIDPlacementType.inline.rawValue)
+            return jsCommand == MRAIDJavascriptCommands.updatePlacementType(MRAIDPlacementType.inline.rawValue)
         }
         
         checkJSEvaluating(webView: webView, commandBlock: commandBlock, evaluatingBlock: jsEvaluationBlock)

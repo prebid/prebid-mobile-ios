@@ -45,11 +45,11 @@ class PBMMRAIDControllerTest : PBMMRAIDControllerTest_Base {
     func testCommandFromURL() {
         
         let urlToCmdMap = [
-            "mraid:open/": PBMMRAIDAction.open,
-            "mraid:expand/": PBMMRAIDAction.expand,
-            "mraid:resize/": PBMMRAIDAction.resize,
-            "mraid:close/": PBMMRAIDAction.close,
-            "mraid:playVideo/": PBMMRAIDAction.playVideo,
+            "mraid:open/": MRAIDAction.open,
+            "mraid:expand/": MRAIDAction.expand,
+            "mraid:resize/": MRAIDAction.resize,
+            "mraid:close/": MRAIDAction.close,
+            "mraid:playVideo/": MRAIDAction.playVideo,
         ]
         
         let controller = MRAIDController(creative:self.mockHtmlCreative,
