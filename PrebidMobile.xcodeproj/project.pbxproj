@@ -338,7 +338,6 @@
 		5AF5EA572E13580F002D80C1 /* Log+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9B82E13580F002D80C1 /* Log+Extensions.h */; };
 		5AF5EA6E2E13580F002D80C1 /* PBMORTB.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9F72E13580F002D80C1 /* PBMORTB.h */; };
 		5AF5EA7E2E13580F002D80C1 /* PBMORTBAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9F92E13580F002D80C1 /* PBMORTBAbstract.h */; };
-		5AF5EA822E13580F002D80C1 /* PBMOpenMeasurementWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9F62E13580F002D80C1 /* PBMOpenMeasurementWrapper.h */; };
 		5AF5EA872E13580F002D80C1 /* PBMUIApplicationProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA202E13580F002D80C1 /* PBMUIApplicationProtocol.h */; };
 		5AF5EA892E13580F002D80C1 /* WKNavigationAction+PBMWKNavigationActionCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA4D2E13580F002D80C1 /* WKNavigationAction+PBMWKNavigationActionCompatible.h */; };
 		5AF5EA932E13580F002D80C1 /* PBMORTB_NotImplemented.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9F82E13580F002D80C1 /* PBMORTB_NotImplemented.h */; };
@@ -355,7 +354,6 @@
 		5AF5EADF2E13580F002D80C1 /* PBMORTBAbstract+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9FA2E13580F002D80C1 /* PBMORTBAbstract+Protected.h */; };
 		5AF5EAE42E13580F002D80C1 /* PBMTimerInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA1A2E13580F002D80C1 /* PBMTimerInterface.h */; };
 		5AF5EB102E13580F002D80C1 /* Prebid+TestExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9B52E13580F002D80C1 /* Prebid+TestExtension.m */; };
-		5AF5EB1B2E13580F002D80C1 /* PBMOpenMeasurementWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E92A2E13580F002D80C1 /* PBMOpenMeasurementWrapper.m */; };
 		5AF5EB302E13580F002D80C1 /* PBMMRAIDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9AE2E13580F002D80C1 /* PBMMRAIDConstants.m */; };
 		5AF5EB312E13580F002D80C1 /* PBMCreativeViewabilityTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9B22E13580F002D80C1 /* PBMCreativeViewabilityTracker.m */; };
 		5AF5EB5B2E13580F002D80C1 /* PBMDeferredModalState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5E9302E13580F002D80C1 /* PBMDeferredModalState.m */; };
@@ -519,7 +517,6 @@
 		925D5D7A2737B8DD00A8A2B5 /* PBMVideoCreativeTestCloseDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D792737B8DD00A8A2B5 /* PBMVideoCreativeTestCloseDelay.swift */; };
 		925D5D7C2737B90600A8A2B5 /* PBMVideoViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D7B2737B90600A8A2B5 /* PBMVideoViewTest.swift */; };
 		925D5D7E2737B9BE00A8A2B5 /* SkadnParametersManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D7D2737B9BE00A8A2B5 /* SkadnParametersManagerTest.swift */; };
-		925D5D842737BA6600A8A2B5 /* PBMOpenMeasurementWrapperObjcTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D832737BA6600A8A2B5 /* PBMOpenMeasurementWrapperObjcTest.m */; };
 		925D5D872737BAB300A8A2B5 /* PBMOpenMeasurementWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D862737BAB300A8A2B5 /* PBMOpenMeasurementWrapperTest.swift */; };
 		925D5D8A2737BB9C00A8A2B5 /* OMIDContext+pbmTestExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D892737BB9C00A8A2B5 /* OMIDContext+pbmTestExtension.m */; };
 		925D5D8C2737BF3A00A8A2B5 /* OXMOpenMeasurementEventTrackerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D8B2737BF3A00A8A2B5 /* OXMOpenMeasurementEventTrackerTest.swift */; };
@@ -648,6 +645,7 @@
 		B23ACFDEF40CC3F2FA412FFB /* VastParserParityCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B25906363BD07BFC5BD7643 /* VastParserParityCases.swift */; };
 		B3FB7C7E6F16297887B513A7 /* HTMLFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D3F08FC6922A979B42137E /* HTMLFormatter.swift */; };
 		B462127D3055B8A6C0C6549A /* VastRequesterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ECD428DC0E255DDF370E55 /* VastRequesterTest.swift */; };
+		B6028888CBF60AEAFD7C104F /* OpenMeasurementWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447761DA169C5433D1A7FC7E /* OpenMeasurementWrapper.swift */; };
 		B6E73B46C9D6AA7BDAB15ACF /* ORTBImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39AD253CDEECC791304046 /* ORTBImp.swift */; };
 		B7C9E1A20000000000000002 /* ImageHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C9E1A10000000000000001 /* ImageHelperTests.swift */; };
 		B82FCFDC9956E7A6F3557532 /* CircularProgressBarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467D78D8987842DC7BCC864 /* CircularProgressBarLayer.swift */; };
@@ -832,6 +830,7 @@
 		4147DBDA12F19627E087C958 /* ExternalURLOpenCallbacks.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ExternalURLOpenCallbacks.swift; sourceTree = "<group>"; };
 		41BE7BE833C871ED33B7D670 /* ModalStateImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ModalStateImpl.swift; sourceTree = "<group>"; };
 		4404B3DFFA15E3C0EA70A691 /* ORTBBidRequestExtPrebid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBBidRequestExtPrebid.swift; sourceTree = "<group>"; };
+		447761DA169C5433D1A7FC7E /* OpenMeasurementWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpenMeasurementWrapper.swift; sourceTree = "<group>"; };
 		46F8D3E29673552A9B551F6B /* MRAIDController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MRAIDController.swift; sourceTree = "<group>"; };
 		4754427D8E388E3F556014EE /* VastCreativeLinear.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastCreativeLinear.swift; sourceTree = "<group>"; };
 		47D9A0396ABC8830B365D7DD /* MockLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocationManager.swift; sourceTree = "<group>"; };
@@ -1081,7 +1080,6 @@
 		5AF1BFD42E1C4F660096B53C /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
 		5AF1BFDB2E1C50D30096B53C /* mraid.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = mraid.js; sourceTree = "<group>"; };
 		5AF1BFDC2E1C50D30096B53C /* omsdk.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
-		5AF5E92A2E13580F002D80C1 /* PBMOpenMeasurementWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMOpenMeasurementWrapper.m; sourceTree = "<group>"; };
 		5AF5E9302E13580F002D80C1 /* PBMDeferredModalState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMDeferredModalState.m; sourceTree = "<group>"; };
 		5AF5E9AE2E13580F002D80C1 /* PBMMRAIDConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMMRAIDConstants.m; sourceTree = "<group>"; };
 		5AF5E9B22E13580F002D80C1 /* PBMCreativeViewabilityTracker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMCreativeViewabilityTracker.m; sourceTree = "<group>"; };
@@ -1091,7 +1089,6 @@
 		5AF5E9D32E13580F002D80C1 /* PBMConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMConstants.h; sourceTree = "<group>"; };
 		5AF5E9EC2E13580F002D80C1 /* PBMMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMMacros.h; sourceTree = "<group>"; };
 		5AF5E9EF2E13580F002D80C1 /* PBMMRAIDConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMMRAIDConstants.h; sourceTree = "<group>"; };
-		5AF5E9F62E13580F002D80C1 /* PBMOpenMeasurementWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMOpenMeasurementWrapper.h; sourceTree = "<group>"; };
 		5AF5E9F72E13580F002D80C1 /* PBMORTB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTB.h; sourceTree = "<group>"; };
 		5AF5E9F82E13580F002D80C1 /* PBMORTB_NotImplemented.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTB_NotImplemented.h; sourceTree = "<group>"; };
 		5AF5E9F92E13580F002D80C1 /* PBMORTBAbstract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBAbstract.h; sourceTree = "<group>"; };
@@ -1280,8 +1277,6 @@
 		925D5D792737B8DD00A8A2B5 /* PBMVideoCreativeTestCloseDelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMVideoCreativeTestCloseDelay.swift; sourceTree = "<group>"; };
 		925D5D7B2737B90600A8A2B5 /* PBMVideoViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMVideoViewTest.swift; sourceTree = "<group>"; };
 		925D5D7D2737B9BE00A8A2B5 /* SkadnParametersManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnParametersManagerTest.swift; sourceTree = "<group>"; };
-		925D5D832737BA6600A8A2B5 /* PBMOpenMeasurementWrapperObjcTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMOpenMeasurementWrapperObjcTest.m; sourceTree = "<group>"; };
-		925D5D852737BA8D00A8A2B5 /* PBMOpenMeasurementWrapper+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMOpenMeasurementWrapper+pbmTestExtension.h"; sourceTree = "<group>"; };
 		925D5D862737BAB300A8A2B5 /* PBMOpenMeasurementWrapperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMOpenMeasurementWrapperTest.swift; sourceTree = "<group>"; };
 		925D5D892737BB9C00A8A2B5 /* OMIDContext+pbmTestExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OMIDContext+pbmTestExtension.m"; sourceTree = "<group>"; };
 		925D5D8B2737BF3A00A8A2B5 /* OXMOpenMeasurementEventTrackerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXMOpenMeasurementEventTrackerTest.swift; sourceTree = "<group>"; };
@@ -1866,7 +1861,6 @@
 		5AF5E92B2E13580F002D80C1 /* OpenMeasurement */ = {
 			isa = PBXGroup;
 			children = (
-				5AF5E92A2E13580F002D80C1 /* PBMOpenMeasurementWrapper.m */,
 			);
 			path = OpenMeasurement;
 			sourceTree = "<group>";
@@ -2035,7 +2029,6 @@
 				5AF5E9D32E13580F002D80C1 /* PBMConstants.h */,
 				5AF5E9EC2E13580F002D80C1 /* PBMMacros.h */,
 				5AF5E9EF2E13580F002D80C1 /* PBMMRAIDConstants.h */,
-				5AF5E9F62E13580F002D80C1 /* PBMOpenMeasurementWrapper.h */,
 				5AF5E9F72E13580F002D80C1 /* PBMORTB.h */,
 				5AF5E9F82E13580F002D80C1 /* PBMORTB_NotImplemented.h */,
 				5AF5E9F92E13580F002D80C1 /* PBMORTBAbstract.h */,
@@ -2546,6 +2539,7 @@
 				AEA07262522E836CFB09FCDC /* OpenMeasurementFriendlyObstructionTypeBridge.swift */,
 				273CA44B375365D056951B62 /* OpenMeasurementEventTracker.swift */,
 				BF0DA2413240905782255926 /* OpenMeasurementSession.swift */,
+				447761DA169C5433D1A7FC7E /* OpenMeasurementWrapper.swift */,
 			);
 			path = OpenMeasurement;
 			sourceTree = "<group>";
@@ -2782,7 +2776,6 @@
 			isa = PBXGroup;
 			children = (
 				925D5D892737BB9C00A8A2B5 /* OMIDContext+pbmTestExtension.m */,
-				925D5D852737BA8D00A8A2B5 /* PBMOpenMeasurementWrapper+pbmTestExtension.h */,
 				922AFCE92736FB9200732C53 /* Prebid */,
 			);
 			path = TestExtensions;
@@ -2821,7 +2814,6 @@
 		925D5D802737BA0100A8A2B5 /* OpenMeasurement */ = {
 			isa = PBXGroup;
 			children = (
-				925D5D832737BA6600A8A2B5 /* PBMOpenMeasurementWrapperObjcTest.m */,
 				925D5D862737BAB300A8A2B5 /* PBMOpenMeasurementWrapperTest.swift */,
 				925D5D8B2737BF3A00A8A2B5 /* OXMOpenMeasurementEventTrackerTest.swift */,
 				925D5D8D2737BF8600A8A2B5 /* OXMOpenMeasurementFriendlyObstructionTypeBridgeTest.swift */,
@@ -3278,7 +3270,6 @@
 				5AF5EA572E13580F002D80C1 /* Log+Extensions.h in Headers */,
 				5AF5EA6E2E13580F002D80C1 /* PBMORTB.h in Headers */,
 				5AF5EA7E2E13580F002D80C1 /* PBMORTBAbstract.h in Headers */,
-				5AF5EA822E13580F002D80C1 /* PBMOpenMeasurementWrapper.h in Headers */,
 				5AF5EA872E13580F002D80C1 /* PBMUIApplicationProtocol.h in Headers */,
 				5AF5EA892E13580F002D80C1 /* WKNavigationAction+PBMWKNavigationActionCompatible.h in Headers */,
 				5AF5EA932E13580F002D80C1 /* PBMORTB_NotImplemented.h in Headers */,
@@ -3704,7 +3695,6 @@
 				47D9AD2C9FF0091569A39907 /* MockUIApplication.swift in Sources */,
 				922AFCCE27353BF300732C53 /* MockServerRuleRedirect.m in Sources */,
 				925D5E1C2737E89500A8A2B5 /* PBMORTBTest.swift in Sources */,
-				925D5D842737BA6600A8A2B5 /* PBMOpenMeasurementWrapperObjcTest.m in Sources */,
 				47D9A18468F57BD786350961 /* mraid.js in Sources */,
 				925D5E162737E77200A8A2B5 /* DemandResponseInfoTest.swift in Sources */,
 				53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */,
@@ -3910,7 +3900,6 @@
 				0012D7912E0C311D007013F3 /* OMSession.swift in Sources */,
 				005425032E548A7B0051B28D /* DisplayViewVideoPlaybackDelegate.swift in Sources */,
 				5AF5EB102E13580F002D80C1 /* Prebid+TestExtension.m in Sources */,
-				5AF5EB1B2E13580F002D80C1 /* PBMOpenMeasurementWrapper.m in Sources */,
 				5AF5EB302E13580F002D80C1 /* PBMMRAIDConstants.m in Sources */,
 				5AF5EB312E13580F002D80C1 /* PBMCreativeViewabilityTracker.m in Sources */,
 				5AF5EB5B2E13580F002D80C1 /* PBMDeferredModalState.m in Sources */,
@@ -4148,6 +4137,7 @@
 				57E01EC2442FDD6C4705D178 /* OpenMeasurementFriendlyObstructionTypeBridge.swift in Sources */,
 				F20DDA39DD27CB224DBF22B5 /* OpenMeasurementEventTracker.swift in Sources */,
 				9751EBD99E82868704B0367C /* OpenMeasurementSession.swift in Sources */,
+				B6028888CBF60AEAFD7C104F /* OpenMeasurementWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
