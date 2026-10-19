@@ -322,91 +322,94 @@ It also depends on `PBMOpenMeasurementWrapper`/`PBMOpenMeasurementSession` (Phas
 
 **Phase 7 closed with the OMSDK ObjC wrappers (and the rest of the list under "What Phase 8 inherits") left in ObjC.** The user chose to reach OMSDK through the existing Swift `OMSession`/`OMSessionWrapper` protocols (option (a)) rather than pull Phase 8 forward or split the group.
 
-## Hand-off: what Phase 8/9 inherit (Phase 7 closed)
+## Phase 8 gaps (S8.x)
 
-Phase 7 ported the HTML/MRAID creative cluster in one PR: `WindowLocker`, `SafariVCOpener`, `DeepLinkPlusHelper`, `MRAIDJavascriptCommands`, `MRAIDCommand`, `HTMLFormatter`, `WebView`, `MRAIDController`, `WebViewDelegate`, `ExposureChangeDelegate`, `AbstractCreativeImpl` + `HTMLCreative` + `VideoCreative`, `CreativeFactoryJob`, `CreativeFactory`, `TransactionImpl`. `PBMVastGlobals.{h,m}` and `PBMModalState.h` were deleted. 25 → 9 `.m` files remain under `PrebidMobile/Objc`.
+- **S8.0-A — the SPM Swift target needs the OMSDK binary target as a dependency, and `swiftc` needs the slice path too.** `Package.swift` and `PrebidMobile/Package.swift` gave `PrebidMobileOMSDK` only to the ObjC target. Adding `dependencies: ["PrebidMobileOMSDK"]` to the Swift target is the whole fix (probed with a throwaway package first; the xcframework ships a real modulemap). `buildPrebidMobilePackage.sh` also needs `-Xswiftc -F` next to `-Xcc -F`, because SwiftPM resolves binary slices against the host platform when cross-compiling. Xcode and CocoaPods already link OMSDK into one combined target and needed nothing (S7.1-D: only the SPM build notices).
+- **S8.0-B — a plain `import OMSDK_Prebidorg` puts that line in the `.swiftinterface`; `internal import` keeps it out but needs `-enable-experimental-feature AccessLevelOnImport` and `public import UIKit` in the same file, on a podspec pinned at `swift_version 5.0`.** Decision: plain import, and keep every OMID *type* `internal`/`private` so none appears in a public signature. Check: the only `OMID`-containing lines in `PrebidMobile.swiftinterface` should be the import and unrelated SDK names (`Signals.Api.OMID_1`, `ORTBSourceExtOMID`).
+- **S8.0-C — an ObjC SPM target with no sources compiles nothing and SwiftPM skips its dependencies, so a build of it alone passes without compiling the SDK.** When the last `.m` went, `swift build --target __PrebidMobileInternal` took 0.2 s and exited 0. `buildPrebidMobilePackage.sh` now builds `PrebidMobile` and `__PrebidMobileInternal` as two commands (`--product PrebidMobile` fails on an unrelated `DO_NOT_MOVE_THESE_FILES.txt` in an adapter target). **Rule:** a green build that finished in under a second after a large deletion proves nothing; check the log for `Compiling` lines (about 394 for a clean build of this SDK) and force a clean build before trusting it. The empty `__PrebidMobileInternal` target itself is a Phase 9 removal.
+- **S8.1-A — "public for the transition" comments rot; re-grep before believing them.** The OMSDK classes were left `public` with `@objc` seams (`init(omidContext:omidConfiguration:)`, `init(omidSession:)` with a force-cast) while ObjC users and ObjC-importing tests existed. The review found the stated reason was already false (no ObjC user remained) and the public surface had widened. They are `internal` now. **Rule:** a transitional visibility needs a measured exit condition in the comment *and* a step that removes it; keep OMID types out of the seams with `NSObject`/raw values meanwhile.
+- **S8.1-B — delete headers last, and run the test target.** Deleting `PBMOpenMeasurementWrapper.h` and the `+pbmTestExtension.h` files removed the only carriers of `Log+Extensions.h` and `PBMMacros.h` for `LogObjCTest.m` and `PBMMacrosTest.m` (S2.5-A, S7.1-D). Neither the framework build nor the SPM build compiles the test target; only `testPrebidMobile.sh` does.
+- **S8.1-C — a pure-function parity dump can be built outside the repo** (clang on a stubbed `SwiftImport.h` plus one `.m`) to freeze the ObjC output before deleting the class; no Xcode scheme is needed.
+- **S8.1-D — ObjC `NSError **` APIs import as `throws`, and OMID names change on import:** `OMIDPrebidorgSDK.shared` (not `sharedInstance`), `adUserInteraction(withType:)` keeps its label, enum cases lose the `OMID` prefix (`OMIDCreativeType.htmlDisplay`).
+- **S8.1-E — a `nonnull` ObjC initializer that sets `self = nil` needs `init?`** (`OpenMeasurementSession.init?(context:configuration:)`; the wrapper's three call sites nil-check). Likewise a `nonnull` method with a `default: return nil` needs an Optional return (`describe(_:)` returns `String?`, S3.1-H). Both annotations lied; the existing test already defended against `nil`.
+- **S8.1-F — an ObjC property that is read-only in the header but overridden by a test subclass through a category is an injection point, not a property.** `partnerName` became an `init(partnerName:)` `let`; no overridable member and no test subclass seam is needed, so the class can be `internal`.
+- **S8.2-A — a `NS_TYPED_ENUM` residue with no ObjC consumers left ports to a `@_spi(PBMInternal) public struct X: RawRepresentable, Hashable` with `static let`s.** The spelling `Type.case.rawValue` is unchanged, so tests only drop the `PBM` prefix. A blanket `sed` with `\b` missed call sites (S7.2-E again); grep the old names after the rename.
+- **S8.2-B — a DEBUG-only ObjC category property read from Swift by KVC (S2.2-F) becomes a `#if DEBUG` Swift `static var`.** Three accessors for one `UserDefaults` key (the category, a KVC string, a test-extension copy) collapsed to one. A duplicate declaration in a `@testable` test target is ambiguous, so remove the test copy.
+- **S8.2-C — a timer selector target must be `@objc` and must not be `#if DEBUG`, even when the protocol requirement is.** `CreativeViewabilityTrackerImpl.checkViewability` is the timer's selector and has to exist in Release.
+- **S8.2-D — a class an ObjC class used through nil-messaging can stop compiling once ported.** `creative.creativeModel.adConfiguration.pollFrequency` hid that `adConfiguration` is Optional; the port is `adConfiguration?.pollFrequency ?? 0`. Record it as a deviation.
+- **S8.3-A — Swift `try` on an ObjC `BOOL ... error:` API turns a bare `NO` (no error object) into `Foundation._GenericObjCError`, code 0, empty userInfo.** If the header documents `NO` without an error as a *non-error* case, the port must filter it or it logs spuriously. `OMIDAdSession.addFriendlyObstruction` returns `NO` with no error for "already added" and "session finished"; the ObjC logged only when `error != nil`. Found in review, probed with a real OMID session (a genuine violation throws domain `com.omid.library`, code 1512). **Rule:** read the header's `@return` before writing `catch { log }`.
+- **S8.3-B — restoring a typed `isKindOfClass` gate is incompatible with protocol-conformer mocks.** The three S7.3-C sites stay non-nil `OMSession` checks, because a typed gate would make the mock-based creative tests skip their paths. Decide per site; document the weaker check.
+- **S8.x-D — a PR test plan that skips a whole subsystem gives that subsystem no PR signal.** `PrebidMobilePRTests.xctestplan` skipped every OMSDK and viewability class, so a PR could break the cluster and stay green; after a class rename the skip entries also go stale silently. After renaming or deleting a test class, `grep` the plan for the old name.
+- **S8.x-E — parallel agents share one simulator name.** `testPrebidMobile.sh` deletes and recreates `iPhone-17-Pro-PrebidMobile`; concurrent runs delete each other's device (`No matching device`, mass failures that are not regressions). Serialize the *test* step with a lock (`mkdir /tmp/prebid-sim.lock`); builds need none. CPU contention also made timing tests flaky, so judge a parallel-track test result as provisional and re-run on the merged tree.
 
-**Phase 8 (OMSDK) inherits**
+**Phase 8 closed with no `.m` file left under `PrebidMobile/Objc`.** What is left is headers, the empty `__PrebidMobileInternal` SPM target, and the cleanup list below.
 
-- `PBMOpenMeasurementWrapper`, `PBMOpenMeasurementSession`, `PBMOpenMeasurementEventTracker`, `PBMOpenMeasurementFriendlyObstructionTypeBridge` (+ `OMSDKVersionProvider.m`).
-- **Delete the one Phase 7 seam:** `Factory.openMeasurementWrapper` in `Factory.swift` (`NSClassFromString("PBMOpenMeasurementWrapper")` + `shared` selector); make `TransactionImpl` read the Swift singleton. Then `MockMeasurementWrapper`/`MockMeasurementSession` can stop subclassing ObjC, and the creatives' non-nil session check (S7.3-C) can regain a typed check.
-- `WebView.addFriendlyObstructions(to:)` takes `OMSession?` and is an empty method, as in the ObjC.
+## Hand-off: what Phase 9 inherits (Phase 8 closed)
 
-**Phase 9 / cleanup inherit**
-
-- Remaining `.m`: `PBMCreativeViewabilityTracker`, `PBMDeferredModalState` (dead), `PBMMRAIDConstants` (`NS_TYPED_ENUM`, S2.1-A), `Prebid+TestExtension`, `OMSDKVersionProvider` (+ the OMSDK four above).
-- `WebView_Protocol` now has exactly one conformer (`WebView`); the two `as? WebView_Protocol` casts (`ModalStateImpl.swift`, `ModalViewController.swift`) can become `as? WebView` and the protocol can go (not done: separate cleanup, the protocol is public SPI).
-- `PBMWebViewObjCTest.m` is the last ObjC test on the ported classes (one test); can become Swift.
-- `Factory.swift` still looks up `*_Objc` classes by name (`PBMBidRequester_Objc`, `PBMWinNotifier_Objc`, `PBMAdViewManager_Objc`, `PBMViewExposure_Objc`, `PBMModalState_Objc`, `PBMCreativeViewabilityTracker_Objc`, `OMSDKVersionProvider_Objc`); several now have no ObjC user and can become direct construction (S6.x-J-C). Measure first.
-- `@objc(PBM...)` bridge names and `@objc(selector:)` annotations on now-Swift-only classes (`WebView`, `MRAIDController`, the three creatives, the helpers) can be dropped where nothing looks them up (S6.x-J-D, S9.x); `String?`/optional parameters kept for ObjC callers can become non-optional.
-- Gap 4: `PBMWebView.m` imported `PBMORTB.h` but used no ORTB type, so it never kept Gap 4 alive; re-measure the remaining ObjC consumers of the Phase 1 models before S9.2.
-- `NSString.PBMsubstringFromString(_:)` (`NSString+PBMExtensions.swift`, S2.2) uses `length - range.length` as the length, a copy of the ObjC arithmetic, and raises when the match is not at index 0. Nothing calls it any more; delete or fix.
-- `NSMutableArray` retyping in the VAST models (S6.1-B) is still open.
-- Dropped `@try/@catch` around UIKit presentation (S7.1-B) — consider a small guard if a crash is ever reported.
+- **Delete the empty ObjC SPM target.** `__PrebidMobileInternal` has no sources in `Package.swift` and `PrebidMobile/Package.swift`; the product `PrebidMobile` still lists it, and `buildPrebidMobilePackage.sh` still builds it. Remove it from both manifests, the product and the script, and re-verify `syncSPM.sh`/`verifySPM.sh`. The `PrebidMobile_SPM` define and `-headerSearchPath` go with it.
+- **Retire the 14 remaining headers** (table below). With no `.m` left, all of them are either dead or imported only by test files and the test bridging header.
+- **S9.2 visibility demotion** (Gap 4/6): re-measure the remaining ObjC consumers of the Phase 1 models first. `grep -rn --include='*.m' --include='*.h' 'PBMORTB' PrebidMobile PrebidMobileTests` is expected to find only the test bridging header and the tests.
+- **`Factory.swift` still looks up `*_Objc` classes by name** (`PBMBidRequester_Objc`, `PBMWinNotifier_Objc`, `PBMAdViewManager_Objc`, `PBMViewExposure_Objc`, `PBMModalState_Objc`). Their ObjC implementations are gone, so each lookup now resolves to a Swift class by its `@objc` name; convert them to direct construction (S6.x-J-C). Measure first.
+- **`@objc(PBM...)` bridge names and `@objc(selector:)` annotations** on now-Swift-only classes (`WebView`, `MRAIDController`, the three creatives, the helpers) can be dropped where nothing looks them up (S6.x-J-D); optional parameters kept only for ObjC callers can become non-optional.
+- **Remaining ObjC tests:** 13 test `.m` files (`AdUnitObjCTests`, `AdUnitSuccessorObjCTests`, `AdViewUtilsObjCTests`, `LogObjCTest`, `NSMutableDictionaryTests`, `NSString+pbmExtensionsObjCTest`, `PBMFunctionsObjCTest`, `PBMFunctionsPrivateTest`, `PBMMacrosTest`, `PBMWebViewObjCTest`, `PrebidObjcTests`, `TargetingObjCTests`, `UtilsObjCTests`) plus `MockServer/*.m`. `PBMWebViewObjCTest.m` is the last one on a ported SDK class. `OMIDContext+pbmTestExtension.m` (an `NSBundle` swizzle that avoids an OMSDK crash in tests) must stay.
+- **`NSMutableArray` retyping in the VAST models** (S6.1-B) is still open (about 246 sites).
+- **`NSString.PBMsubstringFromString(_:)`** (`NSString+PBMExtensions.swift`, S2.2) uses `length - range.length` as the length and raises when the match is not at index 0; nothing calls it. Delete or fix.
+- **Dropped `@try/@catch`** around UIKit presentation (S7.1-B, #1403).
+- **Demo-app check for OMSDK was never done in Phases 7 or 8.** OMSDK is viewability measurement; run an HTML banner, an interstitial and a VAST video and confirm sessions start and report.
+- **S5.2-B follow-up:** the `AdViewManager` DEBUG-only protocol requirements and the `public` members they force on `AdViewManagerImpl` (S9.2).
+- **`OpenMeasurementSession.deinit`'s 1 s view retention and `trackVolumeChanged` ignoring `deviceVolume`** are ported literally and untested.
 
 ## Orphan headers — `.h` files with no `.m` (inventoried S3.2)
 
-**17 headers under `PrebidMobile/Objc/` have no matching `.m`** (was 28 before Phase 7, which retired 11: `PBMAbstractCreative+Protected.h`, `PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h`, `PBMExposureChangeDelegate.h`, `PBMExternalURLOpenerBlock.h`, `PBMModalState.h`, `PBMTrackingURLVisitorBlock.h`, `PBMURLOpenAttempterBlock.h`, `PBMURLOpenResultHandlerBlock.h`, `PBMViewControllerProvider.h`, `PBMWebView+Internal.h`, `PBMWebViewDelegate.h`; was 36 before Phase 6, which retired 8; was 39 before Phase 4): block typedefs, `@protocol`s, macro headers, class-continuation headers, `NS_ENUM`s, umbrella headers, categories on system classes. None is "ported" individually: each is **retired when its last importer is ported**. 2 dead + 7 tied to a named `.m` or header + 4 tied to the test bridging header + 4 shared-infrastructure = 17.
-
-S4.4 deleted `PBMExternalLinkHandler.{h,m}`, `PBMExternalURLOpenCallbacks.{h,m}`, `PBMExternalURLOpeners.{h,m}`, `PBMTrackingURLVisitors.{h,m}` (all had matching `.m`s — not part of this orphan-header count). Their four block-typedef headers (`PBMExternalURLOpenerBlock.h`, `PBMTrackingURLVisitorBlock.h`, `PBMURLOpenAttempterBlock.h`, `PBMURLOpenResultHandlerBlock.h`) outlived them because `PBMDeepLinkPlusHelper.m` still imported them; Phase 7 ported that file and retired all four.
+**14 headers under `PrebidMobile/Objc/` have no matching `.m`, and there are no `.m` files left at all** (was 17 before Phase 8, which retired `PBMScheduledTimerFactory.h`, `PBMTimerInterface.h` and `PBMVoidBlock.h`; 28 before Phase 7; 36 before Phase 6; 39 before Phase 4). None is "ported" individually: with the `.m` files gone, each is deleted when its last importer goes, and every remaining importer is a test file, the test bridging header, or another header on this list. Importers measured at the end of Phase 8.
 
 Re-measure:
 ```bash
 comm -23 \
   <(find PrebidMobile/Objc -name '*.h' | sed 's|.*/||; s|\.h$||' | sort -u) \
   <(find PrebidMobile/Objc -name '*.m' | sed 's|.*/||; s|\.m$||' | sort -u)
+# then, for each name Foo in that list:
+grep -rln --include='*.h' --include='*.m' --include='*.swift' '"Foo.h"' PrebidMobile PrebidMobileTests EventHandlers
 ```
 
-**A — already dead** (zero `#import`s anywhere; deletable any time):
+**A — already dead** (no importer anywhere; delete any time):
 
 | Header | Kind | Note |
 |--------|------|------|
 | `PBMAdLoadFlowController.h` | `@interface` | Swift twin `AdLoadFlowController.swift` already ships |
 | `PBMORTB_NotImplemented.h` | macros | referenced only by a stale `.pbxproj` entry |
+| `PBMORTBAbstract+Protected.h` | class continuation | nothing imports it (its importer, `PBMBidResponseTransformer.m`, went in Phase 4) |
 
-**B — retired with a named `.m`** (a header imported only by another header resolves to the root `.m` — re-run `grep -rl '"Foo.h"' PrebidMobile PrebidMobileTests` before acting on a row):
+**B — imported only by another header on this list or by the test bridging header** (go together once the bridging header stops needing them):
 
-| Header | Kind | Retired with |
-|--------|------|--------------|
-| `PBMORTB.h` | umbrella | the test bridging header only (Phase 7: `PBMWebView.m` imported it but used no ORTB type) |
-| `PBMORTBAbstract.h` | `@interface` | via `+Protected.h` → `PBMBidResponseTransformer.m` |
-| `PBMORTBAbstract+Protected.h` | class continuation | `PBMBidResponseTransformer.m` |
-| `PBMScheduledTimerFactory.h` | block typedef | `PBMCreativeViewabilityTracker.m` |
-| `PBMTimerInterface.h` | forward decl | via `PBMScheduledTimerFactory.h` → `PBMCreativeViewabilityTracker.m` |
-| `PBMUIApplicationProtocol.h` | forward decl | the test bridging header only (Phase 7 removed `PBMDeepLinkPlusHelper.m` and `PBMHTMLCreative+pbmTestExtension.h`) |
-| `PBMVoidBlock.h` | block typedef | `PBMOpenMeasurementWrapper.h` (Phase 8), `PBMDeferredModalState.m` (dead, see Post-migration cleanup) |
+| Header | Imported by |
+|--------|-------------|
+| `PBMORTBAbstract.h` | `PBMORTBAbstract+Protected.h` only: goes with it |
+| `PBMORTB.h` | the test bridging header only |
+| `PBMUIApplicationProtocol.h` | the test bridging header only |
+| `WKNavigationAction+PBMWKNavigationActionCompatible.h`, `WKWebView+PBMWKWebViewCompatible.h` | the test bridging header only (categories on system classes) |
+| `PBMWKNavigationActionCompatible.h`, `PBMWKWebViewCompatible.h` | only the two categories above |
 
-Reducing rather than deleting is sometimes right mid-phase — see S2.1-G (`@protocol` → forward declaration) and S2.3-C (a reduced header breaks its importers).
+The two `WK*Compatible` protocols look like SDK types but aren't: no SDK code names them; they exist so Swift tests can substitute a fake navigation action or web view.
 
-**C — retired with the test bridging header** (imported only by `PrebidMobileTest-Bridging-Header.h`; go when the corresponding Swift test files stop needing the ObjC symbol):
+**C — shared infrastructure, imported by the remaining ObjC tests** (delete only once those tests are Swift; do **not** port incrementally):
 
-| Header | Kind |
-|--------|------|
-| `WKNavigationAction+PBMWKNavigationActionCompatible.h` | category on a system class |
-| `WKWebView+PBMWKWebViewCompatible.h` | category on a system class |
-| `PBMWKNavigationActionCompatible.h` | `@protocol` (imported only by the category above) |
-| `PBMWKWebViewCompatible.h` | `@protocol` (imported only by the category above) |
+| Header | Kind | Importers at end of Phase 8 |
+|--------|------|------------------------------|
+| `SwiftImport.h` | umbrella (`PrebidMobile-Swift.h` shim) | 7 ObjC test files (`AdUnitObjCTests`, `AdUnitSuccessorObjCTests`, `AdViewUtilsObjCTests`, `NSMutableDictionaryTests`, `NSString+pbmExtensionsObjCTest`, `PrebidObjcTests`, `TargetingObjCTests`) and `PBMORTB.h` |
+| `PBMMacros.h` | macros (`PBMAssert`, `weakify`) | `PBMMacrosTest.m`, the bridging header |
+| `Log+Extensions.h` | macros (`PBMLogError` family) | `LogObjCTest.m`, the bridging header |
+| `PBMConstants.h` | typedefs + constants (`PBMJsonDictionary`) | `PBMORTBAbstract+Protected.h`, the bridging header |
 
-The two `WK*Compatible` protocols look like SDK types but aren't — no SDK `.m` names them; they exist so Swift tests can substitute a fake navigation action/web view.
-
-**D — shared infrastructure, last to go** (imported by most of the remaining ObjC tree; deletable only once that tree is empty, in S9.x — do **not** port incrementally):
-
-| Header | Kind | Direct importers (S3.2) |
-|--------|------|-------------------------|
-| `SwiftImport.h` | umbrella (`PrebidMobile-Swift.h` shim) | 66 |
-| `PBMMacros.h` | macros (`PBMAssert`, `weakify`) | 27 |
-| `Log+Extensions.h` | macros (`PBMLogError` family) | 24 |
-| `PBMConstants.h` | typedefs + constants (`PBMJsonDictionary`) | 15 |
-
-`PBMConstants.h` has a real Swift answer today: every `PBMJsonDictionary` use becomes `[String: Any]` as its importer is ported (step 7), shrinking the header to its constants before it disappears.
+Reducing rather than deleting is sometimes right mid-phase: see S2.1-G (`@protocol` → forward declaration) and S2.3-C (a reduced header breaks its importers).
 
 ## Post-migration cleanup list
 
 Items that are not worth porting and should be deleted once the migration is over (do not port them, do not extend them):
 
-- **`PBMDeferredModalState` is dead code.** `Factory.swift` has no lookup for it, nothing calls `NSClassFromString("PBMDeferredModalState...")`, and nothing calls `pushDeferredModal`. Delete `PBMDeferredModalState.m`, the Swift `DeferredModalState` protocol and the `ModalManager` hooks that reference it. Deliberately left untouched in Phase 5 (decision: not worth a port, and deleting it is a behavior-surface change that belongs in a cleanup PR, not a line-for-line migration PR).
+- **`PBMDeferredModalState`** — done in Phase 8 (S8.2, track C): `PBMDeferredModalState.m`, `DeferredModalState.swift` and the `ModalManager` hooks were deleted after a re-grep confirmed no caller. An `@_spi(PBMInternal)` surface removal.
 - **`PBMModalState.h`** — done in Phase 7 (deleted with `PBMHTMLCreative.m`, `PBMVideoCreative.m`, `PBMAbstractCreative.m`).
-- **`WebView_Protocol`** now has one conformer (`WebView`): replace the two `as? WebView_Protocol` casts with `as? WebView` and delete the protocol (see the Phase 8/9 hand-off).
+- **`WebView_Protocol`** — done in Phase 8 (S8.2, track C): the two `as? WebView_Protocol` casts became `as? WebView` and the protocol was deleted, together with the empty `WebView.addFriendlyObstructions(to:)`.
 - **S5.2-B follow-up:** the `AdViewManager` DEBUG-only protocol requirements and the `public` members they force on `AdViewManagerImpl` (visibility demotion, S9.2).
 - No `PBMInterstitialLayoutConfigurator` leftovers remain: header and `.m` were deleted in S5.0, and the `@objc(PBMInterstitialLayoutConfigurator)` bridge name has no ObjC caller anymore (kept so the runtime name is stable; may be dropped in S9.x).
 
