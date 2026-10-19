@@ -27,7 +27,6 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
     var modalViewControllerClass: ModalViewController.Type?
     
     var modalStateStack = [ModalState]()
-    var deferredModalState: DeferredModalState?
     
     var isModalDismissing: Bool = false
     
@@ -58,16 +57,6 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
                                 shouldReplace: Bool,
                                 completionHandler: VoidBlock?) -> VoidBlock? {
         
-        if let deferredModalState {
-            guard state === deferredModalState.modalState else {
-                Log.error("Attempting to push modal state while another deferred state is being prepared")
-                return nil
-            }
-            
-            // Previously deferred modalState has been resolved and is being pushed
-            self.deferredModalState = nil // no longer deffered
-        }
-        
         if shouldReplace, !modalStateStack.isEmpty {
             modalStateStack.removeLast()
         }
@@ -85,17 +74,6 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
             }
             
             self.removeModal(state)
-        }
-    }
-    
-    func pushDeferredModal(_ deferredModalState: any DeferredModalState) {
-        if self.deferredModalState == nil, !isModalDismissing {
-            self.deferredModalState = deferredModalState
-            deferredModalState.prepareAndPush(modalManager: self) { [weak self, weak deferredModalState] in
-                if let self, let deferredModalState, deferredModalState === self.deferredModalState {
-                    self.deferredModalState = nil
-                }
-            }
         }
     }
     
