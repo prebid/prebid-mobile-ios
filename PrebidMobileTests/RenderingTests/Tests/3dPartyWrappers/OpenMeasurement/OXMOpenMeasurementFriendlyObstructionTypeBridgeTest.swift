@@ -16,14 +16,16 @@
 import Foundation
 import XCTest
 
-class PBMOpenMeasurementFriendlyObstructionTypeBridgeTest: XCTestCase {
+@testable import PrebidMobile
+
+class OpenMeasurementFriendlyObstructionTypeBridgeTest: XCTestCase {
     
     func testDetailedPurposeStrings() {
         for i: UInt in 0..<OpenMeasurementFriendlyObstructionPurpose.purposesCount.rawValue {
             guard let purpose = OpenMeasurementFriendlyObstructionPurpose(rawValue: i) else {
                 break
             }
-            guard let detailedPurpose = (PBMOpenMeasurementFriendlyObstructionTypeBridge.describe(purpose) as String?), !detailedPurpose.isEmpty else {
+            guard let detailedPurpose = (OpenMeasurementFriendlyObstructionTypeBridge.describe(purpose)), !detailedPurpose.isEmpty else {
                 XCTFail("No detailedPurpose for purpose \(i)");
                 continue
             }

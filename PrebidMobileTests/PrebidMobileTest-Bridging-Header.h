@@ -38,7 +38,6 @@
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMOpenMeasurementEventTracker.h"
-#import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
 
 // Tests
 #import "PBMOpenMeasurementWrapper+PBMTestExtension.h"

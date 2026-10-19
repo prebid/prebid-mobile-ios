@@ -15,7 +15,6 @@
 
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementEventTracker.h"
-#import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
 #import "Log+Extensions.h"
 
 #import "SwiftImport.h"
@@ -99,7 +98,7 @@
         return;
     }
     
-    OMIDFriendlyObstructionType convertedPurpose = [PBMOpenMeasurementFriendlyObstructionTypeBridge obstructionTypeOfObstructionPurpose:purpose];
+    OMIDFriendlyObstructionType convertedPurpose = (OMIDFriendlyObstructionType)[PBMOpenMeasurementFriendlyObstructionTypeBridge obstructionTypeOfObstructionPurpose:purpose];
     NSString *detailedReason = [PBMOpenMeasurementFriendlyObstructionTypeBridge describeFriendlyObstructionPurpose:purpose];
     
     NSError *error = nil;
