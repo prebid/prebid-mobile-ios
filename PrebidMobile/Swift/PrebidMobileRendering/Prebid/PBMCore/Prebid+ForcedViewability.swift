@@ -13,5 +13,15 @@
  limitations under the License.
  */
 
-// Protocol moved to Swift. Full definition is available via SwiftImport.h (PrebidMobile-Swift.h).
-@protocol PBMTimerInterface;
+#if DEBUG
+import Foundation
+
+extension Prebid {
+    /// Test hook: makes every view count as viewable. Replaces the ObjC `Prebid+TestExtension` category;
+    /// backed by `UserDefaults`, so it is shared by every object a test creates.
+    static var forcedIsViewable: Bool {
+        get { UserDefaults.standard.bool(forKey: "forcedIsViewable") }
+        set { UserDefaults.standard.set(newValue, forKey: "forcedIsViewable") }
+    }
+}
+#endif

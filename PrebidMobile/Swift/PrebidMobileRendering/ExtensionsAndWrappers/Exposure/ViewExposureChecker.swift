@@ -40,7 +40,7 @@ class ViewExposureChecker: NSObject {
         obstructions = []
 
 #if DEBUG
-        if (Prebid.shared.value(forKey: "forcedIsViewable") as? Bool) == true {
+        if Prebid.forcedIsViewable {
             return Factory.createViewExposure(exposureFactor: 1, visibleRectangle: view.bounds, occlusionRectangles: nil)
         }
 #endif
