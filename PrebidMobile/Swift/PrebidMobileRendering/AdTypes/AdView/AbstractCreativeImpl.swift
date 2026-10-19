@@ -503,6 +503,7 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
     }
 
     func onAdDisplayed() {
+        // Non-nil gate, as in HTMLCreative/VideoCreative: the ObjC `isKindOfClass:` check would exclude the test mocks.
         if let measurementSession = transaction?.measurementSession {
             eventManager.registerTracker(measurementSession.eventTracker)
         }

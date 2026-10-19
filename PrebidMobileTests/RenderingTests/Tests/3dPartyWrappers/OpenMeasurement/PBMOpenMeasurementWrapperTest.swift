@@ -18,14 +18,7 @@ import WebKit
 
 @testable import PrebidMobile
 
-let ValidOMPartnerName = "Openx"
 let InvalidOMPartnerName = ""
-
-class PBMOpenMeasurementWrapperErrorMock : OpenMeasurementWrapper {
-    override var partnerName: String {
-        return InvalidOMPartnerName
-    }
-}
 
 class PBMOpenMeasurementWrapperTest: XCTestCase {
     
@@ -71,7 +64,7 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     }
     
     func testInitWebViewSessionWithoutCredentials() {
-        let measurement = PBMOpenMeasurementWrapperErrorMock()
+        let measurement = OpenMeasurementWrapper(partnerName: InvalidOMPartnerName)
         let session = measurement.initializeWebViewSession(WKWebView(), contentUrl: nil)
         
         XCTAssertNil(session)
@@ -135,7 +128,7 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     }
     
     func testInitNativeVideoSessionWithoutCredentials() {
-        let measurement = PBMOpenMeasurementWrapperErrorMock()
+        let measurement = OpenMeasurementWrapper(partnerName: InvalidOMPartnerName)
         
         let mockLibraryManager = MockPrebidJSLibraryManager()
         mockLibraryManager.omsdkScript = "{}"

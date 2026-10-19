@@ -17,14 +17,13 @@ import Foundation
 import UIKit
 import OMSDK_Prebidorg
 
-/// Transitional: the class is `public` only because the ObjC `PBMOpenMeasurementWrapper` still constructs it. It becomes
-/// `internal` once the wrapper is ported. No OMID type appears in a public signature.
-@objc(PBMOpenMeasurementSession)
-public class OpenMeasurementSession: NSObject, OMSession {
+/// Wraps an OMID ad session. `internal`: the ObjC original was a private header, never public API, so OMID types stay
+/// out of the public surface. It conforms to the public `OMSession` protocol, which is all other code sees.
+class OpenMeasurementSession: NSObject, OMSession {
 
     var session: OMIDPrebidorgAdSession?
 
-    public private(set) var eventTracker: EventTrackerProtocol
+    private(set) var eventTracker: EventTrackerProtocol
 
     // MARK: - Initialization
 
@@ -47,22 +46,6 @@ public class OpenMeasurementSession: NSObject, OMSession {
         super.init()
     }
 
-    /// Transitional seam for the ObjC wrapper: takes the OMID objects as `NSObject` so no OMID type is public.
-    @objc(initWithContext:configuration:)
-    public convenience init?(omidContext: NSObject, omidConfiguration: NSObject) {
-        guard let context = omidContext as? OMIDPrebidorgAdSessionContext,
-              let configuration = omidConfiguration as? OMIDPrebidorgAdSessionConfiguration else {
-            return nil
-        }
-        self.init(context: context, configuration: configuration)
-    }
-
-    /// A session without an OMID session behind it. Exists so tests can subclass the session.
-    override init() {
-        eventTracker = OpenMeasurementEventTracker()
-        super.init()
-    }
-
     deinit {
         // According to OM requirements, the WebView should live at least 1 sec to send all needed events.
         // https://interactiveadvertisingbureau.github.io/Open-Measurement-SDKiOS/#7-stop-the-session
@@ -78,7 +61,7 @@ public class OpenMeasurementSession: NSObject, OMSession {
 
     // MARK: - OMSession
 
-    public func start() {
+    func start() {
         guard let session else {
             Log.error("Measurement Session is missed.")
             return
@@ -87,7 +70,7 @@ public class OpenMeasurementSession: NSObject, OMSession {
         session.start()
     }
 
-    public func addFriendlyObstruction(_ friendlyObstruction: UIView, purpose: OpenMeasurementFriendlyObstructionPurpose) {
+    func addFriendlyObstruction(_ friendlyObstruction: UIView, purpose: OpenMeasurementFriendlyObstructionPurpose) {
         guard let session else {
             Log.error("Measurement Session is missed.")
             return
@@ -96,17 +79,36 @@ public class OpenMeasurementSession: NSObject, OMSession {
         let convertedPurpose = OpenMeasurementFriendlyObstructionTypeBridge.obstructionType(of: purpose)
         let detailedReason = OpenMeasurementFriendlyObstructionTypeBridge.describe(purpose)
 
+        addFriendlyObstruction(friendlyObstruction, obstructionType: convertedPurpose, detailedReason: detailedReason)
+    }
+
+    private var genericBridgedErrorDomain: String { "Foundation._GenericObjCError" }
+
+    /// OMID returns NO *without* an error object when the session has finished or the view was already added (MRAID
+    /// re-adds the same views on resize/expand). Swift's `try` turns that bare NO into a generic error.
+    func addFriendlyObstruction(_ friendlyObstruction: UIView,
+                                obstructionType: OMIDFriendlyObstructionType,
+                                detailedReason: String?) {
+        guard let session else {
+            Log.error("Measurement Session is missed.")
+            return
+        }
+
         do {
-            try session.addFriendlyObstruction(friendlyObstruction, purpose: convertedPurpose, detailedReason: detailedReason)
+            try session.addFriendlyObstruction(friendlyObstruction, purpose: obstructionType, detailedReason: detailedReason)
         } catch {
+            // A bare NO surfaces as Swift's generic error (domain `Foundation._GenericObjCError`, code 0, empty userInfo);
+            // a genuine OMID error carries the `com.omid.library` domain.
+            guard (error as NSError).domain != genericBridgedErrorDomain else {
+                return
+            }
             Log.error(error.localizedDescription)
         }
     }
 
     // MARK: - Methods
 
-    @objc(setupMainView:)
-    public func setupMainView(_ mainView: UIView) {
+    func setupMainView(_ mainView: UIView) {
         guard let session else {
             Log.error("Measurement Session is missed.")
             return

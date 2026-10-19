@@ -19,10 +19,8 @@ import OMSDK_Prebidorg
 
 /// Implements `EventTrackerProtocol` according to the OM specification.
 ///
-/// Transitional: the class is `public` only because the ObjC `PBMOpenMeasurementSession` still constructs it. It becomes
-/// `internal` once the session is ported. No OMID type appears in a public signature.
-@objc(PBMOpenMeasurementEventTracker)
-public class OpenMeasurementEventTracker: NSObject, EventTrackerProtocol {
+/// `internal`: the ObjC original was a private header, never public API. It conforms to the public `EventTrackerProtocol`.
+class OpenMeasurementEventTracker: NSObject, EventTrackerProtocol {
 
     var session: OMIDPrebidorgAdSession?
 
@@ -30,7 +28,7 @@ public class OpenMeasurementEventTracker: NSObject, EventTrackerProtocol {
     var mediaEvents: OMIDPrebidorgMediaEvents?
 
     // The ObjC class inherited a plain `init` (no session, no events). Tests and mocks rely on it.
-    public override init() {
+    override init() {
         super.init()
     }
 
@@ -40,16 +38,9 @@ public class OpenMeasurementEventTracker: NSObject, EventTrackerProtocol {
         initOMEventTrackers()
     }
 
-    /// Transitional seam for the ObjC session: takes the OMID session as `NSObject` so no OMID type is public.
-    @objc(initWithSession:)
-    public convenience init(omidSession: NSObject) {
-        // swiftlint:disable:next force_cast
-        self.init(session: omidSession as! OMIDPrebidorgAdSession)
-    }
-
     // MARK: - EventTrackerProtocol
 
-    public func trackEvent(_ event: TrackingEvent) {
+    func trackEvent(_ event: TrackingEvent) {
         guard session != nil else {
             Log.error("Measurement Session is missed.")
             return
@@ -82,7 +73,7 @@ public class OpenMeasurementEventTracker: NSObject, EventTrackerProtocol {
         }
     }
 
-    public func trackVideoAdLoaded(_ parameters: VideoVerificationParameters) {
+    func trackVideoAdLoaded(_ parameters: VideoVerificationParameters) {
         do {
             let vastProperties = OMIDPrebidorgVASTProperties(autoPlay: parameters.autoPlay, position: .standalone)
             try adEvents?.loaded(with: vastProperties)
@@ -91,12 +82,12 @@ public class OpenMeasurementEventTracker: NSObject, EventTrackerProtocol {
         }
     }
 
-    public func trackStartVideo(duration: TimeInterval, volume: Double) {
+    func trackStartVideo(duration: TimeInterval, volume: Double) {
         mediaEvents?.start(withDuration: CGFloat(duration), mediaPlayerVolume: CGFloat(volume))
     }
 
     // The ObjC original ignored `deviceVolume`; kept.
-    public func trackVolumeChanged(playerVolume: Double, deviceVolume: Double) {
+    func trackVolumeChanged(playerVolume: Double, deviceVolume: Double) {
         mediaEvents?.volumeChange(to: CGFloat(playerVolume))
     }
 

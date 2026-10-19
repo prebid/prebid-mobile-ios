@@ -16,9 +16,8 @@
 import Foundation
 import OMSDK_Prebidorg
 
-// Transitional: `public` with a raw-value seam until the ObjC `PBMOpenMeasurementSession` is ported, so no OMID type is exposed.
-@objc(PBMOpenMeasurementFriendlyObstructionTypeBridge)
-public class OpenMeasurementFriendlyObstructionTypeBridge: NSObject {
+/// Maps SDK obstruction purposes to OMID obstruction types and descriptions. `internal`: it names an OMID type.
+class OpenMeasurementFriendlyObstructionTypeBridge: NSObject {
 
     static func obstructionType(of purpose: OpenMeasurementFriendlyObstructionPurpose) -> OMIDFriendlyObstructionType {
         switch purpose {
@@ -31,14 +30,8 @@ public class OpenMeasurementFriendlyObstructionTypeBridge: NSObject {
         }
     }
 
-    @objc(obstructionTypeOfObstructionPurpose:)
-    public static func obstructionTypeRawValue(of purpose: OpenMeasurementFriendlyObstructionPurpose) -> UInt {
-        obstructionType(of: purpose).rawValue
-    }
-
     /// Returns `nil` for `.purposesCount`: the ObjC original returned `nil` from `default:` although its header said `nonnull`.
-    @objc(describeFriendlyObstructionPurpose:)
-    public static func describe(_ purpose: OpenMeasurementFriendlyObstructionPurpose) -> String? {
+    static func describe(_ purpose: OpenMeasurementFriendlyObstructionPurpose) -> String? {
 
         // Can be nil.
         // If not nil, must be 50 characters or less and only contain characers

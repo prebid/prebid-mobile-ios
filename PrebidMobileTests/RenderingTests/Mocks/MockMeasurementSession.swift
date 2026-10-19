@@ -17,14 +17,14 @@ import Foundation
 
 @testable import PrebidMobile
 
-class MockMeasurementSession: OpenMeasurementSession {
+class MockMeasurementSession: NSObject, OMSession {
     
     var setupWebViewClosure: ((UIView) -> Void)?
     var startClosure: (() -> Void)?
     var stopClosure: (() -> Void)?
     var notifyImpressionOccurredClosure: (() -> Void)?
     
-    override var eventTracker: EventTrackerProtocol {
+    var eventTracker: EventTrackerProtocol {
         return OpenMeasurementEventTracker()
     }
     
@@ -32,14 +32,15 @@ class MockMeasurementSession: OpenMeasurementSession {
         setupWebViewClosure?(webView)
     }
     
-    override func start() {
+    func start() {
         startClosure?()
     }
     
-    override func stop() {
+    /// The real session stops itself in `deinit`; the mock reports the same moment.
+    deinit {
         stopClosure?()
     }
     
-    override func addFriendlyObstruction(_ view: UIView, purpose:OpenMeasurementFriendlyObstructionPurpose) {
+    func addFriendlyObstruction(_ view: UIView, purpose:OpenMeasurementFriendlyObstructionPurpose) {
     }
 }

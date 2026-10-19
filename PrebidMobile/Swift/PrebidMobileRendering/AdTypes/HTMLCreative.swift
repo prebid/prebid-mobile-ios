@@ -259,7 +259,8 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
             transaction.measurementWrapper.initializeWebViewSession($0.internalWebView, contentUrl: "")
         }
 
-        // The ObjC `isKindOfClass:PBMOpenMeasurementSession` gate cannot be written from Swift; see docs/migration/notes/agent-3.md.
+        // The ObjC gate was `isKindOfClass:PBMOpenMeasurementSession`. A non-nil check is kept on purpose: the test mocks are
+        // `OMSession` conformers, not `OpenMeasurementSession`, so a typed gate would stop the creative tests reaching this path.
         if let session = transaction.measurementSession {
             session.start()
         }

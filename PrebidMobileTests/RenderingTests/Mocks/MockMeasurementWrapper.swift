@@ -16,31 +16,27 @@
 import Foundation
 import WebKit
 
-@_spi(PBMInternal) @testable import PrebidMobile
+@testable import PrebidMobile
 
-class MockMeasurementWrapper : OpenMeasurementWrapper {
+class MockMeasurementWrapper: NSObject, OMSessionWrapper {
     
     var injectJSLibClosure: ((String) -> Void)?
-    var initializeSessionClosure: ((OpenMeasurementSession) -> Void)?
+    var initializeSessionClosure: ((OMSession) -> Void)?
     
-    override init() {
-        
-    }
-    
-    override func injectJSLib(_ html: String, error: NSErrorPointer) -> String? {
+    func injectJSLib(_ html: String, error: NSErrorPointer) -> String? {
         injectJSLibClosure?(html)
-        error?.pointee = PBMError.error(description:"PrebidMobileTests: do nothing")
+        error?.pointee = NSError(domain: "PrebidMobileTests", code: 0, userInfo: [NSLocalizedDescriptionKey: "PrebidMobileTests: do nothing"])
         return nil
     }
     
-    override func initializeWebViewSession(_ webView: WKWebView, contentUrl: String?) -> OMSession? {
+    func initializeWebViewSession(_ webView: WKWebView, contentUrl: String?) -> OMSession? {
         let session = MockMeasurementSession()
         initializeSessionClosure?(session)
         
         return session
     }
     
-    override func initializeNativeVideoSession(_ videoView: UIView, verificationParameters: VideoVerificationParameters?) -> OMSession? {
+    func initializeNativeVideoSession(_ videoView: UIView, verificationParameters: VideoVerificationParameters?) -> OMSession? {
         // TODO: The same for tests?
         let session = MockMeasurementSession()
         initializeSessionClosure?(session)
@@ -48,7 +44,7 @@ class MockMeasurementWrapper : OpenMeasurementWrapper {
         return session
     }
     
-    override func initializeNativeDisplaySession(_ view: UIView,
+    func initializeNativeDisplaySession(_ view: UIView,
                                                  omidJSUrl omidJS: String,
                                                  vendorKey: String?,
                                                  parameters verificationParameters: String?) -> OMSession? {

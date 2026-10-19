@@ -20,14 +20,8 @@ import OMSDK_Prebidorg
 
 /// Creates Open Measurement sessions. OMID types are never exposed publicly.
 ///
-/// Transitional: the class is `public` only because the test target's Swift mocks subclass it and the ObjC tests import
-/// `PrebidMobileTests-Swift.h`, which must see the superclass. Wave 3 rewrites the mocks as `OMSessionWrapper` conformers
-/// and makes it `internal`.
-///
-/// `@objc(PBMOpenMeasurementWrapper)` and the `@objc` `shared` class property keep the `NSClassFromString` lookup in
-/// `Factory` working until it is removed.
-@objc(PBMOpenMeasurementWrapper)
-public class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
+/// `internal`: the ObjC original was a private header, never public API. It conforms to the public `OMSessionWrapper`.
+class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
 
     // MARK: - Constants
 
@@ -39,8 +33,8 @@ public class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
 
     static let shared = OpenMeasurementWrapper()
 
-    /// Overridable so tests can make partner creation fail.
-    var partnerName: String { Self.partnerNameValue }
+    /// Injectable so tests can make partner creation fail.
+    let partnerName: String
     var jsLibURL: String { Self.jsLibURLValue }
     var customRefId: String { Self.customRefIdValue }
 
@@ -50,7 +44,12 @@ public class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
 
     // MARK: - Initialization
 
-    public override init() {
+    override convenience init() {
+        self.init(partnerName: Self.partnerNameValue)
+    }
+
+    init(partnerName: String) {
+        self.partnerName = partnerName
         libraryManager = PrebidJSLibraryManager.shared
         super.init()
         initializeOMSDK()
@@ -58,7 +57,7 @@ public class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
 
     // MARK: - OMSessionWrapper
 
-    public func injectJSLib(_ html: String, error: NSErrorPointer) -> String? {
+    func injectJSLib(_ html: String, error: NSErrorPointer) -> String? {
         guard let jsLib = fetchOMSDKScript() else {
             let sessionError = PBMError.error(description: "The js lib for Open Measurement is not loaded.")
             if let error {
@@ -76,8 +75,7 @@ public class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
         }
     }
 
-    @objc(initializeWebViewSession:contentUrl:)
-    public func initializeWebViewSession(_ webView: WKWebView, contentUrl: String?) -> OMSession? {
+    func initializeWebViewSession(_ webView: WKWebView, contentUrl: String?) -> OMSession? {
 
         let context: OMIDPrebidorgAdSessionContext
         do {
@@ -116,7 +114,7 @@ public class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
         return session
     }
 
-    public func initializeNativeVideoSession(_ videoView: UIView,
+    func initializeNativeVideoSession(_ videoView: UIView,
                                       verificationParameters: VideoVerificationParameters?) -> OMSession? {
 
         guard let jsLib = fetchOMSDKScript() else {
@@ -161,7 +159,7 @@ public class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
         return session
     }
 
-    public func initializeNativeDisplaySession(_ view: UIView,
+    func initializeNativeDisplaySession(_ view: UIView,
                                         omidJSUrl: String,
                                         vendorKey: String?,
                                         parameters verificationParameters: String?) -> OMSession? {

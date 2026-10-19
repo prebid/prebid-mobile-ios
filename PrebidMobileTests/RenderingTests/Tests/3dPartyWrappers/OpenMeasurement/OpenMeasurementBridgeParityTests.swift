@@ -39,15 +39,4 @@ class OpenMeasurementBridgeParityTests: XCTestCase {
         let expectedLines = OpenMeasurementBridgeParityExpectations.expected.split(separator: "\n").map(String.init)
         XCTAssertEqual(actualLines, expectedLines)
     }
-
-    func testObjectiveCBridgeSeamMatchesSwiftFunctions() {
-        for rawValue in 0...6 {
-            guard let purpose = OpenMeasurementFriendlyObstructionPurpose(rawValue: UInt(rawValue)) else {
-                XCTFail("No purpose for \(rawValue)")
-                continue
-            }
-            XCTAssertEqual(OpenMeasurementFriendlyObstructionTypeBridge.obstructionTypeRawValue(of: purpose),
-                           OpenMeasurementFriendlyObstructionTypeBridge.obstructionType(of: purpose).rawValue)
-        }
-    }
 }
