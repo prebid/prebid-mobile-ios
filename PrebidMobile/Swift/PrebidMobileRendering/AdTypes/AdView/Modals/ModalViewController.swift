@@ -198,7 +198,7 @@ public class ModalViewController: UIViewController {
     }
 
     private func configureCloseButton() {
-        if let webView = modalState?.view as? WebView_Protocol {
+        if let webView = modalState?.view as? WebView {
             closeButtonDecorator.isMRAID = webView.isMRAID
         }
 

@@ -261,7 +261,6 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
         // The ObjC `isKindOfClass:PBMOpenMeasurementSession` gate cannot be written from Swift; see docs/migration/notes/agent-3.md.
         if let session = transaction.measurementSession {
-            prebidWebView?.addFriendlyObstructions(to: session)
             session.start()
         }
     }

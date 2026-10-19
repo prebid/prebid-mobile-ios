@@ -35,7 +35,7 @@ class ModalStateImpl: NSObject, ModalState {
     public var onModalPushedBlock: VoidBlock?
 
     public var isRotationEnabled: Bool {
-        guard let webView = view?.subviews.last as? WebView_Protocol else {
+        guard let webView = view?.subviews.last as? WebView else {
             return true
         }
         return webView.rotationEnabled

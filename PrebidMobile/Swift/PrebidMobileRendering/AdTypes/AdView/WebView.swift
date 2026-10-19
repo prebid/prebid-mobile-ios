@@ -18,14 +18,6 @@ import WebKit
 import AVFoundation
 import AdSupport
 
-@objc(PBMWebView_Protocol) @_spi(PBMInternal) public
-protocol WebView_Protocol {
-    var isMRAID: Bool { get }
-
-    // PBMWebView declares the getter as isRotationEnabled
-    @objc(isRotationEnabled) var rotationEnabled: Bool { get }
-}
-
 @_spi(PBMInternal) public
 typealias JSEvaluatingBlock = (_ command: String?, _ jsResult: Any?, _ error: Error?) -> Void
 
@@ -46,7 +38,7 @@ private let keyPathOutputVolume = "outputVolume"
 //
 // Not final: `MockPBMWebView` in the test target subclasses it.
 @objc(PBMWebView) @_spi(PBMInternal) public
-class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIGestureRecognizerDelegate, WebView_Protocol {
+class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIGestureRecognizerDelegate {
 
     // MARK: - Public properties
 
@@ -922,12 +914,6 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
         let isLocked = isOrientationLocked(viewController: delegate?.viewControllerForPresentingModals)
 
         MRAID_updateCurrentAppOrientation(isLocked: isLocked)
-    }
-
-    // MARK: - Open Measurement
-
-    @objc(addFriendlyObstructionsToMeasurementSession:)
-    public func addFriendlyObstructions(to session: OMSession?) {
     }
 
     // MARK: - Utilities
