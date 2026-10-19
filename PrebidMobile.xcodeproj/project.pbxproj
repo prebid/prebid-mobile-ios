@@ -346,7 +346,6 @@
 		5AF5EAA82E13580F002D80C1 /* WKWebView+PBMWKWebViewCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA4E2E13580F002D80C1 /* WKWebView+PBMWKWebViewCompatible.h */; };
 		5AF5EAC62E13580F002D80C1 /* PBMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9D32E13580F002D80C1 /* PBMConstants.h */; };
 		5AF5EAC72E13580F002D80C1 /* PBMWKWebViewCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA472E13580F002D80C1 /* PBMWKWebViewCompatible.h */; };
-		5AF5EACF2E13580F002D80C1 /* PBMVoidBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA3D2E13580F002D80C1 /* PBMVoidBlock.h */; };
 		5AF5EADA2E13580F002D80C1 /* SwiftImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5EA492E13580F002D80C1 /* SwiftImport.h */; };
 		5AF5EADF2E13580F002D80C1 /* PBMORTBAbstract+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF5E9FA2E13580F002D80C1 /* PBMORTBAbstract+Protected.h */; };
 		5BC378AD271F1CFF00444D5E /* Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3764A271F1CFD00444D5E /* Targeting.swift */; };
@@ -1081,7 +1080,6 @@
 		5AF5E9F92E13580F002D80C1 /* PBMORTBAbstract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBAbstract.h; sourceTree = "<group>"; };
 		5AF5E9FA2E13580F002D80C1 /* PBMORTBAbstract+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMORTBAbstract+Protected.h"; sourceTree = "<group>"; };
 		5AF5EA202E13580F002D80C1 /* PBMUIApplicationProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMUIApplicationProtocol.h; sourceTree = "<group>"; };
-		5AF5EA3D2E13580F002D80C1 /* PBMVoidBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMVoidBlock.h; sourceTree = "<group>"; };
 		5AF5EA452E13580F002D80C1 /* PBMWKNavigationActionCompatible.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMWKNavigationActionCompatible.h; sourceTree = "<group>"; };
 		5AF5EA472E13580F002D80C1 /* PBMWKWebViewCompatible.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMWKWebViewCompatible.h; sourceTree = "<group>"; };
 		5AF5EA492E13580F002D80C1 /* SwiftImport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftImport.h; sourceTree = "<group>"; };
@@ -2015,7 +2013,6 @@
 				5AF5E9F92E13580F002D80C1 /* PBMORTBAbstract.h */,
 				5AF5E9FA2E13580F002D80C1 /* PBMORTBAbstract+Protected.h */,
 				5AF5EA202E13580F002D80C1 /* PBMUIApplicationProtocol.h */,
-				5AF5EA3D2E13580F002D80C1 /* PBMVoidBlock.h */,
 				5AF5EA452E13580F002D80C1 /* PBMWKNavigationActionCompatible.h */,
 				5AF5EA472E13580F002D80C1 /* PBMWKWebViewCompatible.h */,
 				5AF5EA492E13580F002D80C1 /* SwiftImport.h */,
@@ -3257,7 +3254,6 @@
 				5AF5EAA82E13580F002D80C1 /* WKWebView+PBMWKWebViewCompatible.h in Headers */,
 				5AF5EAC62E13580F002D80C1 /* PBMConstants.h in Headers */,
 				5AF5EAC72E13580F002D80C1 /* PBMWKWebViewCompatible.h in Headers */,
-				5AF5EACF2E13580F002D80C1 /* PBMVoidBlock.h in Headers */,
 				5AF5EADA2E13580F002D80C1 /* SwiftImport.h in Headers */,
 				5AF5EADF2E13580F002D80C1 /* PBMORTBAbstract+Protected.h in Headers */,
 			);
