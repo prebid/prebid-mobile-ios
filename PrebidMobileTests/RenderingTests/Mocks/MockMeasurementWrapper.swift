@@ -14,31 +14,33 @@
   */
 
 import Foundation
+import WebKit
 
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MockMeasurementWrapper : PBMOpenMeasurementWrapper {
+class MockMeasurementWrapper : OpenMeasurementWrapper {
     
     var injectJSLibClosure: ((String) -> Void)?
-    var initializeSessionClosure: ((PBMOpenMeasurementSession) -> Void)?
+    var initializeSessionClosure: ((OpenMeasurementSession) -> Void)?
     
     override init() {
         
     }
     
-    override func injectJSLib(_ html: String) throws -> String {
+    override func injectJSLib(_ html: String, error: NSErrorPointer) -> String? {
         injectJSLibClosure?(html)
-        throw PBMError.error(description:"PrebidMobileTests: do nothing")
+        error?.pointee = PBMError.error(description:"PrebidMobileTests: do nothing")
+        return nil
     }
     
-    override func initializeWebViewSession(_ webView: UIView, contentUrl: String?) -> PBMOpenMeasurementSession? {
+    override func initializeWebViewSession(_ webView: WKWebView, contentUrl: String?) -> OMSession? {
         let session = MockMeasurementSession()
         initializeSessionClosure?(session)
         
         return session
     }
     
-    override func initializeNativeVideoSession(_ videoView: UIView, verificationParameters: VideoVerificationParameters?) -> PBMOpenMeasurementSession? {
+    override func initializeNativeVideoSession(_ videoView: UIView, verificationParameters: VideoVerificationParameters?) -> OMSession? {
         // TODO: The same for tests?
         let session = MockMeasurementSession()
         initializeSessionClosure?(session)
@@ -49,7 +51,7 @@ class MockMeasurementWrapper : PBMOpenMeasurementWrapper {
     override func initializeNativeDisplaySession(_ view: UIView,
                                                  omidJSUrl omidJS: String,
                                                  vendorKey: String?,
-                                                 parameters verificationParameters: String?) -> PBMOpenMeasurementSession? {
+                                                 parameters verificationParameters: String?) -> OMSession? {
         let session = MockMeasurementSession()
         initializeSessionClosure?(session)
         

@@ -15,6 +15,7 @@
 
 #import <XCTest/XCTest.h>
 #import "PrebidMobileTests-Swift.h"
+#import "PBMMacros.h"
 
 @interface PBMMacrosTest : XCTestCase
 

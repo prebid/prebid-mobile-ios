@@ -14,6 +14,9 @@
   */
 
 import XCTest
+import OMSDK_Prebidorg
+
+@testable import PrebidMobile
 
 class PBMOpenMeasurementEventTrackerTest: XCTestCase {
     
@@ -25,7 +28,7 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
     }
     
     func testEventsForWebViewSession() {
-        let measurement = PBMOpenMeasurementWrapper()
+        let measurement = OpenMeasurementWrapper()
         
         let mockLibraryManager = MockPrebidJSLibraryManager()
         mockLibraryManager.omsdkScript = "{}"
@@ -36,7 +39,7 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
         XCTAssertNotNil(webViewSession)
         XCTAssertNotNil(webViewSession?.eventTracker)
         
-        let pbmTracker = webViewSession?.eventTracker as? PBMOpenMeasurementEventTracker
+        let pbmTracker = webViewSession?.eventTracker as? OpenMeasurementEventTracker
         XCTAssertNotNil(pbmTracker)
         XCTAssertNotNil(pbmTracker?.adEvents)
         
@@ -44,7 +47,7 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
     }
     
     func testEventsForNativeVideoSession() {
-        let measurement = PBMOpenMeasurementWrapper()
+        let measurement = OpenMeasurementWrapper()
         
         let mockLibraryManager = MockPrebidJSLibraryManager()
         mockLibraryManager.omsdkScript = "{}"
@@ -62,7 +65,7 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
         XCTAssertNotNil(nativeVideoSession)
         XCTAssertNotNil(nativeVideoSession?.eventTracker)
         
-        let pbmTracker = nativeVideoSession?.eventTracker as? PBMOpenMeasurementEventTracker
+        let pbmTracker = nativeVideoSession?.eventTracker as? OpenMeasurementEventTracker
         XCTAssertNotNil(pbmTracker)
         XCTAssertNotNil(pbmTracker?.adEvents)
         XCTAssertNotNil(pbmTracker?.mediaEvents)
@@ -71,12 +74,12 @@ class PBMOpenMeasurementEventTrackerTest: XCTestCase {
     func testInvalidSession() {
         logToFile = .init()
         
-        var pbmTracker = PBMOpenMeasurementEventTracker(session: OMIDPrebidorgAdSession())
+        var pbmTracker = OpenMeasurementEventTracker(session: OMIDPrebidorgAdSession())
         XCTAssertNotNil(pbmTracker)
         XCTAssertNotNil(pbmTracker.session)
         UtilitiesForTesting.checkLogContains("Open Measurement can't create ad events with error")
         
-        pbmTracker = PBMOpenMeasurementEventTracker()
+        pbmTracker = OpenMeasurementEventTracker()
         XCTAssertNotNil(pbmTracker)
         XCTAssertNil(pbmTracker.session)
         

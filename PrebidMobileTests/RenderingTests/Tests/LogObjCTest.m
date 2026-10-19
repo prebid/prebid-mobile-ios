@@ -15,6 +15,7 @@
 
 #import <XCTest/XCTest.h>
 #import "PrebidMobileTests-Swift.h"
+#import "Log+Extensions.h"
 
 @interface LogObjCTest : XCTestCase
 
