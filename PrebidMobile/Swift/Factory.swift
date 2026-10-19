@@ -117,24 +117,20 @@ class Factory: NSObject {
     
     // MARK: PBMCreativeViewabilityTracker
     
-    @objc public static let CreativeViewabilityTrackerType: CreativeViewabilityTracker.Type = {
-        NSClassFromString("PBMCreativeViewabilityTracker_Objc") as! CreativeViewabilityTracker.Type
-    }()
-    
     @objc public static func createCreativeViewabilityTracker(
         view: UIView,
         pollingTimeInterval: TimeInterval,
         onExposureChange: @escaping ViewExposureChangeHandler
     ) -> CreativeViewabilityTracker {
-        CreativeViewabilityTrackerType.init(view: view,
-                                            pollingTimeInterval: pollingTimeInterval,
-                                            onExposureChange: onExposureChange)
+        CreativeViewabilityTrackerImpl(view: view,
+                                       pollingTimeInterval: pollingTimeInterval,
+                                       onExposureChange: onExposureChange)
     }
     
     @objc public static func createCreativeViewabilityTracker(
         creative: AbstractCreative
     ) -> CreativeViewabilityTracker {
-        CreativeViewabilityTrackerType.init(creative: creative)
+        CreativeViewabilityTrackerImpl(creative: creative)
     }
     
     // MARK: PBMTransactionFactory
