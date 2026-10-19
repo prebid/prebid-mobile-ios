@@ -103,8 +103,8 @@ production; the check is weaker than the ObjC's only for a hypothetical third `O
 The PR subset used to skip **every** OMSDK and viewability class, so a PR could break the cluster and still go green. Wave 3 removed the stale entries (the renamed bridge test,
 the deleted ObjC tests, all of `PBMOpenMeasurementWrapperTest`), so these now run on PRs: `OpenMeasurementFriendlyObstructionTypeBridgeTest`, `OpenMeasurementBridgeParityTests`,
 `OpenMeasurementSessionTests`, `PBMOpenMeasurementWrapperTest`. They are fast and use the mocked library manager (no network). Still skipped: `PBMOpenMeasurementEventTrackerTest`,
-`PBMCreativeViewabilityTrackerTest`, the creative `testMeassurementSession` variants and `PBMAbstractCreativeTest.testOpenMeasurement`. The PR-subset count in `AGENTS.md` (694) is now
-stale; the agent estimated about 708 but did not measure it.
+`PBMCreativeViewabilityTrackerTest`, the creative `testMeassurementSession` variants and `PBMAbstractCreativeTest.testOpenMeasurement`. The PR-subset count in `AGENTS.md` was stale (694); measured on this tree it is
+**1012** (the full suite is 1410), and `AGENTS.md` is updated.
 
 ## Files
 
@@ -131,7 +131,7 @@ stale; the agent estimated about 708 but did not measure it.
 - [x] Wave 3 (worktree): 1410 tests, 0 failures. Net −1: the seam-comparison test is gone, two `OpenMeasurementSessionTests` replace one ObjC-replacement test
 - [x] Parity test (`OpenMeasurementBridgeParityTests`) — Swift output matches the ObjC's frozen output
 - [x] Review gate — independent read-only review of the diff; no BLOCKER/HIGH
-- [ ] `testPrebidMobile.sh --latest --quick` (PR subset) — **not run**; its skip list changed in this PR
+- [x] `testPrebidMobile.sh --latest --quick` (PR subset) on the final tree: **1012 tests, 0 failures**, `TEST EXECUTE SUCCEEDED` (its skip list changed in this PR)
 - [ ] `verifySPM.sh`, `buildPrebidSPM.sh` — **not run**: CI-only, and the latter builds the published packages
 - [ ] `testPrebidMobileAdapters.sh`, `swiftlint` — **not run**
 - [ ] **Manual demo-app OMSDK check** — **not done** (see Open items)
