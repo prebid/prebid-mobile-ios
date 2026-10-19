@@ -705,7 +705,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // TODO: call this?
     //updates the placement type in mraid.js - can be 'inline' (displayed inline with content) or 'interstitial' as an interstitial overlaid content
-    // `type` is one of the `PBMMRAIDPlacementType` string constants (`NS_TYPED_ENUM`, not visible to this target).
+    // `type` is one of the `MRAIDPlacementType` constants.
     func MRAID_updatePlacementType(_ type: String) {
         evaluateJavaScript(MRAIDJavascriptCommands.updatePlacementType(type))
     }
@@ -850,7 +850,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // This execute method fire the MRAID 'error' event.
     // @param message - description of the type of error
-    // @param action - name of action that caused error (one of the `PBMMRAIDAction` string constants)
+    // @param action - name of action that caused error (one of the `MRAIDAction` constants)
     func MRAID_error(_ message: String, action: String) {
         Log.error("Action: [\(action)] generated error with message [\(message)]")
         evaluateJavaScript(MRAIDJavascriptCommands.onError(message, action: action))

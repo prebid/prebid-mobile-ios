@@ -19,19 +19,6 @@
 
 import UIKit
 
-// The `PBMMRAIDAction` string constants (`NS_TYPED_ENUM`, not visible to this target).
-private enum MRAIDActionName {
-    static let open = "open"
-    static let close = "close"
-    static let expand = "expand"
-    static let resize = "resize"
-    static let storePicture = "storepicture"
-    static let createCalendarEvent = "createCalendarevent"
-    static let playVideo = "playVideo"
-    static let onOrientationPropertiesChanged = "onOrientationPropertiesChanged"
-    static let unload = "unload"
-}
-
 // Stands in for the `NSException` the ObjC controller raised for an unusable command; only its message was ever observed.
 private struct MRAIDCommandError: LocalizedError {
     let message: String
@@ -111,7 +98,7 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
         let command = mraidCommand.command
 
         // 'unload' is the only command allowed to happen when webView is not viewable
-        if command == MRAIDActionName.unload {
+        if command == MRAIDAction.unload.rawValue {
             handleMRAIDCommandUnload()
             return
         }
@@ -121,21 +108,21 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
         }
 
         switch command {
-        case MRAIDActionName.open:
+        case MRAIDAction.open.rawValue:
             try handleMRAIDCommandOpen(mraidCommand)
-        case MRAIDActionName.expand:
+        case MRAIDAction.expand.rawValue:
             try handleMRAIDCommandExpand(mraidCommand, originURL: url)
-        case MRAIDActionName.resize:
+        case MRAIDAction.resize.rawValue:
             try handleMRAIDCommandResize(mraidCommand)
-        case MRAIDActionName.close:
+        case MRAIDAction.close.rawValue:
             handleMRAIDCommandClose()
-        case MRAIDActionName.storePicture:
+        case MRAIDAction.storePicture.rawValue:
             throw MRAIDCommandError(message: "MRAID COMMAND: \(mraidCommand.command) is not supported")
-        case MRAIDActionName.createCalendarEvent:
+        case MRAIDAction.createCalendarEvent.rawValue:
             throw MRAIDCommandError(message: "MRAID COMMAND: \(mraidCommand.command) is not supported")
-        case MRAIDActionName.playVideo:
+        case MRAIDAction.playVideo.rawValue:
             try handleMRAIDCommandPlayVideo(mraidCommand)
-        case MRAIDActionName.onOrientationPropertiesChanged:
+        case MRAIDAction.onOrientationPropertiesChanged.rawValue:
             try handleMRAIDCommandOnOrientationPropertiesChanged(mraidCommand)
         default:
             throw MRAIDCommandError(message: "MRAID COMMAND: \(mraidCommand.command) is not supported")
@@ -259,7 +246,7 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
             guard let self else { return }
 
             guard expandProperties != nil else {
-                webView.MRAID_error("Unable to get Expand Properties", action: MRAIDActionName.expand)
+                webView.MRAID_error("Unable to get Expand Properties", action: MRAIDAction.expand.rawValue)
                 return
             }
 
@@ -376,7 +363,7 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
         guard let webView = prebidWebView,
               allowableStatesForResize.contains(where: { $0.isEqual(webView.mraidState) }) else {
             let message = "MRAID cannot resize from state: \(prebidWebView?.mraidState.description ?? "(null)")"
-            prebidWebView?.MRAID_error(message, action: MRAIDActionName.resize)
+            prebidWebView?.MRAID_error(message, action: MRAIDAction.resize.rawValue)
             throw MRAIDCommandError(message: message)
         }
 
@@ -386,7 +373,7 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
             guard let self else { return }
 
             guard let resizeProperties else {
-                webView.MRAID_error("Was unable to get resizeProperties", action: MRAIDActionName.resize)
+                webView.MRAID_error("Was unable to get resizeProperties", action: MRAIDAction.resize.rawValue)
                 return
             }
 
@@ -398,7 +385,7 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
             if frame.isInfinite {
                 let message = "MRAID ad attempted to resize to an invalid size"
                 Log.error(message)
-                webView.MRAID_error(message, action: MRAIDActionName.resize)
+                webView.MRAID_error(message, action: MRAIDAction.resize.rawValue)
                 return
             }
 

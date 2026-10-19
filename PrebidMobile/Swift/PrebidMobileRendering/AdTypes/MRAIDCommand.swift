@@ -19,7 +19,7 @@ import Foundation
 @objc(PBMMRAIDCommand)
 @_spi(PBMInternal) public class MRAIDCommand: NSObject {
 
-    /// One of the `PBMMRAIDAction` string constants (`NS_TYPED_ENUM`, not visible to this target).
+    /// One of the `MRAIDAction` constants.
     @objc public let command: String
     @objc public let arguments: [String]
 

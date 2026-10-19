@@ -82,7 +82,7 @@ import UIKit
         "mraid.allSupports = \(supportedFeatureString());"
     }
 
-    /// `type` is one of the `PBMMRAIDPlacementType` string constants (`NS_TYPED_ENUM`, not visible to this target).
+    /// `type` is one of the `MRAIDPlacementType` constants.
     @objc(updatePlacementType:)
     public static func updatePlacementType(_ type: String?) -> String {
         "mraid.placementType = '\(type ?? nullDescription)';"
@@ -149,7 +149,7 @@ import UIKit
 
     // MARK: - error
 
-    /// `action` is one of the `PBMMRAIDAction` string constants (`NS_TYPED_ENUM`, not visible to this target).
+    /// `action` is one of the `MRAIDAction` constants.
     @objc(onErrorWithMessage:action:)
     public static func onError(_ message: String?, action: String?) -> String {
         "mraid.onError('\(message ?? nullDescription)','\(action ?? nullDescription)');"
@@ -159,13 +159,13 @@ import UIKit
 
     private static func supportedFeatureString() -> String {
 
-        // Same strings as the `PBMMRAIDFeature*` constants. Not built from a Swift `Dictionary`: its iteration order
+        // Same strings as the `MRAIDFeature` constants. Not built from a Swift `Dictionary`: its iteration order
         // follows the per-process hash seed, so the keys would reach the `NSDictionary` in a different order on every
         // launch. The keys are inserted in the source order of the ObjC `@{...}` literal, so the serialized JSON keeps
         // the key order the ObjC original produced.
         let supports = NSDictionary(
             objects: [true, true, false, false, true, true, false],
-            forKeys: ["sms", "tel", "calendar", "storePicture", "inlineVideo", "location", "vpaid"] as [NSString]
+            forKeys: [MRAIDFeature.sms, .phone, .calendar, .savePicture, .inlineVideo, .location, .vpaid].map { $0.rawValue as NSString }
         )
 
         guard let data = try? JSONSerialization.data(withJSONObject: supports, options: []) else {
