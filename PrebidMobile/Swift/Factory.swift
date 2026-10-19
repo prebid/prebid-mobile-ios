@@ -65,18 +65,6 @@ class Factory: NSObject {
         TransactionImpl(serverConnection: serverConnection, adConfiguration: adConfiguration, models: models)
     }
     
-    // MARK: OpenMeasurementWrapper
-    
-    // Phase 8 ports `PBMOpenMeasurementWrapper` to Swift: delete this lookup then and let `TransactionImpl` read the Swift singleton.
-    // The Swift target cannot name the ObjC class, so it is resolved by name and its `+shared` singleton is read by selector.
-    private static let openMeasurementWrapperClass: NSObjectProtocol = {
-        NSClassFromString("PBMOpenMeasurementWrapper") as! NSObjectProtocol
-    }()
-    
-    static var openMeasurementWrapper: OMSessionWrapper {
-        openMeasurementWrapperClass.perform(NSSelectorFromString("shared")).takeUnretainedValue() as! OMSessionWrapper
-    }
-    
     // MARK: ViewExposure
     
     @objc public static let ViewExposureType: ViewExposure.Type = {

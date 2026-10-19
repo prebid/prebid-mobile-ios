@@ -37,7 +37,7 @@ public class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
 
     // MARK: - Properties
 
-    @objc public static let shared = OpenMeasurementWrapper()
+    static let shared = OpenMeasurementWrapper()
 
     /// Overridable so tests can make partner creation fail.
     var partnerName: String { Self.partnerNameValue }

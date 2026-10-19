@@ -37,7 +37,7 @@ final class TransactionImpl: NSObject, Transaction {
         self.serverConnection = serverConnection
         self.adConfiguration = adConfiguration
         creativeModels = models
-        measurementWrapper = Factory.openMeasurementWrapper
+        measurementWrapper = OpenMeasurementWrapper.shared
         super.init()
     }
 
