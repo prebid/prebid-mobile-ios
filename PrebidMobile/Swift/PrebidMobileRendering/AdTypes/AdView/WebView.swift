@@ -18,14 +18,6 @@ import WebKit
 import AVFoundation
 import AdSupport
 
-@objc(PBMWebView_Protocol) @_spi(PBMInternal) public
-protocol WebView_Protocol {
-    var isMRAID: Bool { get }
-
-    // PBMWebView declares the getter as isRotationEnabled
-    @objc(isRotationEnabled) var rotationEnabled: Bool { get }
-}
-
 @_spi(PBMInternal) public
 typealias JSEvaluatingBlock = (_ command: String?, _ jsResult: Any?, _ error: Error?) -> Void
 
@@ -46,7 +38,7 @@ private let keyPathOutputVolume = "outputVolume"
 //
 // Not final: `MockPBMWebView` in the test target subclasses it.
 @objc(PBMWebView) @_spi(PBMInternal) public
-class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIGestureRecognizerDelegate, WebView_Protocol {
+class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIGestureRecognizerDelegate {
 
     // MARK: - Public properties
 
@@ -705,7 +697,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // TODO: call this?
     //updates the placement type in mraid.js - can be 'inline' (displayed inline with content) or 'interstitial' as an interstitial overlaid content
-    // `type` is one of the `PBMMRAIDPlacementType` string constants (`NS_TYPED_ENUM`, not visible to this target).
+    // `type` is one of the `MRAIDPlacementType` constants.
     func MRAID_updatePlacementType(_ type: String) {
         evaluateJavaScript(MRAIDJavascriptCommands.updatePlacementType(type))
     }
@@ -850,7 +842,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // This execute method fire the MRAID 'error' event.
     // @param message - description of the type of error
-    // @param action - name of action that caused error (one of the `PBMMRAIDAction` string constants)
+    // @param action - name of action that caused error (one of the `MRAIDAction` constants)
     func MRAID_error(_ message: String, action: String) {
         Log.error("Action: [\(action)] generated error with message [\(message)]")
         evaluateJavaScript(MRAIDJavascriptCommands.onError(message, action: action))
@@ -922,12 +914,6 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
         let isLocked = isOrientationLocked(viewController: delegate?.viewControllerForPresentingModals)
 
         MRAID_updateCurrentAppOrientation(isLocked: isLocked)
-    }
-
-    // MARK: - Open Measurement
-
-    @objc(addFriendlyObstructionsToMeasurementSession:)
-    public func addFriendlyObstructions(to session: OMSession?) {
     }
 
     // MARK: - Utilities

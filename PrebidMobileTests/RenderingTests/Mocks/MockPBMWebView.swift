@@ -41,9 +41,9 @@ class MockPBMWebView: WebView {
         self.mock_PBMAddCropAndCenterConstraints?(initialWidth, initialHeight)
     }
     
-    var mock_MRAID_error: ((String, PBMMRAIDAction) -> Void)?
+    var mock_MRAID_error: ((String, MRAIDAction) -> Void)?
     override func MRAID_error(_ message: String, action: String) {
-        self.mock_MRAID_error?(message, PBMMRAIDAction(rawValue: action))
+        self.mock_MRAID_error?(message, MRAIDAction(rawValue: action))
     }
     
     var mock_MRAID_getResizeProperties: ((MockMRAIDResizeHandler) -> Void)?

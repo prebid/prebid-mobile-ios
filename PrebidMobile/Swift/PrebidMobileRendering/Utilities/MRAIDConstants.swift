@@ -104,9 +104,69 @@ public class MRAIDResizeProperties: NSObject {
 public class MRAIDConstants: NSObject {
     @objc public static let mraidURLScheme = "mraid:"
 
-    // String values match PBMMRAIDAction* constants in PBMMRAIDConstants.h
+    // String values match the `MRAIDAction` constants below
     @objc public static var allCases: [String] {
         ["open", "expand", "resize", "close", "playVideo",
          "log", "onOrientationPropertiesChanged", "unload"]
     }
+}
+
+// MARK: - MRAID typed string constants
+// Ported from the `NS_TYPED_ENUM` groups of PBMMRAIDConstants.h (S2.1-A residue). No ObjC consumer remains,
+// so these are plain Swift `RawRepresentable` structs (Strings on the wire, `.rawValue` to read them).
+
+/// MRAID command names (`PBMMRAIDAction`).
+@_spi(PBMInternal) public
+struct MRAIDAction: RawRepresentable, Hashable {
+    public let rawValue: String
+
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    // Debug
+    public static let log = MRAIDAction(rawValue: "log")
+    // MRAID 1
+    public static let open = MRAIDAction(rawValue: "open")
+    public static let close = MRAIDAction(rawValue: "close")
+    public static let expand = MRAIDAction(rawValue: "expand")
+    // MRAID 2
+    public static let resize = MRAIDAction(rawValue: "resize")
+    public static let storePicture = MRAIDAction(rawValue: "storepicture")
+    public static let createCalendarEvent = MRAIDAction(rawValue: "createCalendarevent")
+    public static let playVideo = MRAIDAction(rawValue: "playVideo")
+    public static let onOrientationPropertiesChanged = MRAIDAction(rawValue: "onOrientationPropertiesChanged")
+    // MRAID 3
+    public static let unload = MRAIDAction(rawValue: "unload")
+}
+
+/// MRAID placement types (`PBMMRAIDPlacementType`).
+@_spi(PBMInternal) public
+struct MRAIDPlacementType: RawRepresentable, Hashable {
+    public let rawValue: String
+
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let inline = MRAIDPlacementType(rawValue: "inline")
+    public static let interstitial = MRAIDPlacementType(rawValue: "interstitial")
+}
+
+/// MRAID supported features (`PBMMRAIDFeature`).
+@_spi(PBMInternal) public
+struct MRAIDFeature: RawRepresentable, Hashable {
+    public let rawValue: String
+
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let sms = MRAIDFeature(rawValue: "sms")
+    public static let phone = MRAIDFeature(rawValue: "tel")
+    public static let calendar = MRAIDFeature(rawValue: "calendar")
+    public static let savePicture = MRAIDFeature(rawValue: "storePicture")
+    public static let inlineVideo = MRAIDFeature(rawValue: "inlineVideo")
+    public static let location = MRAIDFeature(rawValue: "location")
+    public static let vpaid = MRAIDFeature(rawValue: "vpaid")
 }

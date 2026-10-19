@@ -141,7 +141,7 @@ class PBMHTMLCreativeTest_Base: XCTestCase, CreativeViewDelegate {
      - message: If `shouldFulfill`, the error message to check against
      - action: If `shouldFulfill`, the action to check against
      */
-    func mraidErrorExpectation(shouldFulfill: Bool, message expectedMessage: String? = nil, action expectedAction: PBMMRAIDAction? = nil, file: StaticString = #file, line: UInt = #line) {
+    func mraidErrorExpectation(shouldFulfill: Bool, message expectedMessage: String? = nil, action expectedAction: MRAIDAction? = nil, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Should \(shouldFulfill ? "" : "not ")call webview with an MRAID error")
         exp.isInverted = !shouldFulfill
         mockWebView.mock_MRAID_error = { (actualMessage, actualAction) in
