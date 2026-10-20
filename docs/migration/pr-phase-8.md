@@ -71,7 +71,7 @@ An independent read-only reviewer, given only the diff, found no BLOCKER or HIGH
 | 13 | `forcedIsViewable` | ObjC category on `Prebid` plus a KVC string read in `ViewExposureChecker` plus a third copy in the test extension | one `#if DEBUG` `Prebid.forcedIsViewable` (same `UserDefaults` key) | reasoned; DEBUG-only, not compiled in Release |
 | 14 | Typed OMSDK gates (S7.3-C) | `isKindOfClass:[PBMOpenMeasurementSession class]` | **kept the non-nil `OMSession` check** | judgement call, see below |
 | 15 | MRAID constants | `NS_TYPED_ENUM` `PBMMRAIDAction` etc. | `MRAIDAction`/`MRAIDPlacementType`/`MRAIDFeature` structs, same string values; production literals replaced by them | verified by diff (no literal changed) |
-| 16 | Logging | `PBMLog*` macros | `Log.*` | message text identical, file/function prefix differs |
+| 16 | Logging | `PBMLog*` macros | `Log.*` | message text identical except the file/function prefix; the "Invalid Verification Resource" lines print a nil value as `(null)` (`?? "(null)"`) as the ObjC `%@` did. A first draft used `String(describing:)`, which printed `Optional("…")`/`nil`; found in review |
 
 ### Judgement call: the S7.3-C gates stay non-nil checks
 

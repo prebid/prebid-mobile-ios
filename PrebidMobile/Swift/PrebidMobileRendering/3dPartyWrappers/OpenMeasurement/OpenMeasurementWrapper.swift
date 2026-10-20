@@ -228,7 +228,7 @@ class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
 
         for vastResource in verificationParameters?.verificationResources ?? [] {
             guard let urlString = vastResource.url, let vendorKey = vastResource.vendorKey, let params = vastResource.params else {
-                Log.error("Invalid Verification Resource. All properties should be provided. Url: \(String(describing: vastResource.url)), vendorKey: \(String(describing: vastResource.vendorKey)), params: \(String(describing: vastResource.params))")
+                Log.error("Invalid Verification Resource. All properties should be provided. Url: \(vastResource.url ?? "(null)"), vendorKey: \(vastResource.vendorKey ?? "(null)"), params: \(vastResource.params ?? "(null)")")
                 continue
             }
 
@@ -254,7 +254,7 @@ class OpenMeasurementWrapper: NSObject, OMSessionWrapper {
                                  parameters: String?) -> [OMIDPrebidorgVerificationScriptResource] {
 
         guard let omidJSUrl, let vendorKey, let parameters else {
-            Log.error("Invalid Verification Resource. All properties should be provided. Url: \(String(describing: omidJSUrl)), vendorKey: \(String(describing: vendorKey)), params: \(String(describing: parameters))")
+            Log.error("Invalid Verification Resource. All properties should be provided. Url: \(omidJSUrl ?? "(null)"), vendorKey: \(vendorKey ?? "(null)"), params: \(parameters ?? "(null)")")
             return []
         }
 
