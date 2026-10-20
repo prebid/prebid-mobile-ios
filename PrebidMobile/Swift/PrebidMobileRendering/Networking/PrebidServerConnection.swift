@@ -69,7 +69,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     // MARK: - Public methods
     
     public func fireAndForget(_ resourceURL: String?) {
-        guard var request = createRequest(resourceURL) else {
+        guard var request = try? createRequest(resourceURL) else {
             return
         }
         
@@ -96,7 +96,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     
     public func post(_ resourceURL: String?, contentType: String?,data: Data?, timeout: TimeInterval,
                      callback: @escaping (PrebidServerResponse) -> Void) {
-        guard var request = createRequest(resourceURL) else {
+        guard var request = createRequest(resourceURL, failing: callback) else {
             return
         }
         
@@ -113,7 +113,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     }
     
     public func download(_ resourceURL: String?, callback: @escaping (PrebidServerResponse) -> Void) {
-        guard var request = createRequest(resourceURL) else {
+        guard var request = createRequest(resourceURL, failing: callback) else {
             return
         }
         
@@ -132,7 +132,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     
     private func getFor(_ resourceURL: String?, timeout: TimeInterval, headersOnly: Bool,
                         callback: @escaping PrebidServerResponseCallback) {
-        guard var request = createRequest(resourceURL) else {
+        guard var request = createRequest(resourceURL, failing: callback) else {
             return
         }
         
@@ -226,15 +226,34 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         #endif
     }
     
-    private func createRequest(_ strUrl: String?) -> URLRequest? {
-        guard let strUrl = strUrl else {
-            Log.error("No resource URL string was provided")
+    // When the request cannot be created, the callback still runs, with the error, so a caller waiting
+    // for the response can finish. It runs asynchronously and off the caller's thread, like the callback
+    // of a request that was sent.
+    private func createRequest(_ strUrl: String?,
+                               failing callback: @escaping PrebidServerResponseCallback) -> URLRequest? {
+        do {
+            return try createRequest(strUrl)
+        } catch {
+            let serverResponse = PrebidServerResponse()
+            serverResponse.error = error
+            DispatchQueue.global().async {
+                callback(serverResponse)
+            }
             return nil
+        }
+    }
+    
+    private func createRequest(_ strUrl: String?) throws -> URLRequest {
+        guard let strUrl = strUrl else {
+            let message = "No resource URL string was provided"
+            Log.error(message)
+            throw PBMError.error(message: message, type: .invalidRequest)
         }
         
         guard let url = URL.urlWithoutEncoding(from: strUrl) else {
-            Log.error("URL creation failed for string: \(strUrl)")
-            return nil
+            let message = "URL creation failed for string: \(strUrl)"
+            Log.error(message)
+            throw PBMError.error(message: message, type: .invalidRequest)
         }
         
         var request = URLRequest(url: url)
