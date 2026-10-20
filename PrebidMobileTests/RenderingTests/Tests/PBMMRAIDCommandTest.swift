@@ -62,60 +62,60 @@ class PBMMRAIDCommandTest : XCTestCase {
             
             //Test all commands
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:open")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.open.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.open.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:expand")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:resize")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.resize.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.resize.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:close")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.close.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.close.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:playVideo")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.playVideo.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.playVideo.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:log")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.log.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.log.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:onOrientationPropertiesChanged")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.onOrientationPropertiesChanged.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.onOrientationPropertiesChanged.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             //Case sensitivity
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:ONORIENTATIONPROPERTIESCHANGED")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.onOrientationPropertiesChanged.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.onOrientationPropertiesChanged.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:eXpAnD")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             //mixed
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:OPEN")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.open.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.open.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == [])
             
             //Arguments
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:expand/foo.com")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == ["foo.com"])
             
             //%-substitution
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:expand/foo.com%20bar")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == ["foo.com bar"])
             
             //Lots of arguments
             pbmMRAIDCommand = try MRAIDCommand(url: "mraid:expand/foo/bar/baz")
-            XCTAssertEqual(pbmMRAIDCommand.command, PBMMRAIDAction.expand.rawValue)
+            XCTAssertEqual(pbmMRAIDCommand.command, MRAIDAction.expand.rawValue)
             XCTAssert(pbmMRAIDCommand.arguments == ["foo", "bar", "baz"])
             
         } catch let error as PBMError {

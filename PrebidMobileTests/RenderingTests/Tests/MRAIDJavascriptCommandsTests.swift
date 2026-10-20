@@ -64,8 +64,8 @@ class MRAIDJavascriptCommandsTests: XCTestCase {
         XCTAssertEqual(MRAIDJavascriptCommands.onAudioVolumeChange(NSNumber(value: 50.5)), "mraid.onAudioVolumeChange(50.5);");
         
         // updatePlacementType
-        XCTAssertEqual(MRAIDJavascriptCommands.updatePlacementType(PBMMRAIDPlacementType.inline.rawValue), "mraid.placementType = 'inline';")
-        XCTAssertEqual(MRAIDJavascriptCommands.updatePlacementType(PBMMRAIDPlacementType.interstitial.rawValue), "mraid.placementType = 'interstitial';")
+        XCTAssertEqual(MRAIDJavascriptCommands.updatePlacementType(MRAIDPlacementType.inline.rawValue), "mraid.placementType = 'inline';")
+        XCTAssertEqual(MRAIDJavascriptCommands.updatePlacementType(MRAIDPlacementType.interstitial.rawValue), "mraid.placementType = 'interstitial';")
         
         // updateMaxSize
         XCTAssertEqual(MRAIDJavascriptCommands.updateMaxSize(CGSize(width: 0.0, height: 0.0)), "mraid.setMaxSize(0.0,0.0);")
@@ -105,7 +105,7 @@ class MRAIDJavascriptCommandsTests: XCTestCase {
         XCTAssertEqual(MRAIDJavascriptCommands.getExpandProperties(), "JSON.stringify(mraid.getExpandProperties());")
         XCTAssertEqual(MRAIDJavascriptCommands.getResizeProperties(), "JSON.stringify(mraid.getResizeProperties());")
         
-        XCTAssertEqual(MRAIDJavascriptCommands.onError("test message", action: PBMMRAIDAction.open.rawValue), "mraid.onError('test message','open');")
+        XCTAssertEqual(MRAIDJavascriptCommands.onError("test message", action: MRAIDAction.open.rawValue), "mraid.onError('test message','open');")
         
         // currentAppOrientation
         XCTAssertEqual(MRAIDJavascriptCommands.updateCurrentAppOrientation("portrait", locked: false),

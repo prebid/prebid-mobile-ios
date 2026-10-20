@@ -65,18 +65,6 @@ class Factory: NSObject {
         TransactionImpl(serverConnection: serverConnection, adConfiguration: adConfiguration, models: models)
     }
     
-    // MARK: OpenMeasurementWrapper
-    
-    // Phase 8 ports `PBMOpenMeasurementWrapper` to Swift: delete this lookup then and let `TransactionImpl` read the Swift singleton.
-    // The Swift target cannot name the ObjC class, so it is resolved by name and its `+shared` singleton is read by selector.
-    private static let openMeasurementWrapperClass: NSObjectProtocol = {
-        NSClassFromString("PBMOpenMeasurementWrapper") as! NSObjectProtocol
-    }()
-    
-    static var openMeasurementWrapper: OMSessionWrapper {
-        openMeasurementWrapperClass.perform(NSSelectorFromString("shared")).takeUnretainedValue() as! OMSessionWrapper
-    }
-    
     // MARK: ViewExposure
     
     @objc public static let ViewExposureType: ViewExposure.Type = {
@@ -117,24 +105,20 @@ class Factory: NSObject {
     
     // MARK: PBMCreativeViewabilityTracker
     
-    @objc public static let CreativeViewabilityTrackerType: CreativeViewabilityTracker.Type = {
-        NSClassFromString("PBMCreativeViewabilityTracker_Objc") as! CreativeViewabilityTracker.Type
-    }()
-    
     @objc public static func createCreativeViewabilityTracker(
         view: UIView,
         pollingTimeInterval: TimeInterval,
         onExposureChange: @escaping ViewExposureChangeHandler
     ) -> CreativeViewabilityTracker {
-        CreativeViewabilityTrackerType.init(view: view,
-                                            pollingTimeInterval: pollingTimeInterval,
-                                            onExposureChange: onExposureChange)
+        CreativeViewabilityTrackerImpl(view: view,
+                                       pollingTimeInterval: pollingTimeInterval,
+                                       onExposureChange: onExposureChange)
     }
     
     @objc public static func createCreativeViewabilityTracker(
         creative: AbstractCreative
     ) -> CreativeViewabilityTracker {
-        CreativeViewabilityTrackerType.init(creative: creative)
+        CreativeViewabilityTrackerImpl(creative: creative)
     }
     
     // MARK: PBMTransactionFactory
@@ -151,10 +135,4 @@ class Factory: NSObject {
             connection: connection,
             callback: callback)
     }
-    
-    // MARK: - OMSDKVersionProvider
-    
-    @objc public static let OMSDKVersionProviderType: OMSDKVersionProvider.Type = {
-        NSClassFromString("OMSDKVersionProvider_Objc") as! OMSDKVersionProvider.Type
-    }()
 }

@@ -23,7 +23,6 @@
 //Imports
 #import "PBMConstants.h"
 #import "PBMMacros.h"
-#import "PBMMRAIDConstants.h"
 #import "PBMORTB.h"
 #import "PBMUIApplicationProtocol.h"
 // PBMCircularProgressBarLayer moved to Swift — available via module import
@@ -33,17 +32,6 @@
 #import "WKWebView+PBMWKWebViewCompatible.h"
 #import "Log+Extensions.h"
 
-
-// 3dPartyWrappers
-#import "PBMOpenMeasurementSession.h"
-#import "PBMOpenMeasurementWrapper.h"
-#import "PBMOpenMeasurementEventTracker.h"
-#import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
-
-// Tests
-#import "PBMOpenMeasurementWrapper+PBMTestExtension.h"
-#import "PBMOpenMeasurementSession+PBMTestExtension.h"
-#import "PBMOpenMeasurementEventTracker+PBMTestExtension.h"
 
 // Prebid
 

@@ -14,33 +14,21 @@
   */
 
 import XCTest
+import WebKit
 
 @testable import PrebidMobile
 
-let ValidOMPartnerName = "Openx"
 let InvalidOMPartnerName = ""
-
-extension PBMOpenMeasurementWrapper {
-    @objc var partnerName: String? {
-        return ValidOMPartnerName
-    }
-}
-
-class PBMOpenMeasurementWrapperErrorMock : PBMOpenMeasurementWrapper {
-    override var partnerName: String? {
-        return InvalidOMPartnerName
-    }
-}
 
 class PBMOpenMeasurementWrapperTest: XCTestCase {
     
     func testInitialization() {
-        let measurement = PBMOpenMeasurementWrapper()
+        let measurement = OpenMeasurementWrapper()
         XCTAssertNotNil(measurement.libraryManager)
     }
     
     func testLocalJSLib() {
-        let measurement = PBMOpenMeasurementWrapper()
+        let measurement = OpenMeasurementWrapper()
         
         let mockLibraryManager = MockPrebidJSLibraryManager()
         mockLibraryManager.omsdkScript = "{}"
@@ -52,7 +40,7 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     
     func testInjectJSLib() {
         let testScript = "test JS"
-        let measurement = PBMOpenMeasurementWrapper()
+        let measurement = OpenMeasurementWrapper()
         
         let mockLibraryManager = MockPrebidJSLibraryManager()
         mockLibraryManager.omsdkScript = testScript
@@ -60,7 +48,7 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
         
         let html = "<html><\\html>"
         
-        guard let htmlWithMeasurementJS = try? measurement.injectJSLib(html) else {
+        guard let htmlWithMeasurementJS = measurement.injectJSLib(html, error: nil) else {
             XCTFail()
             return
         }
@@ -69,21 +57,21 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     }
     
     func testInitWebViewSession() {
-        let measurement = PBMOpenMeasurementWrapper()
+        let measurement = OpenMeasurementWrapper()
         let session = measurement.initializeWebViewSession(WKWebView(), contentUrl: nil)
         
         XCTAssertNotNil(session)
     }
     
     func testInitWebViewSessionWithoutCredentials() {
-        let measurement = PBMOpenMeasurementWrapperErrorMock()
+        let measurement = OpenMeasurementWrapper(partnerName: InvalidOMPartnerName)
         let session = measurement.initializeWebViewSession(WKWebView(), contentUrl: nil)
         
         XCTAssertNil(session)
     }
     
     func testInitNativeVideoSession() {
-        let measurement = PBMOpenMeasurementWrapper()
+        let measurement = OpenMeasurementWrapper()
         
         let mockLibraryManager = MockPrebidJSLibraryManager()
         mockLibraryManager.omsdkScript = "{}"
@@ -121,7 +109,7 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     }
     
     func testInitNativeVideoSessionHappyPath() {
-        let measurement = PBMOpenMeasurementWrapper()
+        let measurement = OpenMeasurementWrapper()
         
         let mockLibraryManager = MockPrebidJSLibraryManager()
         mockLibraryManager.omsdkScript = "{}"
@@ -140,7 +128,7 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     }
     
     func testInitNativeVideoSessionWithoutCredentials() {
-        let measurement = PBMOpenMeasurementWrapperErrorMock()
+        let measurement = OpenMeasurementWrapper(partnerName: InvalidOMPartnerName)
         
         let mockLibraryManager = MockPrebidJSLibraryManager()
         mockLibraryManager.omsdkScript = "{}"
@@ -159,7 +147,7 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
     }
     
     func testInitEventTrackerForSessions() {
-        let measurement = PBMOpenMeasurementWrapper()
+        let measurement = OpenMeasurementWrapper()
         
         let mockLibraryManager = MockPrebidJSLibraryManager()
         mockLibraryManager.omsdkScript = "{}"
@@ -181,5 +169,17 @@ class PBMOpenMeasurementWrapperTest: XCTestCase {
         
         XCTAssertNotNil(webViewSession)
         XCTAssertNotNil(webViewSession?.eventTracker)
+    }
+    
+    func testInjectJSLibReportsMissingScript() {
+        let measurement = OpenMeasurementWrapper()
+        
+        let mockLibraryManager = MockPrebidJSLibraryManager()
+        mockLibraryManager.omsdkScript = nil
+        measurement.libraryManager = mockLibraryManager
+        
+        var error: NSError?
+        XCTAssertNil(measurement.injectJSLib("<html></html>", error: &error))
+        XCTAssertNotNil(error)
     }
 }

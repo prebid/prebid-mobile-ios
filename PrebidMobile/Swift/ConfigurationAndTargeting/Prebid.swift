@@ -14,6 +14,7 @@
   */
 
 import Foundation
+import OMSDK_Prebidorg
 
 fileprivate let defaultTimeoutMillis = 2000
 
@@ -88,7 +89,7 @@ public class Prebid: NSObject {
     
     /// The version of the OM SDK.
     public var omsdkVersion: String {
-        Factory.OMSDKVersionProviderType.omSDKVersionString
+        OMIDPrebidorgSDK.versionString()
     }
     
     // MARK: - Public Properties (Prebid)

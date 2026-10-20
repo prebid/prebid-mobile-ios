@@ -34,6 +34,9 @@ let package = Package(
     targets: [
         .target(
             name: "PrebidMobile",
+            dependencies: [
+                "PrebidMobileOMSDK",
+            ],
             path: "PrebidMobile",
             sources: ["Swift"]
         ),

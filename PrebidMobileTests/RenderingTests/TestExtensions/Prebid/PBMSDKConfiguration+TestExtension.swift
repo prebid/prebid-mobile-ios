@@ -49,9 +49,4 @@ extension Prebid {
         
         Prebid.shared.eventDelegate = nil
     }
-    
-    static var forcedIsViewable: Bool {
-        get { UserDefaults.standard.bool(forKey: "forcedIsViewable") }
-        set { UserDefaults.standard.setValue(newValue, forKey: "forcedIsViewable")}
-    }
 }

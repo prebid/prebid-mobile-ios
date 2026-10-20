@@ -25,8 +25,8 @@ TRIPLE="arm64-apple-ios15.0-simulator"
 
 # SwiftPM resolves binaryTarget xcframework slices against the *host* platform, so
 # cross-compiling this way it never adds a framework search path for OMSDK. Point
-# clang at the iOS simulator slice explicitly (the identifier comes from the
-# xcframework's Info.plist AvailableLibraries).
+# clang and swiftc (the Swift target imports OMSDK too) at the iOS simulator slice
+# explicitly (the identifier comes from the xcframework's Info.plist AvailableLibraries).
 OMSDK_SLICE="Frameworks/OMSDK_Prebidorg.xcframework/ios-arm64_x86_64-simulator"
 
 if [ ! -d "${OMSDK_SLICE}" ]; then
@@ -34,14 +34,19 @@ if [ ! -d "${OMSDK_SLICE}" ]; then
     exit 1
 fi
 
-# __PrebidMobileInternal depends on PrebidMobile, so this compiles both the ObjC
-# and Swift layers of the core SDK.
-swift build \
-    --target __PrebidMobileInternal \
-    -Xswiftc -sdk -Xswiftc "${SDK_PATH}" \
-    -Xswiftc -target -Xswiftc "${TRIPLE}" \
-    -Xcc -isysroot -Xcc "${SDK_PATH}" \
-    -Xcc -target -Xcc "${TRIPLE}" \
+# Build the Swift target and the ObjC target separately. Once __PrebidMobileInternal has
+# no sources left, SwiftPM compiles nothing for it and skips its PrebidMobile dependency,
+# so building only the ObjC target would pass without compiling the SDK.
+SWIFT_BUILD_FLAGS=(
+    -Xswiftc -sdk -Xswiftc "${SDK_PATH}"
+    -Xswiftc -target -Xswiftc "${TRIPLE}"
+    -Xcc -isysroot -Xcc "${SDK_PATH}"
+    -Xcc -target -Xcc "${TRIPLE}"
     -Xcc -F -Xcc "${PWD}/${OMSDK_SLICE}"
+    -Xswiftc -F -Xswiftc "${PWD}/${OMSDK_SLICE}"
+)
+
+swift build --target PrebidMobile "${SWIFT_BUILD_FLAGS[@]}"
+swift build --target __PrebidMobileInternal "${SWIFT_BUILD_FLAGS[@]}"
 
 echo "✅ SPM package build succeeded"
