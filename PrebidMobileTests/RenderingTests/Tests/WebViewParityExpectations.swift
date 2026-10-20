@@ -23,6 +23,9 @@ import Foundation
 /// (Phase 7, agent 2), so they pin the Swift classes to the behavior of the originals, not to themselves. Do not regenerate
 /// them from the Swift port. A change here means observable behavior changed.
 ///
+/// Changed on purpose since the capture: the eight `ctl.resize.*.off0` lines whose height (1500, `Int.max`) is taller than the
+/// screen are `infinite`. The original compared the height with itself, so it let them through with a negative `y`.
+///
 /// Masked on purpose: the SDK version, bundle identifier and advertising identifier inside `window.MRAID_ENV`, which differ
 /// per build and machine. Left out on purpose: `NaN` frames (UIKit rejects them before they reach the code).
 enum WebViewParityExpectations {
@@ -226,9 +229,9 @@ ctl.resize.078.w50.h375.x0.y1000.off0.f1 => rect(0.000000,499.000000,50.000000,3
 ctl.resize.079.w50.h375.x0.y1000.off1.f2 => infinite
 ctl.resize.080.w50.h700.x1.y9223372036854775807.off0.f3 => rect(301.000000,0.000000,50.000000,700.000000)
 ctl.resize.081.w50.h700.x1.y9223372036854775807.off1.f4 => infinite
-ctl.resize.082.w50.h1500.x25.y-9223372036854775808.off0.f5 => rect(35.000000,-626.000000,50.000000,1500.000000)
+ctl.resize.082.w50.h1500.x25.y-9223372036854775808.off0.f5 => infinite
 ctl.resize.083.w50.h1500.x25.y-9223372036854775808.off1.f6 => infinite
-ctl.resize.084.w50.h9223372036854775807.x100.y-1000.off0.f0 => rect(125.000000,-9223372036854774784.000000,50.000000,9223372036854775808.000000)
+ctl.resize.084.w50.h9223372036854775807.x100.y-1000.off0.f0 => infinite
 ctl.resize.085.w50.h9223372036854775807.x100.y-1000.off1.f1 => infinite
 ctl.resize.086.w50.h-9223372036854775808.x1000.y-1.off0.f2 => infinite
 ctl.resize.087.w50.h-9223372036854775808.x1000.y-1.off1.f3 => infinite
@@ -242,9 +245,9 @@ ctl.resize.094.w51.h375.x-1.y1000.off0.f3 => rect(299.000000,499.000000,51.00000
 ctl.resize.095.w51.h375.x-1.y1000.off1.f4 => infinite
 ctl.resize.096.w51.h700.x0.y9223372036854775807.off0.f5 => rect(10.000000,0.000000,51.000000,700.000000)
 ctl.resize.097.w51.h700.x0.y9223372036854775807.off1.f6 => infinite
-ctl.resize.098.w51.h1500.x1.y-9223372036854775808.off0.f0 => rect(26.000000,-626.000000,51.000000,1500.000000)
+ctl.resize.098.w51.h1500.x1.y-9223372036854775808.off0.f0 => infinite
 ctl.resize.099.w51.h1500.x1.y-9223372036854775808.off1.f1 => infinite
-ctl.resize.100.w51.h9223372036854775807.x25.y-1000.off0.f2 => rect(0.000000,-9223372036854774784.000000,51.000000,9223372036854775808.000000)
+ctl.resize.100.w51.h9223372036854775807.x25.y-1000.off0.f2 => infinite
 ctl.resize.101.w51.h9223372036854775807.x25.y-1000.off1.f3 => infinite
 ctl.resize.102.w51.h-9223372036854775808.x100.y-1.off0.f4 => infinite
 ctl.resize.103.w51.h-9223372036854775808.x100.y-1.off1.f5 => infinite
@@ -258,9 +261,9 @@ ctl.resize.110.w320.h375.x-1000.y1000.off0.f5 => rect(0.000000,499.000000,320.00
 ctl.resize.111.w320.h375.x-1000.y1000.off1.f6 => infinite
 ctl.resize.112.w320.h700.x-1.y9223372036854775807.off0.f0 => rect(24.000000,0.000000,320.000000,700.000000)
 ctl.resize.113.w320.h700.x-1.y9223372036854775807.off1.f1 => infinite
-ctl.resize.114.w320.h1500.x0.y-9223372036854775808.off0.f2 => rect(0.000000,-626.000000,320.000000,1500.000000)
+ctl.resize.114.w320.h1500.x0.y-9223372036854775808.off0.f2 => infinite
 ctl.resize.115.w320.h1500.x0.y-9223372036854775808.off1.f3 => infinite
-ctl.resize.116.w320.h9223372036854775807.x1.y-1000.off0.f4 => rect(82.000000,-9223372036854774784.000000,320.000000,9223372036854775808.000000)
+ctl.resize.116.w320.h9223372036854775807.x1.y-1000.off0.f4 => infinite
 ctl.resize.117.w320.h9223372036854775807.x1.y-1000.off1.f5 => infinite
 ctl.resize.118.w320.h-9223372036854775808.x25.y-1.off0.f6 => infinite
 ctl.resize.119.w320.h-9223372036854775808.x25.y-1.off1.f0 => infinite
@@ -274,9 +277,9 @@ ctl.resize.126.w375.h375.x-9223372036854775808.y1000.off0.f0 => rect(0.000000,49
 ctl.resize.127.w375.h375.x-9223372036854775808.y1000.off1.f1 => infinite
 ctl.resize.128.w375.h700.x-1000.y9223372036854775807.off0.f2 => rect(0.000000,174.000000,375.000000,700.000000)
 ctl.resize.129.w375.h700.x-1000.y9223372036854775807.off1.f3 => infinite
-ctl.resize.130.w375.h1500.x-1.y-9223372036854775808.off0.f4 => rect(27.000000,-626.000000,375.000000,1500.000000)
+ctl.resize.130.w375.h1500.x-1.y-9223372036854775808.off0.f4 => infinite
 ctl.resize.131.w375.h1500.x-1.y-9223372036854775808.off1.f5 => infinite
-ctl.resize.132.w375.h9223372036854775807.x0.y-1000.off0.f6 => rect(0.000000,-9223372036854774784.000000,375.000000,9223372036854775808.000000)
+ctl.resize.132.w375.h9223372036854775807.x0.y-1000.off0.f6 => infinite
 ctl.resize.133.w375.h9223372036854775807.x0.y-1000.off1.f0 => infinite
 ctl.resize.134.w375.h-9223372036854775808.x1.y-1.off0.f1 => infinite
 ctl.resize.135.w375.h-9223372036854775808.x1.y-1.off1.f2 => infinite

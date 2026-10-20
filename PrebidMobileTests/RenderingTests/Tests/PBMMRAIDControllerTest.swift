@@ -89,4 +89,21 @@ class PBMMRAIDControllerCGRectForResizePropertiesTest: XCTestCase {
         XCTAssertEqual(MRAIDController.cgRect(for: propertiesTooBig, from:testView), CGRect.infinite, "Expected a resize to 700,1500 to fail")
         
     }
+
+    func testResizeTallerThanScreenFailsWhenOffscreenIsNotAllowed() {
+        let screenSize = Functions.deviceScreenSize
+        let parent = UIView(frame: CGRect(origin: .zero, size: screenSize))
+        let testView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        parent.addSubview(testView)
+
+        let screenHeight = Int(screenSize.height)
+        let propertiesScreenHeight = MRAIDResizeProperties(width: 50, height: screenHeight, offsetX: 0, offsetY: 0, allowOffscreen: false)
+        let propertiesTooTall = MRAIDResizeProperties(width: 50, height: screenHeight + 1, offsetX: 0, offsetY: 0, allowOffscreen: false)
+
+        XCTAssertEqual(MRAIDController.cgRect(for: propertiesScreenHeight, from: testView),
+                       CGRect(x: 0, y: 0, width: 50, height: screenHeight),
+                       "Expected a resize to the screen height to fit")
+        XCTAssertEqual(MRAIDController.cgRect(for: propertiesTooTall, from: testView), CGRect.infinite,
+                       "Expected a resize taller than the screen to fail")
+    }
 }

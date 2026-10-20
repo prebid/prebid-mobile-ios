@@ -634,8 +634,7 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
 
         // else, check if it can fit on screen
         let screenSize = Functions.deviceScreenSize
-        // The second comparison is the ObjC original's (a height compared with itself, always false); kept as is.
-        if basicRect.size.width > screenSize.width || basicRect.size.height > basicRect.size.height {
+        if basicRect.size.width > screenSize.width || basicRect.size.height > screenSize.height {
             return .infinite
         }
 
