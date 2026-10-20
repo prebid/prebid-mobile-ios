@@ -45,13 +45,14 @@ public class RawExtendedId: NSObject, ExtendedId {
     ///
     /// Returns `nil` if `json` has no non-empty `source` string, or if `JSONSerialization` can't encode it.
     public init?(json: [String: Any]) {
+        // The JSON holds user identifiers, so the warnings below don't include it.
         guard let source = json["source"] as? String, !source.isEmpty else {
-            Log.warn("Extended ID JSON must contain a non-empty \"source\" string: \(json)")
+            Log.warn("Extended ID JSON must contain a non-empty \"source\" string.")
             return nil
         }
 
         guard JSONSerialization.isValidJSONObject(json) else {
-            Log.warn("Extended ID JSON can't be encoded: \(json)")
+            Log.warn("Extended ID JSON from source \(source) can't be encoded.")
             return nil
         }
 
