@@ -194,11 +194,15 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
             onModalPushedBlock: nil
         )
 
+        // An interstitial end card replaces the finished video's state, so its close is
+        // reported only after the modal has dismissed.
+        let shouldReplace = creativeModel.isCompanionAd && (creativeModel.adConfiguration?.isInterstitialAd ?? false)
+
         // `self` is captured strongly, like the ObjC block (no `__weak`).
         dismissInterstitialModalState = modalManager?.pushModal(state,
                                                                 fromRootViewController: uiViewController,
                                                                 animated: true,
-                                                                shouldReplace: false,
+                                                                shouldReplace: shouldReplace,
                                                                 completionHandler: {
             self.display(rootViewController: uiViewController)
             self.modalManager?.modalViewController?.addFriendlyObstructions(toMeasurementSession: self.transaction?.measurementSession)

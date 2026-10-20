@@ -209,3 +209,95 @@ class PBMAbstractCreativeTest: XCTestCase, CreativeResolutionDelegate {
         XCTAssertNil(pbmAbstractCreative.skStoreProductViewControllerExitBlock)
     }
 }
+
+// An interstitial end card is shown over the video it follows. Closing it must dismiss the modal
+// before the end card's pop reports the close, so the app can present again from its dismiss callback.
+class PBMAbstractCreativeEndCardTest: XCTestCase {
+    
+    private let transaction = UtilitiesForTesting.createEmptyTransaction()
+    
+    func testInterstitialEndCardPopsAfterTheModalIsDismissed() throws {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.isInterstitialAd = true
+        let modalManager = ModalManager()
+        let rootViewController = MockViewController()
+        
+        let video = makeCreative(adConfiguration: adConfiguration, isCompanionAd: false, modalManager: modalManager)
+        let endCard = makeCreative(adConfiguration: adConfiguration, isCompanionAd: true, modalManager: modalManager)
+        video.modalManagerDidFinishPopCallback = {
+            XCTFail("The end card replaced the video's state, so the video's state should not pop")
+        }
+        
+        video.showAsInterstitial(fromRootViewController: rootViewController, displayProperties: InterstitialDisplayProperties())
+        drainMainQueue()
+        XCTAssertNotNil(modalManager.modalViewController)
+        
+        endCard.showAsInterstitial(fromRootViewController: rootViewController, displayProperties: InterstitialDisplayProperties())
+        XCTAssertEqual(modalManager.modalStateStack.count, 1)
+        drainMainQueue()
+        
+        let endCardPopped = expectation(description: "The end card's state popped")
+        endCard.modalManagerDidFinishPopCallback = {
+            XCTAssertNil(modalManager.modalViewController, "The end card's state should pop after the modal has dismissed")
+            endCardPopped.fulfill()
+        }
+        
+        // The close button and mraid.close() both remove the end card's state this way.
+        let dismissEndCard = try XCTUnwrap(endCard.dismissInterstitialModalState)
+        dismissEndCard()
+        
+        waitForExpectations(timeout: 4)
+    }
+    
+    func testOnlyAnInterstitialEndCardReplacesTheStateBelowIt() {
+        let interstitial = AdConfiguration()
+        interstitial.isInterstitialAd = true
+        // An outstream video's end card after the user expanded the video to full screen.
+        let expandedBanner = AdConfiguration()
+        expandedBanner.forceInterstitialPresentation = NSNumber(value: true)
+        
+        let cases: [(adConfiguration: AdConfiguration, isCompanionAd: Bool, shouldReplace: Bool)] = [
+            (interstitial, true, true),
+            (interstitial, false, false),
+            (expandedBanner, true, false),
+        ]
+        
+        for testCase in cases {
+            let modalManager = MockModalManager()
+            var shouldReplace: Bool?
+            modalManager.mock_pushModalClosure = { _, _, _, replace, _ in
+                shouldReplace = replace
+            }
+            
+            let creative = makeCreative(adConfiguration: testCase.adConfiguration,
+                                        isCompanionAd: testCase.isCompanionAd,
+                                        modalManager: modalManager)
+            creative.showAsInterstitial(fromRootViewController: MockViewController(),
+                                        displayProperties: InterstitialDisplayProperties())
+            
+            XCTAssertEqual(shouldReplace, testCase.shouldReplace,
+                           "isCompanionAd: \(testCase.isCompanionAd), isInterstitialAd: \(testCase.adConfiguration.isInterstitialAd)")
+        }
+    }
+    
+    private func makeCreative(adConfiguration: AdConfiguration,
+                              isCompanionAd: Bool,
+                              modalManager: ModalManager) -> MockPBMAbstractCreative {
+        let creativeModel = CreativeModel(adConfiguration: adConfiguration)
+        creativeModel.isCompanionAd = isCompanionAd
+        
+        let creative = MockPBMAbstractCreative(creativeModel: creativeModel, transaction: transaction)
+        creative.view = UIView()
+        creative.modalManager = modalManager
+        return creative
+    }
+    
+    // ModalManager displays and pops states in main queue blocks, so this runs the ones queued so far.
+    private func drainMainQueue() {
+        let drained = expectation(description: "Main queue drained")
+        DispatchQueue.main.async {
+            drained.fulfill()
+        }
+        waitForExpectations(timeout: 4)
+    }
+}
