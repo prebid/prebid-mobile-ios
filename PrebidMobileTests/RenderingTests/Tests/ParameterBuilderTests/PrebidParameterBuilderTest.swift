@@ -324,6 +324,26 @@ class PrebidParameterBuilderTest: XCTestCase {
 
         XCTAssertEqual(bidRequest.extPrebid.storedBidResponses, resultStoredBidResponses)
     }
+
+    // Releasing a BannerView must not drop the app-level stored auction response from the next request.
+    func testStoredAuctionResponseIsSentAfterBannerViewIsReleased() {
+        let storedAuctionResponse = "app-stored-auction-response"
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        let adSize = CGSize(width: 320, height: 50)
+
+        weak var weakBanner: BannerView?
+        autoreleasepool {
+            let bannerView = BannerView(frame: CGRect(origin: .zero, size: adSize), configID: "auid", adSize: adSize)
+            weakBanner = bannerView
+        }
+        XCTAssertNil(weakBanner, "The banner must be deallocated for this test to be meaningful")
+
+        let adUnitConfig = AdUnitConfig(configId: "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4", size: adSize)
+        let bidRequest = buildBidRequest(with: adUnitConfig)
+
+        XCTAssertEqual(bidRequest.extPrebid.storedAuctionResponse, storedAuctionResponse)
+        XCTAssertEqual(bidRequest.imp.first?.extPrebid.storedAuctionResponse, storedAuctionResponse)
+    }
     
     func testAuctionSettingsId() {
         let auctionSettingsId = "test-auction-settings-id"
