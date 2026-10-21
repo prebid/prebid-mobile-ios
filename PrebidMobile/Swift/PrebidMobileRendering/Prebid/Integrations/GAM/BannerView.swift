@@ -247,7 +247,11 @@ public class BannerView:
     }
     
     deinit {
-        Prebid.shared.storedAuctionResponse = nil
+        // Undo only this banner's own write, if it's still in effect.
+        if let storedAuctionResponseSetByBanner,
+           Prebid.shared.storedAuctionResponse == storedAuctionResponseSetByBanner {
+            Prebid.shared.storedAuctionResponse = nil
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -260,8 +264,13 @@ public class BannerView:
     }
     
     /// Sets the stored auction response.
+    ///
+    /// This writes the SDK-wide `Prebid.shared.storedAuctionResponse`, so it applies to every ad unit
+    /// until changed or cleared. When this banner is released, the value is cleared only if it is still
+    /// the one this banner set. If the app or another banner set the same string, it is cleared too.
     /// - Parameter storedAuction: The stored auction response string.
-    public func setStoredAuctionResponse(storedAuction:String){
+    public func setStoredAuctionResponse(storedAuction: String) {
+        storedAuctionResponseSetByBanner = storedAuction
         Prebid.shared.storedAuctionResponse = storedAuction
     }
     
@@ -379,6 +388,9 @@ public class BannerView:
     
     /// Formats that `BannerView` is able to render.
     private static let supportedAdFormats: [AdFormat] = [.banner, .video]
+
+    /// The value this banner last wrote to `Prebid.shared.storedAuctionResponse`, if any.
+    private var storedAuctionResponseSetByBanner: String?
     
     // MARK: - Private Methods
     
