@@ -20,6 +20,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     private let sdkConfiguration = Prebid.mock
     private var targeting: Targeting!
+    private let storedAuctionResponseAdSize = CGSize(width: 320, height: 50)
     
     override func setUp() {
         super.setUp()
@@ -1119,6 +1120,72 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertTrue(banner.format.contains { $0.w == 320 && $0.h == 460 })
     }
 
+    // MARK: - Stored auction response
+
+    private func assertStoredAuctionResponse(
+        _ expected: String?,
+        in bidRequest: ORTBBidRequest,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        XCTAssertEqual(bidRequest.extPrebid.storedAuctionResponse, expected, file: file, line: line)
+        XCTAssertFalse(bidRequest.imp.isEmpty, file: file, line: line)
+        for imp in bidRequest.imp {
+            XCTAssertEqual(imp.extPrebid.storedAuctionResponse, expected, file: file, line: line)
+        }
+    }
+
+    func testStoredAuctionResponseIsOmittedWhenNotSet() {
+        let adUnitConfig = AdUnitConfig(configId: "auid", size: storedAuctionResponseAdSize)
+
+        assertStoredAuctionResponse(nil, in: buildBidRequest(with: adUnitConfig))
+    }
+
+    func testStoredAuctionResponseFallsBackToPrebid() {
+        Prebid.shared.storedAuctionResponse = "app-stored-auction-response"
+        let adUnitConfig = AdUnitConfig(configId: "auid", size: storedAuctionResponseAdSize)
+
+        assertStoredAuctionResponse("app-stored-auction-response", in: buildBidRequest(with: adUnitConfig))
+    }
+
+    func testAdUnitStoredAuctionResponseOverridesPrebid() {
+        Prebid.shared.storedAuctionResponse = "app-stored-auction-response"
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: storedAuctionResponseAdSize), configID: "auid", adSize: storedAuctionResponseAdSize)
+        bannerView.setStoredAuctionResponse(storedAuction: "banner-stored-auction-response")
+
+        assertStoredAuctionResponse("banner-stored-auction-response", in: buildBidRequest(with: bannerView.adUnitConfig))
+    }
+
+    // Each banner's value applies to its own requests only.
+    func testBannerStoredAuctionResponsesAreIndependent() {
+        let firstBanner = BannerView(frame: CGRect(origin: .zero, size: storedAuctionResponseAdSize), configID: "auid", adSize: storedAuctionResponseAdSize)
+        let secondBanner = BannerView(frame: CGRect(origin: .zero, size: storedAuctionResponseAdSize), configID: "auid", adSize: storedAuctionResponseAdSize)
+        let otherAdUnitConfig = AdUnitConfig(configId: "auid", size: storedAuctionResponseAdSize)
+
+        firstBanner.setStoredAuctionResponse(storedAuction: "first-banner-stored-auction-response")
+        secondBanner.setStoredAuctionResponse(storedAuction: "second-banner-stored-auction-response")
+
+        assertStoredAuctionResponse("first-banner-stored-auction-response", in: buildBidRequest(with: firstBanner.adUnitConfig))
+        assertStoredAuctionResponse("second-banner-stored-auction-response", in: buildBidRequest(with: secondBanner.adUnitConfig))
+        assertStoredAuctionResponse(nil, in: buildBidRequest(with: otherAdUnitConfig))
+    }
+
+    // Releasing a BannerView must not drop the app-level stored auction response from the next request.
+    func testStoredAuctionResponseIsSentAfterBannerViewIsReleased() {
+        Prebid.shared.storedAuctionResponse = "app-stored-auction-response"
+
+        weak var weakBanner: BannerView?
+        autoreleasepool {
+            let bannerView = BannerView(frame: CGRect(origin: .zero, size: storedAuctionResponseAdSize), configID: "auid", adSize: storedAuctionResponseAdSize)
+            bannerView.setStoredAuctionResponse(storedAuction: "banner-stored-auction-response")
+            weakBanner = bannerView
+        }
+        XCTAssertNil(weakBanner, "The banner must be deallocated for this test to be meaningful")
+
+        let adUnitConfig = AdUnitConfig(configId: "auid", size: storedAuctionResponseAdSize)
+        assertStoredAuctionResponse("app-stored-auction-response", in: buildBidRequest(with: adUnitConfig))
+    }
+    
     // MARK: - Helpers
     
     func buildBidRequest(with adUnitConfig: AdUnitConfig) -> ORTBBidRequest {

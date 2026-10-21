@@ -54,6 +54,14 @@ class PBMAdUnitConfigTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.refreshInterval, 45)
     }
     
+    func testCopyKeepsStoredAuctionResponse() {
+        adUnitConfig.storedAuctionResponse = "stored-auction-response"
+
+        let clone = adUnitConfig.copy() as? AdUnitConfig
+
+        XCTAssertEqual(clone?.storedAuctionResponse, "stored-auction-response")
+    }
+    
     // MARK: - The Prebid Ad Slot
     
     func testSetPbAdSlot() {        
