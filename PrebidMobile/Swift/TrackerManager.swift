@@ -39,7 +39,7 @@ class TrackerManager: NSObject {
     /**
      * The class is created as a singleton object & used
      */
-    @objc
+    
     static let shared = TrackerManager()
     
     /**

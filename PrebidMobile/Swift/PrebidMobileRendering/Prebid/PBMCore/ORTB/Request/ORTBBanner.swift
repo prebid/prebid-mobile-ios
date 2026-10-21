@@ -15,23 +15,23 @@
 
 import Foundation
 
-@objc(PBMORTBBanner)
-public class ORTBBanner: NSObject, PBMJsonCodable {
+
+class ORTBBanner: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var format: [ORTBFormat] = []
-    @objc public var pos: NSNumber?
-    @objc public var api: [NSNumber]?
+    var format: [ORTBFormat] = []
+    var pos: NSNumber?
+    var api: [NSNumber]?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         pos    = json[.pos]
@@ -41,8 +41,8 @@ public class ORTBBanner: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.pos] = pos
         if let api = api, !api.isEmpty {

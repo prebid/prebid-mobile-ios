@@ -18,12 +18,12 @@ import CoreLocation
 
 extension CLLocationManager: LocationManagerProtocol {}
 
-@objc(PBMLocationManager) @objcMembers
-public class LocationManager: NSObject {
+
+class LocationManager: NSObject {
     
-    public static let shared = LocationManager()
+    static let shared = LocationManager()
     
-    public var locationUpdatesEnabled = true {
+    var locationUpdatesEnabled = true {
         didSet {
             if locationUpdatesEnabled {
                 startLocationUpdates()
@@ -34,21 +34,21 @@ public class LocationManager: NSObject {
         }
     }
     
-    public var coordinates: CLLocationCoordinate2D {
+    var coordinates: CLLocationCoordinate2D {
         guard let location else { return kCLLocationCoordinate2DInvalid }
         return coordinatesAreValid ? location.coordinate : kCLLocationCoordinate2DInvalid
     }
     
-    public var coordinatesAreValid: Bool {
+    var coordinatesAreValid: Bool {
         return location?.isValid ?? false
     }
     
-    public var horizontalAccuracy: CLLocationAccuracy {
+    var horizontalAccuracy: CLLocationAccuracy {
         guard let location else { return -1 }
         return coordinatesAreValid ? location.horizontalAccuracy : -1
     }
     
-    public var timestamp: Date? {
+    var timestamp: Date? {
         coordinatesAreValid ? location?.timestamp : nil;
     }
     
@@ -127,7 +127,7 @@ public class LocationManager: NSObject {
         )
     }
     
-    @objc func startLocationUpdates() {
+    func startLocationUpdates() {
         guard !isLocationUpdating else {
             return
         }
@@ -147,7 +147,7 @@ public class LocationManager: NSObject {
         }
     }
     
-    @objc func stopLocationUpdates() {
+    func stopLocationUpdates() {
         guard isLocationUpdating else {
             return
         }
@@ -195,18 +195,18 @@ public class LocationManager: NSObject {
 // MARK: - CLLocationManagerDelegate
 extension LocationManager: CLLocationManagerDelegate {
     
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last
         if newLocation?.isValid == true {
             self.location = newLocation
         }
     }
     
-    public func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
         stopLocationUpdates()
     }
     
-    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         latestAuthorizationStatus = status
         
         if latestAuthorizationStatus.isAuthorized {

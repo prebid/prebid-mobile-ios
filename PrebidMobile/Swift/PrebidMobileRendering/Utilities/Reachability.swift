@@ -16,19 +16,19 @@
 import Foundation
 import SystemConfiguration
 
-public typealias PBMNetworkReachableBlock = (Reachability?) -> Void
+typealias PBMNetworkReachableBlock = (Reachability?) -> Void
 
-@objc(PBMReachability) @objcMembers
-public class Reachability: NSObject {
+
+class Reachability: NSObject {
     
     // MARK: - Public properties
     
     /**
      * Shared instance for checking whether the default route is available.
      */
-    public static let shared = Reachability()
+    static let shared = Reachability()
     
-    public var currentReachabilityStatus: NetworkType {
+    var currentReachabilityStatus: NetworkType {
         guard let reachabilityRef = reachabilityRef else {
             Log.error("currentReachabilityStatus called with NULL SCNetworkReachabilityRef")
             return .unknown
@@ -48,7 +48,7 @@ public class Reachability: NSObject {
     /**
      * Returns true is network is reachable otherwise returns false
      */
-    public var isNetworkReachable: Bool {
+    var isNetworkReachable: Bool {
         return currentReachabilityStatus != .offline && currentReachabilityStatus != .unknown
     }
     
@@ -71,7 +71,7 @@ public class Reachability: NSObject {
         reachabilityRef = nil
     }
     
-    public func stopNotifier() {
+    func stopNotifier() {
         if reachableBlock != nil, let reachabilityRef = reachabilityRef {
             SCNetworkReachabilityUnscheduleFromRunLoop(reachabilityRef, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
             self.reachableBlock = nil
@@ -82,7 +82,7 @@ public class Reachability: NSObject {
      * Starts monitoring of the network status.
      * Calls the reachableBlock when network is restored
      */
-    public func onNetworkRestored(_ reachableBlock: @escaping PBMNetworkReachableBlock) {
+    func onNetworkRestored(_ reachableBlock: @escaping PBMNetworkReachableBlock) {
         self.reachableBlock = reachableBlock
         guard let reachabilityRef = self.reachabilityRef else {
             return

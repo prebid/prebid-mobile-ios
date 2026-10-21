@@ -17,16 +17,16 @@ import CoreTelephony
 import Foundation
 import MapKit
 
-@objc(PBMParameterBuilderService)
-public class ParameterBuilderService: NSObject {
 
-    @objc(buildParamsDictWithAdConfiguration:)
-    public static func buildParamsDict(with adConfiguration: AdConfiguration) -> [String: String] {
+class ParameterBuilderService: NSObject {
+
+    
+    static func buildParamsDict(with adConfiguration: AdConfiguration) -> [String: String] {
         buildParamsDict(with: adConfiguration, extraParameterBuilders: nil)
     }
 
-    @objc(buildParamsDictWithAdConfiguration:extraParameterBuilders:)
-    public static func buildParamsDict(
+    
+    static func buildParamsDict(
         with adConfiguration: AdConfiguration,
         extraParameterBuilders: [ParameterBuilder]?
     ) -> [String: String] {

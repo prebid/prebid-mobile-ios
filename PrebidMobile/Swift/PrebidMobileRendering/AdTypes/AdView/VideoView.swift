@@ -28,18 +28,18 @@ private let enableOutstreamTapToExpand = false
 private let muteButtonSize = CGSize(width: 24, height: 24)
 
 // Not final: `MockVideoView` in the test target overrides `requiredVideoDuration()`.
-@objc(PBMVideoView)
+
 class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDelegate {
 
     // MARK: - Public properties
 
-    public weak var videoViewDelegate: VideoViewDelegate?
-    public var progressBar: CircularProgressBarView?
+    weak var videoViewDelegate: VideoViewDelegate?
+    var progressBar: CircularProgressBarView?
 
-    public var showLearnMore = false
-    public var isSoundButtonVisible = false
+    var showLearnMore = false
+    var isSoundButtonVisible = false
 
-    public private(set) var playbackState = VideoViewPlaybackState.unstarted
+    private(set) var playbackState = VideoViewPlaybackState.unstarted
 
     // `nil` while no player has been attached (the ObjC property was declared nonnull but returned nil).
     var avPlayer: AVPlayer! {
@@ -47,7 +47,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         set { (layer as? AVPlayerLayer)?.player = newValue }
     }
 
-    public var isMuted: Bool {
+    var isMuted: Bool {
         get { avPlayer?.isMuted ?? false }
         set {
             avPlayer?.isMuted = newValue
@@ -91,27 +91,27 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     // MARK: - Layer
 
-    public override class var layerClass: AnyClass {
+    override class var layerClass: AnyClass {
         AVPlayerLayer.self
     }
 
     // MARK: - Initialization
 
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
     }
 
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    public init(eventManager: EventManager) {
+    init(eventManager: EventManager) {
         super.init(frame: .zero)
         setup(eventManager: eventManager)
         progressBarDuration = calculateProgressBarDuration()
     }
 
-    public init(creative: AbstractCreative) {
+    init(creative: AbstractCreative) {
         let frame = CGRect(x: 0.0,
                            y: 0.0,
                            width: CGFloat(creative.creativeModel.width),
@@ -160,7 +160,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
     // MARK: - Public
 
     // The parameters stay optional: the ObjC original logged and returned on `nil`, and `VideoCreative` passes what it has (a missing URL or data).
-    public func showMediaFileURL(_ mediaFileURL: URL?, preloadedData: Data?) {
+    func showMediaFileURL(_ mediaFileURL: URL?, preloadedData: Data?) {
         Log.whereAmI()
 
         if mediaFileURL == nil || preloadedData == nil {
@@ -263,7 +263,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     // MARK: - AVAssetResourceLoaderDelegate
 
-    public func resourceLoader(_ resourceLoader: AVAssetResourceLoader,
+    func resourceLoader(_ resourceLoader: AVAssetResourceLoader,
                                shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
         guard let preloadedData else {
             loadingRequest.finishLoading(with: PBMError.error(description: "data was not pre-fetched"))
@@ -323,7 +323,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     // MARK: - Modal manager delegate
 
-    public func modalManagerDidFinishPop(_ state: ModalState) {
+    func modalManagerDidFinishPop(_ state: ModalState) {
         if let creative {
             creative.resume()
         } else {
@@ -331,13 +331,13 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         }
     }
 
-    public func modalManagerDidLeaveApp(_ state: ModalState) {
+    func modalManagerDidLeaveApp(_ state: ModalState) {
         creative?.modalManagerDidLeaveApp(state)
     }
 
     // MARK: - View buttons
 
-    public func updateLearnMoreButton() {
+    func updateLearnMoreButton() {
         btnLearnMore?.removeFromSuperview()
 
         if !showLearnMore {
@@ -547,7 +547,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     // MARK: - Button Events
 
-    @objc public func btnLearnMoreClick() {
+    @objc func btnLearnMoreClick() {
         videoViewDelegate?.learnMoreWasClicked()
     }
 
@@ -573,7 +573,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     // MARK: - Interface
 
-    public func startPlayback() {
+    func startPlayback() {
         Log.whereAmI()
 
         guard let player = avPlayer else {
@@ -623,7 +623,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         }
     }
 
-    public func pause() {
+    func pause() {
         guard let player = avPlayer else {
             Log.error("Attempted to pause a VideoView with no avPlayer")
             return
@@ -641,7 +641,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         }
     }
 
-    public func resume() {
+    func resume() {
         guard let player = avPlayer else {
             Log.error("Attempted to pause a VideoView with no avPlayer")
             return
@@ -662,7 +662,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
     /// Pauses playback because the ad view left the viewport.
     /// Does nothing unless the video is currently playing, so that a pause
     /// made for another reason (clickthrough, background) is not overwritten.
-    public func pauseForVisibilityChange() {
+    func pauseForVisibilityChange() {
         if playbackState != .playing {
             return
         }
@@ -673,7 +673,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     /// Resumes playback that was paused by `pauseForVisibilityChange`.
     /// Does nothing if the video was paused for any other reason.
-    public func resumeAfterVisibilityChange() {
+    func resumeAfterVisibilityChange() {
         if playbackState != .pausedByVisibility {
             return
         }
@@ -685,7 +685,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         stop(with: .skip)
     }
 
-    public func stop(with trackingEvent: TrackingEvent) {
+    func stop(with trackingEvent: TrackingEvent) {
         guard let player = avPlayer else {
             Log.error("No AVPlayer to stop")
             return
@@ -697,7 +697,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         videoViewDelegate?.videoViewCompletedDisplay()
     }
 
-    public func mute() {
+    func mute() {
         isMuted = true
 
         if let creative {
@@ -705,7 +705,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         }
     }
 
-    public func unmute() {
+    func unmute() {
         isMuted = false
 
         if let creative {
@@ -716,7 +716,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
     // handles scenario when the user presses the close button before the video has ended.
     // Triggers the tracking event but purposely does not call videoViewCompletedDisplay method
     // since the video hasn't finished displaying.
-    public func stop(onCloseButton trackingEvent: TrackingEvent) {
+    func stop(onCloseButton trackingEvent: TrackingEvent) {
         guard let player = avPlayer else {
             Log.error("No AVPlayer to stop")
             return
@@ -729,7 +729,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     // The ObjC call passed `nil` obstructions through to the OM session (which logged an error for each);
     // the Swift protocol takes non-optional views, so absent ones are skipped.
-    public func addFriendlyObstructions(to session: OMSession) {
+    func addFriendlyObstructions(to session: OMSession) {
         if let btnLearnMore {
             session.addFriendlyObstruction(btnLearnMore, purpose: .videoViewLearnMoreButton)
         }
@@ -740,7 +740,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     // MARK: - Observers
 
-    public override func observeValue(forKeyPath keyPath: String?,
+    override func observeValue(forKeyPath keyPath: String?,
                                       of object: Any?,
                                       change: [NSKeyValueChangeKey: Any]?,
                                       context: UnsafeMutableRawPointer?) {
@@ -983,12 +983,12 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     // MARK: - UIGestureRecognizerDelegate
 
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                                   shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         true
     }
 
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if gestureRecognizer !== tapGestureRecognizer {
             return true
         }

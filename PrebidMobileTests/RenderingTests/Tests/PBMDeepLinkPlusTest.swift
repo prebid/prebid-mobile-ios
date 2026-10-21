@@ -14,6 +14,7 @@
   */
 import Foundation
 import XCTest
+@testable import PrebidMobile
 
 class PBMDeepLinkPlusTest: XCTestCase {
     func testDemoLinkParsing() {

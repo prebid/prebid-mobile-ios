@@ -15,7 +15,7 @@ limitations under the License.
 
 import UIKit
 
-@objc(PBMVideoBasedAdUnitProtocol)
-public protocol VideoBasedAdUnitProtocol {
+
+protocol VideoBasedAdUnitProtocol: AnyObject {
     var videoParameters: VideoParameters { get set }
 }

@@ -15,22 +15,22 @@
 
 import Foundation
 
-@objc(PBMORTBDeviceExtAtts)
-public class ORTBDeviceExtAtts: NSObject, PBMJsonCodable {
+
+class ORTBDeviceExtAtts: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var atts: NSNumber?
-    @objc public var ifv: String?
+    var atts: NSNumber?
+    var ifv: String?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         atts = json[.atts]
@@ -39,8 +39,8 @@ public class ORTBDeviceExtAtts: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.atts] = atts
         json[.ifv]  = ifv

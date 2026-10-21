@@ -15,25 +15,25 @@
 
 import Foundation
 
-@objc(PBMORTBFormat)
-public class ORTBFormat: NSObject, PBMJsonCodable {
+
+class ORTBFormat: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var w: NSNumber?
-    @objc public var h: NSNumber?
-    @objc public var wratio: NSNumber?
-    @objc public var hratio: NSNumber?
-    @objc public var wmin: NSNumber?
+    var w: NSNumber?
+    var h: NSNumber?
+    var wratio: NSNumber?
+    var hratio: NSNumber?
+    var wmin: NSNumber?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         w      = json[.w]
@@ -45,8 +45,8 @@ public class ORTBFormat: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.w]      = w
         json[.h]      = h
@@ -66,12 +66,12 @@ public class ORTBFormat: NSObject, PBMJsonCodable {
     // non-nil there — so the divergence is unreachable in production. Matching ObjC exactly
     // would require `w != nil && h != nil && w == other.w && h == other.h`, which breaks
     // the reflexivity `NSSet`/`Hashable` require. See playbook Gap S2.5-D.
-    public override func isEqual(_ object: Any?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? ORTBFormat else { return false }
         return w == other.w && h == other.h
     }
 
-    public override var hash: Int { (w?.hashValue ?? 0) ^ (h?.hashValue ?? 0) }
+    override var hash: Int { (w?.hashValue ?? 0) ^ (h?.hashValue ?? 0) }
 
     // MARK: - Keys
 

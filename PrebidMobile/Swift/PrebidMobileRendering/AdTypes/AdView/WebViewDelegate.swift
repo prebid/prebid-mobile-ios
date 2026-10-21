@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objc(PBMWebViewDelegate)
+
 protocol WebViewDelegate: NSObjectProtocol {
 
     // A property, like the ObjC creative that served it through its `viewControllerForPresentingModals` getter.

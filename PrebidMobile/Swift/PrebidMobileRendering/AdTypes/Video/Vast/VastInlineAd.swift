@@ -15,20 +15,20 @@
 
 import Foundation
 
-@objc(PBMVastInlineAd)
+
 class VastInlineAd: VastAbstractAd {
 
-    @objc public var title: String?
-    @objc public var advertiser: String?
-    @objc public var verificationParameters = VideoVerificationParameters()
+    var title: String?
+    var advertiser: String?
+    var verificationParameters = VideoVerificationParameters()
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 
     // The first Linear creative that has a media file the SDK can play, or nil if there is none.
     // VAST validation and creative model creation both select the creative through this method.
-    @objc public func playableLinearCreative() -> VastCreativeLinear? {
+    func playableLinearCreative() -> VastCreativeLinear? {
         for case let linearCreative as VastCreativeLinear in creatives where linearCreative.bestMediaFile() != nil {
             return linearCreative
         }

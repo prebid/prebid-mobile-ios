@@ -15,83 +15,83 @@
 
 import Foundation
 
-@objc(PBMORTBAppContent)
-public class ORTBAppContent: NSObject, PBMJsonCodable {
+
+class ORTBAppContent: NSObject, PBMJsonCodable {
     
     /// ID uniquely identifying the content.
-    @objc public var id: String?
+    var id: String?
     
     /// Episode number.
-    @objc public var episode: NSNumber?
+    var episode: NSNumber?
     
     /// Content title.
-    @objc public var title: String?
+    var title: String?
     
     /// Content series.
-    @objc public var series: String?
+    var series: String?
     
     /// Content season.
-    @objc public var season: String?
+    var season: String?
     
     /// Artist credited with the content.
-    @objc public var artist: String?
+    var artist: String?
     
     /// Genre that best describes the content.
-    @objc public var genre: String?
+    var genre: String?
     
     /// Album to which the content belongs; typically for audio.
-    @objc public var album: String?
+    var album: String?
     
     /// International Standard Recording Code conforming to ISO-3901.
-    @objc public var isrc: String?
+    var isrc: String?
     
     /// This object defines the producer of the content in which the ad will be shown.
-    @objc public var producer: ORTBContentProducer?
+    var producer: ORTBContentProducer?
     
     /// URL of the content, for buy-side contextualization or review.
-    @objc public var url: String?
+    var url: String?
     
     /// Array of IAB content categories that describe the content producer.
-    @objc public var cat: [String]?
+    var cat: [String]?
     
     /// Production quality.
-    @objc public var prodq: NSNumber?
+    var prodq: NSNumber?
     
     /// Type of content (game, video, text, etc.).
-    @objc public var context: NSNumber?
+    var context: NSNumber?
     
     /// Content rating.
-    @objc public var contentrating: String?
+    var contentrating: String?
     
     /// User rating of the content.
-    @objc public var userrating: String?
+    var userrating: String?
     
     /// Media rating per IQG guidelines.
-    @objc public var qagmediarating: NSNumber?
+    var qagmediarating: NSNumber?
     
     /// Comma separated list of keywords describing the content.
-    @objc public var keywords: String?
+    var keywords: String?
     
     /// 0 = not live, 1 = content is live.
-    @objc public var livestream: NSNumber?
+    var livestream: NSNumber?
     
     /// 0 = indirect, 1 = direct.
-    @objc public var sourcerelationship: NSNumber?
+    var sourcerelationship: NSNumber?
     
     /// Length of content in seconds; appropriate for video or audio.
-    @objc public var len: NSNumber?
+    var len: NSNumber?
     
     /// Content language using ISO-639-1-alpha-2.
-    @objc public var language: String?
+    var language: String?
     
     /// Indicator of whether or not the content is embeddable (e.g., an embeddable video player), where 0 = no, 1 = yes.
-    @objc public var embeddable: NSNumber?
+    var embeddable: NSNumber?
     
     /// The data and segment objects together allow additional data about the related object (e.g., user, content) to be specified.
-    @objc public var data: [ORTBContentData]?
+    var data: [ORTBContentData]?
     
     /// Placeholder for exchange-specific extensions to OpenRTB.
-    @objc public var ext: [String: Any]?
+    var ext: [String: Any]?
     
     private enum KeySet: String {
         case id
@@ -121,12 +121,12 @@ public class ORTBAppContent: NSObject, PBMJsonCodable {
         case ext
     }
     
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String : Any]) {
+    
+    required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
         id                  = json[.id]
@@ -156,8 +156,8 @@ public class ORTBAppContent: NSObject, PBMJsonCodable {
         ext                 = json[.ext]
     }
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String : Any] {
+    
+    var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 
         json[.id]                   = id

@@ -19,8 +19,8 @@ import Foundation
 ///
 /// Messages are printed to the console only when the SDK is compiled with the `DEBUG` flag.
 /// When `Log.logToFile` is enabled, they are written to the log file in any build configuration.
-@objc
-public class SDKConsoleLogger: NSObject, PrebidLogger {
+
+class SDKConsoleLogger: NSObject, PrebidLogger {
 
     /// Whether the SDK was compiled with the `DEBUG` flag. Internal so tests can exercise release-build behavior.
     var isDebugBuild: Bool = {
@@ -31,31 +31,31 @@ public class SDKConsoleLogger: NSObject, PrebidLogger {
         #endif
     }()
     
-    public func error(_ object: Any, filename: String, line: Int, function: String) {
+    func error(_ object: Any, filename: String, line: Int, function: String) {
         log(object, logLevel: .error, filename: filename, line: line, function: function)
     }
 
-    public func info(_ object: Any, filename: String, line: Int, function: String) {
+    func info(_ object: Any, filename: String, line: Int, function: String) {
         log(object, logLevel: .info, filename: filename, line: line, function: function)
     }
 
-    public func debug(_ object: Any, filename: String, line: Int, function: String) {
+    func debug(_ object: Any, filename: String, line: Int, function: String) {
         log(object, logLevel: .debug, filename: filename, line: line, function: function)
     }
 
-    public func verbose(_ object: Any, filename: String, line: Int, function: String) {
+    func verbose(_ object: Any, filename: String, line: Int, function: String) {
         log(object, logLevel: .verbose, filename: filename, line: line, function: function)
     }
 
-    public func warn(_ object: Any, filename: String, line: Int, function: String) {
+    func warn(_ object: Any, filename: String, line: Int, function: String) {
         log(object, logLevel: .warn, filename: filename, line: line, function: function)
     }
 
-    public func severe(_ object: Any, filename: String, line: Int, function: String) {
+    func severe(_ object: Any, filename: String, line: Int, function: String) {
         log(object, logLevel: .severe, filename: filename, line: line, function: function)
     }
 
-    public func whereAmI(filename: String, line: Int, function: String) {
+    func whereAmI(filename: String, line: Int, function: String) {
         log("", logLevel: .info, filename: filename, line: line, function: function)
     }
 

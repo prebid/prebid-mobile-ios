@@ -18,30 +18,30 @@ import UIKit
 import AdSupport
 import AppTrackingTransparency
 
-@objc(PBMDeviceAccessManager)
-public class DeviceAccessManager: NSObject {
+
+class DeviceAccessManager: NSObject {
 
     // MARK: - Properties
 
-    @objc public var deviceMake: String { "Apple" }
+    var deviceMake: String { "Apple" }
 
-    @objc public var deviceModel: String {
+    var deviceModel: String {
         UIDevice.current.model
     }
 
-    @objc public var identifierForVendor: String {
+    var identifierForVendor: String {
         UIDevice.current.identifierForVendor?.uuidString ?? ""
     }
 
-    @objc public var deviceOS: String {
+    var deviceOS: String {
         UIDevice.current.systemName
     }
 
-    @objc public var OSVersion: String {
+    var OSVersion: String {
         UIDevice.current.systemVersion
     }
 
-    @objc public var platformString: String? {
+    var platformString: String? {
         var size: size_t = 0
         sysctlbyname("hw.machine", nil, &size, nil, 0)
 
@@ -52,28 +52,28 @@ public class DeviceAccessManager: NSObject {
         return String(validatingUTF8: machine)
     }
 
-    @objc public var userLangaugeCode: String? {
+    var userLangaugeCode: String? {
         locale.languageCode
     }
 
-    @objc public private(set) var locale: Locale
+    private(set) var locale: Locale
 
-    @objc public weak var rootViewController: UIViewController?
+    weak var rootViewController: UIViewController?
 
     // MARK: - Init
 
     @available(*, unavailable, message: "Use initWithRootViewController or initWithRootViewController(_:locale:) instead.")
-    public override init() {
+    override init() {
         fatalError("init() is unavailable")
     }
 
-    @objc public init(rootViewController: UIViewController?) {
+    init(rootViewController: UIViewController?) {
         self.rootViewController = rootViewController
         self.locale = .autoupdatingCurrent
         super.init()
     }
 
-    @objc public init(rootViewController: UIViewController?, locale: Locale) {
+    init(rootViewController: UIViewController?, locale: Locale) {
         self.rootViewController = rootViewController
         self.locale = locale
         super.init()
@@ -81,18 +81,18 @@ public class DeviceAccessManager: NSObject {
 
     // MARK: - IDFA & Tracking
 
-    @objc public func advertisingIdentifier() -> String {
+    func advertisingIdentifier() -> String {
         let advertisingIdentifier = ASIdentifierManager.shared()
             .perform(#selector(getter: ASIdentifierManager.advertisingIdentifier))?
             .takeUnretainedValue() as? NSUUID
         return advertisingIdentifier?.uuidString ?? ""
     }
 
-    @objc public func advertisingTrackingEnabled() -> Bool {
+    func advertisingTrackingEnabled() -> Bool {
         ASIdentifierManager.shared().isAdvertisingTrackingEnabled
     }
 
-    @objc public func appTrackingTransparencyStatus() -> UInt {
+    func appTrackingTransparencyStatus() -> UInt {
         guard #available(iOS 14.0, *) else {
             return 0 // ATTrackingManagerAuthorizationStatus.notDetermined
         }
@@ -101,7 +101,7 @@ public class DeviceAccessManager: NSObject {
 
     // MARK: - Screen
 
-    @objc public func screenSize() -> CGSize {
+    func screenSize() -> CGSize {
         UIDevice.current.screenSize
     }
 }

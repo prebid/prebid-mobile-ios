@@ -15,21 +15,21 @@
 
 import UIKit
 
-@objc(PBMAdViewButtonDecorator) @objcMembers
-public class AdViewButtonDecorator: NSObject {
+
+class AdViewButtonDecorator: NSObject {
     
     // MARK: - Public proprties
     
-    public var button: UIButton
-    public var buttonPosition: Position
-    public var customButtonPosition: CGRect
-    public var buttonArea: Double
+    var button: UIButton
+    var buttonPosition: Position
+    var customButtonPosition: CGRect
+    var buttonArea: Double
     
-    public var isMRAID: Bool
+    var isMRAID: Bool
     
-    public var buttonTouchUpInsideBlock: VoidBlock?
+    var buttonTouchUpInsideBlock: VoidBlock?
     
-    public override init() {
+    override init() {
         button = UIButton()
         customButtonPosition = .zero
         buttonPosition = .topRight
@@ -38,14 +38,14 @@ public class AdViewButtonDecorator: NSObject {
         super.init()
     }
     
-    public func setImage(_ image: UIImage) {
+    func setImage(_ image: UIImage) {
         buttonImage = image
         button.setImage(buttonImage, for: .normal)
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
     }
     
-    public func addButton(to view: UIView, displayView: UIView) {
+    func addButton(to view: UIView, displayView: UIView) {
         self.displayView = displayView
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -54,25 +54,25 @@ public class AdViewButtonDecorator: NSObject {
         updateButtonConstraints()
     }
     
-    public func removeButtonFromSuperview() {
+    func removeButtonFromSuperview() {
         button.removeFromSuperview()
     }
     
-    public func bringButtonToFront() {
+    func bringButtonToFront() {
         button.superview?.bringSubviewToFront(button)
     }
     
-    public func sendSubviewToBack() {
+    func sendSubviewToBack() {
         button.superview?.sendSubviewToBack(button)
     }
     
-    public func updateButtonConstraints() {
+    func updateButtonConstraints() {
         button.superview?.removeConstraints(activeConstraints ?? [])
         activeConstraints = createButtonConstraints()
         button.superview?.addConstraints(activeConstraints ?? [])
     }
     
-    public func getButtonConstraintConstant() -> CGFloat {
+    func getButtonConstraintConstant() -> CGFloat {
         let screenWidth = UIApplication.shared.statusBarOrientation.isPortrait ? UIScreen.main.bounds.width : UIScreen.main.bounds.height
         var btnConstraintConstant = (screenWidth * buttonArea) / 2
         
@@ -83,13 +83,13 @@ public class AdViewButtonDecorator: NSObject {
         return isMRAID ? 0 : btnConstraintConstant
     }
     
-    public func getButtonSize() -> CGSize {
+    func getButtonSize() -> CGSize {
         let screenWidth = UIApplication.shared.statusBarOrientation.isPortrait ? UIScreen.main.bounds.width : UIScreen.main.bounds.height
         let btnSizeValue = screenWidth * buttonArea
         return CGSize(width: btnSizeValue, height: btnSizeValue)
     }
     
-    public func buttonTappedAction() {
+    @objc func buttonTappedAction() {
         if let buttonTouchUpInsideBlock = buttonTouchUpInsideBlock {
             buttonTouchUpInsideBlock()
         }

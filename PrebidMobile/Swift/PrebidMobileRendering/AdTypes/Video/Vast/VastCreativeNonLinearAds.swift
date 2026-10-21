@@ -15,24 +15,24 @@
 
 import Foundation
 
-@objc(PBMVastCreativeNonLinearAds)
+
 class VastCreativeNonLinearAds: VastCreativeAbstract, VastResourceContainer {
 
     // Untyped `NSMutableArray`: surviving ObjC parser code appends in place.
     // Elements are `VastCreativeNonLinearAdsNonLinear`.
-    @objc public var nonLinears = NSMutableArray()
+    var nonLinears = NSMutableArray()
 
     // VastResourceContainer
-    @objc public var resourceType = VastResourceType.staticResource
-    @objc public var resource: String?
-    @objc public var staticType: String?
+    var resourceType = VastResourceType.staticResource
+    var resource: String?
+    var staticType: String?
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(copyTracking:)
-    public func copyTracking(fromNonLinearAds: VastCreativeNonLinearAds) {
+    
+    func copyTracking(fromNonLinearAds: VastCreativeNonLinearAds) {
         for case let fromNonLinear as VastCreativeNonLinearAdsNonLinear in fromNonLinearAds.nonLinears {
             for case let toNonLinear as VastCreativeNonLinearAdsNonLinear in nonLinears {
                 toNonLinear.clickTrackingURIs.addObjects(from: Array(fromNonLinear.clickTrackingURIs))

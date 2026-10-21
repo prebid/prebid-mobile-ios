@@ -15,28 +15,28 @@
 
 import Foundation
 
-public typealias PBMDownloadDataCompletionClosure = (Data?, Error?) -> Void
+typealias PBMDownloadDataCompletionClosure = (Data?, Error?) -> Void
 
-@objc(PBMDownloadDataHelper)
-public class DownloadDataHelper: NSObject {
+
+class DownloadDataHelper: NSObject {
 
     private weak var serverConnection: PrebidServerConnectionProtocol?
 
-    @objc(initWithServerConnection:)
-    public init(serverConnection: PrebidServerConnectionProtocol) {
+    
+    init(serverConnection: PrebidServerConnectionProtocol) {
         self.serverConnection = serverConnection
         super.init()
     }
 
-    @objc(downloadDataForURL:completionClosure:)
-    public func downloadData(for url: URL?, completionClosure: @escaping PBMDownloadDataCompletionClosure) {
+    
+    func downloadData(for url: URL?, completionClosure: @escaping PBMDownloadDataCompletionClosure) {
         serverConnection?.download(url?.absoluteString) { response in
             completionClosure(response.rawData, response.error)
         }
     }
 
-    @objc(downloadDataForURL:maxSize:completionClosure:)
-    public func downloadData(for url: URL?, maxSize: Int, completionClosure: @escaping PBMDownloadDataCompletionClosure) {
+    
+    func downloadData(for url: URL?, maxSize: Int, completionClosure: @escaping PBMDownloadDataCompletionClosure) {
         // `self` is captured strongly on purpose, matching the ObjC original. Callers
         // such as PBMCreativeFactoryJob create the helper as a bare local and return
         // immediately; this capture is the only thing keeping it alive across the

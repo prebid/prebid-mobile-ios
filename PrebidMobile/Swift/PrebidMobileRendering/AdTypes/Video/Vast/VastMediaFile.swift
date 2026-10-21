@@ -15,29 +15,29 @@
 
 import Foundation
 
-@objc(PBMVastMediaFile)
+
 class VastMediaFile: NSObject {
 
-    @objc public var streamingDeliver = false
-    @objc public var type = ""
-    @objc public var width = 0
-    @objc public var height = 0
-    @objc public var mediaURI = ""
+    var streamingDeliver = false
+    var type = ""
+    var width = 0
+    var height = 0
+    var mediaURI = ""
 
-    @objc public var id: String?
-    @objc public var codec: String?
-    @objc public var deivery: String?
-    @objc public var bitrate: NSNumber?
-    @objc public var minBitrate: NSNumber?
-    @objc public var maxBitrate: NSNumber?
-    @objc public var scalable: NSNumber?
-    @objc public var maintainAspectRatio: NSNumber?
-    @objc public var apiFramework: String?
+    var id: String?
+    var codec: String?
+    var deivery: String?
+    var bitrate: NSNumber?
+    var minBitrate: NSNumber?
+    var maxBitrate: NSNumber?
+    var scalable: NSNumber?
+    var maintainAspectRatio: NSNumber?
+    var apiFramework: String?
 
-    @objc public override init() { super.init() }
+    override init() { super.init() }
 
-    @objc(setDeliver:)
-    public func setDeliver(_ deliveryMode: String?) {
+    
+    func setDeliver(_ deliveryMode: String?) {
         streamingDeliver = deliveryMode == "streaming"
     }
 }

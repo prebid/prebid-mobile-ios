@@ -15,25 +15,25 @@
 
 import Foundation
 
-@objc(PBMVastAbstractAd)
+
 class VastAbstractAd: NSObject {
 
-    @objc public weak var ownerResponse: VastResponse?
+    weak var ownerResponse: VastResponse?
 
-    @objc public var identifier = ""
-    @objc public var sequence = 0
-    @objc public var adSystem = ""
-    @objc public var adSystemVersion = ""
+    var identifier = ""
+    var sequence = 0
+    var adSystem = ""
+    var adSystemVersion = ""
 
     // Untyped `NSMutableArray` (not `[String]`): surviving ObjC code appends in place, which a
     // Swift value-type array bridged through a getter would not support.
-    @objc public var impressionURIs = NSMutableArray()
-    @objc public var errorURIs = NSMutableArray()
+    var impressionURIs = NSMutableArray()
+    var errorURIs = NSMutableArray()
 
     // Elements are `VastCreativeAbstract`; untyped for the same reason as above.
-    @objc public var creatives = NSMutableArray()
+    var creatives = NSMutableArray()
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 }

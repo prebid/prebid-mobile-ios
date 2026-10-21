@@ -15,23 +15,23 @@
 
 import Foundation
 
-@objc(PBMORTBContentProducer)
-public class ORTBContentProducer: NSObject, PBMJsonCodable {
+
+class ORTBContentProducer: NSObject, PBMJsonCodable {
     
     /// Content producer or originator ID.
-    @objc public var id: String?
+    var id: String?
     
     /// Content producer or originator name
-    @objc public var name: String?
+    var name: String?
     
     /// Array of IAB content categories that describe the content producer.
-    @objc public var cat: [String]?
+    var cat: [String]?
     
     /// Highest level domain of the content producer.
-    @objc public var domain: String?
+    var domain: String?
     
     /// Placeholder for exchange-specific extensions to OpenRTB.
-    @objc public var ext: [String : Any]?
+    var ext: [String : Any]?
 
     private enum KeySet: String {
         case id
@@ -41,12 +41,12 @@ public class ORTBContentProducer: NSObject, PBMJsonCodable {
         case ext
     }
     
-    public override init() {
+    override init() {
         super.init()
     }
         
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String : Any]) {
+    
+    required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
         id          = json[.id]
@@ -56,8 +56,8 @@ public class ORTBContentProducer: NSObject, PBMJsonCodable {
         ext         = json[.ext]
     }
     
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String : Any] {
+    
+    var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.id]           = id

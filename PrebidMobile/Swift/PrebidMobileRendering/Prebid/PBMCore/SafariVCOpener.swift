@@ -16,7 +16,7 @@
 import UIKit
 import SafariServices
 
-@objc(PBMSafariVCOpener)
+
 class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
 
     private let sdkConfiguration: Prebid
@@ -41,8 +41,8 @@ class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
         fatalError("init() is unavailable")
     }
 
-    @objc(initWithSDKConfiguration:modalManager:viewControllerProvider:measurementSessionProvider:onWillLoadURLInClickthrough:onWillLeaveAppBlock:onClickthroughPoppedBlock:onDidLeaveAppBlock:)
-    public init(
+    
+    init(
         sdkConfiguration: Prebid,
         modalManager: ModalManager?,
         viewControllerProvider: @escaping () -> UIViewController?,
@@ -63,8 +63,8 @@ class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
         super.init()
     }
 
-    @objc(openURL:onClickthroughExitBlock:)
-    public func openURL(_ url: URL, onClickthroughExitBlock: VoidBlock?) -> Bool {
+    
+    func openURL(_ url: URL, onClickthroughExitBlock: VoidBlock?) -> Bool {
         self.onClickthroughExitBlock = onClickthroughExitBlock
 
         guard let urlScheme = getURLScheme(url) else {
@@ -158,7 +158,7 @@ class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
 
     // MARK: - SFSafariViewControllerDelegate
 
-    public func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         if let currentWindowLockerKey {
             windowLockers.removeValue(forKey: currentWindowLockerKey)
             self.currentWindowLockerKey = nil
@@ -168,7 +168,7 @@ class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
         onClickthroughExitBlock?()
     }
 
-    public func safariViewControllerWillOpenInBrowser(_ controller: SFSafariViewController) {
+    func safariViewControllerWillOpenInBrowser(_ controller: SFSafariViewController) {
         onDidLeaveAppBlock?(nil)
     }
 }

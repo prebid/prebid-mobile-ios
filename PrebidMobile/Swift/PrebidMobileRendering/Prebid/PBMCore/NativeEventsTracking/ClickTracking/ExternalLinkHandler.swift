@@ -15,21 +15,21 @@
 
 import Foundation
 
-@objc(PBMExternalLinkHandler)
+
 class ExternalLinkHandler: NSObject {
 
     private let primaryUrlOpener: ExternalURLOpenerBlock
     private let deepLinkUrlOpener: ExternalURLOpenerBlock
 
-    @objc public let trackingUrlVisitor: TrackingURLVisitorBlock
+    let trackingUrlVisitor: TrackingURLVisitorBlock
 
     @available(*, unavailable)
     override init() {
         fatalError("init() is unavailable")
     }
 
-    @objc(initWithPrimaryUrlOpener:deepLinkUrlOpener:trackingUrlVisitor:)
-    public init(
+    
+    init(
         primaryUrlOpener: @escaping ExternalURLOpenerBlock,
         deepLinkUrlOpener: @escaping ExternalURLOpenerBlock,
         trackingUrlVisitor: @escaping TrackingURLVisitorBlock
@@ -40,8 +40,8 @@ class ExternalLinkHandler: NSObject {
         super.init()
     }
 
-    @objc(openExternalUrl:trackingUrls:completion:onClickthroughExitBlock:)
-    public func openExternalUrl(
+    
+    func openExternalUrl(
         _ url: URL,
         trackingUrls: [String]?,
         completion: @escaping URLOpenResultHandlerBlock,
@@ -57,7 +57,7 @@ class ExternalLinkHandler: NSObject {
         }, onClickthroughExitBlock)
     }
 
-    @objc public var asDeepLinkHandler: ExternalLinkHandler {
+    var asDeepLinkHandler: ExternalLinkHandler {
         ExternalLinkHandler(
             primaryUrlOpener: deepLinkUrlOpener,
             deepLinkUrlOpener: deepLinkUrlOpener,
@@ -65,8 +65,8 @@ class ExternalLinkHandler: NSObject {
         )
     }
 
-    @objc(handlerByAddingUrlOpenAttempter:)
-    public func handlerByAddingUrlOpenAttempter(
+    
+    func handlerByAddingUrlOpenAttempter(
         _ urlOpenAttempter: @escaping URLOpenAttempterBlock
     ) -> ExternalLinkHandler {
         let currentUrlOpener = primaryUrlOpener

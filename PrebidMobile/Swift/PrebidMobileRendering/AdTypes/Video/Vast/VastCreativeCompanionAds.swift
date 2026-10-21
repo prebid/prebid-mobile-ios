@@ -16,24 +16,24 @@
 import Foundation
 import UIKit
 
-@objc(PBMVastCreativeCompanionAds)
+
 class VastCreativeCompanionAds: VastCreativeAbstract {
 
     // Untyped `NSMutableArray`: surviving ObjC parser code appends in place.
     // Elements are `VastCreativeCompanionAdsCompanion`.
-    @objc public var companions = NSMutableArray()
-    @objc public var requiredMode = ""
+    var companions = NSMutableArray()
+    var requiredMode = ""
 
     // Computed on first use and cached, like the ObjC original: companions added afterwards are not picked up.
     private var myFeasibleCompanions: [VastCreativeCompanionAdsCompanion]?
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 
     // MARK: - Public
 
-    @objc public func feasibleCompanions() -> [VastCreativeCompanionAdsCompanion] {
+    func feasibleCompanions() -> [VastCreativeCompanionAdsCompanion] {
         if let cachedCompanions = myFeasibleCompanions {
             return cachedCompanions
         }
@@ -49,7 +49,7 @@ class VastCreativeCompanionAds: VastCreativeAbstract {
         return feasibleCompanions
     }
 
-    @objc public func canPlayRequiredCompanions() -> Bool {
+    func canPlayRequiredCompanions() -> Bool {
         // The `PBMVastRequiredMode` constants are ObjC-only (S2.1-A), so the raw strings are used here.
         if requiredMode == "all" {
             // Can we play all of them?
@@ -67,8 +67,8 @@ class VastCreativeCompanionAds: VastCreativeAbstract {
         return true
     }
 
-    @objc(copyTracking:)
-    public func copyTracking(fromCompanionAds: VastCreativeCompanionAds) {
+    
+    func copyTracking(fromCompanionAds: VastCreativeCompanionAds) {
         for case let fromCompanion as VastCreativeCompanionAdsCompanion in fromCompanionAds.companions {
             for case let toCompanion as VastCreativeCompanionAdsCompanion in companions {
                 toCompanion.clickTrackingURIs.addObjects(from: Array(fromCompanion.clickTrackingURIs))

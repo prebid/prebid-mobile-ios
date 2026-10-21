@@ -18,8 +18,8 @@ import Foundation
 
 typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderWithPrebid: Bool) -> Bool
 
-@objc(PBMAdLoadFlowController)
-@objcMembers
+
+
 class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
 
     // MARK: - Properties
@@ -38,8 +38,8 @@ class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
     private var primaryAdObject: AnyObject?
     private var adSize: NSValue?
 
-    @objc let dispatchQueue: DispatchQueue
-    @objc let mutationLock = NSLock()
+    let dispatchQueue: DispatchQueue
+    let mutationLock = NSLock()
 
     // MARK: - Init
 
@@ -68,7 +68,7 @@ class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
 
     // MARK: - PBMAdLoaderFlowDelegate
 
-    public func adLoader(_ adLoader: AdLoaderProtocol, loadedPrimaryAd adObject: AnyObject, adSize: NSValue?) {
+    func adLoader(_ adLoader: AdLoaderProtocol, loadedPrimaryAd adObject: AnyObject, adSize: NSValue?) {
         enqueueGatedBlock { [weak self] in
             if let error = self?.bidRequestError {
                 self?.bidRequestError = nil
@@ -80,7 +80,7 @@ class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
         }
     }
 
-    public func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrimarySDKError error: Error?) {
+    func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrimarySDKError error: Error?) {
         enqueueGatedBlock { [weak self] in
             guard self?.bidResponse?.winningBid != nil else {
                 self?.reportLoadingFailedWithError(error)
@@ -90,13 +90,13 @@ class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
         }
     }
 
-    public func adLoaderDidWinPrebid(_ adLoader: AdLoaderProtocol) {
+    func adLoaderDidWinPrebid(_ adLoader: AdLoaderProtocol) {
         enqueueGatedBlock { [weak self] in
             self?.loadPrebidDisplayView()
         }
     }
 
-    public func adLoaderLoadedPrebidAd(_ adLoader: AdLoaderProtocol) {
+    func adLoaderLoadedPrebidAd(_ adLoader: AdLoaderProtocol) {
         enqueueGatedBlock { [weak self] in
             if let bidSize = self?.bidResponse?.winningBid?.size {
                 self?.adSize = NSValue(cgSize: bidSize)
@@ -105,7 +105,7 @@ class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
         }
     }
 
-    public func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrebidError error: Error?) {
+    func adLoader(_ adLoader: AdLoaderProtocol, failedWithPrebidError error: Error?) {
         enqueueGatedBlock { [weak self] in
             self?.prebidAdObject = nil
             self?.reportLoadingFailedWithError(error)
@@ -114,7 +114,7 @@ class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
 
     // MARK: - Gated Enqueue Helpers
 
-    @objc func enqueueGatedBlock(_ block: @escaping VoidBlock) {
+    func enqueueGatedBlock(_ block: @escaping VoidBlock) {
         dispatchQueue.async { [weak self] in
             self?.mutationLock.lock()
             block()

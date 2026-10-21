@@ -15,19 +15,19 @@
 
 import Foundation
 
-@objc(PBMExternalURLOpenCallbacks)
+
 class ExternalURLOpenCallbacks: NSObject {
 
-    @objc public let urlOpenedCallback: URLOpenResultHandlerBlock
-    @objc public let onClickthroughExitBlock: VoidBlock?
+    let urlOpenedCallback: URLOpenResultHandlerBlock
+    let onClickthroughExitBlock: VoidBlock?
 
     @available(*, unavailable)
     override init() {
         fatalError("init() is unavailable")
     }
 
-    @objc(initWithUrlOpenedCallback:onClickthroughExitBlock:)
-    public init(
+    
+    init(
         urlOpenedCallback: @escaping URLOpenResultHandlerBlock,
         onClickthroughExitBlock: VoidBlock?
     ) {

@@ -16,24 +16,24 @@
 
 import Foundation
 
-@objc(PBMMRAIDState)
+
 class MRAIDState: NSObject, RawRepresentable {
-    public typealias RawValue = String
+    typealias RawValue = String
     
-    @objc public var rawValue: String
+    var rawValue: String
     
-    public required init(rawValue: String) {
+    required init(rawValue: String) {
         self.rawValue = rawValue
     }
     
-    @objc public static let notEnabled      = MRAIDState(rawValue: "not_enabled")
-    @objc public static let defaultState    = MRAIDState(rawValue: "default")
-    @objc public static let expanded        = MRAIDState(rawValue: "expanded")
-    @objc public static let hidden          = MRAIDState(rawValue: "hidden")
-    @objc public static let loading         = MRAIDState(rawValue: "loading")
-    @objc public static let resized         = MRAIDState(rawValue: "resized")
+    static let notEnabled      = MRAIDState(rawValue: "not_enabled")
+    static let defaultState    = MRAIDState(rawValue: "default")
+    static let expanded        = MRAIDState(rawValue: "expanded")
+    static let hidden          = MRAIDState(rawValue: "hidden")
+    static let loading         = MRAIDState(rawValue: "loading")
+    static let resized         = MRAIDState(rawValue: "resized")
     
-    public override func isEqual(_ object: Any?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? MRAIDState else {
             return false
         }
@@ -41,11 +41,11 @@ class MRAIDState: NSObject, RawRepresentable {
         return rawValue == other.rawValue
     }
     
-    public override var description: String {
+    override var description: String {
         rawValue
     }
     
-    public override var debugDescription: String {
+    override var debugDescription: String {
         rawValue
     }
 }

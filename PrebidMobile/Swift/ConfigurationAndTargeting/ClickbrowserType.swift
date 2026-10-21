@@ -18,8 +18,8 @@ import Foundation
 // Indicates the type of browser opened upon clicking the
 // creative in an app, where embedded = 0, native = 1.
 
-@objc(PBMClickbrowserType)
-public enum ClickbrowserType: Int {
+
+enum ClickbrowserType: Int {
     
     case embedded = 0
     case native

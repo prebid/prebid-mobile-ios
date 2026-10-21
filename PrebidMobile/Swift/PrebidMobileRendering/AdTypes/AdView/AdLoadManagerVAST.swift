@@ -15,14 +15,14 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC code references or subclasses it any more.
-@objc(PBMAdLoadManagerVAST)
+
 class AdLoadManagerVAST: AdLoadManagerBase {
 
     private var creativeModelCollectionMaker: CreativeModelCollectionMakerVAST?
     private var adRequester: AdRequesterVAST?
 
-    @objc(loadFromString:)
-    public func load(from vastString: String) {
+    
+    func load(from vastString: String) {
         dispatchQueue.async { [weak self] in
             guard let self else {
                 Log.error("PBMAdLoadManagerVast is nil!")
@@ -52,8 +52,8 @@ class AdLoadManagerVAST: AdLoadManagerBase {
         return true
     }
 
-    @objc(requestCompletedSuccess:)
-    public func requestCompletedSuccess(_ adRequestResponse: AdRequestResponseVAST) {
+    
+    func requestCompletedSuccess(_ adRequestResponse: AdRequestResponseVAST) {
         Log.whereAmI()
 
         // The maker exists once loading has started. Before that the ObjC messaged nil, which was a silent no-op.

@@ -15,39 +15,39 @@
 
 import Foundation
 
-@objc(PBMORTBVideo)
-public class ORTBVideo: NSObject, PBMJsonCodable {
+
+class ORTBVideo: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var mimes: [String]?
-    @objc public var minduration: NSNumber?
-    @objc public var maxduration: NSNumber?
-    @objc public var protocols: [NSNumber]?
-    @objc public var w: NSNumber?
-    @objc public var h: NSNumber?
-    @objc public var startdelay: NSNumber?
-    @objc public var placement: NSNumber?
-    @objc public var plcmt: NSNumber?
-    @objc public var linearity: NSNumber?
-    @objc public var minbitrate: NSNumber?
-    @objc public var maxbitrate: NSNumber?
-    @objc public var playbackend: NSNumber?
-    @objc public var delivery: [NSNumber]?
-    @objc public var pos: NSNumber?
-    @objc public var api: [NSNumber]?
-    @objc public var battr: [NSNumber]?
-    @objc public var skip: NSNumber?
-    @objc public var playbackmethod: [NSNumber]?
+    var mimes: [String]?
+    var minduration: NSNumber?
+    var maxduration: NSNumber?
+    var protocols: [NSNumber]?
+    var w: NSNumber?
+    var h: NSNumber?
+    var startdelay: NSNumber?
+    var placement: NSNumber?
+    var plcmt: NSNumber?
+    var linearity: NSNumber?
+    var minbitrate: NSNumber?
+    var maxbitrate: NSNumber?
+    var playbackend: NSNumber?
+    var delivery: [NSNumber]?
+    var pos: NSNumber?
+    var api: [NSNumber]?
+    var battr: [NSNumber]?
+    var skip: NSNumber?
+    var playbackmethod: [NSNumber]?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         mimes          = json[.mimes]
@@ -73,8 +73,8 @@ public class ORTBVideo: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.mimes]       = mimes
         json[.minduration] = minduration

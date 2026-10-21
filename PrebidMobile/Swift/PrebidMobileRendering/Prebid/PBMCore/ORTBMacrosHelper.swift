@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc 
+
 class ORTBMacrosHelper: NSObject {
     
     let macroValues: [String : String]
@@ -27,12 +27,12 @@ class ORTBMacrosHelper: NSObject {
         ]
     }
         
-    @objc public convenience init(bid: Bid) {
+    convenience init(bid: Bid) {
         self.init(bidPrice: bid.bid.price ?? 0.0)
     }
     
-    @objc(replaceMacrosInString:)
-    public func replaceMacros(in sourceString: String?) -> String? {
+    
+    func replaceMacros(in sourceString: String?) -> String? {
         guard var mutatedString = sourceString else {
             return nil
         }

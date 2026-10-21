@@ -15,40 +15,40 @@
 
 import Foundation
 
-@objc(PBMORTBImp)
-public class ORTBImp: NSObject, PBMJsonCodable {
+
+class ORTBImp: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var impID: String?
-    @objc public var banner: ORTBBanner?
-    @objc public var video: ORTBVideo?
-    @objc public var native: ORTBNative?
-    @objc public var pmp: ORTBPmp = ORTBPmp()
-    @objc public var displaymanager: String?
-    @objc public var displaymanagerver: String?
+    var impID: String?
+    var banner: ORTBBanner?
+    var video: ORTBVideo?
+    var native: ORTBNative?
+    var pmp: ORTBPmp = ORTBPmp()
+    var displaymanager: String?
+    var displaymanagerver: String?
     // Optional despite the nonnull ObjC declaration: `initWithJsonDictionary:` assigned the
     // ivars directly and unconditionally, so an absent JSON key cleared the default back to
     // nil and the key was then omitted on re-encode. See playbook Gap S2.5-C.
-    @objc public var instl: NSNumber? = 0
-    @objc public var tagid: String?
-    @objc public var clickbrowser: NSNumber? = 1
-    @objc public var secure: NSNumber? = 0
-    @objc public var rewarded: NSNumber?
-    @objc public var extPrebid: ORTBImpExtPrebid = ORTBImpExtPrebid()
-    @objc public var extSkadn: ORTBImpExtSkadn = ORTBImpExtSkadn()
-    @objc public var extData: NSMutableDictionary? = NSMutableDictionary()
-    @objc public var extKeywords: String?
-    @objc public var extGPID: String?
+    var instl: NSNumber? = 0
+    var tagid: String?
+    var clickbrowser: NSNumber? = 1
+    var secure: NSNumber? = 0
+    var rewarded: NSNumber?
+    var extPrebid: ORTBImpExtPrebid = ORTBImpExtPrebid()
+    var extSkadn: ORTBImpExtSkadn = ORTBImpExtSkadn()
+    var extData: NSMutableDictionary? = NSMutableDictionary()
+    var extKeywords: String?
+    var extGPID: String?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         impID            = json[.id]
@@ -76,8 +76,8 @@ public class ORTBImp: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.id]                = impID
         json[.banner]            = banner

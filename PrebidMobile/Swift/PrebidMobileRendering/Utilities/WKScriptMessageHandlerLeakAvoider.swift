@@ -17,18 +17,18 @@ import WebKit
 
 // Breaks the retain cycle that WKUserContentController creates on its message handlers.
 // See: https://stackoverflow.com/questions/26383031/wkwebview-causes-my-view-controller-to-leak
-@objc(PBMWKScriptMessageHandlerLeakAvoider)
-public class WKScriptMessageHandlerLeakAvoider: NSObject, WKScriptMessageHandler {
 
-    @objc public weak var delegate: WKScriptMessageHandler?
+class WKScriptMessageHandlerLeakAvoider: NSObject, WKScriptMessageHandler {
 
-    @objc(initWithDelegate:)
-    public init(delegate: WKScriptMessageHandler) {
+    weak var delegate: WKScriptMessageHandler?
+
+    
+    init(delegate: WKScriptMessageHandler) {
         self.delegate = delegate
         super.init()
     }
 
-    public func userContentController(_ userContentController: WKUserContentController,
+    func userContentController(_ userContentController: WKUserContentController,
                                       didReceive message: WKScriptMessage) {
         delegate?.userContentController(userContentController, didReceive: message)
     }

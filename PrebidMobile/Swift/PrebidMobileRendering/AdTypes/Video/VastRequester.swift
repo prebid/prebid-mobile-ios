@@ -16,20 +16,20 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
-@objc(PBMVastRequester)
+
 class VastRequester: NSObject {
 
     // Replaces the ObjC `AdRequestCallback` typedef, which only this class used.
     // Bridges to `void (^)(PrebidServerResponse * _Nullable, NSError * _Nullable)`.
-    public typealias Completion = (PrebidServerResponse?, Error?) -> Void
+    typealias Completion = (PrebidServerResponse?, Error?) -> Void
 
     private static let vastContentType = "application/x-www-form-urlencoded"
 
     // `url` stays Optional even though the deleted ObjC header declared it nonnull: a nil
     // used to reach the completion as an error (via the failed `PBMURLComponents` init),
     // and that must not become a bridging trap.
-    @objc(loadVastURL:connection:completion:)
-    public static func loadVastURL(
+    
+    static func loadVastURL(
         _ url: String?,
         connection: PrebidServerConnectionProtocol,
         completion: @escaping Completion

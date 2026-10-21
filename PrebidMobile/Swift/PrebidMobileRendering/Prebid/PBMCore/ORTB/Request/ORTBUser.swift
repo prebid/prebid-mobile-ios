@@ -15,27 +15,27 @@
 
 import Foundation
 
-@objc(PBMORTBUser)
-public class ORTBUser: NSObject, PBMJsonCodable {
+
+class ORTBUser: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var keywords: String?
-    @objc public var customdata: String?
-    @objc public var geo: ORTBGeo = ORTBGeo()
-    @objc public var data: [ORTBContentData]?
-    @objc public var ext: NSMutableDictionary? = NSMutableDictionary()
-    @objc public var userid: String?
-    @objc public var eids: [[String: Any]]?
+    var keywords: String?
+    var customdata: String?
+    var geo: ORTBGeo = ORTBGeo()
+    var data: [ORTBContentData]?
+    var ext: NSMutableDictionary? = NSMutableDictionary()
+    var userid: String?
+    var eids: [[String: Any]]?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         keywords   = json[.keywords]
@@ -54,8 +54,8 @@ public class ORTBUser: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.keywords]   = keywords
         json[.customdata] = customdata
@@ -81,7 +81,7 @@ public class ORTBUser: NSObject, PBMJsonCodable {
 
     // MARK: - ObjC API
 
-    @objc public func appendEids(_ eids: [[String: Any]]) {
+    func appendEids(_ eids: [[String: Any]]) {
         if ext == nil { ext = NSMutableDictionary() }
         if ext!["eids"] == nil {
             ext!["eids"] = eids

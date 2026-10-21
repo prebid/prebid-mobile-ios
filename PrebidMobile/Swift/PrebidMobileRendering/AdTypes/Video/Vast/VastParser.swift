@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc(PBMVastParser)
+
 class VastParser: NSObject, XMLParserDelegate {
 
     var parsedResponse: VastResponse?
@@ -44,12 +44,12 @@ class VastParser: NSObject, XMLParserDelegate {
 
     // MARK: - Initialization
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(parseAdsResponse:)
-    public func parseAdsResponse(_ data: Data) -> VastResponse? {
+    
+    func parseAdsResponse(_ data: Data) -> VastResponse? {
         let xmlParser = XMLParser(data: data)
         xmlParser.delegate = self
 
@@ -153,17 +153,17 @@ class VastParser: NSObject, XMLParserDelegate {
 
     // MARK: - NSXMLParserDelegate
 
-    public func parserDidStartDocument(_ parser: XMLParser) {
+    func parserDidStartDocument(_ parser: XMLParser) {
         parsedResponse = VastResponse()
     }
 
-    public func parserDidEndDocument(_ parser: XMLParser) {
+    func parserDidEndDocument(_ parser: XMLParser) {
         // sent when the parser has completed parsing. If this is encountered, the parse was successful.
         parseSuccessful = true
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    public func parser(_ parser: XMLParser,
+    func parser(_ parser: XMLParser,
                        didStartElement elementName: String,
                        namespaceURI: String?,
                        qualifiedName qName: String?,
@@ -313,7 +313,7 @@ class VastParser: NSObject, XMLParserDelegate {
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    public func parser(_ parser: XMLParser,
+    func parser(_ parser: XMLParser,
                        didEndElement elementName: String,
                        namespaceURI: String?,
                        qualifiedName qName: String?) {
@@ -580,12 +580,12 @@ class VastParser: NSObject, XMLParserDelegate {
         currentElementAttributes = nil
     }
 
-    public func parser(_ parser: XMLParser, foundCharacters string: String) {
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
         let trimmedString = string.trimmingCharacters(in: .whitespacesAndNewlines)
         currentElementContent += trimmedString
     }
 
-    public func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
+    func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
         // this reports a CDATA block to the delegate as a Data.
         guard let string = String(data: CDATABlock, encoding: .utf8) else {
             return

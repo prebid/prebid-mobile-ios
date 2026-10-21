@@ -17,8 +17,8 @@ import UIKit
 
 /// Timer that stops in background and resumes in foreground. Fires callback on timer completion.
 /// Can execute only one task at a time.
-@objc(PBMBackgroundAwareTimer) @objcMembers
-public class BackgroundAwareTimer: NSObject {
+
+class BackgroundAwareTimer: NSObject {
     
     private(set) var isRunning: Bool
     private var remainingTime: TimeInterval
@@ -27,7 +27,7 @@ public class BackgroundAwareTimer: NSObject {
     
     private var gcdItem: DispatchWorkItem?
     
-    public override init() {
+    override init() {
         self.remainingTime = 0
         self.isRunning = false
         
@@ -52,7 +52,7 @@ public class BackgroundAwareTimer: NSObject {
         invalidateTimer()
     }
     
-    public func startTimer(with interval: TimeInterval, completion: @escaping () -> Void) {
+    func startTimer(with interval: TimeInterval, completion: @escaping () -> Void) {
         guard !isRunning else { return }
         
         startTime = Date()
@@ -75,7 +75,7 @@ public class BackgroundAwareTimer: NSObject {
         isRunning = true
     }
     
-    public func invalidateTimer() {
+    func invalidateTimer() {
         gcdItem = nil
         completion = nil
         isRunning = false

@@ -15,23 +15,23 @@
 
 import Foundation
 
-@objc(PBMORTBImpExtPrebid)
-public class ORTBImpExtPrebid: NSObject, PBMJsonCodable {
+
+class ORTBImpExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var storedRequestID: String?
-    @objc public var isRewardedInventory: Bool = false
-    @objc public var storedAuctionResponse: String?
+    var storedRequestID: String?
+    var isRewardedInventory: Bool = false
+    var storedAuctionResponse: String?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         storedRequestID       = (jsonDictionary["storedrequest"] as? [String: Any])?["id"] as? String
         isRewardedInventory   = jsonDictionary["is_rewarded_inventory"] != nil
@@ -40,8 +40,8 @@ public class ORTBImpExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         guard let storedRequestID = storedRequestID else { return [:] }
 
         var dict = [String: Any]()

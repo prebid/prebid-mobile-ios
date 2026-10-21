@@ -28,7 +28,7 @@ class BidRequesterImpl: NSObject, BidRequester {
     private let completionLock = NSLock()
     private var completion: Completion?
 
-    public required init(
+    required init(
         connection: PrebidServerConnectionProtocol,
         sdkConfiguration: Prebid,
         targeting: Targeting,
@@ -41,7 +41,7 @@ class BidRequesterImpl: NSObject, BidRequester {
         super.init()
     }
 
-    public func requestBids(completion: @escaping (BidResponse?, Error?) -> Void) {
+    func requestBids(completion: @escaping (BidResponse?, Error?) -> Void) {
         UserAgentService.shared.fetchUserAgent { [weak self] _ in
             self?.makeRequest(completion: completion)
         }

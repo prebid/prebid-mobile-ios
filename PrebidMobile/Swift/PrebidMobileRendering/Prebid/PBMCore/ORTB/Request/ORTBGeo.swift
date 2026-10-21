@@ -15,32 +15,32 @@
 
 import Foundation
 
-@objc(PBMORTBGeo)
-public class ORTBGeo: NSObject, PBMJsonCodable {
+
+class ORTBGeo: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var lat: NSNumber?
-    @objc public var lon: NSNumber?
-    @objc public var type: NSNumber?
-    @objc public var accuracy: NSNumber?
-    @objc public var lastfix: NSNumber?
-    @objc public var country: String?
-    @objc public var region: String?
-    @objc public var regionfips104: String?
-    @objc public var metro: String?
-    @objc public var city: String?
-    @objc public var zip: String?
-    @objc public var utcoffset: NSNumber?
+    var lat: NSNumber?
+    var lon: NSNumber?
+    var type: NSNumber?
+    var accuracy: NSNumber?
+    var lastfix: NSNumber?
+    var country: String?
+    var region: String?
+    var regionfips104: String?
+    var metro: String?
+    var city: String?
+    var zip: String?
+    var utcoffset: NSNumber?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         lat           = json[.lat]
@@ -59,8 +59,8 @@ public class ORTBGeo: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         // lat/lon converted to NSDecimalNumber to preserve decimal precision on JSON serialization
         json[.lat]           = lat.map { NSDecimalNumber(decimal: $0.decimalValue) }

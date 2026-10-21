@@ -15,29 +15,29 @@
 
 import Foundation
 
-@objc(PBMVastIcon)
+
 class VastIcon: NSObject, VastResourceContainer {
 
-    @objc public var program = ""
-    @objc public var width = 0
-    @objc public var height = 0
-    @objc public var xPosition = 0
-    @objc public var yPosition = 0
+    var program = ""
+    var width = 0
+    var height = 0
+    var xPosition = 0
+    var yPosition = 0
 
-    @objc public var startOffset: TimeInterval = 0
-    @objc public var duration: TimeInterval = 0
+    var startOffset: TimeInterval = 0
+    var duration: TimeInterval = 0
 
-    @objc public var clickThroughURI: String?
-    @objc public var clickTrackingURIs = NSMutableArray()
-    @objc public var viewTrackingURI: String?
+    var clickThroughURI: String?
+    var clickTrackingURIs = NSMutableArray()
+    var viewTrackingURI: String?
 
     // computed later
-    @objc public var displayed = false
+    var displayed = false
 
     // VastResourceContainer
-    @objc public var resourceType = VastResourceType.staticResource
-    @objc public var resource: String?
-    @objc public var staticType: String?
+    var resourceType = VastResourceType.staticResource
+    var resource: String?
+    var staticType: String?
 
-    @objc public override init() { super.init() }
+    override init() { super.init() }
 }

@@ -15,26 +15,26 @@
 
 import Foundation
 
-@objc(PBMVastCreativeLinear)
+
 class VastCreativeLinear: VastCreativeAbstract {
 
     // Untyped `NSMutableArray` (not a Swift array): surviving ObjC parser code appends in place.
     // Elements are `VastIcon`.
-    @objc public var icons = NSMutableArray()
-    @objc public var skipOffset: NSNumber?
-    @objc public var duration: TimeInterval = 0
+    var icons = NSMutableArray()
+    var skipOffset: NSNumber?
+    var duration: TimeInterval = 0
     // Elements are `VastMediaFile`.
-    @objc public var mediaFiles = NSMutableArray()
-    @objc public var vastTrackingEvents = VastTrackingEvents()
+    var mediaFiles = NSMutableArray()
+    var vastTrackingEvents = VastTrackingEvents()
 
-    @objc public var clickThroughURI: String?
-    @objc public var clickTrackingURIs = NSMutableArray()
+    var clickThroughURI: String?
+    var clickTrackingURIs = NSMutableArray()
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 
-    @objc public func bestMediaFile() -> VastMediaFile? {
+    func bestMediaFile() -> VastMediaFile? {
         let eligibleMediaFiles = mediaFiles.compactMap { $0 as? VastMediaFile }.filter {
             PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES.contains($0.type)
         }

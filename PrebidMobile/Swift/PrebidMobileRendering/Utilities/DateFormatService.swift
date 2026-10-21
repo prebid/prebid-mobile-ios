@@ -15,12 +15,12 @@
 
 import Foundation
 
-@objc(PBMDateFormatService) @objcMembers
-public class DateFormatService: NSObject {
+
+class DateFormatService: NSObject {
     
     // MARK: - Public properties
     
-    public static let shared = DateFormatService()
+    static let shared = DateFormatService()
     
     // MARK: - Private properties
     
@@ -41,7 +41,7 @@ public class DateFormatService: NSObject {
     }
     
     
-    public func formatISO8601(for strDate: String?) -> Date? {
+    func formatISO8601(for strDate: String?) -> Date? {
         guard let strDate = strDate, strDate.count >= 17 else {
             return nil
         }

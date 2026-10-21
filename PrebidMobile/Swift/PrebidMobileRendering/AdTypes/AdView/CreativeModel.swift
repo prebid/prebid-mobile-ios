@@ -29,44 +29,44 @@ import Foundation
 // --- baseURL is an optional base URL to use when loading in an PBMWebView
 // @objc and public because it will be used by publishers to display an ad in their own view
 
-@objc(PBMCreativeModel)
-class CreativeModel: NSObject {
-    @objc public var adConfiguration: AdConfiguration?
-    @objc public var eventTracker: AdModelEventTracker?
-    @objc public var displayDurationInSeconds: NSNumber?
-    @objc public var expirationInterval: NSNumber?
-    @objc public var skipOffset: NSNumber?
-    @objc public var width: Int = 0
-    @objc public var height: Int = 0
-    @objc public var html: String?
-    @objc public var targetURL: String?
-    @objc public var videoFileURL: String?
-    @objc public var revenue: String?
-    @objc public var verificationParameters: VideoVerificationParameters?
-    @objc public var trackingURLs = [String : [String]]()
 
-    @objc public var adTrackingTemplateURL: String?
-    @objc public var adDetails: AdDetails?
-    @objc public var clickThroughURL: String?
-    @objc public var isCompanionAd: Bool = false
-    @objc public var hasCompanionAd: Bool = false
+class CreativeModel: NSObject {
+    var adConfiguration: AdConfiguration?
+    var eventTracker: AdModelEventTracker?
+    var displayDurationInSeconds: NSNumber?
+    var expirationInterval: NSNumber?
+    var skipOffset: NSNumber?
+    var width: Int = 0
+    var height: Int = 0
+    var html: String?
+    var targetURL: String?
+    var videoFileURL: String?
+    var revenue: String?
+    var verificationParameters: VideoVerificationParameters?
+    var trackingURLs = [String : [String]]()
+
+    var adTrackingTemplateURL: String?
+    var adDetails: AdDetails?
+    var clickThroughURL: String?
+    var isCompanionAd: Bool = false
+    var hasCompanionAd: Bool = false
 
     // NOTE: for rewarded ads only
-    @objc public var userHasEarnedReward: Bool = false
-    @objc public var userPostRewardEventSent: Bool = false
+    var userHasEarnedReward: Bool = false
+    var userPostRewardEventSent: Bool = false
 
-    @objc public var rewardTime: NSNumber?
-    @objc public var postRewardTime: NSNumber?
+    var rewardTime: NSNumber?
+    var postRewardTime: NSNumber?
     
-    @objc public override init() {
+    override init() {
         super.init()
     }
     
-    @objc public init(adConfiguration: AdConfiguration) {
+    init(adConfiguration: AdConfiguration) {
         self.adConfiguration = adConfiguration
     }
     
-    @objc func trackEvent(_ event: TrackingEvent) {
+    func trackEvent(_ event: TrackingEvent) {
         eventTracker?.trackEvent(event)
     }
 }

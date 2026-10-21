@@ -17,11 +17,11 @@ import Foundation
 
 class WinNotifierImpl: NSObject, WinNotifier {
 
-    public required override init() {
+    required override init() {
         super.init()
     }
 
-    public static func notifyThroughConnection(
+    static func notifyThroughConnection(
         _ connection: PrebidServerConnectionProtocol,
         winningBid bid: Bid,
         callback adMarkupConsumer: @escaping AdMarkupStringHandler
@@ -65,17 +65,17 @@ class WinNotifierImpl: NSObject, WinNotifier {
         chainedNotifications(bid.adm) // launch chained events
     }
 
-    public static func winNotifierBlock(connection: PrebidServerConnectionProtocol) -> WinNotifierBlock {
+    static func winNotifierBlock(connection: PrebidServerConnectionProtocol) -> WinNotifierBlock {
         { bid, adMarkupConsumer in
             notifyThroughConnection(connection, winningBid: bid, callback: adMarkupConsumer)
         }
     }
 
-    public static var factoryBlock: WinNotifierFactoryBlock {
+    static var factoryBlock: WinNotifierFactoryBlock {
         { connection in winNotifierBlock(connection: connection) }
     }
 
-    public static func cacheUrl(fromTargeting targeting: [String: String], idKey: String) -> String? {
+    static func cacheUrl(fromTargeting targeting: [String: String], idKey: String) -> String? {
         guard let host = targeting["hb_cache_host"],
               let path = targeting["hb_cache_path"],
               let uuid = targeting[idKey] else {

@@ -17,14 +17,14 @@
 import Foundation
 import WebKit
 
-@objc(PBMHiddenWebViewManager) @objcMembers
-public class HiddenWebViewManager: NSObject {
+
+class HiddenWebViewManager: NSObject {
     
     private var hiddenWebView: WKWebView
     
     private let landingPageURL: URL?
     
-    public init(frame: CGRect, landingPageString: URL) {
+    init(frame: CGRect, landingPageString: URL) {
         hiddenWebView = WKWebView(frame: frame)
         hiddenWebView.isHidden = true
         
@@ -33,7 +33,7 @@ public class HiddenWebViewManager: NSObject {
         super.init()
     }
     
-    public func openHiddenWebView() {
+    func openHiddenWebView() {
         guard let landingPageURL = landingPageURL else {
             Log.error("landingPageURL is not valid.")
             return

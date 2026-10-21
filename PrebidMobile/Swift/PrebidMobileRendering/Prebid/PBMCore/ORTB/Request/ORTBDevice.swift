@@ -15,49 +15,49 @@
 
 import Foundation
 
-@objc(PBMORTBDevice)
-public class ORTBDevice: NSObject, PBMJsonCodable {
+
+class ORTBDevice: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var ua: String?
-    @objc public var geo: ORTBGeo = ORTBGeo()
-    @objc public var lmt: NSNumber?
-    @objc public var devicetype: NSNumber?
-    @objc public var make: String?
-    @objc public var model: String?
-    @objc public var os: String?
-    @objc public var osv: String?
-    @objc public var hwv: String?
-    @objc public var h: NSNumber?
-    @objc public var w: NSNumber?
-    @objc public var ppi: NSNumber?
-    @objc public var pxratio: NSNumber?
-    @objc public var js: NSNumber?
-    @objc public var geofetch: NSNumber?
-    @objc public var flashver: String?
-    @objc public var language: String?
-    @objc public var carrier: String?
-    @objc public var mccmnc: String?
-    @objc public var connectiontype: NSNumber?
-    @objc public var ifa: String?
-    @objc public var didsha1: String?
-    @objc public var didmd5: String?
-    @objc public var dpidsha1: String?
-    @objc public var dpidmd5: String?
-    @objc public var macsha1: String?
-    @objc public var macmd5: String?
-    @objc public var extPrebid: ORTBDeviceExtPrebid = ORTBDeviceExtPrebid()
-    @objc public var extAtts: ORTBDeviceExtAtts = ORTBDeviceExtAtts()
+    var ua: String?
+    var geo: ORTBGeo = ORTBGeo()
+    var lmt: NSNumber?
+    var devicetype: NSNumber?
+    var make: String?
+    var model: String?
+    var os: String?
+    var osv: String?
+    var hwv: String?
+    var h: NSNumber?
+    var w: NSNumber?
+    var ppi: NSNumber?
+    var pxratio: NSNumber?
+    var js: NSNumber?
+    var geofetch: NSNumber?
+    var flashver: String?
+    var language: String?
+    var carrier: String?
+    var mccmnc: String?
+    var connectiontype: NSNumber?
+    var ifa: String?
+    var didsha1: String?
+    var didmd5: String?
+    var dpidsha1: String?
+    var dpidmd5: String?
+    var macsha1: String?
+    var macmd5: String?
+    var extPrebid: ORTBDeviceExtPrebid = ORTBDeviceExtPrebid()
+    var extAtts: ORTBDeviceExtAtts = ORTBDeviceExtAtts()
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         ua             = json[.ua]
@@ -95,8 +95,8 @@ public class ORTBDevice: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.ua]             = ua
         json[.geo]            = geo

@@ -18,7 +18,7 @@ import WebKit
 import StoreKit
 
 /// Helper class that invokes SKStoreProductViewController on ad click.
-@objcMembers
+
 class PrebidSKAdNetworkAdClickHandler: NSObject {
     
     private weak var adView: UIView?

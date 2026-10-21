@@ -21,10 +21,10 @@ import Foundation
 import UIKit
 import WebKit
 
-@objc(PBMHTMLCreative)
+
 class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
-    public var downloadBlock: ((URL, @escaping PBMDownloadDataCompletionClosure) -> Void)?
+    var downloadBlock: ((URL, @escaping PBMDownloadDataCompletionClosure) -> Void)?
 
     var prebidWebView: WebView?
     var mraidController: MRAIDController?
@@ -36,8 +36,8 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
     // MARK: - Initialization
 
-    @objc(initWithCreativeModel:transaction:)
-    public required init(creativeModel: CreativeModel, transaction: Transaction) {
+    
+    required init(creativeModel: CreativeModel, transaction: Transaction) {
         // TODO: set proper base URL for prebid
         //Set the baseURL. This will cause relative URLs in the creative to inherit the URL scheme used.
         baseURL = nil
@@ -62,16 +62,16 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
     // MARK: - AbstractCreative
 
-    public override var isOpened: Bool {
+    override var isOpened: Bool {
         // Identity comparison: the ObjC original compared the state pointers.
         clickthroughVisible || (mraidController != nil && mraidController?.mraidState !== MRAIDState.defaultState)
     }
 
-    public override var displayInterval: NSNumber? {
+    override var displayInterval: NSNumber? {
         creativeModel.displayDurationInSeconds
     }
 
-    public override func setupView() {
+    override func setupView() {
         super.setupView()
 
         guard let html = creativeModel.html else {
@@ -115,7 +115,7 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
         return numberOfMatches > 0
     }
 
-    public override func display(rootViewController viewController: UIViewController) {
+    override func display(rootViewController viewController: UIViewController) {
         //Either these constraints are redundant or the initWithFrame is.
         if let prebidWebView {
             prebidWebView.PBMAddCropAndCenterConstraints(initialWidth: prebidWebView.frame.size.width,
@@ -242,7 +242,7 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
     }
 
     // The session must be created only after WebView finishes loading
-    public override func createOpenMeasurementSession() {
+    override func createOpenMeasurementSession() {
 
         if !Thread.current.isMainThread {
             Log.error("Open Measurement session can only be created on the main thread")
@@ -292,22 +292,22 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
     // MARK: - WebViewDelegate
 
-    public func webViewReadyToDisplay(_ webView: WebView) {
+    func webViewReadyToDisplay(_ webView: WebView) {
         Log.info("PBMWebView is ready to display")
 
         onResolutionCompleted()
     }
 
-    public func webView(_ webView: WebView, failedToLoadWithError error: Error) {
+    func webView(_ webView: WebView, failedToLoadWithError error: Error) {
         Log.error(error.localizedDescription)
     }
 
-    public func webView(_ webView: WebView, receivedClickthroughLink url: URL) {
+    func webView(_ webView: WebView, receivedClickthroughLink url: URL) {
         handleClickthrough(url, sdkConfiguration: sdkConfiguration)
     }
 
     // The ObjC `@try/@catch (NSException)` around this is not ported: `MRAIDController` reports its failures itself and nothing here can raise.
-    public func webView(_ webView: WebView, receivedMRAIDLink url: URL) {
+    func webView(_ webView: WebView, receivedMRAIDLink url: URL) {
         guard view is WebView else {
             Log.warn("Could not cast creative view to PBMWebView")
             return
@@ -323,7 +323,7 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
         mraidController?.webView(webView, handleMRAIDURL: url)
     }
 
-    public func webView(_ webView: WebView, receivedRewardedEventLink url: URL) {
+    func webView(_ webView: WebView, receivedRewardedEventLink url: URL) {
         if !creativeModel.userHasEarnedReward {
             creativeViewDelegate?.creativeDidSendRewardedEvent(self)
             creativeModel.userHasEarnedReward = true
@@ -334,7 +334,7 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
     // MARK: - ModalManager events
 
-    public override func modalManagerDidFinishPop(_ state: ModalState?) {
+    override func modalManagerDidFinishPop(_ state: ModalState?) {
 
         // TODO: Refactor
         // This method illustrates very precisely that we should have different creatives
@@ -372,7 +372,7 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
         creativeViewDelegate?.creativeInterstitialDidClose(self)
     }
 
-    public override func modalManagerDidLeaveApp(_ state: ModalState?) {
+    override func modalManagerDidLeaveApp(_ state: ModalState?) {
         creativeViewDelegate?.creativeInterstitialDidLeaveApp(self)
     }
 

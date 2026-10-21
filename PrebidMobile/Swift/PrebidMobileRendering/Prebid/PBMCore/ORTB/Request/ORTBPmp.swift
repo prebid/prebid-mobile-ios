@@ -15,22 +15,22 @@
 
 import Foundation
 
-@objc(PBMORTBPmp)
-public class ORTBPmp: NSObject, PBMJsonCodable {
+
+class ORTBPmp: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var private_auction: NSNumber?
-    @objc public var deals: [ORTBDeal] = []
+    var private_auction: NSNumber?
+    var deals: [ORTBDeal] = []
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         private_auction = json[.private_auction]
@@ -39,8 +39,8 @@ public class ORTBPmp: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.private_auction] = private_auction
         if !deals.isEmpty {

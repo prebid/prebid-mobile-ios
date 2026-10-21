@@ -17,10 +17,10 @@ import Foundation
 
 fileprivate let PathBuilderSecureProtocol = "https"
 
-@objc(PBMPathBuilder) @objcMembers
-public class PathBuilder: NSObject {
+
+class PathBuilder: NSObject {
     
-    public static func buildURL(for host: String, path: String = "", queryItems: [URLQueryItem]? = nil) -> String? {
+    static func buildURL(for host: String, path: String = "", queryItems: [URLQueryItem]? = nil) -> String? {
         var components = URLComponents()
         components.scheme = PathBuilderSecureProtocol
         components.host = host

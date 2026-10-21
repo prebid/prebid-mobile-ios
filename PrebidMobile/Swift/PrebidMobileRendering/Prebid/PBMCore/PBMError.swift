@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc 
+
 enum PBMErrorCode: Int {
     case generalLinear = 400
     case fileNotFound = 401
@@ -35,26 +35,26 @@ enum PBMErrorFamily: Int {
     case SDKMisuseErrors
 }
 
-@objc 
+
 class PBMErrorType: NSObject, RawRepresentable {
-    public typealias RawValue = String
-    @objc public let rawValue: String
+    typealias RawValue = String
+    let rawValue: String
     
-    required public init(rawValue: String) {
+    required init(rawValue: String) {
         self.rawValue = rawValue
     }
     
-    @objc public static let invalidRequest   = PBMErrorType(rawValue: "Invalid request")
-    @objc public static let internalError    = PBMErrorType(rawValue: "SDK internal error")
-    @objc public static let initError        = PBMErrorType(rawValue: "Initialization error")
-    @objc public static let serverError      = PBMErrorType(rawValue: "Server error")
+    static let invalidRequest   = PBMErrorType(rawValue: "Invalid request")
+    static let internalError    = PBMErrorType(rawValue: "SDK internal error")
+    static let initError        = PBMErrorType(rawValue: "Initialization error")
+    static let serverError      = PBMErrorType(rawValue: "Server error")
 }
 
-@objc 
+
 class PBMError: NSError, @unchecked Sendable {
     static let errorDomain: String = "org.prebid.mobile"
     
-    @objc public var message: String? {
+    var message: String? {
         userInfo[NSLocalizedDescriptionKey] as? String
     }
     
@@ -86,20 +86,20 @@ class PBMError: NSError, @unchecked Sendable {
                   ])
     }
     
-    @objc public static func error(message: String, type: PBMErrorType) -> PBMError {
+    static func error(message: String, type: PBMErrorType) -> PBMError {
         PBMError(message: "\(type.rawValue): \(message)", code: 0)
     }
     
-    @objc public static func error(description: String) -> PBMError {
+    static func error(description: String) -> PBMError {
         error(description: description, statusCode: .general)
     }
     
-    @objc public static func error(description: String, statusCode: PBMErrorCode) -> PBMError {
+    static func error(description: String, statusCode: PBMErrorCode) -> PBMError {
         PBMError(message: description, code: statusCode)
     }
     
-    @objc @discardableResult
-    public static func createError(_ error: UnsafeMutablePointer<NSError?>?,
+    @discardableResult
+    static func createError(_ error: UnsafeMutablePointer<NSError?>?,
                                    message: String,
                                    type: PBMErrorType) -> Bool {
         if let error {
@@ -111,8 +111,8 @@ class PBMError: NSError, @unchecked Sendable {
         return false
     }
     
-    @objc @discardableResult
-    public static func createError(_ error: UnsafeMutablePointer<NSError?>?,
+    @discardableResult
+    static func createError(_ error: UnsafeMutablePointer<NSError?>?,
                                    description: String) -> Bool {
         if let error {
             let err = PBMError.error(description: description)
@@ -123,8 +123,8 @@ class PBMError: NSError, @unchecked Sendable {
         return false
     }
     
-    @objc @discardableResult
-    public static func createError(_ error: UnsafeMutablePointer<NSError?>?,
+    @discardableResult
+    static func createError(_ error: UnsafeMutablePointer<NSError?>?,
                                    description: String,
                                    statusCode: PBMErrorCode) -> Bool {
         if let error {
@@ -140,7 +140,7 @@ class PBMError: NSError, @unchecked Sendable {
         -(family.rawValue * 100 + subCode)
     }
     
-    @objc public static func requestInProgress() -> NSError {
+    static func requestInProgress() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(1, forFamily: .setupErrors),
                 userInfo: [
@@ -152,7 +152,7 @@ class PBMError: NSError, @unchecked Sendable {
     
     // MARK: - Known server text errors
     
-    @objc public static func prebidInvalidAccountId() -> NSError {
+    static func prebidInvalidAccountId() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(1, forFamily: .knownServerErrors),
                 userInfo: [
@@ -161,7 +161,7 @@ class PBMError: NSError, @unchecked Sendable {
                 ])
     }
     
-    @objc public static func prebidInvalidConfigId() -> NSError {
+    static func prebidInvalidConfigId() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(2, forFamily: .knownServerErrors),
                 userInfo: [
@@ -170,7 +170,7 @@ class PBMError: NSError, @unchecked Sendable {
                 ])
     }
     
-    @objc public static func prebidInvalidSize() -> NSError {
+    static func prebidInvalidSize() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(3, forFamily: .knownServerErrors),
                 userInfo: [
@@ -179,7 +179,7 @@ class PBMError: NSError, @unchecked Sendable {
                 ])
     }
     
-    @objc public static func prebidServerURLInvalid(_ url: String) -> NSError {
+    static func prebidServerURLInvalid(_ url: String) -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(4, forFamily: .knownServerErrors),
                 userInfo: [
@@ -190,7 +190,7 @@ class PBMError: NSError, @unchecked Sendable {
     
     // MARK: - Unknown server text errors
     
-    @objc public static func serverError(_ errorBody: String) -> NSError {
+    static func serverError(_ errorBody: String) -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(1, forFamily: .unknownServerErrors),
                 userInfo: [
@@ -202,7 +202,7 @@ class PBMError: NSError, @unchecked Sendable {
     
     // MARK: - Response processing errors
     
-    @objc public static func jsonDictNotFound() -> NSError {
+    static func jsonDictNotFound() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(1, forFamily: .responseProcessingErrors),
                 userInfo: [
@@ -211,7 +211,7 @@ class PBMError: NSError, @unchecked Sendable {
                 ])
     }
     
-    @objc public static func responseDeserializationFailed() -> NSError {
+    static func responseDeserializationFailed() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(2, forFamily: .responseProcessingErrors),
                 userInfo: [
@@ -220,7 +220,7 @@ class PBMError: NSError, @unchecked Sendable {
                 ])
     }
     
-    @objc public static func blankResponse() -> NSError {
+    static func blankResponse() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(1, forFamily: .integrationLayerErrors),
                 userInfo: [
@@ -231,7 +231,7 @@ class PBMError: NSError, @unchecked Sendable {
     
     // MARK: - Integration layer errors
     
-    @objc public static func noWinningBid() -> NSError {
+    static func noWinningBid() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(1, forFamily: .integrationLayerErrors),
                 userInfo: [
@@ -240,7 +240,7 @@ class PBMError: NSError, @unchecked Sendable {
                 ])
     }
     
-    @objc public static func noCachedBids() -> NSError {
+    static func noCachedBids() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(2, forFamily: .integrationLayerErrors),
                 userInfo: [
@@ -249,7 +249,7 @@ class PBMError: NSError, @unchecked Sendable {
                 ])
     }
     
-    @objc public static func prebidNoVastTagInMediaData() -> NSError {
+    static func prebidNoVastTagInMediaData() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(3, forFamily: .integrationLayerErrors),
                 userInfo: [

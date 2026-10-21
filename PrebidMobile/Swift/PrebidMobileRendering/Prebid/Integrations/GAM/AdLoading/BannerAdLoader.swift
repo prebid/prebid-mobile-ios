@@ -17,14 +17,14 @@
 import Foundation
 import UIKit
 
-@objc(PBMBannerAdLoader)
+
 class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, BannerEventLoadingDelegate {
 
     
     // MARK: - Properties
 
     weak var delegate: (BannerAdLoaderDelegate & DisplayViewInteractionDelegate)?
-    weak public var flowDelegate: AdLoaderFlowDelegate?
+    weak var flowDelegate: AdLoaderFlowDelegate?
 
     // MARK: - Init
 
@@ -36,7 +36,7 @@ class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, Ba
 
     // MARK: - PBMAdLoaderProtocol
 
-    public var primaryAdRequester: PrimaryAdRequesterProtocol? {
+    var primaryAdRequester: PrimaryAdRequesterProtocol? {
         guard let eventHandler = delegate?.eventHandler else {
             return nil
         }
@@ -44,7 +44,7 @@ class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, Ba
         return eventHandler
     }
     
-    public func createPrebidAd(with bid: Bid,
+    func createPrebidAd(with bid: Bid,
                         adUnitConfig: AdUnitConfig,
                         adObjectSaver: @escaping (AnyObject) -> Void,
                         loadMethodInvoker: @escaping (@escaping VoidBlock) -> Void) {
@@ -62,7 +62,7 @@ class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, Ba
         }
     }
     
-    public func reportSuccess(with adObject: AnyObject, adSize: NSValue?) {
+    func reportSuccess(with adObject: AnyObject, adSize: NSValue?) {
         guard let size = adSize?.cgSizeValue, let view = adObject as? UIView else {
             return
         }
@@ -72,29 +72,29 @@ class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, Ba
 
     // MARK: - DisplayViewLoadingDelegate
     
-    public func displayViewDidLoadAd(_ displayView: UIView) {
+    func displayViewDidLoadAd(_ displayView: UIView) {
         flowDelegate?.adLoaderLoadedPrebidAd(self)
     }
     
-    public func displayView(_ displayView: UIView, didFailWithError error: any Error) {
+    func displayView(_ displayView: UIView, didFailWithError error: any Error) {
         flowDelegate?.adLoader(self, failedWithPrebidError: error)
     }
     
-    @objc public func displayViewDidExpire(_ displayView: UIView) {
+    func displayViewDidExpire(_ displayView: UIView) {
         delegate?.bannerAdLoaderDidExpire?(self)
     }
 
     // MARK: - BannerEventLoadingDelegate
 
-    public func prebidDidWin() {
+    func prebidDidWin() {
         flowDelegate?.adLoaderDidWinPrebid(self)
     }
 
-    public func adServerDidWin(_ view: UIView, adSize: CGSize) {
+    func adServerDidWin(_ view: UIView, adSize: CGSize) {
         flowDelegate?.adLoader(self, loadedPrimaryAd: view, adSize: NSValue(cgSize: adSize))
     }
 
-    public func failedWithError(_ error: Error?) {
+    func failedWithError(_ error: Error?) {
         flowDelegate?.adLoader(self, failedWithPrimarySDKError: error as NSError?)
     }
 

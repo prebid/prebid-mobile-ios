@@ -16,18 +16,18 @@
 import Foundation
 import UIKit
 
-public class BannerEventHandlerStandalone: NSObject, BannerEventHandler {
+class BannerEventHandlerStandalone: NSObject, BannerEventHandler {
     
-    public weak var loadingDelegate: BannerEventLoadingDelegate?
-    public weak var interactionDelegate: BannerEventInteractionDelegate?
+    weak var loadingDelegate: BannerEventLoadingDelegate?
+    weak var interactionDelegate: BannerEventInteractionDelegate?
     
-    public var adSizes: [CGSize] = []
+    var adSizes: [CGSize] = []
     
-    public func requestAd(with bidResponse: BidResponse?) {
+    func requestAd(with bidResponse: BidResponse?) {
         loadingDelegate?.prebidDidWin()
     }
     
-    public func trackImpression() {
+    func trackImpression() {
         
     }
 }

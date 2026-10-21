@@ -17,12 +17,12 @@
 import Foundation
 import UIKit
 
-@objc(PBMFactory)
+
 class Factory: NSObject {
     
     // MARK: BidRequester
     
-    @objc public static func createBidRequester(connection: PrebidServerConnectionProtocol,
+    static func createBidRequester(connection: PrebidServerConnectionProtocol,
                                                 sdkConfiguration: Prebid,
                                                 targeting: Targeting,
                                                 adUnitConfiguration: AdUnitConfig) -> BidRequester {
@@ -34,22 +34,22 @@ class Factory: NSObject {
     
     // MARK: WinNotifier
     
-    @objc public static let WinNotifierType: WinNotifier.Type = WinNotifierImpl.self
+    static let WinNotifierType: WinNotifier.Type = WinNotifierImpl.self
     
-    @objc public static func createWinNotifier() -> WinNotifier {
+    static func createWinNotifier() -> WinNotifier {
         WinNotifierImpl()
     }
     
     // MARK: AdViewManager
     
-    @objc public static func createAdViewManager(connection: PrebidServerConnectionProtocol,
+    static func createAdViewManager(connection: PrebidServerConnectionProtocol,
                                                  modalManagerDelegate: ModalManagerDelegate?) -> AdViewManager {
         AdViewManagerImpl(connection: connection, modalManagerDelegate: modalManagerDelegate)
     }
     
     // MARK: Transaction
     
-    @objc public static func createTransaction(serverConnection: PrebidServerConnectionProtocol,
+    static func createTransaction(serverConnection: PrebidServerConnectionProtocol,
                                                adConfiguration: AdConfiguration,
                                                models: [CreativeModel]) -> Transaction {
         TransactionImpl(serverConnection: serverConnection, adConfiguration: adConfiguration, models: models)
@@ -57,9 +57,9 @@ class Factory: NSObject {
     
     // MARK: ViewExposure
     
-    @objc public static let ViewExposureType: ViewExposure.Type = ViewExposureImpl.self
+    static let ViewExposureType: ViewExposure.Type = ViewExposureImpl.self
     
-    @objc public static func createViewExposure(exposureFactor: Float,
+    static func createViewExposure(exposureFactor: Float,
                                                 visibleRectangle: CGRect,
                                                 occlusionRectangles: [NSValue]?) -> ViewExposure {
         ViewExposureImpl(exposureFactor: exposureFactor,
@@ -69,7 +69,7 @@ class Factory: NSObject {
     
     // MARK: ModalState
     
-    @objc public static func createModalState(view: UIView,
+    static func createModalState(view: UIView,
                                               adConfiguration: AdConfiguration?,
                                               displayProperties: InterstitialDisplayProperties?,
                                               onStatePopFinished: ModalStatePopHandler? = nil,
@@ -89,7 +89,7 @@ class Factory: NSObject {
     
     // MARK: PBMCreativeViewabilityTracker
     
-    @objc public static func createCreativeViewabilityTracker(
+    static func createCreativeViewabilityTracker(
         view: UIView,
         pollingTimeInterval: TimeInterval,
         onExposureChange: @escaping ViewExposureChangeHandler
@@ -99,7 +99,7 @@ class Factory: NSObject {
                                        onExposureChange: onExposureChange)
     }
     
-    @objc public static func createCreativeViewabilityTracker(
+    static func createCreativeViewabilityTracker(
         creative: AbstractCreative
     ) -> CreativeViewabilityTracker {
         CreativeViewabilityTrackerImpl(creative: creative)
@@ -107,7 +107,7 @@ class Factory: NSObject {
     
     // MARK: PBMTransactionFactory
     
-    @objc public static func createTransactionFactory(
+    static func createTransactionFactory(
         bid: Bid,
         adConfiguration: AdUnitConfig,
         connection: PrebidServerConnectionProtocol,

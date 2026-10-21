@@ -16,12 +16,12 @@
 
 import Foundation
 
-public typealias WinNotifierBlock = (_ bid: Bid, _ adMarkupConsumer: @escaping AdMarkupStringHandler) -> Void
+typealias WinNotifierBlock = (_ bid: Bid, _ adMarkupConsumer: @escaping AdMarkupStringHandler) -> Void
 
 typealias WinNotifierFactoryBlock = (_ connection: PrebidServerConnectionProtocol) -> WinNotifierBlock
 
-@objc(PBMWinNotifier)
-protocol WinNotifier {
+
+protocol WinNotifier: AnyObject {
     init()
     
     static var factoryBlock: WinNotifierFactoryBlock { get }

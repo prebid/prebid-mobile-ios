@@ -16,12 +16,12 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
-@objc(PBMVastAdsBuilder)
+
 class VastAdsBuilder: NSObject {
 
     // Replaces the ObjC `PBMVastAdsBuilderCompletionBlock` typedef.
     // Bridges to `void (^)(NSArray<PBMVastAbstractAd *> * _Nullable, NSError * _Nullable)`.
-    public typealias Completion = ([VastAbstractAd]?, Error?) -> Void
+    typealias Completion = ([VastAbstractAd]?, Error?) -> Void
 
     // Replaces the ObjC `PBMVastAdsBuilderWrapperCompletionBlock` typedef (private to the .m).
     private typealias WrapperCompletion = (Error?) -> Void
@@ -36,16 +36,16 @@ class VastAdsBuilder: NSObject {
 
     // MARK: - Initialization
 
-    @objc(initWithConnection:)
-    public init(connection serverConnection: PrebidServerConnectionProtocol) {
+    
+    init(connection serverConnection: PrebidServerConnectionProtocol) {
         self.serverConnection = serverConnection
         super.init()
     }
 
     // MARK: - Public
 
-    @objc(buildAds:completion:)
-    public func buildAds(_ data: Data, completion completionBlock: @escaping Completion) {
+    
+    func buildAds(_ data: Data, completion completionBlock: @escaping Completion) {
         buildAds(data, wrapperAd: nil) { [weak self] error in
             guard let self else {
                 completionBlock(nil, PBMError.error(description: Self.builderFailedMessage, statusCode: .undefined))
@@ -65,8 +65,8 @@ class VastAdsBuilder: NSObject {
         }
     }
 
-    @objc(checkHasNoAdsAndFireURIs:)
-    public func checkHasNoAdsAndFireURIs(vastResponse: VastResponse) -> Bool {
+    
+    func checkHasNoAdsAndFireURIs(vastResponse: VastResponse) -> Bool {
 
         var firedNoAdsURI = false
 

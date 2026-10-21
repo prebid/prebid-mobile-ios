@@ -17,8 +17,8 @@ import Foundation
 
 // MARK: - 5.24: No-Bid Reason Codes
 
-@objc(PBMORTBNoBidReasonCode)
-public enum ORTBNoBidReasonCode: Int {
+
+enum ORTBNoBidReasonCode: Int {
     case unknownError = 0
     case technicalError
     case invalidRequest
@@ -32,15 +32,15 @@ public enum ORTBNoBidReasonCode: Int {
     case dailyDomainCapMet
 }
 
-@objcMembers
-public class PBMORTBNoBidReason: NSObject {
+
+class PBMORTBNoBidReason: NSObject {
 
     private override init() {
         super.init()
         fatalError("ORTBNoBidReason should not be instantiated.")
     }
 
-    public static func noBidReason(from code: ORTBNoBidReasonCode) -> String {
+    static func noBidReason(from code: ORTBNoBidReasonCode) -> String {
         switch code {
         case .unknownError:
             return "Unknown Error"

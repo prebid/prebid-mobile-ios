@@ -16,14 +16,14 @@
 
 import Foundation
 
-@objc(PBMHTMLFormatter)
+
 class HTMLFormatter: NSObject {
 
     // The pattern is a literal, so creating the expression cannot fail.
     private static let htmlTagRegex = try! NSRegularExpression(pattern: "(<html>)|(</html>)", options: .caseInsensitive)
 
-    @objc(ensureHTMLHasBodyAndHTMLTags:)
-    public static func ensureHTMLHasBodyAndHTMLTags(_ html: String) -> String {
+    
+    static func ensureHTMLHasBodyAndHTMLTags(_ html: String) -> String {
         // Remove any <html> / </html> tag
         let bodyText = htmlTagRegex.stringByReplacingMatches(in: html,
                                                              options: [],

@@ -15,28 +15,28 @@
 
 import Foundation
 
-@objc(PBMVastCreativeNonLinearAdsNonLinear)
+
 class VastCreativeNonLinearAdsNonLinear: NSObject, VastResourceContainer {
 
-    @objc public var width = 0
-    @objc public var height = 0
-    @objc public var vastTrackingEvents = VastTrackingEvents()
+    var width = 0
+    var height = 0
+    var vastTrackingEvents = VastTrackingEvents()
 
-    @objc public var clickThroughURI: String?
-    @objc public var clickTrackingURIs = NSMutableArray()
+    var clickThroughURI: String?
+    var clickTrackingURIs = NSMutableArray()
 
-    @objc public var apiFramework: String?
-    @objc(identifier) public var id: String?
-    @objc public var scalable = false
-    @objc public var maintainAspectRatio = false
-    @objc public var minSuggestedDuration: TimeInterval = 0
-    @objc public var assetWidth = 0
-    @objc public var assetHeight = 0
+    var apiFramework: String?
+    var id: String?
+    var scalable = false
+    var maintainAspectRatio = false
+    var minSuggestedDuration: TimeInterval = 0
+    var assetWidth = 0
+    var assetHeight = 0
 
     // VastResourceContainer
-    @objc public var resourceType = VastResourceType.staticResource
-    @objc public var resource: String?
-    @objc public var staticType: String?
+    var resourceType = VastResourceType.staticResource
+    var resource: String?
+    var staticType: String?
 
-    @objc public override init() { super.init() }
+    override init() { super.init() }
 }

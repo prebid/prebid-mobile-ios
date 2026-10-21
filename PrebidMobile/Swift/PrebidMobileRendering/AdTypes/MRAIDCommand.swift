@@ -16,17 +16,17 @@
 
 import Foundation
 
-@objc(PBMMRAIDCommand)
+
 class MRAIDCommand: NSObject {
 
     /// One of the `MRAIDAction` constants.
-    @objc public let command: String
-    @objc public let arguments: [String]
+    let command: String
+    let arguments: [String]
 
     // `url` stays optional although the ObjC header said `nonnull`: the ObjC original had a nil guard and
     // PBMMRAIDController.m, a surviving ObjC caller, builds the string (playbook S2.2-B, S3.1-H).
-    @objc(initWithURL:error:)
-    public init(url: String?) throws {
+    
+    init(url: String?) throws {
 
         // Prepare `command`
 

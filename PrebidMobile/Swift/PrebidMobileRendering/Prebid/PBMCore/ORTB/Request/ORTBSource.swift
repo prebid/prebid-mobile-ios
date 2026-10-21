@@ -15,24 +15,24 @@
 
 import Foundation
 
-@objc(PBMORTBSource)
-public class ORTBSource: NSObject, PBMJsonCodable {
+
+class ORTBSource: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var fd: NSNumber?
-    @objc public var tid: String?
-    @objc public var pchain: String?
-    @objc public var extOMID: ORTBSourceExtOMID = ORTBSourceExtOMID()
+    var fd: NSNumber?
+    var tid: String?
+    var pchain: String?
+    var extOMID: ORTBSourceExtOMID = ORTBSourceExtOMID()
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         fd      = json[.fd]
@@ -43,8 +43,8 @@ public class ORTBSource: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.fd]     = fd
         json[.tid]    = tid

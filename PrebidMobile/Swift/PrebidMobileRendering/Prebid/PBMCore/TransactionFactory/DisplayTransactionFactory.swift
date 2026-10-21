@@ -15,7 +15,7 @@
 import Foundation
 
 // ObjC name and init selector preserved so the runtime class name stays stable; only TransactionFactoryImpl constructs it now.
-@objc(PBMDisplayTransactionFactory)
+
 class DisplayTransactionFactory: NSObject, TransactionDelegate {
 
     private let bid: Bid
@@ -34,8 +34,8 @@ class DisplayTransactionFactory: NSObject, TransactionDelegate {
 
     // MARK: - Public API
 
-    @objc(initWithBid:adConfiguration:connection:callback:)
-    public init(
+    
+    init(
         bid: Bid,
         adConfiguration: AdUnitConfig,
         connection: PrebidServerConnectionProtocol,
@@ -48,9 +48,9 @@ class DisplayTransactionFactory: NSObject, TransactionDelegate {
         super.init()
     }
 
-    @objc(loadWithAdMarkup:)
+    
     @discardableResult
-    public func load(adMarkup: String) -> Bool {
+    func load(adMarkup: String) -> Bool {
         if isLoading {
             return false
         }
@@ -62,12 +62,12 @@ class DisplayTransactionFactory: NSObject, TransactionDelegate {
 
     // MARK: - TransactionDelegate
 
-    public func transactionReadyForDisplay(_ transaction: Transaction) {
+    func transactionReadyForDisplay(_ transaction: Transaction) {
         self.transaction = nil
         onFinished(transaction: transaction, error: nil)
     }
 
-    public func transactionFailedToLoad(_ transaction: Transaction, error: Error) {
+    func transactionFailedToLoad(_ transaction: Transaction, error: Error) {
         self.transaction = nil
         onFinished(transaction: nil, error: error)
     }

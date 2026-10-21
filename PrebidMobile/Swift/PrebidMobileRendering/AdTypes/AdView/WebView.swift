@@ -36,30 +36,28 @@ private let keyPathOutputVolume = "outputVolume"
 // and getting it in the right format etc to be shown) while also encapsulating away other functionality that a WKWebView may have.
 //
 // Not final: `MockPBMWebView` in the test target subclasses it.
-@objc(PBMWebView)
+
 class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIGestureRecognizerDelegate {
 
     // MARK: - Public properties
 
     // private webview which renders the ad
-    @objc public let internalWebView: WKWebView
+    let internalWebView: WKWebView
 
     // This block exists for testability. It is executed as part of the completion handler on evaluateJavascript.
-    @objc public var jsEvaluatingCompletion: JSEvaluatingBlock?
+    var jsEvaluatingCompletion: JSEvaluatingBlock?
 
-    @objc public weak var delegate: WebViewDelegate?
+    weak var delegate: WebViewDelegate?
     weak var exposureDelegate: ExposureChangeDelegate?
     var tapGestureRecognizer: UITapGestureRecognizer?
 
-    // `@objc` for key-value coding: PBMWebViewTest.testExpand waits on `mraidState.rawValue` with an NSPredicate.
-    @objc public var mraidState: MRAIDState = .notEnabled
-    // `@objc` for key-value coding: the tests wait on `state == <rawValue>` with an NSPredicate.
-    @objc public internal(set) var state: WebViewState = .loading
+    var mraidState: MRAIDState = .notEnabled
+    internal(set) var state: WebViewState = .loading
     var isViewable = false
-    @objc public var isMRAID = false
-    @objc(isRotationEnabled) public var rotationEnabled = true
+    var isMRAID = false
+    var rotationEnabled = true
 
-    @objc public var rewardedAdURL: String?
+    var rewardedAdURL: String?
 
     // MARK: - Internal properties
 
@@ -86,17 +84,17 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
     // MARK: - Initialization
 
     // `-init` (so `+new` keeps working) and `-initWithFrame:` forward to the designated initializer, as the ObjC `-initWithFrame:` did.
-    @objc public override convenience init(frame: CGRect) {
+    override convenience init(frame: CGRect) {
         self.init(frame: frame, creativeModel: nil, targeting: Targeting.shared)
     }
 
-    @objc public convenience init() {
+    convenience init() {
         self.init(frame: .zero)
     }
 
     // `creativeModel` was never read by the ObjC original either; the parameter stays for the surviving ObjC caller.
-    @objc(initWithFrame:creativeModel:targeting:)
-    public init(frame: CGRect, creativeModel: CreativeModel?, targeting: Targeting) {
+    
+    init(frame: CGRect, creativeModel: CreativeModel?, targeting: Targeting) {
         self.targeting = targeting
 
         //Setup MRAID-required properties
@@ -159,7 +157,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // The ObjC original returned `[super initWithCoder:]`, a view without a web view that crashed on first use.
     // Nothing instantiates this view from a nib, so it fails to initialize instead.
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         return nil
     }
 
@@ -184,8 +182,8 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
      */
     // `html` stays optional: the ObjC original logged and returned on nil (playbook S3.1-H), and
     // `PBMWebViewTest.testLoadHTMLNil` pins that.
-    @objc(loadHTML:baseURL:injectMraidJs:)
-    public func loadHTML(_ html: String?, baseURL: URL?, injectMraidJs: Bool) {
+    
+    func loadHTML(_ html: String?, baseURL: URL?, injectMraidJs: Bool) {
         loadHTML(html, baseURL: baseURL, injectMraidJs: injectMraidJs, currentThread: Thread.current)
     }
 
@@ -258,7 +256,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // MARK: - WKUIDelegate
 
-    public func webView(_ webView: WKWebView,
+    func webView(_ webView: WKWebView,
                         createWebViewWith configuration: WKWebViewConfiguration,
                         for navigationAction: WKNavigationAction,
                         windowFeatures: WKWindowFeatures) -> WKWebView? {
@@ -268,7 +266,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // MARK: - WKNavigationDelegate
 
-    public func webView(_ webView: WKWebView,
+    func webView(_ webView: WKWebView,
                         decidePolicyFor navigationAction: WKNavigationAction,
                         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 
@@ -329,7 +327,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
         decisionHandler(.cancel)
     }
 
-    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         Log.whereAmI()
         pollForDocumentReadyState()
     }
@@ -363,7 +361,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
         }
     }
 
-    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         Log.whereAmI()
         state = .unloaded
 
@@ -381,7 +379,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
     }
 
     #if DEBUG
-    public func webView(_ webView: WKWebView,
+    func webView(_ webView: WKWebView,
                         didReceive challenge: URLAuthenticationChallenge,
                         completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         Functions.checkCertificateChallenge(challenge, completionHandler: completionHandler)
@@ -390,20 +388,20 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // MARK: - WKScriptMessageHandler
 
-    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         Log.info("JS: \(message.body)")
     }
 
     // MARK: - UIGestureRecognizerDelegate
 
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                                   shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         true
     }
 
     // MARK: - OutputVolume listener
 
-    public override func observeValue(forKeyPath keyPath: String?,
+    override func observeValue(forKeyPath keyPath: String?,
                                       of object: Any?,
                                       change: [NSKeyValueChangeKey: Any]?,
                                       context: UnsafeMutableRawPointer?) {
@@ -451,7 +449,7 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
     }
 
     // update the mraid layout information whenever the frame changes (including on rotation) so the ad can resize itself
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         updateMRAIDLayoutInfo(false)
     }
@@ -565,8 +563,8 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // `viewController` stays optional: MRAIDController passes a weak reference that can be nil by then
     // and the ObjC original treated a nil controller as "not locked".
-    @objc(prepareForMRAIDWithRootViewController:)
-    public func prepareForMRAID(withRootViewController viewController: UIViewController?) {
+    
+    func prepareForMRAID(withRootViewController viewController: UIViewController?) {
         setSupportedMRAIDFeatures()
 
         MRAID_updateSizes()
@@ -621,13 +619,13 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
         }
     }
 
-    @objc(updateMRAIDLayoutInfoWithForceNotification:)
-    public func updateMRAIDLayoutInfo(_ forceNotification: Bool) {
+    
+    func updateMRAIDLayoutInfo(_ forceNotification: Bool) {
         MRAID_updateCurrentPosition(frame, forceNotification: forceNotification)
     }
 
-    @objc(changeToMRAIDState:)
-    public func changeToMRAIDState(_ state: MRAIDState) {
+    
+    func changeToMRAIDState(_ state: MRAIDState) {
         mraidState = state
         MRAID_onStateChange(state)
     }

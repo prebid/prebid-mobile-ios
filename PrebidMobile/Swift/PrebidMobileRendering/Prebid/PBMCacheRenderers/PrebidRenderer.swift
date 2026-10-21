@@ -17,13 +17,13 @@ import UIKit
 
 public let PREBID_MOBILE_RENDERER_NAME = "PrebidRenderer"
 
-public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
+class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     
-    public let name = PREBID_MOBILE_RENDERER_NAME
-    public let version = Prebid.shared.version
-    public var data: [String: Any]?
+    let name = PREBID_MOBILE_RENDERER_NAME
+    let version = Prebid.shared.version
+    var data: [String: Any]?
     
-    public func createBannerView(
+    func createBannerView(
         with frame: CGRect,
         bid: Bid,
         adConfiguration: AdUnitConfig,
@@ -42,7 +42,7 @@ public class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
         return displayView
     }
     
-    public func createInterstitialController(
+    func createInterstitialController(
         bid: Bid,
         adConfiguration: AdUnitConfig,
         loadingDelegate: InterstitialControllerLoadingDelegate,

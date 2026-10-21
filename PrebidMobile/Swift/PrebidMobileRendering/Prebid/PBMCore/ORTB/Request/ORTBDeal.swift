@@ -15,8 +15,8 @@
 
 import Foundation
 
-@objc(PBMORTBDeal)
-public class ORTBDeal: NSObject, PBMJsonCodable {
+
+class ORTBDeal: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
@@ -24,21 +24,21 @@ public class ORTBDeal: NSObject, PBMJsonCodable {
     // nonnull in the ObjC header: `initWithJsonDictionary:` assigned the ivars directly and
     // unconditionally, so an absent JSON key cleared the default back to nil and the key was
     // then omitted on re-encode. See playbook Gap S2.5-C.
-    @objc public var id: String?
-    @objc public var bidfloor: NSNumber? = 0.0
-    @objc public var bidfloorcur: String? = "USD"
-    @objc public var at: NSNumber?
-    @objc public var wseat: [String]? = []
-    @objc public var wadomain: [String]? = []
+    var id: String?
+    var bidfloor: NSNumber? = 0.0
+    var bidfloorcur: String? = "USD"
+    var at: NSNumber?
+    var wseat: [String]? = []
+    var wadomain: [String]? = []
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         id          = json[.id]
@@ -51,8 +51,8 @@ public class ORTBDeal: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.id]          = id
         json[.bidfloor]    = bidfloor

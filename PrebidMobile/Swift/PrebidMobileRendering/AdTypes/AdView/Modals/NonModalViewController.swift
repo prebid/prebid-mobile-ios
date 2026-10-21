@@ -17,7 +17,7 @@
 import Foundation
 import UIKit
 
-@objc(PBMNonModalViewController) @objcMembers
+
 final class NonModalViewController: ModalViewController {
     
     var modalAnimator: ModalAnimator?
