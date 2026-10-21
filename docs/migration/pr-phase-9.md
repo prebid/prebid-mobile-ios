@@ -20,6 +20,7 @@ demotion of plain-`public` engine types (S9.2-C), the remaining `@objc(PBM…)` 
 | **S9.1 (SPM)** | `__PrebidMobileInternal` removed from `Package.swift`, `PrebidMobile/Package.swift` (target and product), and `buildPrebidMobilePackage.sh`; `PrebidMobile_SPM` define and header search path go with it |
 | **S9.3** | `Factory` constructs `BidRequesterImpl`, `WinNotifierImpl`, `AdViewManagerImpl`, `ViewExposureImpl`, `ModalStateImpl` directly; the five `NSClassFromString("PBM*_Objc")` lookups and `@objc(PBM*_Objc)` names are deleted |
 | **S9.2** | `@_spi(PBMInternal)` removed from 113 declarations in 91 files (now internal); public `.swiftinterface` diff: **0 lines**. Two extensions keep it (S9.2-C). `PBMFunctionsPrivateTest.m` deleted (its subject is no longer ObjC-visible); `AdUnitObjCTests.m` declares `AdUnitSwizzleHelper` itself (S9.2-D) |
+| **S9.2b-e** | Public API redefined by consumer usage (S9.2-F): every top-level type outside the demo apps, InternalTestApp, the adapters, the ObjC API tests and the non-`@testable` API tests loses `public`/`open`/`@objc`; then unreferenced members of the types that stay public, `public extension`s on system classes and top-level globals. Public types 236 → 147, none newly public; public members 1694 → 950; `@objc` in the public interface 2515 → 1505. `PBMSwiftMigrationHelper` deleted; two ObjC helper tests ported to Swift; two KVC tests rewritten (typed key paths, block predicates) |
 | **extra** | `NSString.PBMsubstringFromString(_:)` length bug fixed (S9.x-G); `AGENTS.md` architecture section rewritten; `phase-8-plan.md` deleted; PR test plan stale skip entries for the deleted ObjC tests removed |
 
 ## Behavior deviations (reviewer: please read)
@@ -30,7 +31,8 @@ demotion of plain-`public` engine types (S9.2-C), the remaining `@objc(PBM…)` 
 | 2 | `Factory.*Type` lookups | `NSClassFromString(...) as!` crashes at first use if the runtime name were missing | direct construction, compile-time checked | verified by build + full suite |
 | 3 | Runtime class names `PBMBidRequester_Objc`, `PBMWinNotifier_Objc`, `PBMAdViewManager_Objc`, `PBMViewExposure_Objc`, `PBMModalState_Objc` | resolvable by `NSClassFromString` | gone; Swift mangled names | grep: no remaining lookup in SDK, tests, adapters or Example. All were `@_spi(PBMInternal)` |
 | 4 | SPI surface | `@_spi(PBMInternal) public` declarations, visible to a client that opts in with `@_spi(PBMInternal) import PrebidMobile` | internal | nothing in `EventHandlers` or `Example` references it; public interface byte-identical. A third party using the undocumented SPI group would break |
-| 5 | Test coverage | `LogObjCTest` (7), `PBMMacrosTest` (1), `PBMFunctionsObjCTest` (3, empty bodies), `PBMWebViewObjCTest` (1), `PBMFunctionsPrivateTest` (2, S9.2) | `PBMWebViewTest.testLoadHTMLNil` (Swift) | macro tests deleted because no code uses the macros; the nil-HTML case keeps its meaning (`loadHTML(_ html: String?)` is still optional) |
+| 5 | `public`/`@objc` on engine classes | public and ObjC-visible | internal | defined by consumer usage; see S9.2-F. A third-party app that used an engine class directly (not in the demo apps/adapters/tests) would stop compiling or linking; that is the accepted risk |
+| 6 | Test coverage | `LogObjCTest` (7), `PBMMacrosTest` (1), `PBMFunctionsObjCTest` (3, empty bodies), `PBMWebViewObjCTest` (1), `PBMFunctionsPrivateTest` (2, S9.2) | `PBMWebViewTest.testLoadHTMLNil` (Swift) | macro tests deleted because no code uses the macros; the nil-HTML case keeps its meaning (`loadHTML(_ html: String?)` is still optional) |
 
 ## Open items for the reviewer
 
@@ -44,9 +46,10 @@ demotion of plain-`public` engine types (S9.2-C), the remaining `@objc(PBM…)` 
 
 - [x] `buildPrebidMobile.sh`: 4 XCFrameworks built; "All 24 Swift interfaces typecheck"
 - [x] `buildPrebidMobilePackage.sh` after `rm -rf .build`: **394 files** compiled, exit 0
-- [x] `testPrebidMobile.sh --latest` (full): **1410 tests, 0 failures**, `TEST EXECUTE SUCCEEDED` (re-run after S9.2; 1412 before, minus the two deleted `PBMFunctionsPrivateTest` tests)
-- [x] `testPrebidMobileAdapters.sh`: exit 0 (re-run after S9.2)
-- [x] Public `.swiftinterface` before/after S9.2: 0 changed lines
+- [x] `testPrebidMobile.sh --latest` (full): **1410 tests, 0 failures**, `TEST EXECUTE SUCCEEDED` (re-run after S9.2e; clean SPM build compiles 393 files)
+- [x] `testPrebidMobileAdapters.sh`: exit 0 (re-run after S9.2e)
+- [x] Consumers build: `InternalTestApp`, `InternalTestApp-Skadn`, `PrebidDemoSwift`, `PrebidDemoObjectiveC` (generic simulator destination) after S9.2e
+- [x] Public `.swiftinterface` after S9.2 (SPI only): 0 changed lines; after S9.2b-e: 236 → 147 public types, no newly public type (intended shrink)
 - [ ] `testPrebidMobile.sh --latest --quick` (PR subset): 1016 tests, 0 failures after the skip-list edit, **before S9.2; not re-run after it**
 - [ ] `verifySPM.sh`, `buildPrebidSPM.sh`: CI only
 - [ ] Manual demo-app OMSDK check
