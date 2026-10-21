@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 protocol VastResourceContainer: AnyObject {
     var resourceType: VastResourceType { get set }
     var resource: String? { get set }

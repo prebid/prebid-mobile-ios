@@ -15,7 +15,6 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC code references it any more.
-
 class AdRequesterVAST: NSObject {
 
     var adConfiguration: AdConfiguration
@@ -25,7 +24,6 @@ class AdRequesterVAST: NSObject {
 
     private var adsBuilder: VastAdsBuilder?
 
-    
     init(serverConnection: PrebidServerConnectionProtocol, adConfiguration: AdConfiguration) {
         self.serverConnection = serverConnection
         self.adConfiguration = adConfiguration
@@ -51,7 +49,6 @@ class AdRequesterVAST: NSObject {
         }
     }
 
-    
     func buildAdsArray(_ rawVASTData: Data) {
         if adsBuilder != nil {
             Log.error("Loading of VAST is failed. Ads Builder is not intended to be re-used.")

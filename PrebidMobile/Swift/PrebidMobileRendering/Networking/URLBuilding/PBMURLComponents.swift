@@ -17,7 +17,6 @@ import Foundation
 
 // Named `PBMURLComponents`, not `URLComponents` — Foundation already defines
 // `URLComponents`, and this type was constructed from ObjC (`PBMVastRequester.m`, now Swift).
-
 class PBMURLComponents: NSObject {
 
     private let urlComponents: URLComponents
@@ -27,7 +26,6 @@ class PBMURLComponents: NSObject {
     // `public`/`@objc`, so a future ObjC caller that passes `nil` must get `nil` back
     // gracefully (matching `PBMURLComponents.m`'s `if (!urlComponents || !paramsDict)`)
     // instead of trapping during Swift/ObjC bridging.
-    
     init?(url: String?, paramsDict: [String: String]?) {
         guard let url = url, let paramsDict = paramsDict,
               var components = URLComponents(string: url) else {

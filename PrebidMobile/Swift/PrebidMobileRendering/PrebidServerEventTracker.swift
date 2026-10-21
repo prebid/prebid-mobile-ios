@@ -15,7 +15,6 @@
 
 import UIKit
 
-
 class PrebidServerEventTracker: NSObject, EventTrackerProtocol {
     
     private(set) var serverEvents = [ServerEvent]()

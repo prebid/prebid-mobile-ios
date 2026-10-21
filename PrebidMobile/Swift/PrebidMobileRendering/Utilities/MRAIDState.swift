@@ -16,7 +16,6 @@
 
 import Foundation
 
-
 class MRAIDState: NSObject, RawRepresentable {
     typealias RawValue = String
     

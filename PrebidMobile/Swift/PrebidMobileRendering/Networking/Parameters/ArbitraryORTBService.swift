@@ -17,7 +17,6 @@ import UIKit
 
 fileprivate typealias StringAnyDict = [String: Any]
 
-
 class ArbitraryORTBService: NSObject {
     
     private override init() {

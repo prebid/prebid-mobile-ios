@@ -15,7 +15,6 @@ limitations under the License.
 
 import UIKit
 
-
 protocol VideoBasedAdUnitProtocol: AnyObject {
     var videoParameters: VideoParameters { get set }
 }

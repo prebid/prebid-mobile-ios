@@ -16,7 +16,6 @@
 import Foundation
 import StoreKit
 
-
 class SkadnParametersManager: NSObject {
     
     private static func getFidelity(from skadnInfo: ORTBBidExtSkadn, fidelityType: NSNumber) -> ORTBSkadnFidelity? {

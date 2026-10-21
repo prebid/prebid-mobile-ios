@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBBanner: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
@@ -30,7 +29,6 @@ class ORTBBanner: NSObject, PBMJsonCodable {
         super.init()
     }
 
-    
     required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
@@ -41,7 +39,6 @@ class ORTBBanner: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    
     var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.pos] = pos

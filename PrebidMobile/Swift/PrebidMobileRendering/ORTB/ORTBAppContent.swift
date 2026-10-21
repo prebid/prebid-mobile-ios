@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBAppContent: NSObject, PBMJsonCodable {
     
     /// ID uniquely identifying the content.
@@ -125,7 +124,6 @@ class ORTBAppContent: NSObject, PBMJsonCodable {
         super.init()
     }
 
-    
     required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
 
@@ -156,7 +154,6 @@ class ORTBAppContent: NSObject, PBMJsonCodable {
         ext                 = json[.ext]
     }
 
-    
     var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
 

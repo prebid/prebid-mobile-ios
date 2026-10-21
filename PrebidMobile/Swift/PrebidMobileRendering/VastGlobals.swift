@@ -15,13 +15,11 @@
 
 import Foundation
 
-
 enum VastResourceType: Int {
     case staticResource
     case iFrameResource
     case htmlResource
 }
-
 
 enum VASTError: Int {
     case parsing = 100

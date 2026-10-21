@@ -19,7 +19,6 @@ import Foundation
 class VastAbstractAd: NSObject {
 
     weak var ownerResponse: VastResponse?
-
     var identifier = ""
     var sequence = 0
     var adSystem = ""

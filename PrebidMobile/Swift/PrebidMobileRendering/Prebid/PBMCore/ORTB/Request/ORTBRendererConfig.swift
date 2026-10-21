@@ -16,7 +16,6 @@
 import Foundation
 
 // Plain NSObject — not PBMJsonCodable; constructed directly from renderer descriptors, never decoded from bid JSON.
-
 class ORTBRendererConfig: NSObject {
 
     // MARK: - Properties

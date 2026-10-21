@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class VastCreativeNonLinearAds: VastCreativeAbstract, VastResourceContainer {
 
     // Untyped `NSMutableArray`: surviving ObjC parser code appends in place.
@@ -31,7 +30,6 @@ class VastCreativeNonLinearAds: VastCreativeAbstract, VastResourceContainer {
         super.init()
     }
 
-    
     func copyTracking(fromNonLinearAds: VastCreativeNonLinearAds) {
         for case let fromNonLinear as VastCreativeNonLinearAdsNonLinear in fromNonLinearAds.nonLinears {
             for case let toNonLinear as VastCreativeNonLinearAdsNonLinear in nonLinears {

@@ -29,7 +29,6 @@ import Foundation
 // --- baseURL is an optional base URL to use when loading in an PBMWebView
 // @objc and public because it will be used by publishers to display an ad in their own view
 
-
 class CreativeModel: NSObject {
     var adConfiguration: AdConfiguration?
     var eventTracker: AdModelEventTracker?

@@ -15,7 +15,7 @@
 
 import UIKit
 
-public extension NSString {
+extension NSString {
     var base64DecodedImage: UIImage? {
         guard let data = Data(base64Encoded: self as String) else { return nil }
         return UIImage(data: data)

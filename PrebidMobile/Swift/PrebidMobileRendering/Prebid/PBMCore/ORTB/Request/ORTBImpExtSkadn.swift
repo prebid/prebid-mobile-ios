@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBImpExtSkadn: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
@@ -30,7 +29,6 @@ class ORTBImpExtSkadn: NSObject, PBMJsonCodable {
         super.init()
     }
 
-    
     required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
@@ -41,7 +39,6 @@ class ORTBImpExtSkadn: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    
     var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         if let sourceapp = sourceapp, !skadnetids.isEmpty {

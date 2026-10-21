@@ -22,7 +22,6 @@ class VastCreativeAbstract: NSObject {
     var adId: String?
     var sequence = 0
     var adParameters: String?
-
     override init() {
         super.init()
     }

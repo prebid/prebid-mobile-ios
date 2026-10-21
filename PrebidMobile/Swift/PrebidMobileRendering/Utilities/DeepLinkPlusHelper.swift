@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class DeepLinkPlusHelper: NSObject {
 
     // Test seams (the ObjC `+Testing` category). Strong, like the static ivars that backed them.
@@ -29,12 +28,10 @@ class DeepLinkPlusHelper: NSObject {
 
     // MARK: - Public API
 
-    
     static func isDeepLinkPlusURL(_ url: URL) -> Bool {
         url.scheme?.lowercased() == "deeplink+"
     }
 
-    
     static func tryHandleDeepLinkPlus(
         _ url: URL,
         completion: @escaping (_ visited: Bool, _ fallbackURL: URL?, _ trackingURLs: [URL]?) -> Void
@@ -68,7 +65,6 @@ class DeepLinkPlusHelper: NSObject {
         )
     }
 
-    
     static func visitTrackingURLs(_ trackingURLs: [URL]) {
         visitTrackingUrlStrings(urlArrayToUrlStringArray(trackingURLs) ?? [])
     }

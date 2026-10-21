@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ExternalURLOpenCallbacks: NSObject {
 
     let urlOpenedCallback: URLOpenResultHandlerBlock
@@ -26,7 +25,6 @@ class ExternalURLOpenCallbacks: NSObject {
         fatalError("init() is unavailable")
     }
 
-    
     init(
         urlOpenedCallback: @escaping URLOpenResultHandlerBlock,
         onClickthroughExitBlock: VoidBlock?

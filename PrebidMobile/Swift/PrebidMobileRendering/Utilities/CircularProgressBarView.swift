@@ -15,7 +15,6 @@
 
 import UIKit
 
-
 class CircularProgressBarView: UIView {
 
     // MARK: - Public properties (forwarded to layer)

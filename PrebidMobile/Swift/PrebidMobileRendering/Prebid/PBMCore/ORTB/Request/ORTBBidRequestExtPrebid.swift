@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBBidRequestExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
@@ -35,7 +34,6 @@ class ORTBBidRequestExtPrebid: NSObject, PBMJsonCodable {
         super.init()
     }
 
-    
     required init(jsonDictionary: [String: Any]) {
         super.init()
         storedRequestID       = (jsonDictionary["storedrequest"] as? [String: Any])?["id"] as? String
@@ -46,7 +44,6 @@ class ORTBBidRequestExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    
     var jsonDictionary: [String: Any] {
         guard let storedRequestID = storedRequestID else { return [:] }
 

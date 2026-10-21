@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBFormat: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
@@ -32,7 +31,6 @@ class ORTBFormat: NSObject, PBMJsonCodable {
         super.init()
     }
 
-    
     required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
@@ -45,7 +43,6 @@ class ORTBFormat: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    
     var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.w]      = w

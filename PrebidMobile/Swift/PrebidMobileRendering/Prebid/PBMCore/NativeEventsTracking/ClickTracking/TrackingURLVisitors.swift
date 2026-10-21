@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class TrackingURLVisitors: NSObject {
 
     @available(*, unavailable)
@@ -23,7 +22,6 @@ class TrackingURLVisitors: NSObject {
         fatalError("init() is unavailable")
     }
 
-    
     static func connectionAsTrackingURLVisitor(
         _ connection: PrebidServerConnectionProtocol
     ) -> TrackingURLVisitorBlock {

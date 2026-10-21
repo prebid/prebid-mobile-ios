@@ -16,8 +16,6 @@
 
 import Foundation
 
-
-
 final class InterstitialAdLoader: NSObject, AdLoaderProtocol, InterstitialControllerLoadingDelegate, InterstitialEventLoadingDelegate {
     
     weak var delegate: (InterstitialAdLoaderDelegate & InterstitialControllerInteractionDelegate)?

@@ -15,13 +15,11 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC code references or subclasses it any more.
-
 class AdLoadManagerVAST: AdLoadManagerBase {
 
     private var creativeModelCollectionMaker: CreativeModelCollectionMakerVAST?
     private var adRequester: AdRequesterVAST?
 
-    
     func load(from vastString: String) {
         dispatchQueue.async { [weak self] in
             guard let self else {
@@ -52,7 +50,6 @@ class AdLoadManagerVAST: AdLoadManagerBase {
         return true
     }
 
-    
     func requestCompletedSuccess(_ adRequestResponse: AdRequestResponseVAST) {
         Log.whereAmI()
 

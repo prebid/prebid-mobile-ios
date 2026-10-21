@@ -15,7 +15,6 @@
 
 import UIKit
 
-
 class AdViewButtonDecorator: NSObject {
     
     // MARK: - Public proprties

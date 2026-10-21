@@ -16,7 +16,7 @@
 import Foundation
 
 @objc public protocol PluginEventDelegate: NSObjectProtocol {
-    @objc func getPluginName() -> String
+    func getPluginName() -> String
 }
 
 class DefaultPluginEventDelegate: NSObject, PluginEventDelegate {

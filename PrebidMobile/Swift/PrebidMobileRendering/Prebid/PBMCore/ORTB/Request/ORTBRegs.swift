@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBRegs: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
@@ -40,7 +39,6 @@ class ORTBRegs: NSObject, PBMJsonCodable {
         super.init()
     }
 
-    
     required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
@@ -51,7 +49,6 @@ class ORTBRegs: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    
     var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.coppa]  = _coppa

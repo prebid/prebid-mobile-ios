@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBBidRequest: NSObject, PBMJsonCodable, NSCopying {
 
     // MARK: - Properties
@@ -37,7 +36,6 @@ class ORTBBidRequest: NSObject, PBMJsonCodable, NSCopying {
         super.init()
     }
 
-    
     required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
@@ -67,7 +65,6 @@ class ORTBBidRequest: NSObject, PBMJsonCodable, NSCopying {
 
     // MARK: - PBMJsonEncodable
 
-    
     var jsonDictionary: [String: Any] {
         var result = [String: Any]()
 

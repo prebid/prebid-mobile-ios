@@ -18,7 +18,6 @@ import UIKit
 import AdSupport
 import AppTrackingTransparency
 
-
 class DeviceAccessManager: NSObject {
 
     // MARK: - Properties

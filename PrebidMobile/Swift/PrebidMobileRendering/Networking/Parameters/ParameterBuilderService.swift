@@ -19,13 +19,10 @@ import MapKit
 
 
 class ParameterBuilderService: NSObject {
-
-    
     static func buildParamsDict(with adConfiguration: AdConfiguration) -> [String: String] {
         buildParamsDict(with: adConfiguration, extraParameterBuilders: nil)
     }
 
-    
     static func buildParamsDict(
         with adConfiguration: AdConfiguration,
         extraParameterBuilders: [ParameterBuilder]?

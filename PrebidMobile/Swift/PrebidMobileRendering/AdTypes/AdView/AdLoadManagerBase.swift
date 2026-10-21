@@ -15,7 +15,6 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC code references or subclasses it any more.
-
 class AdLoadManagerBase: NSObject, AdLoadManagerProtocol {
 
     weak var adLoadManagerDelegate: AdLoadManagerDelegate?
@@ -28,7 +27,6 @@ class AdLoadManagerBase: NSObject, AdLoadManagerProtocol {
 
     // `required` because AdLoadManagerProtocol declares this initializer and the VAST subclass and the test mock inherit it.
     // The ObjC `PBMAssert(connection)` is gone: the parameter is non-optional and every caller is Swift.
-    
     required init(bid: Bid, connection: PrebidServerConnectionProtocol, adConfiguration: AdConfiguration) {
         self.bid = bid
         self.connection = connection
@@ -37,7 +35,6 @@ class AdLoadManagerBase: NSObject, AdLoadManagerProtocol {
         super.init()
     }
 
-    
     func makeCreatives(creativeModels: [CreativeModel]) {
         for model in creativeModels {
             model.expirationInterval = bid.exp
@@ -59,7 +56,6 @@ class AdLoadManagerBase: NSObject, AdLoadManagerProtocol {
         transaction.startCreativeFactory()
     }
 
-    
     func requestCompletedFailure(_ error: Error) {
         Log.whereAmI()
 

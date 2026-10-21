@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBPmp: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
@@ -29,7 +28,6 @@ class ORTBPmp: NSObject, PBMJsonCodable {
         super.init()
     }
 
-    
     required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
@@ -39,7 +37,6 @@ class ORTBPmp: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    
     var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.private_auction] = private_auction

@@ -17,7 +17,6 @@ import Foundation
 
 // MARK: - 5.24: No-Bid Reason Codes
 
-
 enum ORTBNoBidReasonCode: Int {
     case unknownError = 0
     case technicalError
@@ -31,7 +30,6 @@ enum ORTBNoBidReasonCode: Int {
     case dailyReaderCapMet
     case dailyDomainCapMet
 }
-
 
 class PBMORTBNoBidReason: NSObject {
 

@@ -143,7 +143,6 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonEncodable {
     ///
     /// - Returns: A JSON string representation of the `NativeMarkupRequestObject` instance.
     /// - Throws: An error if the conversion to JSON string fails.
-    
     func toJsonString() throws -> String {
         try Functions.jsonString(from: jsonDictionary)
     }

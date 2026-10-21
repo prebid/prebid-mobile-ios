@@ -17,7 +17,6 @@
 import Foundation
 import UIKit
 
-
 final class NonModalViewController: ModalViewController {
     
     var modalAnimator: ModalAnimator?

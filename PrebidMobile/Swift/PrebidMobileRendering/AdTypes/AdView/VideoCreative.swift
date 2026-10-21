@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 
-
 class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
     static var maxSizeForPreRenderContent: Int {
@@ -54,7 +53,6 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
     // The inherited ObjC initializer built a creative without a video view; nothing calls it. The creative is built like the
     // designated one, without data.
-    
     required convenience init(creativeModel: CreativeModel, transaction: Transaction) {
         self.init(creativeModel: creativeModel, transaction: transaction, videoData: nil)
     }

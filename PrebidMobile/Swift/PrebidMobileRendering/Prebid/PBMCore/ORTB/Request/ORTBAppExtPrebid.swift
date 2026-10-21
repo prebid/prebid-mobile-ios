@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBAppExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
@@ -29,7 +28,6 @@ class ORTBAppExtPrebid: NSObject, PBMJsonCodable {
         super.init()
     }
 
-    
     required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
@@ -39,7 +37,6 @@ class ORTBAppExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    
     var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.source]  = source

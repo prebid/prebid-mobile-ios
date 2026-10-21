@@ -17,13 +17,11 @@ import Foundation
 
 extension NSString {
 
-    @objc(PBMdoesMatch:)
-    public func PBMdoesMatch(_ regex: String) -> Bool {
+    func PBMdoesMatch(_ regex: String) -> Bool {
         PBMnumberOfMatches(regex) > 0
     }
 
-    @objc(PBMnumberOfMatches:)
-    public func PBMnumberOfMatches(_ regex: String) -> Int32 {
+    func PBMnumberOfMatches(_ regex: String) -> Int32 {
         do {
             let re = try NSRegularExpression(pattern: regex)
             return Int32(re.numberOfMatches(in: self as String, range: NSRange(location: 0, length: length)))
@@ -33,24 +31,21 @@ extension NSString {
         }
     }
 
-    @objc(PBMsubstringToString:)
-    public func PBMsubstringToString(_ to: String?) -> String? {
+    func PBMsubstringToString(_ to: String?) -> String? {
         guard let to = to else { return nil }
         let range = range(of: to)
         guard range.location != NSNotFound else { return nil }
         return substring(to: range.location)
     }
 
-    @objc(PBMsubstringFromString:)
-    public func PBMsubstringFromString(_ from: String?) -> String? {
+    func PBMsubstringFromString(_ from: String?) -> String? {
         guard let from = from else { return nil }
         let range = range(of: from)
         guard range.location != NSNotFound else { return nil }
         return substring(from: range.location + range.length)
     }
 
-    @objc(PBMsubstringFromString:toString:)
-    public func PBMsubstringFromString(_ from: String?, toString to: String?) -> String? {
+    func PBMsubstringFromString(_ from: String?, toString to: String?) -> String? {
         guard let from = from, let to = to else { return nil }
         let startRange = range(of: from)
         let endRange   = range(of: to)
@@ -60,8 +55,7 @@ extension NSString {
         return substring(with: NSRange(location: afterFrom, length: endRange.location - afterFrom))
     }
 
-    @objc(PBMstringByReplacingRegex:replaceWith:)
-    public func PBMstringByReplacingRegex(_ regex: String?, replaceWith replacement: String?) -> String {
+    func PBMstringByReplacingRegex(_ regex: String?, replaceWith replacement: String?) -> String {
         guard let regex = regex, let replacement = replacement else { return self as String }
         do {
             let re = try NSRegularExpression(pattern: regex)
@@ -74,7 +68,6 @@ extension NSString {
         }
     }
 
-    
     func PBMsubstringFromIndex(_ fromIndex: Int32, toIndex: Int32) -> String? {
         guard fromIndex >= 0, toIndex >= 0, Int(toIndex) <= length, fromIndex <= toIndex else { return nil }
         return substring(with: NSRange(location: Int(fromIndex), length: Int(toIndex - fromIndex)))

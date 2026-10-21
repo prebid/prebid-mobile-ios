@@ -17,7 +17,6 @@
 import Foundation
 import UIKit
 
-
 class Factory: NSObject {
     
     // MARK: BidRequester

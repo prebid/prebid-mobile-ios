@@ -36,7 +36,6 @@ private let keyPathOutputVolume = "outputVolume"
 // and getting it in the right format etc to be shown) while also encapsulating away other functionality that a WKWebView may have.
 //
 // Not final: `MockPBMWebView` in the test target subclasses it.
-
 class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIGestureRecognizerDelegate {
 
     // MARK: - Public properties
@@ -93,7 +92,6 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
     }
 
     // `creativeModel` was never read by the ObjC original either; the parameter stays for the surviving ObjC caller.
-    
     init(frame: CGRect, creativeModel: CreativeModel?, targeting: Targeting) {
         self.targeting = targeting
 
@@ -182,7 +180,6 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
      */
     // `html` stays optional: the ObjC original logged and returned on nil (playbook S3.1-H), and
     // `PBMWebViewTest.testLoadHTMLNil` pins that.
-    
     func loadHTML(_ html: String?, baseURL: URL?, injectMraidJs: Bool) {
         loadHTML(html, baseURL: baseURL, injectMraidJs: injectMraidJs, currentThread: Thread.current)
     }
@@ -563,7 +560,6 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
 
     // `viewController` stays optional: MRAIDController passes a weak reference that can be nil by then
     // and the ObjC original treated a nil controller as "not locked".
-    
     func prepareForMRAID(withRootViewController viewController: UIViewController?) {
         setSupportedMRAIDFeatures()
 
@@ -619,12 +615,10 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
         }
     }
 
-    
     func updateMRAIDLayoutInfo(_ forceNotification: Bool) {
         MRAID_updateCurrentPosition(frame, forceNotification: forceNotification)
     }
 
-    
     func changeToMRAIDState(_ state: MRAIDState) {
         mraidState = state
         MRAID_onStateChange(state)

@@ -133,7 +133,6 @@ public enum TrackingEvent: Int {
     }
 }
 
-
 class TrackingEventDescription: NSObject {
     
     static func getDescription(_ event: TrackingEvent) -> String {

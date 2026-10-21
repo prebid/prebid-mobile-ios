@@ -15,20 +15,17 @@
 
 import Foundation
 
-
 class WeakTimerTargetBox: NSObject {
 
     private weak var weakTarget: AnyObject?
     private let aSelector: Selector
 
-    
     init(weakTarget: AnyObject, selector: Selector) {
         self.weakTarget = weakTarget
         self.aSelector  = selector
         super.init()
     }
 
-    
     @objc func onTimerFired(_ timer: TimerInterface) {
         guard let target = weakTarget else {
             timer.invalidate()
@@ -41,7 +38,6 @@ class WeakTimerTargetBox: NSObject {
         }
     }
 
-    
     static func scheduledTimerFactory(
         withWeakifiedTarget factory: @escaping (TimeInterval, AnyObject, Selector, Any?, Bool) -> TimerInterface
     ) -> (TimeInterval, AnyObject, Selector, Any?, Bool) -> TimerInterface {

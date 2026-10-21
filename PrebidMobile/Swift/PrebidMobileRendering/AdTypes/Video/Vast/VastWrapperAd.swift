@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class VastWrapperAd: VastAbstractAd {
 
     /// The location of the next VAST tag.

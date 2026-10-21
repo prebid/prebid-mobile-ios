@@ -17,7 +17,6 @@ import Foundation
 
 // MARK: - PBMMRAIDParseKeys
 
-
 class MRAIDParseKeys: NSObject {
     static let X               = "x"
     static let Y               = "y"
@@ -31,14 +30,12 @@ class MRAIDParseKeys: NSObject {
 
 // MARK: - PBMMRAIDValues
 
-
 class MRAIDValues: NSObject {
     static let LANDSCAPE = "landscape"
     static let PORTRAIT  = "portrait"
 }
 
 // MARK: - PBMMRAIDCloseButtonPosition
-
 
 class MRAIDCloseButtonPosition: NSObject {
     static let BOTTOM_CENTER = "bottom-center"
@@ -51,7 +48,6 @@ class MRAIDCloseButtonPosition: NSObject {
 }
 
 // MARK: - PBMMRAIDCloseButtonSize
-
 
 class MRAIDCloseButtonSize: NSObject {
     static let WIDTH: Float  = 50
@@ -66,8 +62,6 @@ class MRAIDExpandProperties: NSObject {
     var height: Int = 0
 
     override init() { super.init() }
-
-    
     init(width: Int, height: Int) {
         self.width  = width
         self.height = height
@@ -86,8 +80,6 @@ class MRAIDResizeProperties: NSObject {
     var allowOffscreen: Bool = false
 
     override init() { super.init() }
-
-    
     init(width: Int, height: Int, offsetX: Int, offsetY: Int, allowOffscreen: Bool) {
         self.width          = width
         self.height         = height
@@ -99,7 +91,6 @@ class MRAIDResizeProperties: NSObject {
 }
 
 // MARK: - PBMMRAIDConstants
-
 
 class MRAIDConstants: NSObject {
     static let mraidURLScheme = "mraid:"

@@ -26,7 +26,6 @@ extension UIWindow {
         return UIWindow.getVisibleViewControllerFrom(root)
     }
 
-    
     static func getVisibleViewControllerFrom(_ vc: UIViewController) -> UIViewController? {
         if let nav = vc as? UINavigationController {
             return nav.visibleViewController.flatMap { getVisibleViewControllerFrom($0) }

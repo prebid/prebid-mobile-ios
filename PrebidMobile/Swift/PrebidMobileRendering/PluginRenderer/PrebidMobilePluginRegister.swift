@@ -16,7 +16,6 @@
 import Foundation
 
 /// Global singleton responsible to store plugin renderer instances
-
 class PrebidMobilePluginRegister: NSObject {
     
     static let shared = PrebidMobilePluginRegister()

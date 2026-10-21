@@ -20,7 +20,6 @@ typealias WinNotifierBlock = (_ bid: Bid, _ adMarkupConsumer: @escaping AdMarkup
 
 typealias WinNotifierFactoryBlock = (_ connection: PrebidServerConnectionProtocol) -> WinNotifierBlock
 
-
 protocol WinNotifier: AnyObject {
     init()
     

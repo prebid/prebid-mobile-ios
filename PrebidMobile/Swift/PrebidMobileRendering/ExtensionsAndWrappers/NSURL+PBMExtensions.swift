@@ -16,7 +16,6 @@
 import Foundation
 
 extension NSURL {
-    
     static func pbmURLWithoutEncoding(from str: String?) -> URL? {
         guard let str = str else { return nil }
         if #available(iOS 17.0, *) {

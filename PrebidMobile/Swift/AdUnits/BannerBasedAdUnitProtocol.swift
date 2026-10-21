@@ -12,7 +12,6 @@ limitations under the License.
 
 import Foundation
 
-
 protocol BannerBasedAdUnitProtocol: AnyObject {
     var bannerParameters: BannerParameters { get set }
 }

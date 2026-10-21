@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBNative: NSObject, PBMJsonCodable {
     
     /// [Required]
@@ -46,7 +45,6 @@ class ORTBNative: NSObject, PBMJsonCodable {
         ver = "1.2"
     }
     
-    
     required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
@@ -55,7 +53,6 @@ class ORTBNative: NSObject, PBMJsonCodable {
         api      = json[.api]
         battr    = json[.battr]
     }
-    
     
     var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()

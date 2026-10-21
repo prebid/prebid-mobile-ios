@@ -17,7 +17,6 @@ import Foundation
 
 
 class DeepLinkPlus: NSObject {
-
     let primaryURL: URL
     let fallbackURL: URL?
     let primaryTrackingURLs: [URL]?
@@ -44,7 +43,6 @@ class DeepLinkPlus: NSObject {
                   fallbackTrackingURLs: deep.fallbackTrackingURLs)
     }
 
-    
     static func deepLinkPlus(with url: URL) -> DeepLinkPlus? {
         var primaryURL: URL?
         var fallbackURL: URL?

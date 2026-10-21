@@ -21,7 +21,6 @@ import Foundation
 import UIKit
 import WebKit
 
-
 class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
     var downloadBlock: ((URL, @escaping PBMDownloadDataCompletionClosure) -> Void)?
@@ -36,7 +35,6 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
     // MARK: - Initialization
 
-    
     required init(creativeModel: CreativeModel, transaction: Transaction) {
         // TODO: set proper base URL for prebid
         //Set the baseURL. This will cause relative URLs in the creative to inherit the URL scheme used.

@@ -17,25 +17,21 @@ import Foundation
 
 typealias PBMDownloadDataCompletionClosure = (Data?, Error?) -> Void
 
-
 class DownloadDataHelper: NSObject {
 
     private weak var serverConnection: PrebidServerConnectionProtocol?
 
-    
     init(serverConnection: PrebidServerConnectionProtocol) {
         self.serverConnection = serverConnection
         super.init()
     }
 
-    
     func downloadData(for url: URL?, completionClosure: @escaping PBMDownloadDataCompletionClosure) {
         serverConnection?.download(url?.absoluteString) { response in
             completionClosure(response.rawData, response.error)
         }
     }
 
-    
     func downloadData(for url: URL?, maxSize: Int, completionClosure: @escaping PBMDownloadDataCompletionClosure) {
         // `self` is captured strongly on purpose, matching the ObjC original. Callers
         // such as PBMCreativeFactoryJob create the helper as a bare local and return

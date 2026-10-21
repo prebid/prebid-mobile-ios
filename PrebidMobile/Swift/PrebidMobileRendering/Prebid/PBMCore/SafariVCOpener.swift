@@ -16,7 +16,6 @@
 import UIKit
 import SafariServices
 
-
 class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
 
     private let sdkConfiguration: Prebid
@@ -41,7 +40,6 @@ class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
         fatalError("init() is unavailable")
     }
 
-    
     init(
         sdkConfiguration: Prebid,
         modalManager: ModalManager?,
@@ -63,7 +61,6 @@ class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
         super.init()
     }
 
-    
     func openURL(_ url: URL, onClickthroughExitBlock: VoidBlock?) -> Bool {
         self.onClickthroughExitBlock = onClickthroughExitBlock
 

@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBContentData: NSObject, PBMJsonCodable {
     
     /// Exchange-specific ID for the data provider.
@@ -41,7 +40,6 @@ class ORTBContentData: NSObject, PBMJsonCodable {
         super.init()
     }
         
-    
     required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
@@ -50,7 +48,6 @@ class ORTBContentData: NSObject, PBMJsonCodable {
         segment      = json[.segment]
         ext          = json[.ext]
     }
-    
     
     var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()

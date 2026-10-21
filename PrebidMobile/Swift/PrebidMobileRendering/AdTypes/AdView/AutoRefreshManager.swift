@@ -17,7 +17,6 @@
 import Foundation
 import UIKit
 
-
 final class AutoRefreshManager: NSObject {
 
     // MARK: - Properties

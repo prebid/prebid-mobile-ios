@@ -431,7 +431,6 @@
 		922AFCE82736FAAE00732C53 /* LogToFileLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCE72736FAAE00732C53 /* LogToFileLock.swift */; };
 		922AFCEB2736FBA000732C53 /* PBMSDKConfiguration+TestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCEA2736FBA000732C53 /* PBMSDKConfiguration+TestExtension.swift */; };
 		922AFCEE2736FC8600732C53 /* XCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCED2736FC8600732C53 /* XCTest.swift */; };
-		922AFCF02736FD7A00732C53 /* NSMutableDictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 922AFCEF2736FD7A00732C53 /* NSMutableDictionaryTests.m */; };
 		922AFD022737108200732C53 /* BasicParameterBuilderPureTargetingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD012737108200732C53 /* BasicParameterBuilderPureTargetingTest.swift */; };
 		922AFD04273711CF00732C53 /* CreativeModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD03273711CF00732C53 /* CreativeModelTest.swift */; };
 		922AFD062737120B00732C53 /* ImpressionTasksExecutorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD052737120B00732C53 /* ImpressionTasksExecutorTest.swift */; };
@@ -537,7 +536,6 @@
 		925D5E4D2737F1DA00A8A2B5 /* DateFormatServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E4C2737F1DA00A8A2B5 /* DateFormatServiceTest.swift */; };
 		925D5E4F2737F22200A8A2B5 /* DownloadSizeHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E4E2737F22200A8A2B5 /* DownloadSizeHelperTest.swift */; };
 		925D5E512737F24B00A8A2B5 /* PBMConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E502737F24B00A8A2B5 /* PBMConstantsTests.swift */; };
-		925D5E532737F28C00A8A2B5 /* NSString+pbmExtensionsObjCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E522737F28C00A8A2B5 /* NSString+pbmExtensionsObjCTest.m */; };
 		925D5E592737F35500A8A2B5 /* UIViewExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E582737F35500A8A2B5 /* UIViewExtensionsTest.swift */; };
 		925D5E5C2737F38400A8A2B5 /* PBMVastLoaderTestOMVerificationInExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E5B2737F38400A8A2B5 /* PBMVastLoaderTestOMVerificationInExtension.swift */; };
 		925D5E5E2737F3B100A8A2B5 /* VideoEventsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E5D2737F3B100A8A2B5 /* VideoEventsTest.swift */; };
@@ -657,6 +655,7 @@
 		E92665FA21BEFC59B4C4A521 /* Functions+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12838B16AF520EC1E7FB80 /* Functions+Testing.swift */; };
 		EE562C6C4C558B5089F3A1B3 /* VastCreativeLinear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4754427D8E388E3F556014EE /* VastCreativeLinear.swift */; };
 		EEC03AD6E351AFE0FC589EBB /* GeoLocationParameterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0918024B761A2FC1C16C8BB /* GeoLocationParameterBuilder.swift */; };
+		F1B8FB67C88582B47353989B /* NSMutableDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045F6DEC1E678E51B43532E /* NSMutableDictionaryTests.swift */; };
 		F20DDA39DD27CB224DBF22B5 /* OpenMeasurementEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273CA44B375365D056951B62 /* OpenMeasurementEventTracker.swift */; };
 		F2B1F73A4DC4C71770A8F289 /* VastAbstractAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A589A6F90DB59956472220 /* VastAbstractAd.swift */; };
 		F5E5743E73977AA4C9D3DB0F /* ORTBDeviceExtPrebidInterstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C98CE7FF0CEDDDA4593726 /* ORTBDeviceExtPrebidInterstitial.swift */; };
@@ -1124,6 +1123,7 @@
 		7CBA283FAB37EC86FEF3946B /* CreativeViewabilityTrackerImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreativeViewabilityTrackerImpl.swift; sourceTree = "<group>"; };
 		7E5757DD0C6194DBA5E66406 /* ExposureChangeDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ExposureChangeDelegate.swift; sourceTree = "<group>"; };
 		7FAC3CF764AEFF11C515EFF9 /* DeepLinkPlus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeepLinkPlus.swift; sourceTree = "<group>"; };
+		8045F6DEC1E678E51B43532E /* NSMutableDictionaryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSMutableDictionaryTests.swift; sourceTree = "<group>"; };
 		82FBD50AA9C905E01710527F /* ORTBSourceExtOMID.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBSourceExtOMID.swift; sourceTree = "<group>"; };
 		875BF6DB6E8E8F7D9333F85E /* ORTBBidRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBBidRequest.swift; sourceTree = "<group>"; };
 		87EF3B2EA593FE48C09B0930 /* VastCreativeNonLinearAds.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastCreativeNonLinearAds.swift; sourceTree = "<group>"; };
@@ -1163,7 +1163,6 @@
 		922AFCE72736FAAE00732C53 /* LogToFileLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogToFileLock.swift; sourceTree = "<group>"; };
 		922AFCEA2736FBA000732C53 /* PBMSDKConfiguration+TestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMSDKConfiguration+TestExtension.swift"; sourceTree = "<group>"; };
 		922AFCED2736FC8600732C53 /* XCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTest.swift; sourceTree = "<group>"; };
-		922AFCEF2736FD7A00732C53 /* NSMutableDictionaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSMutableDictionaryTests.m; sourceTree = "<group>"; };
 		922AFD012737108200732C53 /* BasicParameterBuilderPureTargetingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicParameterBuilderPureTargetingTest.swift; sourceTree = "<group>"; };
 		922AFD03273711CF00732C53 /* CreativeModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeModelTest.swift; sourceTree = "<group>"; };
 		922AFD052737120B00732C53 /* ImpressionTasksExecutorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTasksExecutorTest.swift; sourceTree = "<group>"; };
@@ -1272,7 +1271,6 @@
 		925D5E4C2737F1DA00A8A2B5 /* DateFormatServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatServiceTest.swift; sourceTree = "<group>"; };
 		925D5E4E2737F22200A8A2B5 /* DownloadSizeHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadSizeHelperTest.swift; sourceTree = "<group>"; };
 		925D5E502737F24B00A8A2B5 /* PBMConstantsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMConstantsTests.swift; sourceTree = "<group>"; };
-		925D5E522737F28C00A8A2B5 /* NSString+pbmExtensionsObjCTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+pbmExtensionsObjCTest.m"; sourceTree = "<group>"; };
 		925D5E582737F35500A8A2B5 /* UIViewExtensionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensionsTest.swift; sourceTree = "<group>"; };
 		925D5E5B2737F38400A8A2B5 /* PBMVastLoaderTestOMVerificationInExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMVastLoaderTestOMVerificationInExtension.swift; sourceTree = "<group>"; };
 		925D5E5D2737F3B100A8A2B5 /* VideoEventsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEventsTest.swift; sourceTree = "<group>"; };
@@ -2609,7 +2607,6 @@
 				925D5D942737C14F00A8A2B5 /* ParameterBuilderTests */,
 				925D5D8F2737C09A00A8A2B5 /* Extensions */,
 				925D5D7F2737B9FB00A8A2B5 /* 3dPartyWrappers */,
-				922AFCEF2736FD7A00732C53 /* NSMutableDictionaryTests.m */,
 				922AFCE52736FA6200732C53 /* AdViewManagerTest.swift */,
 				922AFD012737108200732C53 /* BasicParameterBuilderPureTargetingTest.swift */,
 				922AFD03273711CF00732C53 /* CreativeModelTest.swift */,
@@ -2689,6 +2686,7 @@
 				C279647EE3B4C4C67D156168 /* CreativeParityExpectations.swift */,
 				C08A82A4B5E6A0ABC1D91CC9 /* CreativeFactoryParityTests.swift */,
 				B18F5F38C6F555806B705277 /* CreativeFactoryParityExpectations.swift */,
+				8045F6DEC1E678E51B43532E /* NSMutableDictionaryTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2852,7 +2850,6 @@
 				925D5E4C2737F1DA00A8A2B5 /* DateFormatServiceTest.swift */,
 				925D5E4E2737F22200A8A2B5 /* DownloadSizeHelperTest.swift */,
 				925D5E502737F24B00A8A2B5 /* PBMConstantsTests.swift */,
-				925D5E522737F28C00A8A2B5 /* NSString+pbmExtensionsObjCTest.m */,
 				925D5E582737F35500A8A2B5 /* UIViewExtensionsTest.swift */,
 			);
 			path = UtilitiesExtensionsTests;
@@ -3411,7 +3408,6 @@
 				FAA299102434C141002ACBF2 /* AdViewUtilsObjCTests.m in Sources */,
 				925D5D982737C1C700A8A2B5 /* BasicParameterBuilderTest.swift in Sources */,
 				925D5D782737B89E00A8A2B5 /* PBMVastIconTest.swift in Sources */,
-				922AFCF02736FD7A00732C53 /* NSMutableDictionaryTests.m in Sources */,
 				925D5DA32737C3C900A8A2B5 /* PBMAppInfoParameterBuilderTest.swift in Sources */,
 				922AFD302737262600732C53 /* PBMDeepLinkPlusTest.swift in Sources */,
 				606FAC5222022932008EAE5E /* AdUnitSwizzleHelper.swift in Sources */,
@@ -3541,7 +3537,6 @@
 				922AFD5227372B3700732C53 /* InterstitialDisplayPropertiesTests.swift in Sources */,
 				47D9A173B721CE2B39D98A82 /* MockMeasurementSession.swift in Sources */,
 				53BDBF8C293F6573004B6DE8 /* InternalUserConsentDataManagerTests.swift in Sources */,
-				925D5E532737F28C00A8A2B5 /* NSString+pbmExtensionsObjCTest.m in Sources */,
 				9285B46C27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift in Sources */,
 				922AFC9327352CEB00732C53 /* MockPBMVideoCreative.swift in Sources */,
 				929638C127AB224400D30F3D /* NativeEventTrackerResponseTests.swift in Sources */,
@@ -3628,6 +3623,7 @@
 				9FE00EE0B3F4293F78AF444A /* OpenMeasurementBridgeParityTests.swift in Sources */,
 				98A4157D5BF2E9967625371E /* OpenMeasurementBridgeParityExpectations.swift in Sources */,
 				994944E8C68F075350CCD522 /* OpenMeasurementSessionTests.swift in Sources */,
+				F1B8FB67C88582B47353989B /* NSMutableDictionaryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

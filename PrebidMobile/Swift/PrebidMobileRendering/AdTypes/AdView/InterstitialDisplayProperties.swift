@@ -29,7 +29,6 @@ public class InterstitialDisplayProperties: NSObject, Copyable {
     var contentViewColor: UIColor = .clear
     var interstitialLayout: InterstitialLayout = .undefined
     
-    
     var isRotationEnabled: Bool {
         interstitialLayout == .aspectRatio
     }

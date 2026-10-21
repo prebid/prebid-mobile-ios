@@ -89,7 +89,6 @@ class Functions: NSObject {
         return versions
     }
 
-    
     static func extractVideoAdParams(fromURLString urlString: String, forKeys keys: [Any]) -> [String: String] {
         var result: [String: String] = [:]
         guard let components = URLComponents(string: urlString) else { return result }
@@ -103,7 +102,6 @@ class Functions: NSObject {
         return result
     }
 
-    
     static func canLoadVideoAd(withDomain domain: String?,
                                       adUnitID: String?,
                                       adUnitGroupID: String?) -> Bool {
@@ -111,7 +109,6 @@ class Functions: NSObject {
         return adUnitID != nil || adUnitGroupID != nil
     }
 
-    
     static func dictionariesForPassthrough(_ passthrough: Any) -> [[String: Any]]? {
         if let array = passthrough as? [[String: Any]] { return array }
         if let dict  = passthrough as? [String: Any]   { return [dict] }
@@ -125,7 +122,6 @@ class Functions: NSObject {
         return main
     }
 
-    
     static func infoPlistValue(_ key: String) -> String? {
         guard !key.isEmpty else { return nil }
         return bundleForSDK.object(forInfoDictionaryKey: key) as? String
@@ -162,7 +158,6 @@ class Functions: NSObject {
 
     // MARK: - ObjC bridge (PBMFunctions+Private — URLs)
 
-    
     static func attemptToOpen(_ url: URL) {
         guard let app = resolvedApplication else {
             Log.warn("Cannot open \(url): the shared UIApplication is unavailable.")
@@ -171,26 +166,22 @@ class Functions: NSObject {
         attemptToOpen(url, pbmUIApplication: app)
     }
 
-    
     static func attemptToOpen(_ url: URL, pbmUIApplication: PBMUIApplicationProtocol) {
         pbmUIApplication.open(url, options: [:], completionHandler: nil)
     }
 
     // MARK: - ObjC bridge (PBMFunctions+Private — Time)
 
-    
     static func clamp(_ value: TimeInterval,
                               lowerBound: TimeInterval,
                               upperBound: TimeInterval) -> TimeInterval {
         min(max(value, lowerBound), upperBound)
     }
 
-    
     static func clampInt(_ value: Int, lowerBound: Int, upperBound: Int) -> Int {
         min(max(value, lowerBound), upperBound)
     }
 
-    
     static func clampAutoRefresh(_ value: TimeInterval) -> TimeInterval {
         clamp(value,
               lowerBound: PrebidConstants.AUTO_REFRESH_DELAY_MIN,
@@ -201,7 +192,6 @@ class Functions: NSObject {
     private static let dispatchTimeNow: UInt64 = 0
     private static let dispatchTimeForever: UInt64 = .max
 
-    
     static func dispatchTimeAfterTimeInterval(_ timeInterval: TimeInterval) -> UInt64 {
         dispatchTimeAfterTimeInterval(timeInterval, startTime: dispatchTimeNow)
     }
@@ -216,7 +206,6 @@ class Functions: NSObject {
     /// A negative `timeInterval` yields a deadline in the past (saturating at
     /// `DISPATCH_TIME_NOW`) rather than wrapping around to "almost forever", and
     /// non-finite or out-of-range intervals saturate instead of trapping.
-    
     static func dispatchTimeAfterTimeInterval(_ timeInterval: TimeInterval,
                                                      startTime: UInt64) -> UInt64 {
         switch startTime {
@@ -276,17 +265,14 @@ class Functions: NSObject {
     // MARK: - ObjC bridge (PBMFunctions+Private — JSON)
 
     // Throwing methods: @objc name must include `:error:` — Swift does not auto-append it when explicit.
-    
     static func dictionaryFromJSONString(_ jsonString: String) throws -> [String: Any] {
         try dictionary(from: jsonString)
     }
 
-    
     static func dictionaryFromData(_ jsonData: Data) throws -> [String: Any] {
         try dictionary(from: jsonData)
     }
 
-    
     static func toStringJsonDictionary(_ jsonDictionary: [String: Any]) throws -> String {
         try jsonString(from: jsonDictionary)
     }
@@ -298,7 +284,6 @@ class Functions: NSObject {
         return statusBarHeight(application: application)
     }
 
-    
     static func statusBarHeight(application: PBMUIApplicationProtocol) -> CGFloat {
         guard !application.isStatusBarHidden else { return 0 }
         if application.statusBarOrientation.isPortrait {
@@ -331,7 +316,6 @@ class Functions: NSObject {
         resolvedApplication.map(safeAreaInsets(application:)) ?? .zero
     }
 
-    
     static func safeAreaInsets(application: PBMUIApplicationProtocol) -> UIEdgeInsets {
         application.pbmKeyWindow?.safeAreaInsets ?? .zero
     }
@@ -346,7 +330,6 @@ class Functions: NSObject {
 
     // MARK: -
 
-    
     static func checkCertificateChallenge(_ challenge: URLAuthenticationChallenge,
                                                  completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         // Check if mock server host

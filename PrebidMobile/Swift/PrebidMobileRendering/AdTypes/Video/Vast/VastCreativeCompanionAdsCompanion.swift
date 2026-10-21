@@ -21,7 +21,6 @@ class VastCreativeCompanionAdsCompanion: NSObject, VastResourceContainer {
     var width = 0
     var height = 0
     var trackingEvents = VastTrackingEvents()
-
     var assetWidth = 0
     var assetHeight = 0
     var companionIdentifier: String?

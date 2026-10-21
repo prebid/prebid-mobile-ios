@@ -15,7 +15,6 @@
 import Foundation
 
 // ObjC name and init selector preserved so the runtime class name stays stable; only TransactionFactoryImpl constructs it now.
-
 class DisplayTransactionFactory: NSObject, TransactionDelegate {
 
     private let bid: Bid
@@ -34,7 +33,6 @@ class DisplayTransactionFactory: NSObject, TransactionDelegate {
 
     // MARK: - Public API
 
-    
     init(
         bid: Bid,
         adConfiguration: AdUnitConfig,
@@ -48,7 +46,6 @@ class DisplayTransactionFactory: NSObject, TransactionDelegate {
         super.init()
     }
 
-    
     @discardableResult
     func load(adMarkup: String) -> Bool {
         if isLoading {

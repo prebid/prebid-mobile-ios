@@ -19,7 +19,6 @@ import Foundation
 class AdRequestResponseVAST: NSObject {
 
     var ads: [VastAbstractAd]?
-
     override init() {
         super.init()
     }

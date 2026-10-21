@@ -16,7 +16,6 @@
 import Foundation
 
 /// This class is analogous to the <VAST> tag at the root of a Vast XML doc.
-
 class VastResponse: NSObject {
 
     // TODO: Refactor VastResponse.nextResponse and VastWrapperAd.vastResponse together.
@@ -42,7 +41,6 @@ class VastResponse: NSObject {
     // take the tracking information and add it to the terminating <InLine> tag's creative.
     // If it's of type Companion, then we are to keep the companion in a separate data structure (something we don't currently support)
 
-    
     func flattenResponse() throws -> [VastAbstractAd] {
         var inlineAdAccumulator = [VastAbstractAd]()
         var nestedError: Error?

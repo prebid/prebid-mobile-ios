@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class DeviceAccessManagerKeys: NSObject {
     static let DESCRIPTION  = "description"
     static let LOCATION     = "location"

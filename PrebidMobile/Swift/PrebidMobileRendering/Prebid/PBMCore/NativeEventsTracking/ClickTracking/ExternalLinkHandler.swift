@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ExternalLinkHandler: NSObject {
 
     private let primaryUrlOpener: ExternalURLOpenerBlock
@@ -28,7 +27,6 @@ class ExternalLinkHandler: NSObject {
         fatalError("init() is unavailable")
     }
 
-    
     init(
         primaryUrlOpener: @escaping ExternalURLOpenerBlock,
         deepLinkUrlOpener: @escaping ExternalURLOpenerBlock,
@@ -40,7 +38,6 @@ class ExternalLinkHandler: NSObject {
         super.init()
     }
 
-    
     func openExternalUrl(
         _ url: URL,
         trackingUrls: [String]?,
@@ -65,7 +62,6 @@ class ExternalLinkHandler: NSObject {
         )
     }
 
-    
     func handlerByAddingUrlOpenAttempter(
         _ urlOpenAttempter: @escaping URLOpenAttempterBlock
     ) -> ExternalLinkHandler {

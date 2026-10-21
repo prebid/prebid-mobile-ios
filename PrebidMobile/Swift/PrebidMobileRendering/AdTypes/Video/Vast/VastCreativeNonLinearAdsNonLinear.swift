@@ -24,7 +24,6 @@ class VastCreativeNonLinearAdsNonLinear: NSObject, VastResourceContainer {
 
     var clickThroughURI: String?
     var clickTrackingURIs = NSMutableArray()
-
     var apiFramework: String?
     var id: String?
     var scalable = false

@@ -18,7 +18,6 @@ import SystemConfiguration
 
 typealias PBMNetworkReachableBlock = (Reachability?) -> Void
 
-
 class Reachability: NSObject {
     
     // MARK: - Public properties

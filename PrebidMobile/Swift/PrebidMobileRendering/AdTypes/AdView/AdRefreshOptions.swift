@@ -31,7 +31,6 @@ class AdRefreshOptions: NSObject {
     let type: AdRefreshType
     let delay: Double
 
-    
     init(type: AdRefreshType, delay: Double) {
         self.type = type
         self.delay = delay

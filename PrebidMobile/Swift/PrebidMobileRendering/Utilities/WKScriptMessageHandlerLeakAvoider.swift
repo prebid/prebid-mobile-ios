@@ -21,8 +21,6 @@ import WebKit
 class WKScriptMessageHandlerLeakAvoider: NSObject, WKScriptMessageHandler {
 
     weak var delegate: WKScriptMessageHandler?
-
-    
     init(delegate: WKScriptMessageHandler) {
         self.delegate = delegate
         super.init()

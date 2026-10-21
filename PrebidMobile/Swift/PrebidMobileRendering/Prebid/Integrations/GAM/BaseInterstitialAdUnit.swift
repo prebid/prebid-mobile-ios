@@ -15,7 +15,6 @@
 
 import UIKit
 
-
 class BaseInterstitialAdUnit:
     NSObject,
     InterstitialAdLoaderDelegate,

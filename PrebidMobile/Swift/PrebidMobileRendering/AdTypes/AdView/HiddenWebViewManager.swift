@@ -17,7 +17,6 @@
 import Foundation
 import WebKit
 
-
 class HiddenWebViewManager: NSObject {
     
     private var hiddenWebView: WKWebView

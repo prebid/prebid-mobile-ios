@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 protocol ExposureChangeDelegate: NSObjectProtocol {
 
     func webView(_ webView: WebView, exposureChange viewExposure: ViewExposure)

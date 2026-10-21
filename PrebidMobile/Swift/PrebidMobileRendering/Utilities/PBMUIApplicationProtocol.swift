@@ -29,7 +29,6 @@ protocol PBMUIApplicationProtocol: NSObjectProtocol {
     /// apps — the case that matters for an SDK rendering inside a host app's window.
     var pbmKeyWindow: UIWindow? { get }
 
-    
     func open(_ url: URL,
               options: [UIApplication.OpenExternalURLOptionsKey: Any],
               completionHandler: ((Bool) -> Void)?)

@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 enum VideoViewPlaybackState: Int {
     case unstarted = 0
     case playing

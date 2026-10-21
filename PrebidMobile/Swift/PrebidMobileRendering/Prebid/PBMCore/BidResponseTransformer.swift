@@ -22,7 +22,6 @@ class BidResponseTransformer: NSObject {
         super.init()
     }
 
-    
     static func transform(_ response: PrebidServerResponse) throws -> BidResponse {
         guard let jsonDict = response.jsonDict else {
             // Prebid Server rejects a request with a plaintext body, so only a non-JSON body is classified.

@@ -20,7 +20,6 @@ import QuartzCore
 class CircularProgressBarLayer: CALayer {
 
     @NSManaged var value: CGFloat
-
     var progressAngle: CGFloat        = 0
     var progressRotationAngle: CGFloat = 0
     var maxValue: CGFloat             = 0

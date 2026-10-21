@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBContentProducer: NSObject, PBMJsonCodable {
     
     /// Content producer or originator ID.
@@ -45,7 +44,6 @@ class ORTBContentProducer: NSObject, PBMJsonCodable {
         super.init()
     }
         
-    
     required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
@@ -55,7 +53,6 @@ class ORTBContentProducer: NSObject, PBMJsonCodable {
         domain      = json[.domain]
         ext         = json[.ext]
     }
-    
     
     var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()

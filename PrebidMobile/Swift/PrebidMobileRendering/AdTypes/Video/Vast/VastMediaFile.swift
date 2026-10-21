@@ -35,8 +35,6 @@ class VastMediaFile: NSObject {
     var apiFramework: String?
 
     override init() { super.init() }
-
-    
     func setDeliver(_ deliveryMode: String?) {
         streamingDeliver = deliveryMode == "streaming"
     }

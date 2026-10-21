@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class PrebidJSLibrary: NSObject {
     
     var downloadURLString: String?

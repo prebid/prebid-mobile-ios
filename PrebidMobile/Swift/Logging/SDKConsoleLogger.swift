@@ -19,7 +19,6 @@ import Foundation
 ///
 /// Messages are printed to the console only when the SDK is compiled with the `DEBUG` flag.
 /// When `Log.logToFile` is enabled, they are written to the log file in any build configuration.
-
 class SDKConsoleLogger: NSObject, PrebidLogger {
 
     /// Whether the SDK was compiled with the `DEBUG` flag. Internal so tests can exercise release-build behavior.

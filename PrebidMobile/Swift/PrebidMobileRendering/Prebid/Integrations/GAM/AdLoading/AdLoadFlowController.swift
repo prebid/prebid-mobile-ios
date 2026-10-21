@@ -18,8 +18,6 @@ import Foundation
 
 typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderWithPrebid: Bool) -> Bool
 
-
-
 class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
 
     // MARK: - Properties

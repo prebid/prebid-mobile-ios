@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class VastParser: NSObject, XMLParserDelegate {
 
     var parsedResponse: VastResponse?
@@ -48,7 +47,6 @@ class VastParser: NSObject, XMLParserDelegate {
         super.init()
     }
 
-    
     func parseAdsResponse(_ data: Data) -> VastResponse? {
         let xmlParser = XMLParser(data: data)
         xmlParser.delegate = self

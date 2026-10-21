@@ -18,7 +18,6 @@ import CoreLocation
 
 extension CLLocationManager: LocationManagerProtocol {}
 
-
 class LocationManager: NSObject {
     
     static let shared = LocationManager()

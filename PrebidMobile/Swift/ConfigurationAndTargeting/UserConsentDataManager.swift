@@ -25,7 +25,6 @@ import Foundation
  updates and pass that data downstream and act accordingly.
  */
 
-
 class UserConsentDataManager: NSObject {
     
     static let shared = UserConsentDataManager()

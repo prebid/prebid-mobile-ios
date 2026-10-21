@@ -16,9 +16,7 @@
 
 import UIKit
 
-
 class ModalPresentationController: UIPresentationController {
-    
     
     var objc_frameOfPresentedView: CGRect {
         get { frameOfPresentedView ?? .null }

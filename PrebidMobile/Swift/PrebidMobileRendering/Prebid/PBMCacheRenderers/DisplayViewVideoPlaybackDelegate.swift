@@ -15,7 +15,6 @@
 
 import UIKit
 
-
 protocol DisplayViewVideoPlaybackDelegate: NSObjectProtocol {
     
     func videoPlaybackDidPause()

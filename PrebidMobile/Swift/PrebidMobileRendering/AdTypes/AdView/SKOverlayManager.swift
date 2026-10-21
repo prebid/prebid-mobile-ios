@@ -16,7 +16,6 @@
 import UIKit
 import StoreKit
 
-
 class SKOverlayManager: NSObject {
     
     private weak var viewControllerForPresentation: UIViewController?

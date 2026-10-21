@@ -16,13 +16,11 @@
 
 import Foundation
 
-
 class HTMLFormatter: NSObject {
 
     // The pattern is a literal, so creating the expression cannot fail.
     private static let htmlTagRegex = try! NSRegularExpression(pattern: "(<html>)|(</html>)", options: .caseInsensitive)
 
-    
     static func ensureHTMLHasBodyAndHTMLTags(_ html: String) -> String {
         // Remove any <html> / </html> tag
         let bodyText = htmlTagRegex.stringByReplacingMatches(in: html,

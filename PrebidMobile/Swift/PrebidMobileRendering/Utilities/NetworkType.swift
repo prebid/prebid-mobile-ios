@@ -20,7 +20,6 @@ import Foundation
 // Ethernet: 1 (skipped because it's not possible on a phone)
 // Wifi: 2
 // Cellular Unknown: 3
-
 enum NetworkType: Int, CustomStringConvertible {
     case unknown = 0
     case wifi = 2

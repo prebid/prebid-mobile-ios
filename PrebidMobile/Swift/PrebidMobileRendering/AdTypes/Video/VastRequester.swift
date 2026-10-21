@@ -16,7 +16,6 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
-
 class VastRequester: NSObject {
 
     // Replaces the ObjC `AdRequestCallback` typedef, which only this class used.
@@ -28,7 +27,6 @@ class VastRequester: NSObject {
     // `url` stays Optional even though the deleted ObjC header declared it nonnull: a nil
     // used to reach the completion as an error (via the failed `PBMURLComponents` init),
     // and that must not become a bridging trap.
-    
     static func loadVastURL(
         _ url: String?,
         connection: PrebidServerConnectionProtocol,

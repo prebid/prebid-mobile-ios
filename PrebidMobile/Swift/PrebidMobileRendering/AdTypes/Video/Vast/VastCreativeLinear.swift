@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class VastCreativeLinear: VastCreativeAbstract {
 
     // Untyped `NSMutableArray` (not a Swift array): surviving ObjC parser code appends in place.

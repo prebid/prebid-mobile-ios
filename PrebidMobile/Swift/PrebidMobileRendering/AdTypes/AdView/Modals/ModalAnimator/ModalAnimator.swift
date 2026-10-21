@@ -16,7 +16,6 @@
 
 import UIKit
 
-
 final class ModalAnimator: NSObject, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
 
     // MARK: - Properties

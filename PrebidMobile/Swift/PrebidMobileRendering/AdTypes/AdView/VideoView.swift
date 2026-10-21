@@ -28,7 +28,6 @@ private let enableOutstreamTapToExpand = false
 private let muteButtonSize = CGSize(width: 24, height: 24)
 
 // Not final: `MockVideoView` in the test target overrides `requiredVideoDuration()`.
-
 class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDelegate {
 
     // MARK: - Public properties

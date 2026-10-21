@@ -17,7 +17,6 @@
 import Foundation
 import UIKit
 
-
 class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, BannerEventLoadingDelegate {
 
     

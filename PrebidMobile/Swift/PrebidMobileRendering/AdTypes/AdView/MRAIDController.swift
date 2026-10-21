@@ -26,7 +26,6 @@ private struct MRAIDCommandError: LocalizedError {
     var errorDescription: String? { message }
 }
 
-
 class MRAIDController: NSObject, ExposureChangeDelegate {
 
     // MARK: - Properties
@@ -56,7 +55,6 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
     // Every parameter stays optional: PBMHTMLCreative.m, a surviving ObjC caller, can pass nil for the weak ones, and the ObjC
     // original accepted nil for all of them (playbook S3.1-H). `downloadBlock` is the structural twin of the ObjC
     // `PBMCreativeFactoryDownloadDataCompletionClosure` typedef.
-    
     init(creative: AbstractCreative?,
                 viewControllerForPresenting viewControllerForPresentingModals: UIViewController?,
                 webView: WebView?,
@@ -82,7 +80,6 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
         (urlString as NSString).range(of: MRAIDConstants.mraidURLScheme, options: [.anchored, .literal]).location != NSNotFound
     }
 
-    
     func webView(_ webView: WebView, handleMRAIDURL url: URL) {
         prebidWebView?.MRAID_nativeCallComplete()
         do {
@@ -150,7 +147,6 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
         }
     }
 
-    
     func updateForClose(_ isInterstitial: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }

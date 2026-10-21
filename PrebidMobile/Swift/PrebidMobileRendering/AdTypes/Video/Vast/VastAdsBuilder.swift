@@ -16,7 +16,6 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
-
 class VastAdsBuilder: NSObject {
 
     // Replaces the ObjC `PBMVastAdsBuilderCompletionBlock` typedef.
@@ -36,7 +35,6 @@ class VastAdsBuilder: NSObject {
 
     // MARK: - Initialization
 
-    
     init(connection serverConnection: PrebidServerConnectionProtocol) {
         self.serverConnection = serverConnection
         super.init()
@@ -44,7 +42,6 @@ class VastAdsBuilder: NSObject {
 
     // MARK: - Public
 
-    
     func buildAds(_ data: Data, completion completionBlock: @escaping Completion) {
         buildAds(data, wrapperAd: nil) { [weak self] error in
             guard let self else {
@@ -65,7 +62,6 @@ class VastAdsBuilder: NSObject {
         }
     }
 
-    
     func checkHasNoAdsAndFireURIs(vastResponse: VastResponse) -> Bool {
 
         var firedNoAdsURI = false

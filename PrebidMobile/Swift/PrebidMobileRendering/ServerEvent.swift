@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ServerEvent: NSObject {
     
     var url: String

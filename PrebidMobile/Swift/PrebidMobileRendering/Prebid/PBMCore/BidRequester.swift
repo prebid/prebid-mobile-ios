@@ -16,7 +16,6 @@
 
 import Foundation
 
-
 protocol BidRequester: BidRequesterProtocol, AnyObject {
     init(connection: PrebidServerConnectionProtocol,
          sdkConfiguration: Prebid,

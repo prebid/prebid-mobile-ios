@@ -35,7 +35,6 @@ extension UIView {
         superview.addConstraints([centerX, centerY, maxW, maxH, prefW, prefH])
     }
 
-    
     func PBMAddBottomRightConstraintsWithMarginSize(_ marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +45,6 @@ extension UIView {
         superview.addConstraints([right, bottom])
     }
 
-    
     func PBMAddBottomRightConstraints(viewSize: CGSize, marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +57,6 @@ extension UIView {
         superview.addConstraints([w, h, right, bottom])
     }
 
-    
     func PBMAddBottomLeftConstraints(viewSize: CGSize, marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +69,6 @@ extension UIView {
         superview.addConstraints([w, h, left, bottom])
     }
 
-    
     func PBMAddTopRightConstraints(viewSize: CGSize, marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +81,6 @@ extension UIView {
         superview.addConstraints([w, h, right, top])
     }
 
-    
     func PBMAddTopLeftConstraints(viewSize: CGSize, marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
@@ -98,13 +93,11 @@ extension UIView {
         superview.addConstraints([w, h, left, top])
     }
 
-    
     func logViewHierarchy() {
         Log.info("**********LOGGING VIEW HIERARCHY**********")
         logHierarchyRecursive(view: self, depth: 0)
     }
 
-    
     func pbmIsVisibleInView(_ inView: UIView) -> Bool {
         viewExposure.exposureFactor > 0
     }

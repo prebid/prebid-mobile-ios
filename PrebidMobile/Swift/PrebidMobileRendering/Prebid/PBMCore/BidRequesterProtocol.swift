@@ -16,8 +16,6 @@
 
 import Foundation
 
-
 protocol BidRequesterProtocol: AnyObject {
-    
     func requestBids(completion: @escaping (_ bidResponse: BidResponse?, _ error: Error?) -> Void)
 }

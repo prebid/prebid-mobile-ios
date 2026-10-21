@@ -16,7 +16,6 @@
 
 import Foundation
 
-
 class MRAIDCommand: NSObject {
 
     /// One of the `MRAIDAction` constants.
@@ -25,7 +24,6 @@ class MRAIDCommand: NSObject {
 
     // `url` stays optional although the ObjC header said `nonnull`: the ObjC original had a nil guard and
     // PBMMRAIDController.m, a surviving ObjC caller, builds the string (playbook S2.2-B, S3.1-H).
-    
     init(url: String?) throws {
 
         // Prepare `command`

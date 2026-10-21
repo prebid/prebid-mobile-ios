@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 
-
 class PrebidParameterBuilder: NSObject, ParameterBuilder {
 
     private let adConfiguration: AdUnitConfig

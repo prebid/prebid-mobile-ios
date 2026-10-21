@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class PrebidImagesRepository: NSObject {
     
     static let muteDisabled: String = """

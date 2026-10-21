@@ -21,7 +21,6 @@ class VastInlineAd: VastAbstractAd {
     var title: String?
     var advertiser: String?
     var verificationParameters = VideoVerificationParameters()
-
     override init() {
         super.init()
     }

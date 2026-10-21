@@ -17,7 +17,5 @@ import Foundation
 
 
 protocol ParameterBuilder: AnyObject {
-
-    
     func build(_ bidRequest: ORTBBidRequest)
 }

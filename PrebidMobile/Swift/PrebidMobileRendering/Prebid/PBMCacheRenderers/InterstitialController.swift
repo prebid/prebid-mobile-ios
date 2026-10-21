@@ -15,7 +15,6 @@
 
 import UIKit
 
-
 class InterstitialController:
     NSObject,
     PrebidMobileInterstitialControllerProtocol {

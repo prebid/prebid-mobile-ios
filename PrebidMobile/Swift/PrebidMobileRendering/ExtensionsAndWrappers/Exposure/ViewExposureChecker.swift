@@ -18,7 +18,6 @@ import UIKit
 @objc(PBMViewExposureChecker)
 class ViewExposureChecker: NSObject {
 
-    
     static func exposure(of view: UIView) -> ViewExposure {
         ViewExposureChecker(view: view).exposure
     }
@@ -27,7 +26,6 @@ class ViewExposureChecker: NSObject {
     private var clippedRect: CGRect = .zero
     private var obstructions: [NSValue] = []
 
-    
     init(view: UIView) {
         self.testedView = view
         super.init()

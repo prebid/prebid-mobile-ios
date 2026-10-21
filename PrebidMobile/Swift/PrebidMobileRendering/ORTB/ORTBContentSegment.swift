@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ORTBContentSegment: NSObject, PBMJsonCodable {
     
     /// ID of the data segment specific to the data provider.
@@ -41,7 +40,6 @@ class ORTBContentSegment: NSObject, PBMJsonCodable {
         super.init()
     }
     
-    
     required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
@@ -50,7 +48,6 @@ class ORTBContentSegment: NSObject, PBMJsonCodable {
         value       = json[.value]
         ext         = json[.ext]
     }
-    
     
     var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()

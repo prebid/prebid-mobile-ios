@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 
-
 class VastCreativeCompanionAds: VastCreativeAbstract {
 
     // Untyped `NSMutableArray`: surviving ObjC parser code appends in place.
@@ -67,7 +66,6 @@ class VastCreativeCompanionAds: VastCreativeAbstract {
         return true
     }
 
-    
     func copyTracking(fromCompanionAds: VastCreativeCompanionAds) {
         for case let fromCompanion as VastCreativeCompanionAdsCompanion in fromCompanionAds.companions {
             for case let toCompanion as VastCreativeCompanionAdsCompanion in companions {

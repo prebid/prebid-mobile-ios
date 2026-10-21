@@ -17,10 +17,8 @@ import Foundation
 import UIKit
 
 // ObjC name preserved for the bridge; no ObjC caller remains (AdViewManagerImpl calls it from Swift)
-
 class InterstitialLayoutConfigurator: NSObject {
 
-    
     static func configureProperties(
         with adConfiguration: AdConfiguration,
         displayProperties: InterstitialDisplayProperties
@@ -34,7 +32,6 @@ class InterstitialLayoutConfigurator: NSObject {
         displayProperties.interstitialLayout = calculateLayout(from: adConfiguration.size)
     }
 
-    
     static func calculateLayout(from size: CGSize) -> InterstitialLayout {
         if isPortrait(size) {
             return .portrait
@@ -47,12 +44,10 @@ class InterstitialLayoutConfigurator: NSObject {
         return .aspectRatio
     }
 
-    
     static func isPortrait(_ size: CGSize) -> Bool {
         portraitSizes.contains(size)
     }
 
-    
     static func isLandscape(_ size: CGSize) -> Bool {
         landscapeSizes.contains(size)
     }

@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 class ExternalURLOpeners: NSObject {
 
     @available(*, unavailable)
@@ -23,7 +22,6 @@ class ExternalURLOpeners: NSObject {
         fatalError("init() is unavailable")
     }
 
-    
     static func applicationAsExternalUrlOpener(
         _ application: PBMUIApplicationProtocol
     ) -> ExternalURLOpenerBlock {

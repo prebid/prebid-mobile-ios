@@ -16,7 +16,6 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
-
 class CreativeModelCollectionMakerVAST: NSObject {
 
     var adConfiguration: AdConfiguration
@@ -31,7 +30,6 @@ class CreativeModelCollectionMakerVAST: NSObject {
 
     // The success/failure blocks replace the ObjC `PBMCreativeModelMakerSuccessCallback` /
     // `PBMCreativeModelMakerFailureCallback` typedefs (deleted with PBMCreativeModelMakerResult.h).
-    
     func makeModels(_ adRequestResponse: AdRequestResponseVAST,
                            successCallback: ([CreativeModel]) -> Void,
                            failureCallback: (Error) -> Void) {
