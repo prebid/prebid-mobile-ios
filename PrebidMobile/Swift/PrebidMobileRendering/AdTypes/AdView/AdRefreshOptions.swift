@@ -15,7 +15,7 @@
     
 import Foundation
 
-@objc enum AdRefreshType: UInt {
+enum AdRefreshType: UInt {
     /// Do Not Refresh (autoRefreshDelay is nil or negative)
     case stopWithRefreshDelay = 1
 
@@ -26,12 +26,12 @@ import Foundation
     case reloadLater
 }
 
-@objc class AdRefreshOptions: NSObject {
+class AdRefreshOptions: NSObject {
 
     let type: AdRefreshType
     let delay: Double
 
-    @objc(initWithType:delay:)
+    
     init(type: AdRefreshType, delay: Double) {
         self.type = type
         self.delay = delay

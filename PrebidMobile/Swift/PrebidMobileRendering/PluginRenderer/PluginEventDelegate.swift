@@ -19,8 +19,8 @@ import Foundation
     @objc func getPluginName() -> String
 }
 
-@objc open class DefaultPluginEventDelegate: NSObject, PluginEventDelegate {
-    open func getPluginName() -> String {
+class DefaultPluginEventDelegate: NSObject, PluginEventDelegate {
+    func getPluginName() -> String {
         return "DefaultPluginName"
     }
 }

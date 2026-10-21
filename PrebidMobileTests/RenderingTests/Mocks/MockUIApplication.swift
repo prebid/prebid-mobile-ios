@@ -14,6 +14,7 @@
   */
 
 import UIKit
+@testable import PrebidMobile
 
 class MockUIApplication: NSObject, PBMUIApplicationProtocol {
 
