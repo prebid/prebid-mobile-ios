@@ -31,7 +31,7 @@ public class UserAgentService: NSObject {
         fetchUserAgent()
     }
     
-    public func fetchUserAgent(completion: ((String) -> Void)? = nil) {
+    func fetchUserAgent(completion: ((String) -> Void)? = nil) {
         // user agent has been already generated
         guard userAgent.isEmpty else {
             completion?(userAgent)

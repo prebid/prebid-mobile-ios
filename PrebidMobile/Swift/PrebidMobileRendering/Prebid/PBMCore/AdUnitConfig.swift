@@ -16,9 +16,9 @@
 import Foundation
 import UIKit
 
-public let refreshIntervalMin: TimeInterval  = 15
-public let refreshIntervalMax: TimeInterval = 120
-public let refreshIntervalDefault: TimeInterval  = 60
+let refreshIntervalMin: TimeInterval  = 15
+let refreshIntervalMax: TimeInterval = 120
+let refreshIntervalDefault: TimeInterval  = 60
 
 @objcMembers
 public class AdUnitConfig: NSObject, NSCopying {

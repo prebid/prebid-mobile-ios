@@ -16,7 +16,7 @@
 import UIKit
 
 extension UIView {
-    @objc  var viewExposure: ViewExposure {
+    var viewExposure: ViewExposure {
         ViewExposureChecker.exposure(of: self)
     }
 }

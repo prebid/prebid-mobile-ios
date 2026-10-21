@@ -15,7 +15,7 @@
 
 import UIKit
 
-public let PREBID_MOBILE_RENDERER_NAME = "PrebidRenderer"
+let PREBID_MOBILE_RENDERER_NAME = "PrebidRenderer"
 
 class PrebidRenderer: NSObject, PrebidMobilePluginRenderer {
     

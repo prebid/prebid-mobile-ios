@@ -32,7 +32,7 @@ public class EventManager: NSObject, EventTrackerProtocol {
     
     // MARK: - Public Methods
     
-    public func registerTracker(_ tracker: EventTrackerProtocol) {
+    func registerTracker(_ tracker: EventTrackerProtocol) {
         if trackers.contains(where: { $0 === tracker }) {
             return
         }
@@ -40,11 +40,11 @@ public class EventManager: NSObject, EventTrackerProtocol {
         trackers.append(tracker)
     }
     
-    public func unregisterTracker(_ tracker: EventTrackerProtocol) {
+    func unregisterTracker(_ tracker: EventTrackerProtocol) {
         trackers = trackers.filter({ $0 !== tracker })
     }
     
-    public func unregisterAllTrackers() {
+    func unregisterAllTrackers() {
         trackers.removeAll()
     }
     

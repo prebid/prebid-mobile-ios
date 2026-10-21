@@ -26,56 +26,56 @@ public class RewardedConfig: NSObject {
     
     // MARK: - Banner
     
-    public var bannerTime: NSNumber? {
+    var bannerTime: NSNumber? {
         ortbRewarded?.completion?.banner?.time
     }
     
-    public var bannerEvent: String? {
+    var bannerEvent: String? {
         ortbRewarded?.completion?.banner?.event
     }
     
     // MARK: - Video
     
-    public var videoTime: NSNumber? {
+    var videoTime: NSNumber? {
         ortbRewarded?.completion?.video?.time
     }
     
-    public var videoPlaybackevent: String? {
+    var videoPlaybackevent: String? {
         ortbRewarded?.completion?.video?.playbackevent
     }
     
     
     // MARK: - Endcard
     
-    public var endcardTime: NSNumber? {
+    var endcardTime: NSNumber? {
         ortbRewarded?.completion?.video?.endcard?.time
     }
     
-    public var endcardEvent: String? {
+    var endcardEvent: String? {
         ortbRewarded?.completion?.video?.endcard?.event
     }
     
     // MARK: - Close
     
-    public var closeAction: String? {
+    var closeAction: String? {
         ortbRewarded?.close?.action
     }
     
-    public var postRewardTime: NSNumber? {
+    var postRewardTime: NSNumber? {
         ortbRewarded?.close?.postrewardtime
     }
     
     // MARK: - Default Values
     
     /// The timeout duration for rewarded completion, measured in seconds.
-    public let defaultCompletionTime: NSNumber = 120
+    let defaultCompletionTime: NSNumber = 120
     
     /// The playback event when the SDK should send a signal to the application that the user has earned the reward
-    public let defaultVideoPlaybackEvent = "complete"
+    let defaultVideoPlaybackEvent = "complete"
     
     private let ortbRewarded: ORTBRewardedConfiguration?
     
-    public init(ortbRewarded: ORTBRewardedConfiguration?) {
+    init(ortbRewarded: ORTBRewardedConfiguration?) {
         self.ortbRewarded = ortbRewarded
     }
 }

@@ -16,8 +16,8 @@
 import Foundation
 
 extension Timer {
-    @objc(pbmScheduledTimerFactory)
-    public static func pbmScheduledTimerFactory()
+    
+    static func pbmScheduledTimerFactory()
         -> (TimeInterval, AnyObject, Selector, Any?, Bool) -> TimerInterface
     {
         return { timeInterval, target, selector, userInfo, repeats in

@@ -16,8 +16,8 @@
 import Foundation
 
 extension NSException {
-    @objc(pbmException:)
-    public static func pbmException(_ message: String) -> NSException {
+    
+    static func pbmException(_ message: String) -> NSException {
         let desc = "\(PBMErrorType.internalError): \(message)"
         return NSException(name: NSExceptionName("com.prebid"),
                            reason: message,

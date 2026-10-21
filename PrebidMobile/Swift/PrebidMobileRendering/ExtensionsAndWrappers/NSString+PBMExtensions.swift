@@ -74,8 +74,8 @@ extension NSString {
         }
     }
 
-    @objc(PBMsubstringFromIndex:toIndex:)
-    public func PBMsubstringFromIndex(_ fromIndex: Int32, toIndex: Int32) -> String? {
+    
+    func PBMsubstringFromIndex(_ fromIndex: Int32, toIndex: Int32) -> String? {
         guard fromIndex >= 0, toIndex >= 0, Int(toIndex) <= length, fromIndex <= toIndex else { return nil }
         return substring(with: NSRange(location: Int(fromIndex), length: Int(toIndex - fromIndex)))
     }

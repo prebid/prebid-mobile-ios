@@ -38,7 +38,7 @@ public class NativeData: NSObject, JsonDecodable {
     
     /// Initializes a new `NativeData` object with the provided JSON dictionary.
     /// - Parameter jsonDictionary: A dictionary containing the JSON data to initialize the object.
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native data json dicitonary is empty")
             return
@@ -54,7 +54,7 @@ public class NativeData: NSObject, JsonDecodable {
         }
     }
     
-    public override init() {
+    override init() {
         super.init()
     }
 }

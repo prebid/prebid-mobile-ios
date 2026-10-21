@@ -25,7 +25,7 @@ protocol PBMJsonEncodable {
 }
 
 extension PBMJsonDecodable {
-    public init?(jsonString: String) throws {
+    init?(jsonString: String) throws {
         guard let data = jsonString.data(using: .utf8),
               let json = try JSONSerialization.jsonObject(with: data) as? [String : Any]
         else {

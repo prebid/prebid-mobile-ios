@@ -19,10 +19,10 @@ import Foundation
 @objc(PBMVastTrackingEvents)
 public class VastTrackingEvents: NSObject {
     
-    @objc public internal(set) var trackingEvents = [String : [String]]()
-    @objc public internal(set) var progressOffsets = [NSNumber]()
+    public internal(set) var trackingEvents = [String : [String]]()
+    public internal(set) var progressOffsets = [NSNumber]()
     
-    @objc public func addTrackingURL(_ url: String?,
+    func addTrackingURL(_ url: String?,
                              event: String?,
                              attributes: [String : String]?) {
         guard let url, let event else {
@@ -40,12 +40,12 @@ public class VastTrackingEvents: NSObject {
         }
     }
     
-    @objc public func trackingURLs(forEvent event: String?) -> [String]? {
+    func trackingURLs(forEvent event: String?) -> [String]? {
         event.flatMap { trackingEvents[$0] }
     }
     
     
-    @objc public func addTrackingEvents(_ events: VastTrackingEvents?) {
+    func addTrackingEvents(_ events: VastTrackingEvents?) {
         guard let events else {
             return
         }

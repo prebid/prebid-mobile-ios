@@ -35,13 +35,13 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     }
     
     /// Indicates whether the video ad is muted.
-    public var isMuted: Bool {
+    var isMuted: Bool {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
     }
 
     /// Indicates whether the sound button is visible in the video ad.
-    public var isSoundButtonVisible: Bool {
+    var isSoundButtonVisible: Bool {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
@@ -104,7 +104,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     }
     
     /// Returns the impression-level OpenRTB configuration string.
-    public func getImpORTBConfig() -> String? {
+    func getImpORTBConfig() -> String? {
         adUnitConfig.impORTBConfig
     }
     
@@ -116,7 +116,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     }
     
     /// Returns the global OpenRTB configuration string.
-    public func getGlobalORTBConfig() -> String? {
+    func getGlobalORTBConfig() -> String? {
         adUnitConfig.globalORTBConfig
     }
         
