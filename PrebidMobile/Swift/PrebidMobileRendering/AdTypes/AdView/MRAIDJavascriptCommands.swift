@@ -20,7 +20,7 @@ import UIKit
 // The ObjC original formatted every object argument with `%@`, which prints `(null)` for `nil`. The parameters that
 // surviving ObjC callers could pass as `nil` are optional here for the same reason (playbook S3.1-H, S5.2-C).
 @objc(PBMMRAIDJavascriptCommands)
-@_spi(PBMInternal) public class MRAIDJavascriptCommands: NSObject {
+class MRAIDJavascriptCommands: NSObject {
 
     private static let nullDescription = "(null)"
 

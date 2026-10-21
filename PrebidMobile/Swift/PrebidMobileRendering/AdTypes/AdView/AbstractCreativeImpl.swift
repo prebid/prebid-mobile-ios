@@ -19,7 +19,7 @@ import UIKit
 
 // `AbstractCreative` is the name of the protocol, so the class keeps its ObjC name as the Swift name with an `Impl` suffix,
 // like `ModalStateImpl` / `AdViewManagerImpl`.
-@objc(PBMAbstractCreative_Objc) @_spi(PBMInternal) public
+@objc(PBMAbstractCreative_Objc)
 class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewControllerDelegate {
 
     // MARK: - AbstractCreative

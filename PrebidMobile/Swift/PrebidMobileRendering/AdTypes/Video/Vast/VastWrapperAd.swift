@@ -16,7 +16,7 @@
 import Foundation
 
 @objc(PBMVastWrapperAd)
-@_spi(PBMInternal) public class VastWrapperAd: VastAbstractAd {
+class VastWrapperAd: VastAbstractAd {
 
     /// The location of the next VAST tag.
     @objc public var vastURI: String?

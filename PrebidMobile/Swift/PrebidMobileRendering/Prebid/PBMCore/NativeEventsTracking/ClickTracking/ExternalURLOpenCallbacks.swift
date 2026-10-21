@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc(PBMExternalURLOpenCallbacks) @_spi(PBMInternal) public
+@objc(PBMExternalURLOpenCallbacks)
 class ExternalURLOpenCallbacks: NSObject {
 
     @objc public let urlOpenedCallback: URLOpenResultHandlerBlock

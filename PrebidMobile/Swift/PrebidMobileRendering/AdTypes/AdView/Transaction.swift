@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc(PBMTransaction) @_spi(PBMInternal) public
+@objc(PBMTransaction)
 protocol Transaction: NSObjectProtocol {
     var adConfiguration: AdConfiguration { get } // If need to change use resetAdConfiguration
     var creatives: [AbstractCreative] { get set }

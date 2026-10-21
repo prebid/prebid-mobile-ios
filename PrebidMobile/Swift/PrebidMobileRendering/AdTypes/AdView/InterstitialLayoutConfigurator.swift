@@ -17,7 +17,7 @@ import Foundation
 import UIKit
 
 // ObjC name preserved for the bridge; no ObjC caller remains (AdViewManagerImpl calls it from Swift)
-@objc(PBMInterstitialLayoutConfigurator) @_spi(PBMInternal) public
+@objc(PBMInterstitialLayoutConfigurator)
 class InterstitialLayoutConfigurator: NSObject {
 
     @objc(configurePropertiesWithAdConfiguration:displayProperties:)

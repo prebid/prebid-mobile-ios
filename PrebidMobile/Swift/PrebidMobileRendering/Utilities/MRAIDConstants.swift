@@ -116,7 +116,6 @@ public class MRAIDConstants: NSObject {
 // so these are plain Swift `RawRepresentable` structs (Strings on the wire, `.rawValue` to read them).
 
 /// MRAID command names (`PBMMRAIDAction`).
-@_spi(PBMInternal) public
 struct MRAIDAction: RawRepresentable, Hashable {
     public let rawValue: String
 
@@ -141,7 +140,6 @@ struct MRAIDAction: RawRepresentable, Hashable {
 }
 
 /// MRAID placement types (`PBMMRAIDPlacementType`).
-@_spi(PBMInternal) public
 struct MRAIDPlacementType: RawRepresentable, Hashable {
     public let rawValue: String
 
@@ -154,7 +152,6 @@ struct MRAIDPlacementType: RawRepresentable, Hashable {
 }
 
 /// MRAID supported features (`PBMMRAIDFeature`).
-@_spi(PBMInternal) public
 struct MRAIDFeature: RawRepresentable, Hashable {
     public let rawValue: String
 

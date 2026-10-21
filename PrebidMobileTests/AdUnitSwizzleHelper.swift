@@ -16,7 +16,9 @@
 import Foundation
 @testable import PrebidMobile
 
-@objcMembers
+// ObjC name fixed so `AdUnitObjCTests.m` can declare the class itself: it cannot import `PrebidMobileTests-Swift.h`,
+// which also lists the Swift mocks that subclass the (internal) SDK classes.
+@objc(AdUnitSwizzleHelper) @objcMembers
 public class AdUnitSwizzleHelper: NSObject {
 
     private override init() { }

@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 
-@_spi(PBMInternal) public
 class BidRequesterImpl: NSObject, BidRequester {
 
     private typealias Completion = (BidResponse?, Error?) -> Void

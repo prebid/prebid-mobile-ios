@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc(PBMExternalLinkHandler) @_spi(PBMInternal) public
+@objc(PBMExternalLinkHandler)
 class ExternalLinkHandler: NSObject {
 
     private let primaryUrlOpener: ExternalURLOpenerBlock

@@ -18,7 +18,6 @@ import Foundation
 import UIKit
 
 @objc(PBMBannerAdLoader)
-@_spi(PBMInternal) public
 class BannerAdLoader: NSObject, AdLoaderProtocol, DisplayViewLoadingDelegate, BannerEventLoadingDelegate {
 
     

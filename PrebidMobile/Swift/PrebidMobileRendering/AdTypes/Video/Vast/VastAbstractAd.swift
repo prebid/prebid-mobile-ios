@@ -16,7 +16,7 @@
 import Foundation
 
 @objc(PBMVastAbstractAd)
-@_spi(PBMInternal) public class VastAbstractAd: NSObject {
+class VastAbstractAd: NSObject {
 
     @objc public weak var ownerResponse: VastResponse?
 

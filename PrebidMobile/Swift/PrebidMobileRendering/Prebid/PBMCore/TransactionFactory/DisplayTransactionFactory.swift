@@ -15,7 +15,7 @@
 import Foundation
 
 // ObjC name and init selector preserved so the runtime class name stays stable; only TransactionFactoryImpl constructs it now.
-@objc(PBMDisplayTransactionFactory) @_spi(PBMInternal) public
+@objc(PBMDisplayTransactionFactory)
 class DisplayTransactionFactory: NSObject, TransactionDelegate {
 
     private let bid: Bid

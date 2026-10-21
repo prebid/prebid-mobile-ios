@@ -16,7 +16,7 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
-@objc(PBMVastRequester) @_spi(PBMInternal) public
+@objc(PBMVastRequester)
 class VastRequester: NSObject {
 
     // Replaces the ObjC `AdRequestCallback` typedef, which only this class used.

@@ -16,7 +16,7 @@
 
 import UIKit
 
-@objc(PBMModalPresentationController) @_spi(PBMInternal) public
+@objc(PBMModalPresentationController)
 class ModalPresentationController: UIPresentationController {
     
     @objc(frameOfPresentedView)

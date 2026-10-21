@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc @_spi(PBMInternal) public
+@objc 
 class ORTBMacrosHelper: NSObject {
     
     let macroValues: [String : String]

@@ -15,7 +15,7 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC code references or subclasses it any more.
-@objc(PBMAdLoadManagerVAST) @_spi(PBMInternal) public
+@objc(PBMAdLoadManagerVAST)
 class AdLoadManagerVAST: AdLoadManagerBase {
 
     private var creativeModelCollectionMaker: CreativeModelCollectionMakerVAST?

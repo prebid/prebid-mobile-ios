@@ -16,4 +16,4 @@
 
 import Foundation
 
-@objc @_spi(PBMInternal) public protocol PBMSwiftMigrationHelper {}
+@objc  protocol PBMSwiftMigrationHelper {}

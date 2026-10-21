@@ -16,7 +16,7 @@
 import Foundation
 
 @objc(PBMVastInlineAd)
-@_spi(PBMInternal) public class VastInlineAd: VastAbstractAd {
+class VastInlineAd: VastAbstractAd {
 
     @objc public var title: String?
     @objc public var advertiser: String?

@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc(PBMVideoViewPlaybackState) @_spi(PBMInternal) public
+@objc(PBMVideoViewPlaybackState)
 enum VideoViewPlaybackState: Int {
     case unstarted = 0
     case playing

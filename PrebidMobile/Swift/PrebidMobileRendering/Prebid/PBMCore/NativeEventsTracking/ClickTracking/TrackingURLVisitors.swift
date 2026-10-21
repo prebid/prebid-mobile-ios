@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc(PBMTrackingURLVisitors) @_spi(PBMInternal) public
+@objc(PBMTrackingURLVisitors)
 class TrackingURLVisitors: NSObject {
 
     @available(*, unavailable)

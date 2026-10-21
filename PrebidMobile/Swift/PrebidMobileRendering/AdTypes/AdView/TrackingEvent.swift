@@ -133,7 +133,7 @@ public enum TrackingEvent: Int {
     }
 }
 
-@objc(PBMTrackingEventDescription) @_spi(PBMInternal) public
+@objc(PBMTrackingEventDescription)
 class TrackingEventDescription: NSObject {
     
     @objc public static func getDescription(_ event: TrackingEvent) -> String {

@@ -15,8 +15,8 @@
 
 import Foundation
 
-@objc(PBMVastResourceContainerProtocol) @_spi(PBMInternal)
-public protocol VastResourceContainer: AnyObject {
+@objc(PBMVastResourceContainerProtocol)
+protocol VastResourceContainer: AnyObject {
     var resourceType: VastResourceType { get set }
     var resource: String? { get set }
     var staticType: String? { get set }

@@ -17,7 +17,7 @@ import Foundation
 import UIKit
 
 @objc(PBMVastCreativeCompanionAds)
-@_spi(PBMInternal) public class VastCreativeCompanionAds: VastCreativeAbstract {
+class VastCreativeCompanionAds: VastCreativeAbstract {
 
     // Untyped `NSMutableArray`: surviving ObjC parser code appends in place.
     // Elements are `VastCreativeCompanionAdsCompanion`.

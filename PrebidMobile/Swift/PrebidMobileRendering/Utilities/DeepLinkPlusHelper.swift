@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc(PBMDeepLinkPlusHelper) @_spi(PBMInternal) public
+@objc(PBMDeepLinkPlusHelper)
 class DeepLinkPlusHelper: NSObject {
 
     // Test seams (the ObjC `+Testing` category). Strong, like the static ivars that backed them.

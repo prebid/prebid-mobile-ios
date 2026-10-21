@@ -15,7 +15,7 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC code references it any more.
-@objc(PBMAdRequesterVAST) @_spi(PBMInternal) public
+@objc(PBMAdRequesterVAST)
 class AdRequesterVAST: NSObject {
 
     @objc public var adConfiguration: AdConfiguration

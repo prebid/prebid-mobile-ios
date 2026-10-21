@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 
-@_spi(PBMInternal) public
 class AdViewManagerImpl: NSObject, AdViewManager {
 
     public var adConfiguration: AdConfiguration

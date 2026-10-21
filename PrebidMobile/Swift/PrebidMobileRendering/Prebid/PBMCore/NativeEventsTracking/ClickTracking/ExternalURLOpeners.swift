@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc(PBMExternalURLOpeners) @_spi(PBMInternal) public
+@objc(PBMExternalURLOpeners)
 class ExternalURLOpeners: NSObject {
 
     @available(*, unavailable)

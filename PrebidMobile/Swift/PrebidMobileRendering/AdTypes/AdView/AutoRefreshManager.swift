@@ -18,7 +18,6 @@ import Foundation
 import UIKit
 
 @objc(PBMAutoRefreshManager)
-@_spi(PBMInternal) public
 final class AutoRefreshManager: NSObject {
 
     // MARK: - Properties

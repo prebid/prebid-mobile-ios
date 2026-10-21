@@ -16,7 +16,7 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
-@objc(PBMCreativeModelCollectionMakerVAST) @_spi(PBMInternal) public
+@objc(PBMCreativeModelCollectionMakerVAST)
 class CreativeModelCollectionMakerVAST: NSObject {
 
     @objc public var adConfiguration: AdConfiguration

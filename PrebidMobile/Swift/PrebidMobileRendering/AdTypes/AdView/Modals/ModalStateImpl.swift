@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 
-@_spi(PBMInternal) public
 class ModalStateImpl: NSObject, ModalState {
 
     public let adConfiguration: AdConfiguration?

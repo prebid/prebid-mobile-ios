@@ -16,7 +16,7 @@
 import Foundation
 
 @objc(PBMVastParser)
-@_spi(PBMInternal) public class VastParser: NSObject, XMLParserDelegate {
+class VastParser: NSObject, XMLParserDelegate {
 
     var parsedResponse: VastResponse?
 

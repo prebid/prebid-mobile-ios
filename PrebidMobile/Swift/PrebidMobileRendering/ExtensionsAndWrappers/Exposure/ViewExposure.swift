@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc(PBMViewExposure) @_spi(PBMInternal) public
+@objc(PBMViewExposure)
 protocol ViewExposure: NSObjectProtocol, PBMSwiftMigrationHelper {
     static func zeroExposure() -> ViewExposure
     

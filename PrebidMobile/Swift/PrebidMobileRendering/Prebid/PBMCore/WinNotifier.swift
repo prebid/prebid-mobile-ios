@@ -18,10 +18,9 @@ import Foundation
 
 public typealias WinNotifierBlock = (_ bid: Bid, _ adMarkupConsumer: @escaping AdMarkupStringHandler) -> Void
 
-@_spi(PBMInternal) public
 typealias WinNotifierFactoryBlock = (_ connection: PrebidServerConnectionProtocol) -> WinNotifierBlock
 
-@objc(PBMWinNotifier) @_spi(PBMInternal) public
+@objc(PBMWinNotifier)
 protocol WinNotifier {
     init()
     

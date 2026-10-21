@@ -15,7 +15,7 @@
 
 import Foundation
     
-@objc(PBMAdLoaderFlowDelegate) @_spi(PBMInternal) public
+@objc(PBMAdLoaderFlowDelegate)
 protocol AdLoaderFlowDelegate {
     
     func adLoader(_ adLoader: AdLoaderProtocol, loadedPrimaryAd adObject: AnyObject, adSize: NSValue?)

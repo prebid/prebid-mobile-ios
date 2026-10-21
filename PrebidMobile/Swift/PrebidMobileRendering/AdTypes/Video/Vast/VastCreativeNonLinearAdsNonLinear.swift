@@ -15,8 +15,8 @@
 
 import Foundation
 
-@objc(PBMVastCreativeNonLinearAdsNonLinear) @_spi(PBMInternal)
-public class VastCreativeNonLinearAdsNonLinear: NSObject, VastResourceContainer {
+@objc(PBMVastCreativeNonLinearAdsNonLinear)
+class VastCreativeNonLinearAdsNonLinear: NSObject, VastResourceContainer {
 
     @objc public var width = 0
     @objc public var height = 0

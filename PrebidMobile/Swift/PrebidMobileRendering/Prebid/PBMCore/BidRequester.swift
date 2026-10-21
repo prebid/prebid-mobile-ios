@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc(PBMBidRequester) @_spi(PBMInternal) public
+@objc(PBMBidRequester)
 protocol BidRequester: BidRequesterProtocol {
     init(connection: PrebidServerConnectionProtocol,
          sdkConfiguration: Prebid,

@@ -15,7 +15,7 @@
 
 import UIKit
 
-@objc(PBMViewExposureChecker) @_spi(PBMInternal) public
+@objc(PBMViewExposureChecker)
 class ViewExposureChecker: NSObject {
 
     @objc(exposureOfView:)

@@ -17,10 +17,10 @@
 import Foundation
 import UIKit
 
-@_spi(PBMInternal) public typealias ModalStatePopHandler = (_ poppedState: ModalState?) -> Void
-@_spi(PBMInternal) public typealias ModalStateAppLeavingHandler = (_ leavingState: ModalState?) -> Void
+typealias ModalStatePopHandler = (_ poppedState: ModalState?) -> Void
+typealias ModalStateAppLeavingHandler = (_ leavingState: ModalState?) -> Void
 
-@objc(PBMModalState) @_spi(PBMInternal) public
+@objc(PBMModalState)
 protocol ModalState {
     
     var adConfiguration: AdConfiguration? { get }

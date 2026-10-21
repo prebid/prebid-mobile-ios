@@ -16,7 +16,7 @@
 import UIKit
 import SafariServices
 
-@objc(PBMSafariVCOpener) @_spi(PBMInternal) public
+@objc(PBMSafariVCOpener)
 class SafariVCOpener: NSObject, SFSafariViewControllerDelegate {
 
     private let sdkConfiguration: Prebid

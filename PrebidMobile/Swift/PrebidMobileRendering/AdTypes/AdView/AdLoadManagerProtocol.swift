@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc(PBMAdLoadManagerProtocol) @_spi(PBMInternal) public
+@objc(PBMAdLoadManagerProtocol)
 protocol AdLoadManagerProtocol: NSObjectProtocol, TransactionDelegate {
     weak var adLoadManagerDelegate: AdLoadManagerDelegate? { get set }
 

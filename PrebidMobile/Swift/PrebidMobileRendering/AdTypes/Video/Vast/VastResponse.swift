@@ -17,7 +17,7 @@ import Foundation
 
 /// This class is analogous to the <VAST> tag at the root of a Vast XML doc.
 @objc(PBMVastResponse)
-@_spi(PBMInternal) public class VastResponse: NSObject {
+class VastResponse: NSObject {
 
     // TODO: Refactor VastResponse.nextResponse and VastWrapperAd.vastResponse together.
 

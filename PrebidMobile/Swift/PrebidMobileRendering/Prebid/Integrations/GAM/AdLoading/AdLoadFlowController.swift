@@ -16,12 +16,11 @@
 
 import Foundation
 
-@_spi(PBMInternal) public
 typealias AdUnitConfigValidationBlock = (_ adUnitConfig: AdUnitConfig, _ renderWithPrebid: Bool) -> Bool
 
 @objc(PBMAdLoadFlowController)
 @objcMembers
-@_spi(PBMInternal) public class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
+class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
 
     // MARK: - Properties
 

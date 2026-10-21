@@ -16,11 +16,11 @@
 
 import Foundation
 
-@objc(PBMThreadProtocol) @_spi(PBMInternal) public
+@objc(PBMThreadProtocol)
 protocol ThreadProtocol {
     
     var isMainThread: Bool { get }
 }
 
-@_spi(PBMInternal) extension Thread: ThreadProtocol {
+extension Thread: ThreadProtocol {
 }

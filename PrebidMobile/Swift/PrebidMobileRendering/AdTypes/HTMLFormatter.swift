@@ -17,7 +17,7 @@
 import Foundation
 
 @objc(PBMHTMLFormatter)
-@_spi(PBMInternal) public class HTMLFormatter: NSObject {
+class HTMLFormatter: NSObject {
 
     // The pattern is a literal, so creating the expression cannot fail.
     private static let htmlTagRegex = try! NSRegularExpression(pattern: "(<html>)|(</html>)", options: .caseInsensitive)

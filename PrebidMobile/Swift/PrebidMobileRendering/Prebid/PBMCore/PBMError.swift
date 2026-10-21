@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc @_spi(PBMInternal) public
+@objc 
 enum PBMErrorCode: Int {
     case generalLinear = 400
     case fileNotFound = 401
@@ -35,7 +35,7 @@ enum PBMErrorFamily: Int {
     case SDKMisuseErrors
 }
 
-@objc @_spi(PBMInternal) public
+@objc 
 class PBMErrorType: NSObject, RawRepresentable {
     public typealias RawValue = String
     @objc public let rawValue: String
@@ -50,7 +50,7 @@ class PBMErrorType: NSObject, RawRepresentable {
     @objc public static let serverError      = PBMErrorType(rawValue: "Server error")
 }
 
-@objc @_spi(PBMInternal) public
+@objc 
 class PBMError: NSError, @unchecked Sendable {
     static let errorDomain: String = "org.prebid.mobile"
     

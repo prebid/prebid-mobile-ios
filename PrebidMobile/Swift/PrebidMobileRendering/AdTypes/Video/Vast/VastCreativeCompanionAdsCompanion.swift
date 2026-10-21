@@ -15,8 +15,8 @@
 
 import Foundation
 
-@objc(PBMVastCreativeCompanionAdsCompanion) @_spi(PBMInternal)
-public class VastCreativeCompanionAdsCompanion: NSObject, VastResourceContainer {
+@objc(PBMVastCreativeCompanionAdsCompanion)
+class VastCreativeCompanionAdsCompanion: NSObject, VastResourceContainer {
 
     @objc public var width = 0
     @objc public var height = 0

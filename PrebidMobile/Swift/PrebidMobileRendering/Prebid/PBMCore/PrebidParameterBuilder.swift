@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objc(PBMPrebidParameterBuilder) @_spi(PBMInternal) public
+@objc(PBMPrebidParameterBuilder)
 class PrebidParameterBuilder: NSObject, ParameterBuilder {
 
     private let adConfiguration: AdUnitConfig

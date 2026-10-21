@@ -26,7 +26,7 @@ private struct MRAIDCommandError: LocalizedError {
     var errorDescription: String? { message }
 }
 
-@objc(PBMMRAIDController) @_spi(PBMInternal) public
+@objc(PBMMRAIDController)
 class MRAIDController: NSObject, ExposureChangeDelegate {
 
     // MARK: - Properties

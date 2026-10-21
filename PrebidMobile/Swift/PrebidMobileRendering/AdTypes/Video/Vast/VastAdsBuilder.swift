@@ -16,7 +16,7 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
-@objc(PBMVastAdsBuilder) @_spi(PBMInternal) public
+@objc(PBMVastAdsBuilder)
 class VastAdsBuilder: NSObject {
 
     // Replaces the ObjC `PBMVastAdsBuilderCompletionBlock` typedef.

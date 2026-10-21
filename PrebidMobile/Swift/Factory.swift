@@ -17,7 +17,7 @@
 import Foundation
 import UIKit
 
-@objc(PBMFactory) @_spi(PBMInternal) public
+@objc(PBMFactory)
 class Factory: NSObject {
     
     // MARK: BidRequester

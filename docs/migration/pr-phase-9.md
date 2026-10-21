@@ -9,16 +9,17 @@ Branch `swift-migration-phase-9` on top of `master` (`c597bc07`, after Phase 8 /
 ## Scope boundary
 
 Phase 9 lands header retirement, the SPM target removal, the `Factory` lookups and the test clean-up. It deliberately does **not** land:
-S9.2 visibility demotion, the remaining `@objc(PBM…)` annotations, the VAST `NSMutableArray` retyping, or the `MockServer/*.m` port. See the playbook hand-off.
+demotion of plain-`public` engine types (S9.2-C), the remaining `@objc(PBM…)` annotations, the VAST `NSMutableArray` retyping, or the `MockServer/*.m` port. See the playbook hand-off.
 
 ## Steps
 
 | Step | Contents |
 |------|----------|
 | **S9.1** | Delete 13 headers: `PBMAdLoadFlowController`, `PBMORTB_NotImplemented`, `PBMORTBAbstract+Protected`, `PBMORTBAbstract`, `PBMORTB`, `PBMUIApplicationProtocol`, `PBMWKNavigationActionCompatible`, `PBMWKWebViewCompatible` and their two categories, `PBMConstants`, `PBMMacros`, `Log+Extensions`. Bridging header trimmed; `UIKit`, `WebKit` and `SwiftImport.h` imported explicitly. `ServerConnectionTest` `JsonDictionary` → `[String: Any]` |
-| **S9.1 (tests)** | Port `PBMWebViewObjCTest` → `PBMWebViewTest.testLoadHTMLNil`. Delete `LogObjCTest`, `PBMMacrosTest` (ObjC macros nothing uses) and `PBMFunctionsObjCTest` (fully commented out). **Keep as ObjC:** `PrebidObjcTests`, `TargetingObjCTests`, `AdUnitObjCTests`, `AdUnitSuccessorObjCTests`, `AdViewUtilsObjCTests`, `UtilsObjCTests`, `NSString+pbmExtensionsObjCTest`, `NSMutableDictionaryTests`, `PBMFunctionsPrivateTest`: they prove the API is callable from Objective-C (S9.1-A) |
-| **S9.2 (SPM)** | `__PrebidMobileInternal` removed from `Package.swift`, `PrebidMobile/Package.swift` (target and product), and `buildPrebidMobilePackage.sh`; `PrebidMobile_SPM` define and header search path go with it |
+| **S9.1 (tests)** | Port `PBMWebViewObjCTest` → `PBMWebViewTest.testLoadHTMLNil`. Delete `LogObjCTest`, `PBMMacrosTest` (ObjC macros nothing uses) and `PBMFunctionsObjCTest` (fully commented out). **Keep as ObjC:** `PrebidObjcTests`, `TargetingObjCTests`, `AdUnitObjCTests`, `AdUnitSuccessorObjCTests`, `AdViewUtilsObjCTests`, `UtilsObjCTests`, `NSString+pbmExtensionsObjCTest`, `NSMutableDictionaryTests`: they prove the API is callable from Objective-C (S9.1-A) |
+| **S9.1 (SPM)** | `__PrebidMobileInternal` removed from `Package.swift`, `PrebidMobile/Package.swift` (target and product), and `buildPrebidMobilePackage.sh`; `PrebidMobile_SPM` define and header search path go with it |
 | **S9.3** | `Factory` constructs `BidRequesterImpl`, `WinNotifierImpl`, `AdViewManagerImpl`, `ViewExposureImpl`, `ModalStateImpl` directly; the five `NSClassFromString("PBM*_Objc")` lookups and `@objc(PBM*_Objc)` names are deleted |
+| **S9.2** | `@_spi(PBMInternal)` removed from 113 declarations in 91 files (now internal); public `.swiftinterface` diff: **0 lines**. Two extensions keep it (S9.2-C). `PBMFunctionsPrivateTest.m` deleted (its subject is no longer ObjC-visible); `AdUnitObjCTests.m` declares `AdUnitSwizzleHelper` itself (S9.2-D) |
 | **extra** | `NSString.PBMsubstringFromString(_:)` length bug fixed (S9.x-G); `AGENTS.md` architecture section rewritten; `phase-8-plan.md` deleted; PR test plan stale skip entries for the deleted ObjC tests removed |
 
 ## Behavior deviations (reviewer: please read)
@@ -28,7 +29,8 @@ S9.2 visibility demotion, the remaining `@objc(PBM…)` annotations, the VAST `N
 | 1 | `NSString.PBMsubstringFromString(_:)` | `substring(with: NSRange(end, length - range.length))`: raised `NSRangeException` when the match was not at index 0 and text continued after it | `substring(from: end)`; same result at index 0 and at end of string | **verified**, new mid-string case in `TestStringExtension` |
 | 2 | `Factory.*Type` lookups | `NSClassFromString(...) as!` crashes at first use if the runtime name were missing | direct construction, compile-time checked | verified by build + full suite |
 | 3 | Runtime class names `PBMBidRequester_Objc`, `PBMWinNotifier_Objc`, `PBMAdViewManager_Objc`, `PBMViewExposure_Objc`, `PBMModalState_Objc` | resolvable by `NSClassFromString` | gone; Swift mangled names | grep: no remaining lookup in SDK, tests, adapters or Example. All were `@_spi(PBMInternal)` |
-| 4 | Test coverage | `LogObjCTest` (7), `PBMMacrosTest` (1), `PBMFunctionsObjCTest` (3, empty bodies), `PBMWebViewObjCTest` (1) | `PBMWebViewTest.testLoadHTMLNil` (Swift) | macro tests deleted because no code uses the macros; the nil-HTML case keeps its meaning (`loadHTML(_ html: String?)` is still optional) |
+| 4 | SPI surface | `@_spi(PBMInternal) public` declarations, visible to a client that opts in with `@_spi(PBMInternal) import PrebidMobile` | internal | nothing in `EventHandlers` or `Example` references it; public interface byte-identical. A third party using the undocumented SPI group would break |
+| 5 | Test coverage | `LogObjCTest` (7), `PBMMacrosTest` (1), `PBMFunctionsObjCTest` (3, empty bodies), `PBMWebViewObjCTest` (1), `PBMFunctionsPrivateTest` (2, S9.2) | `PBMWebViewTest.testLoadHTMLNil` (Swift) | macro tests deleted because no code uses the macros; the nil-HTML case keeps its meaning (`loadHTML(_ html: String?)` is still optional) |
 
 ## Open items for the reviewer
 
@@ -42,8 +44,9 @@ S9.2 visibility demotion, the remaining `@objc(PBM…)` annotations, the VAST `N
 
 - [x] `buildPrebidMobile.sh`: 4 XCFrameworks built; "All 24 Swift interfaces typecheck"
 - [x] `buildPrebidMobilePackage.sh` after `rm -rf .build`: **394 files** compiled, exit 0
-- [x] `testPrebidMobile.sh --latest` (full): **1412 tests, 0 failures**, `TEST EXECUTE SUCCEEDED`
-- [x] `testPrebidMobileAdapters.sh`: exit 0
-- [x] `testPrebidMobile.sh --latest --quick` (PR subset), after the skip-list edit: **1016 tests, 0 failures**, `TEST EXECUTE SUCCEEDED`
+- [x] `testPrebidMobile.sh --latest` (full): **1410 tests, 0 failures**, `TEST EXECUTE SUCCEEDED` (re-run after S9.2; 1412 before, minus the two deleted `PBMFunctionsPrivateTest` tests)
+- [x] `testPrebidMobileAdapters.sh`: exit 0 (re-run after S9.2)
+- [x] Public `.swiftinterface` before/after S9.2: 0 changed lines
+- [ ] `testPrebidMobile.sh --latest --quick` (PR subset): 1016 tests, 0 failures after the skip-list edit, **before S9.2; not re-run after it**
 - [ ] `verifySPM.sh`, `buildPrebidSPM.sh`: CI only
 - [ ] Manual demo-app OMSDK check

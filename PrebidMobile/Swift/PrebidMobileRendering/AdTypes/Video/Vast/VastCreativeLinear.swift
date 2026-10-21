@@ -16,7 +16,7 @@
 import Foundation
 
 @objc(PBMVastCreativeLinear)
-@_spi(PBMInternal) public class VastCreativeLinear: VastCreativeAbstract {
+class VastCreativeLinear: VastCreativeAbstract {
 
     // Untyped `NSMutableArray` (not a Swift array): surviving ObjC parser code appends in place.
     // Elements are `VastIcon`.

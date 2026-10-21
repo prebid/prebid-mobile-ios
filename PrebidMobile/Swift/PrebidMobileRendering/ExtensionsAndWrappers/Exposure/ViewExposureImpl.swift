@@ -15,7 +15,6 @@
 
 import UIKit
 
-@_spi(PBMInternal) public
 class ViewExposureImpl: NSObject, ViewExposure {
 
     public let exposureFactor: Float

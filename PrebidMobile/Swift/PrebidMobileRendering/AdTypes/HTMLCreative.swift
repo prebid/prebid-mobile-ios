@@ -21,7 +21,7 @@ import Foundation
 import UIKit
 import WebKit
 
-@objc(PBMHTMLCreative) @_spi(PBMInternal) public
+@objc(PBMHTMLCreative)
 class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
 
     public var downloadBlock: ((URL, @escaping PBMDownloadDataCompletionClosure) -> Void)?

@@ -16,7 +16,7 @@
 
 import Foundation
 
-@objc(PBMBidRequesterProtocol) @_spi(PBMInternal) public
+@objc(PBMBidRequesterProtocol)
 protocol BidRequesterProtocol {
     @objc(requestBidsWithCompletion:)
     func requestBids(completion: @escaping (_ bidResponse: BidResponse?, _ error: Error?) -> Void)

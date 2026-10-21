@@ -15,7 +15,13 @@ limitations under the License.
 
 #import <XCTest/XCTest.h>
 #import "SwiftImport.h"
-#import "PrebidMobileTests-Swift.h"
+
+// Declared here instead of importing "PrebidMobileTests-Swift.h": that header also lists the Swift mocks that subclass
+// SDK classes which are not part of the public API, and ObjC cannot see those superclasses.
+@interface AdUnitSwizzleHelper : NSObject
+@property (class, nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *targetingKeywords;
++ (void)toggleFetchDemand;
+@end
 
 @interface AdUnitObjCTests : XCTestCase
 

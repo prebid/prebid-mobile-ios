@@ -17,7 +17,6 @@
 import Foundation
 
 @objc(PBMMRAIDState)
-@_spi(PBMInternal) public
 class MRAIDState: NSObject, RawRepresentable {
     public typealias RawValue = String
     

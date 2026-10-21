@@ -25,7 +25,6 @@ import UIKit
  *  creative info, and must implement a few methods for handling display of the creative.
  */
 @objc(PBMAbstractCreative)
-@_spi(PBMInternal) public
 protocol AbstractCreative: NSObjectProtocol {
     
     weak var transaction: Transaction? { get }

@@ -15,7 +15,6 @@
 
 import Foundation
 
-@_spi(PBMInternal) public
 class WinNotifierImpl: NSObject, WinNotifier {
 
     public required override init() {

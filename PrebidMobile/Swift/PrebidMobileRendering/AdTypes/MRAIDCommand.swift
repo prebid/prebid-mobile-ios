@@ -17,7 +17,7 @@
 import Foundation
 
 @objc(PBMMRAIDCommand)
-@_spi(PBMInternal) public class MRAIDCommand: NSObject {
+class MRAIDCommand: NSObject {
 
     /// One of the `MRAIDAction` constants.
     @objc public let command: String

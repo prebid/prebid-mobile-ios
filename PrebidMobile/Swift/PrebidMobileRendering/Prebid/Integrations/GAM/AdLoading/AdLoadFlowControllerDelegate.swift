@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc @_spi(PBMInternal) public protocol AdLoadFlowControllerDelegate: NSObjectProtocol, PBMSwiftMigrationHelper {
+@objc  protocol AdLoadFlowControllerDelegate: NSObjectProtocol, PBMSwiftMigrationHelper {
 
     // Loading callbacks
     @objc func adLoadFlowController(_ adLoadFlowController: AdLoadFlowController,

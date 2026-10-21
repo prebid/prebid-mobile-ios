@@ -18,10 +18,9 @@ import WebKit
 import AVFoundation
 import AdSupport
 
-@_spi(PBMInternal) public
 typealias JSEvaluatingBlock = (_ command: String?, _ jsResult: Any?, _ error: Error?) -> Void
 
-@objc(PBMWebViewState) @_spi(PBMInternal) public
+@objc(PBMWebViewState)
 enum WebViewState: Int {
     case unloaded
     case loading
@@ -37,7 +36,7 @@ private let keyPathOutputVolume = "outputVolume"
 // and getting it in the right format etc to be shown) while also encapsulating away other functionality that a WKWebView may have.
 //
 // Not final: `MockPBMWebView` in the test target subclasses it.
-@objc(PBMWebView) @_spi(PBMInternal) public
+@objc(PBMWebView)
 class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler, UIGestureRecognizerDelegate {
 
     // MARK: - Public properties

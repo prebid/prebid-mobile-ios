@@ -16,7 +16,7 @@
 import Foundation
 
 @objc(PBMVastCreativeNonLinearAds)
-@_spi(PBMInternal) public class VastCreativeNonLinearAds: VastCreativeAbstract, VastResourceContainer {
+class VastCreativeNonLinearAds: VastCreativeAbstract, VastResourceContainer {
 
     // Untyped `NSMutableArray`: surviving ObjC parser code appends in place.
     // Elements are `VastCreativeNonLinearAdsNonLinear`.

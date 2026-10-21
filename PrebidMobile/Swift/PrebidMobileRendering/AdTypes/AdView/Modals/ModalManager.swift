@@ -17,7 +17,7 @@
 import Foundation
 import UIKit
 
-@objc(PBMModalManager) @_spi(PBMInternal) public
+@objc(PBMModalManager)
 class ModalManager: NSObject, ModalViewControllerDelegate {
     weak var delegate: ModalManagerDelegate?
     

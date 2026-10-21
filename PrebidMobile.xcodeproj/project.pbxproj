@@ -144,7 +144,6 @@
 		4C3EF60835DA49D1803DDF9F /* PBMVideoViewPlaybackStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ED8FA6E3C640C08376E837 /* PBMVideoViewPlaybackStateTest.swift */; };
 		4E31CA52C3A8F8FEE281F6D1 /* Prebid+ForcedViewability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42CBA1B1FB7E16FBBB6C5B4 /* Prebid+ForcedViewability.swift */; };
 		51AECF6ACE5FB028EFCB0D91 /* MRAIDParityExpectations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E33844E8ED9A09BB0CD89D9 /* MRAIDParityExpectations.swift */; };
-		5221BF63949E952CA610ADAD /* PBMFunctionsPrivateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F001F043471C1D1A03C599F8 /* PBMFunctionsPrivateTest.m */; };
 		522955424FE10BB6A6F90991 /* TransactionImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C6E350567344AE2431EBC0 /* TransactionImpl.swift */; };
 		526004150CA928004E90B291 /* MRAIDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F8D3E29673552A9B551F6B /* MRAIDController.swift */; };
 		53019E6127E9E40700D509C1 /* LogTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53019E6027E9E40700D509C1 /* LogTest.swift */; };
@@ -1403,7 +1402,6 @@
 		E7ECD428DC0E255DDF370E55 /* VastRequesterTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastRequesterTest.swift; sourceTree = "<group>"; };
 		EA923B87D86838D32EF6AB05 /* WinNotifierImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WinNotifierImpl.swift; sourceTree = "<group>"; };
 		ED245A104A112F097C6593E5 /* ORTBAppExt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBAppExt.swift; sourceTree = "<group>"; };
-		F001F043471C1D1A03C599F8 /* PBMFunctionsPrivateTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PBMFunctionsPrivateTest.m; sourceTree = "<group>"; };
 		F075B5FDD474004A94EDC6E2 /* AdViewManagerImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdViewManagerImpl.swift; sourceTree = "<group>"; };
 		F0FF808E2429C7F22C8C7888 /* AdRequestResponseVAST.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdRequestResponseVAST.swift; sourceTree = "<group>"; };
 		F53EA1DFD25E0E22EFF42EE2 /* VastCreativeLinearTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastCreativeLinearTest.swift; sourceTree = "<group>"; };
@@ -2859,7 +2857,6 @@
 				925D5E502737F24B00A8A2B5 /* PBMConstantsTests.swift */,
 				925D5E522737F28C00A8A2B5 /* NSString+pbmExtensionsObjCTest.m */,
 				925D5E582737F35500A8A2B5 /* UIViewExtensionsTest.swift */,
-				F001F043471C1D1A03C599F8 /* PBMFunctionsPrivateTest.m */,
 			);
 			path = UtilitiesExtensionsTests;
 			sourceTree = "<group>";
@@ -3634,7 +3631,6 @@
 				9FE00EE0B3F4293F78AF444A /* OpenMeasurementBridgeParityTests.swift in Sources */,
 				98A4157D5BF2E9967625371E /* OpenMeasurementBridgeParityExpectations.swift in Sources */,
 				994944E8C68F075350CCD522 /* OpenMeasurementSessionTests.swift in Sources */,
-				5221BF63949E952CA610ADAD /* PBMFunctionsPrivateTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

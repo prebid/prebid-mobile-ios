@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objc @_spi(PBMInternal) public
+@objc 
 protocol BannerAdLoaderDelegate: NSObjectProtocol {
     
     var eventHandler: BannerEventHandler? { get }

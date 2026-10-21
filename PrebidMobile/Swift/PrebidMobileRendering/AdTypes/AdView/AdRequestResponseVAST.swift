@@ -16,7 +16,7 @@
 import Foundation
 
 @objc(PBMAdRequestResponseVAST)
-@_spi(PBMInternal) public class AdRequestResponseVAST: NSObject {
+class AdRequestResponseVAST: NSObject {
 
     @objc public var ads: [VastAbstractAd]?
 

@@ -16,7 +16,7 @@
 import Foundation
 import UIKit
 
-@objc(PBMVideoCreative) @_spi(PBMInternal) public
+@objc(PBMVideoCreative)
 class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
     public static var maxSizeForPreRenderContent: Int {

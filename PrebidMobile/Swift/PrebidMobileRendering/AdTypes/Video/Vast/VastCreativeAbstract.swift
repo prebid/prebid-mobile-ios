@@ -16,7 +16,7 @@
 import Foundation
 
 @objc(PBMVastCreativeAbstract)
-@_spi(PBMInternal) public class VastCreativeAbstract: NSObject {
+class VastCreativeAbstract: NSObject {
 
     @objc(identifier) public var id: String?
     @objc public var adId: String?

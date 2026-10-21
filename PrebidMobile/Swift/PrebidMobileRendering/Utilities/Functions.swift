@@ -15,7 +15,7 @@
 
 import UIKit
 
-@objc(PBMFunctions) @_spi(PBMInternal) public class Functions: NSObject {
+@objc(PBMFunctions)  class Functions: NSObject {
     
     private override init() {
         super.init()

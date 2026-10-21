@@ -15,8 +15,8 @@
 
 import Foundation
 
-@objc(PBMVastIcon) @_spi(PBMInternal)
-public class VastIcon: NSObject, VastResourceContainer {
+@objc(PBMVastIcon)
+class VastIcon: NSObject, VastResourceContainer {
 
     @objc public var program = ""
     @objc public var width = 0

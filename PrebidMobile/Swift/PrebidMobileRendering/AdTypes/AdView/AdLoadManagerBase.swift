@@ -15,7 +15,7 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC code references or subclasses it any more.
-@objc(PBMAdLoadManagerBase) @_spi(PBMInternal) public
+@objc(PBMAdLoadManagerBase)
 class AdLoadManagerBase: NSObject, AdLoadManagerProtocol {
 
     @objc public weak var adLoadManagerDelegate: AdLoadManagerDelegate?

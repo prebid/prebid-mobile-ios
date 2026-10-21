@@ -15,8 +15,8 @@
 
 import Foundation
 
-@objc(PBMVastMediaFile) @_spi(PBMInternal)
-public class VastMediaFile: NSObject {
+@objc(PBMVastMediaFile)
+class VastMediaFile: NSObject {
 
     @objc public var streamingDeliver = false
     @objc public var type = ""
