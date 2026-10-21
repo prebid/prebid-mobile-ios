@@ -246,10 +246,6 @@ public class BannerView:
         )
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -259,10 +255,14 @@ public class BannerView:
         adLoadFlowController?.refresh()
     }
     
-    /// Sets the stored auction response.
+    /// Sets the stored auction response for this banner only.
+    ///
+    /// It takes precedence over `Prebid.shared.storedAuctionResponse` for this banner's requests and
+    /// does not change the SDK-wide value, so other ad units are not affected. The value cannot be
+    /// unset; it is discarded with the banner.
     /// - Parameter storedAuction: The stored auction response string.
-    public func setStoredAuctionResponse(storedAuction:String){
-        Prebid.shared.storedAuctionResponse = storedAuction
+    public func setStoredAuctionResponse(storedAuction: String) {
+        adUnitConfig.storedAuctionResponse = storedAuction
     }
     
     // MARK: Arbitrary ORTB Configuration
