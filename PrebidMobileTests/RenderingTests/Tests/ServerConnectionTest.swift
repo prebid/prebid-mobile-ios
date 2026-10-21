@@ -408,12 +408,12 @@ class ServerConnectionTestJSON : XCTestCase {
                 return
             }
             
-            guard let adsDict = jsonDict["ads"] as? JsonDictionary else {
+            guard let adsDict = jsonDict["ads"] as? [String: Any] else {
                 XCTFail()
                 return
             }
             
-            guard let adunits = adsDict["adunits"] as? [JsonDictionary] else {
+            guard let adunits = adsDict["adunits"] as? [[String: Any]] else {
                 XCTFail()
                 return
             }
@@ -423,7 +423,7 @@ class ServerConnectionTestJSON : XCTestCase {
                 return
             }
             
-            guard let chain = adunit["chain"] as? [JsonDictionary] else {
+            guard let chain = adunit["chain"] as? [[String: Any]] else {
                 XCTFail()
                 return
             }
@@ -580,12 +580,12 @@ class ServerConnectionTestJSONSlow : XCTestCase {
                 return
             }
             
-            guard let adsDict = jsonDict["ads"] as? JsonDictionary else {
+            guard let adsDict = jsonDict["ads"] as? [String: Any] else {
                 XCTFail()
                 return
             }
             
-            guard let adunits = adsDict["adunits"] as? [JsonDictionary] else {
+            guard let adunits = adsDict["adunits"] as? [[String: Any]] else {
                 XCTFail()
                 return
             }
@@ -595,7 +595,7 @@ class ServerConnectionTestJSONSlow : XCTestCase {
                 return
             }
             
-            guard let chain = adunit["chain"] as? [JsonDictionary] else {
+            guard let chain = adunit["chain"] as? [[String: Any]] else {
                 XCTFail()
                 return
             }

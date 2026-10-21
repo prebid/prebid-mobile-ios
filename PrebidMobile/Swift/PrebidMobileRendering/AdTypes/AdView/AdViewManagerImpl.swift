@@ -16,8 +16,7 @@
 import Foundation
 import UIKit
 
-// ObjC class name preserved so Factory.AdViewManagerType = NSClassFromString("PBMAdViewManager_Objc") resolves at runtime
-@objc(PBMAdViewManager_Objc) @_spi(PBMInternal) public
+@_spi(PBMInternal) public
 class AdViewManagerImpl: NSObject, AdViewManager {
 
     public var adConfiguration: AdConfiguration

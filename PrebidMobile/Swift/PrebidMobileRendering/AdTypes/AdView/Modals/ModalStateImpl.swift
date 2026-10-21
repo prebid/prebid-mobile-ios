@@ -16,8 +16,7 @@
 import Foundation
 import UIKit
 
-// ObjC class name preserved so Factory.ModalStateType = NSClassFromString("PBMModalState_Objc") resolves at runtime
-@objc(PBMModalState_Objc) @_spi(PBMInternal) public
+@_spi(PBMInternal) public
 class ModalStateImpl: NSObject, ModalState {
 
     public let adConfiguration: AdConfiguration?

@@ -183,8 +183,8 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
      - html: "Valid" HTML string including at least opening and closing <html> tags.
      - baseURL: Optional base URL to load HTML with.
      */
-    // `html` stays optional: PBMHTMLCreative.m and PBMWebViewObjCTest.m, ObjC callers, still reach it and the ObjC
-    // original logged and returned on nil (playbook S3.1-H).
+    // `html` stays optional: the ObjC original logged and returned on nil (playbook S3.1-H), and
+    // `PBMWebViewTest.testLoadHTMLNil` pins that.
     @objc(loadHTML:baseURL:injectMraidJs:)
     public func loadHTML(_ html: String?, baseURL: URL?, injectMraidJs: Bool) {
         loadHTML(html, baseURL: baseURL, injectMraidJs: injectMraidJs, currentThread: Thread.current)

@@ -34,9 +34,6 @@ if [ ! -d "${OMSDK_SLICE}" ]; then
     exit 1
 fi
 
-# Build the Swift target and the ObjC target separately. Once __PrebidMobileInternal has
-# no sources left, SwiftPM compiles nothing for it and skips its PrebidMobile dependency,
-# so building only the ObjC target would pass without compiling the SDK.
 SWIFT_BUILD_FLAGS=(
     -Xswiftc -sdk -Xswiftc "${SDK_PATH}"
     -Xswiftc -target -Xswiftc "${TRIPLE}"
@@ -47,6 +44,5 @@ SWIFT_BUILD_FLAGS=(
 )
 
 swift build --target PrebidMobile "${SWIFT_BUILD_FLAGS[@]}"
-swift build --target __PrebidMobileInternal "${SWIFT_BUILD_FLAGS[@]}"
 
 echo "✅ SPM package build succeeded"

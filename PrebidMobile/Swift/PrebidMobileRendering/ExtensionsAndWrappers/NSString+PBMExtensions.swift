@@ -46,11 +46,7 @@ extension NSString {
         guard let from = from else { return nil }
         let range = range(of: from)
         guard range.location != NSNotFound else { return nil }
-        let end = range.location + range.length
-        if end < length {
-            return substring(with: NSRange(location: end, length: length - range.length))
-        }
-        return ""
+        return substring(from: range.location + range.length)
     }
 
     @objc(PBMsubstringFromString:toString:)

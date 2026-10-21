@@ -15,8 +15,7 @@
 
 import Foundation
 
-// ObjC class name preserved so Factory.WinNotifierType = NSClassFromString("PBMWinNotifier_Objc") resolves at runtime
-@objc(PBMWinNotifier_Objc) @_spi(PBMInternal) public
+@_spi(PBMInternal) public
 class WinNotifierImpl: NSObject, WinNotifier {
 
     public required override init() {

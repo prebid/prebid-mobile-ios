@@ -633,6 +633,18 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         XCTAssertTrue(testError?.localizedDescription.contains("Could not load mraid.js from library manager") ?? false)
     }
     
+    func testLoadHTMLNil() {
+        logToFile = .init()
+        
+        let webView = WebView()
+        webView.loadHTML(nil, baseURL: nil, injectMraidJs: false)
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.contains("Input HTML is nil"))
+        XCTAssertEqual(webView.state, .loading)
+        XCTAssertEqual(webView.mraidState, .notEnabled)
+    }
+    
     func testLoadHTMLEmpty() {
         let webView = WebView()
         webView.loadHTML("", baseURL:nil, injectMraidJs: false)

@@ -16,8 +16,7 @@
 import Foundation
 import UIKit
 
-// ObjC class name preserved so Factory.bidRequesterType = NSClassFromString("PBMBidRequester_Objc") resolves at runtime
-@objc(PBMBidRequester_Objc) @_spi(PBMInternal) public
+@_spi(PBMInternal) public
 class BidRequesterImpl: NSObject, BidRequester {
 
     private typealias Completion = (BidResponse?, Error?) -> Void

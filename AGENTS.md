@@ -104,25 +104,18 @@ The workspace (`PrebidMobile.xcworkspace`) contains three projects:
 
 ### Core SDK (`PrebidMobile/`)
 
-Split between Swift and Objective-C layers:
+The SDK is Swift. `PrebidMobile/Objc/` holds no `.m` files; one header remains, and it exists for the test target:
 
-**`PrebidMobile/Swift/`** — Public-facing Swift API:
-- `Objc/Prebid.swift`, `Objc/Targeting.swift` — SDK configuration singleton and user targeting
-- `Swift/AdUnits/` — `BannerAdUnit`, `InterstitialAdUnit`, `RewardedVideoAdUnit`, `InstreamVideoAdUnit`, `MultiformatAdUnit`
-- `Swift/AdUnits/Native/` — Native ad unit types
-- `Swift/ConfigurationAndTargeting/` — `AdUnitConfig`, targeting parameters
+**`PrebidMobile/Swift/`** — the SDK:
+- `Swift/AdUnits/` — `BannerAdUnit`, `InterstitialAdUnit`, `RewardedVideoAdUnit`, `InstreamVideoAdUnit`, `MultiformatAdUnit`; `AdUnits/Native/` — native ad unit types
+- `Swift/ConfigurationAndTargeting/` — `Prebid`, `Targeting`, `AdUnitConfig`, targeting parameters
 - `Swift/CacheManagement/` — bid caching layer
 - `Swift/Host.swift` — Prebid Server endpoint configuration
 - `Swift/Global.swift` — shared error types
+- `Swift/Factory.swift` — constructs the internal implementation classes
+- `Swift/PrebidMobileRendering/` — the former Objective-C rendering engine: `Prebid/PBMCore/ORTB/` (OpenRTB model), `Networking/`, `AdTypes/` (HTML/MRAID/VAST), `3dPartyWrappers/OpenMeasurement/` (OMSDK), `Prebid/` (`PrebidAdUnit`, `PrebidRequest`, `BidInfo`)
 
-**`PrebidMobile/Objc/`** — Internal Objective-C rendering engine:
-- `PrebidMobileRendering/ORTB/` — OpenRTB bid request object model (`PBMORTBBidRequest`, `PBMORTBImp`, etc.)
-- `PrebidMobileRendering/Networking/` — HTTP layer, URL building, impression tracking
-- `PrebidMobileRendering/AdTypes/` — HTML creative rendering, MRAID, VAST/video
-- `PrebidMobileRendering/3dPartyWrappers/OpenMeasurement/` — OMSDK integration
-- `PrebidMobileRendering/Prebid/` — `PrebidAdUnit`, `PrebidRequest`, `BidInfo`
-
-The `PrebidMobile_SPM` compile flag is set when building via SPM (not CocoaPods).
+**`PrebidMobile/Objc/PrivateHeaders/`** — `SwiftImport.h` (the `PrebidMobile-Swift.h` umbrella) is imported by the ObjC test files that prove the public API is callable from Objective-C apps. Those tests stay Objective-C on purpose: see `docs/migration/playbook.md`, S9.x.
 
 ### Event Handlers / Adapters (`EventHandlers/`)
 
@@ -135,7 +128,7 @@ Each adapter has its own test target (`*Tests/`).
 
 ### SPM vs CocoaPods layout
 
-**SPM** (Package.swift at root): `PrebidMobile` product = `PrebidMobile` target (Swift sources) + `__PrebidMobileInternal` target (ObjC sources). The `__PrebidMobileInternal` target depends on the bundled `Frameworks/OMSDK_Prebidorg.xcframework`.
+**SPM** (Package.swift at root): the `PrebidMobile` product is the single `PrebidMobile` target (Swift sources), which depends on the bundled `Frameworks/OMSDK_Prebidorg.xcframework`.
 
 **CocoaPods** (PrebidMobile.podspec): Single `core` subspec pulls all `PrebidMobile/**/*.{h,m,swift}` except Package.swift.
 

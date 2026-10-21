@@ -15,8 +15,7 @@
 
 import UIKit
 
-// ObjC class name preserved so Factory.ViewExposureType = NSClassFromString("PBMViewExposure_Objc") resolves at runtime
-@objc(PBMViewExposure_Objc) @_spi(PBMInternal) public
+@_spi(PBMInternal) public
 class ViewExposureImpl: NSObject, ViewExposure {
 
     public let exposureFactor: Float

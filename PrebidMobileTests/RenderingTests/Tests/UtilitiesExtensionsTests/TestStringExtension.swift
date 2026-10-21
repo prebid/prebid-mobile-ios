@@ -85,6 +85,11 @@ class TestStringExtension: XCTestCase {
         var expected:String? = "barbaz"
         XCTAssert(expected == actual, "expected \(String(describing: expected)), got \(String(describing: actual))")
         
+        //Middle: the match is not at index 0 and the string continues after it (the ObjC original raised NSRangeException here)
+        actual = "foobarbaz".PBMsubstringFromString("bar")
+        expected = "baz"
+        XCTAssert(expected == actual, "expected \(String(describing: expected)), got \(String(describing: actual))")
+        
         //End
         actual = "foobarbaz".PBMsubstringFromString("baz")
         expected = ""
