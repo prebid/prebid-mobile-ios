@@ -11,7 +11,8 @@ Branch `swift-migration-phase-9` on top of `master` (`c597bc07`, after Phase 8 /
 Phase 9 lands header retirement, the SPM target removal, the `Factory` lookups, the test clean-up, the consumer-defined visibility demotion (S9.2) and the VAST array retyping (S9.4). It deliberately does **not** land:
 - pruning members of the classes that stay public (`Targeting`, `Prebid`, `Log`, ...): documented members that the apps do not reference are kept (S9.2-F);
 - the `MockServer/*.m` port (test infrastructure), and `OMIDContext+pbmTestExtension.m` (must stay);
-- the manual demo-app OMSDK check.
+- the manual demo-app OMSDK check;
+- dropping `NSObject` from internal classes: a follow-up epic, tracked in [#1408](https://github.com/prebid/prebid-mobile-ios/issues/1408).
 See the playbook hand-off.
 
 ## Steps
