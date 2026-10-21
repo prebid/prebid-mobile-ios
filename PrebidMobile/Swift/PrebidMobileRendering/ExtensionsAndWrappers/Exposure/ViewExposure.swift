@@ -17,7 +17,7 @@
 import Foundation
 
 @objc(PBMViewExposure)
-protocol ViewExposure: NSObjectProtocol, PBMSwiftMigrationHelper {
+protocol ViewExposure: NSObjectProtocol {
     static func zeroExposure() -> ViewExposure
     
     var exposureFactor: Float { get }

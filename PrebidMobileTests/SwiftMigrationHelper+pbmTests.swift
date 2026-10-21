@@ -17,7 +17,13 @@
 import XCTest
 @_spi(PBMInternal) @testable import PrebidMobile
 
-func XCTAssertEqual<T: PBMSwiftMigrationHelper>(_ expression1: @autoclosure () -> T,
-                                                _ expression2: @autoclosure () -> T) {
+// The SDK protocols below are `NSObject`-backed; XCTest's generic `XCTAssertEqual` needs `Equatable`, so compare them as `NSObject`.
+func XCTAssertEqual(_ expression1: @autoclosure () -> ViewExposure,
+                    _ expression2: @autoclosure () -> ViewExposure) {
+    XCTAssertEqual(expression1() as! NSObject, expression2() as! NSObject)
+}
+
+func XCTAssertEqual(_ expression1: @autoclosure () -> AdLoadFlowControllerDelegate,
+                    _ expression2: @autoclosure () -> AdLoadFlowControllerDelegate) {
     XCTAssertEqual(expression1() as! NSObject, expression2() as! NSObject)
 }

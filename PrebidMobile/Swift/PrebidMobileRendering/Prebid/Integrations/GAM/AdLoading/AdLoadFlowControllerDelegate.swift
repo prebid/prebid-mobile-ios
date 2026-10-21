@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc  protocol AdLoadFlowControllerDelegate: NSObjectProtocol, PBMSwiftMigrationHelper {
+@objc  protocol AdLoadFlowControllerDelegate: NSObjectProtocol {
 
     // Loading callbacks
     @objc func adLoadFlowController(_ adLoadFlowController: AdLoadFlowController,
