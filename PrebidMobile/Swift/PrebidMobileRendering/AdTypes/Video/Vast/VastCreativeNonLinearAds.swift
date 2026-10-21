@@ -17,9 +17,7 @@ import Foundation
 
 class VastCreativeNonLinearAds: VastCreativeAbstract, VastResourceContainer {
 
-    // Untyped `NSMutableArray`: surviving ObjC parser code appends in place.
-    // Elements are `VastCreativeNonLinearAdsNonLinear`.
-    var nonLinears = NSMutableArray()
+    var nonLinears = [VastCreativeNonLinearAdsNonLinear]()
 
     // VastResourceContainer
     var resourceType = VastResourceType.staticResource
@@ -31,9 +29,9 @@ class VastCreativeNonLinearAds: VastCreativeAbstract, VastResourceContainer {
     }
 
     func copyTracking(fromNonLinearAds: VastCreativeNonLinearAds) {
-        for case let fromNonLinear as VastCreativeNonLinearAdsNonLinear in fromNonLinearAds.nonLinears {
-            for case let toNonLinear as VastCreativeNonLinearAdsNonLinear in nonLinears {
-                toNonLinear.clickTrackingURIs.addObjects(from: Array(fromNonLinear.clickTrackingURIs))
+        for fromNonLinear in fromNonLinearAds.nonLinears {
+            for toNonLinear in nonLinears {
+                toNonLinear.clickTrackingURIs.append(contentsOf: Array(fromNonLinear.clickTrackingURIs))
                 toNonLinear.vastTrackingEvents.addTrackingEvents(fromNonLinear.vastTrackingEvents)
             }
         }

@@ -27,7 +27,7 @@ class PBMVastCreativeNonLinearAdsTest: XCTestCase {
         let nonLinear1 = VastCreativeNonLinearAdsNonLinear()
         nonLinear1.clickThroughURI = "URI_1"
         nonLinear1.clickTrackingURIs = ["URI_1a", "URI_1b"]
-        ad1.nonLinears.add(nonLinear1)
+        ad1.nonLinears.append(nonLinear1)
         
         let ad2 = VastCreativeNonLinearAds()
         ad2.id = "222222"
@@ -35,7 +35,7 @@ class PBMVastCreativeNonLinearAdsTest: XCTestCase {
         let nonLinear2 = VastCreativeNonLinearAdsNonLinear()
         nonLinear2.clickThroughURI = "URI_2"
         nonLinear2.clickTrackingURIs = ["URI_2a", "URI_2b"]
-        ad2.nonLinears.add(nonLinear2)
+        ad2.nonLinears.append(nonLinear2)
         
         // precondition: should contain only 2
         var nonLinear = ad1.nonLinears[0] as! VastCreativeNonLinearAdsNonLinear

@@ -1,15 +1,18 @@
-# [swift-migration] Phase 9: retire ObjC leftovers, remove the empty SPM target
+# [swift-migration] Phase 9: consumer-defined public API, ObjC leftovers retired, SPM target removed
 
-Suggested PR title: `[swift-migration] Phase 9: retire ObjC leftovers, remove the empty SPM target`
+Suggested PR title: `[swift-migration] Phase 9: consumer-defined public API, ObjC leftovers retired, SPM target removed`
 
-Branch `swift-migration-phase-9` on top of `master` (`c597bc07`, after Phase 8 / #1406). Steps: **S9.1 – S9.3** (below). One PR.
+Branch `swift-migration-phase-9` on top of `master` (`c597bc07`, after Phase 8 / #1406). Steps: **S9.1 – S9.4** (below). One PR.
 
 **Result: `PrebidMobile/Objc` holds one header, `SwiftImport.h` (was 14).** The ObjC SPM target `__PrebidMobileInternal` is gone.
 
 ## Scope boundary
 
-Phase 9 lands header retirement, the SPM target removal, the `Factory` lookups and the test clean-up. It deliberately does **not** land:
-demotion of plain-`public` engine types (S9.2-C), the remaining `@objc(PBM…)` annotations, the VAST `NSMutableArray` retyping, or the `MockServer/*.m` port. See the playbook hand-off.
+Phase 9 lands header retirement, the SPM target removal, the `Factory` lookups, the test clean-up, the consumer-defined visibility demotion (S9.2) and the VAST array retyping (S9.4). It deliberately does **not** land:
+- pruning members of the classes that stay public (`Targeting`, `Prebid`, `Log`, ...): documented members that the apps do not reference are kept (S9.2-F);
+- the `MockServer/*.m` port (test infrastructure), and `OMIDContext+pbmTestExtension.m` (must stay);
+- the manual demo-app OMSDK check.
+See the playbook hand-off.
 
 ## Steps
 
@@ -21,6 +24,7 @@ demotion of plain-`public` engine types (S9.2-C), the remaining `@objc(PBM…)` 
 | **S9.3** | `Factory` constructs `BidRequesterImpl`, `WinNotifierImpl`, `AdViewManagerImpl`, `ViewExposureImpl`, `ModalStateImpl` directly; the five `NSClassFromString("PBM*_Objc")` lookups and `@objc(PBM*_Objc)` names are deleted |
 | **S9.2** | `@_spi(PBMInternal)` removed from 113 declarations in 91 files (now internal); public `.swiftinterface` diff: **0 lines**. Two extensions keep it (S9.2-C). `PBMFunctionsPrivateTest.m` deleted (its subject is no longer ObjC-visible); `AdUnitObjCTests.m` declares `AdUnitSwizzleHelper` itself (S9.2-D) |
 | **S9.2b-e** | Public API redefined by consumer usage (S9.2-F): every top-level type outside the demo apps, InternalTestApp, the adapters, the ObjC API tests and the non-`@testable` API tests loses `public`/`open`/`@objc`; then unreferenced members of the types that stay public, `public extension`s on system classes and top-level globals. Public types 236 → 147, none newly public; public members 1694 → 950; `@objc` in the public interface 2515 → 1505. `PBMSwiftMigrationHelper` deleted; two ObjC helper tests ported to Swift; two KVC tests rewritten (typed key paths, block predicates) |
+| **S9.4** | The 13 VAST `NSMutableArray` properties are typed Swift arrays (S9.4-A); redundant casts and the wrong-typed-element parser tests adjusted |
 | **extra** | `NSString.PBMsubstringFromString(_:)` length bug fixed (S9.x-G); `AGENTS.md` architecture section rewritten; `phase-8-plan.md` deleted; PR test plan stale skip entries for the deleted ObjC tests removed |
 
 ## Behavior deviations (reviewer: please read)

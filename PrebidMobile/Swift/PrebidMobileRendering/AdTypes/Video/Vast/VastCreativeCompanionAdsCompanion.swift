@@ -26,7 +26,7 @@ class VastCreativeCompanionAdsCompanion: NSObject, VastResourceContainer {
     var companionIdentifier: String?
     var clickThroughURI: String?
     var adParameters: String?
-    var clickTrackingURIs = NSMutableArray()
+    var clickTrackingURIs = [String]()
 
     // VastResourceContainer
     var resourceType = VastResourceType.staticResource

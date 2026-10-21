@@ -23,7 +23,7 @@ class VastCreativeNonLinearAdsNonLinear: NSObject, VastResourceContainer {
     var vastTrackingEvents = VastTrackingEvents()
 
     var clickThroughURI: String?
-    var clickTrackingURIs = NSMutableArray()
+    var clickTrackingURIs = [String]()
     var apiFramework: String?
     var id: String?
     var scalable = false

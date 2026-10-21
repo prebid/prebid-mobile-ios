@@ -229,7 +229,7 @@ class VastParser: NSObject, XMLParserDelegate {
             companion.height = parseInt(attributeDict["height"])
             companion.assetWidth = parseInt(attributeDict["assetWidth"])
             companion.assetHeight = parseInt(attributeDict["assetHeight"])
-            companionAds.companions.add(companion)
+            companionAds.companions.append(companion)
 
         case "NonLinearAds":
             creative = VastCreativeNonLinearAds()
@@ -250,7 +250,7 @@ class VastParser: NSObject, XMLParserDelegate {
             nonLinear.maintainAspectRatio = parseBool(attributeDict["maintainAspectRatio"])
             nonLinear.minSuggestedDuration = parseTimeInterval(attributeDict["minSuggestedDuration"])
             nonLinear.apiFramework = attributeDict["apiFramework"]
-            nonLinearAds.nonLinears.add(nonLinear)
+            nonLinearAds.nonLinears.append(nonLinear)
 
         case "Icon":
             guard let linearCreative = creative as? VastCreativeLinear else {
@@ -266,7 +266,7 @@ class VastParser: NSObject, XMLParserDelegate {
             icon.yPosition = parseInt(attributeDict["yPosition"])
             icon.duration = parseTimeInterval(attributeDict["duration"])
             icon.startOffset = parseTimeInterval(attributeDict["startOffset"])
-            linearCreative.icons.add(icon)
+            linearCreative.icons.append(icon)
 
         case "MediaFile":
             guard let linearCreative = creative as? VastCreativeLinear else {
@@ -288,7 +288,7 @@ class VastParser: NSObject, XMLParserDelegate {
             mediaFile.maxBitrate = NSNumber(value: parseFloat(attributeDict["maxBitrate"]))
             mediaFile.scalable = NSNumber(value: parseBool(attributeDict["scalable"]))
             mediaFile.maintainAspectRatio = NSNumber(value: parseBool(attributeDict["maintainAspectRatio"]))
-            linearCreative.mediaFiles.add(mediaFile)
+            linearCreative.mediaFiles.append(mediaFile)
 
         case "AdVerifications":
             verificationParameter = VideoVerificationParameters()
@@ -318,7 +318,7 @@ class VastParser: NSObject, XMLParserDelegate {
         switch elementName {
         case "Error":
             if Array(elementPath.prefix(2)) == ["VAST", "Ad"] {
-                ad?.errorURIs.add(currentElementContent)
+                ad?.errorURIs.append(currentElementContent)
             } else if elementPath == ["VAST", "Error"] {
                 parsedResponse?.noAdsResponseURI = currentElementContent
             }
@@ -337,7 +337,7 @@ class VastParser: NSObject, XMLParserDelegate {
             inlineAd?.advertiser = currentElementContent
 
         case "Impression":
-            ad?.impressionURIs.add(currentElementContent)
+            ad?.impressionURIs.append(currentElementContent)
 
         case "Ad":
             if let ad {
@@ -353,9 +353,7 @@ class VastParser: NSObject, XMLParserDelegate {
                 ad.ownerResponse = parsedResponse
 
                 if let parsedResponse {
-                    let ads = NSMutableArray(array: parsedResponse.vastAbstractAds)
-                    ads.add(ad)
-                    parsedResponse.vastAbstractAds = ads
+                    parsedResponse.vastAbstractAds.append(ad)
                 }
             } else {
                 Log.error("Ad tag ending with no ad object.")
@@ -379,7 +377,7 @@ class VastParser: NSObject, XMLParserDelegate {
 
             // doubleclick can produce empty Creative nodes
             if let creative {
-                ad?.creatives.add(creative)
+                ad?.creatives.append(creative)
             }
 
             creative = nil
@@ -394,14 +392,14 @@ class VastParser: NSObject, XMLParserDelegate {
 
             if let companionAds = creative as? VastCreativeCompanionAds {
                 if companionAds.companions.count > 0 {
-                    let companion = companionAds.companions.lastObject as? VastCreativeCompanionAdsCompanion
+                    let companion = companionAds.companions.last
                     vastTrackingEvents = companion?.trackingEvents
                 }
             } else if let linearCreative = creative as? VastCreativeLinear {
                 vastTrackingEvents = linearCreative.vastTrackingEvents
             } else if let nonLinearAds = creative as? VastCreativeNonLinearAds {
                 if nonLinearAds.nonLinears.count > 0 {
-                    let nonLinear = nonLinearAds.nonLinears.lastObject as? VastCreativeNonLinearAdsNonLinear
+                    let nonLinear = nonLinearAds.nonLinears.last
                     vastTrackingEvents = nonLinear?.vastTrackingEvents
                 }
             } else if let verificationResource {
@@ -458,7 +456,7 @@ class VastParser: NSObject, XMLParserDelegate {
         case "MediaFile":
             if let linearCreative = creative as? VastCreativeLinear {
                 if linearCreative.mediaFiles.count > 0 {
-                    let mediaFile = linearCreative.mediaFiles.lastObject as? VastMediaFile
+                    let mediaFile = linearCreative.mediaFiles.last
                     mediaFile?.mediaURI = currentElementContent
                 }
             } else {
@@ -479,7 +477,7 @@ class VastParser: NSObject, XMLParserDelegate {
                 Log.error("\(elementName) tag found but creative not PBMVastCreativeLinear")
                 return
             }
-            linearCreative.clickTrackingURIs.add(currentElementContent)
+            linearCreative.clickTrackingURIs.append(currentElementContent)
 
         case "IconClickThrough":
             guard let linearCreative = creative as? VastCreativeLinear else {
@@ -488,7 +486,7 @@ class VastParser: NSObject, XMLParserDelegate {
             }
 
             if linearCreative.icons.count > 0 {
-                let icon = linearCreative.icons.lastObject as? VastIcon
+                let icon = linearCreative.icons.last
                 icon?.clickThroughURI = currentElementContent
             }
 
@@ -499,8 +497,8 @@ class VastParser: NSObject, XMLParserDelegate {
             }
 
             if linearCreative.icons.count > 0 {
-                let icon = linearCreative.icons.lastObject as? VastIcon
-                icon?.clickTrackingURIs.add(currentElementContent)
+                let icon = linearCreative.icons.last
+                icon?.clickTrackingURIs.append(currentElementContent)
             }
 
         case "IconViewTracking":
@@ -510,7 +508,7 @@ class VastParser: NSObject, XMLParserDelegate {
             }
 
             if linearCreative.icons.count > 0 {
-                let icon = linearCreative.icons.lastObject as? VastIcon
+                let icon = linearCreative.icons.last
                 icon?.viewTrackingURI = currentElementContent
             }
 
@@ -521,7 +519,7 @@ class VastParser: NSObject, XMLParserDelegate {
             }
 
             if companionAds.companions.count > 0 {
-                let companion = companionAds.companions.lastObject as? VastCreativeCompanionAdsCompanion
+                let companion = companionAds.companions.last
                 companion?.clickThroughURI = currentElementContent
             }
 
@@ -532,8 +530,8 @@ class VastParser: NSObject, XMLParserDelegate {
             }
 
             if companionAds.companions.count > 0 {
-                let companion = companionAds.companions.lastObject as? VastCreativeCompanionAdsCompanion
-                companion?.clickTrackingURIs.add(currentElementContent)
+                let companion = companionAds.companions.last
+                companion?.clickTrackingURIs.append(currentElementContent)
             }
 
         case "NonLinearClickThrough":
@@ -543,7 +541,7 @@ class VastParser: NSObject, XMLParserDelegate {
             }
 
             if nonLinearAds.nonLinears.count > 0 {
-                let nonLinear = nonLinearAds.nonLinears.lastObject as? VastCreativeNonLinearAdsNonLinear
+                let nonLinear = nonLinearAds.nonLinears.last
                 nonLinear?.clickThroughURI = currentElementContent
             } else {
                 Log.error("NonLinearClickThrough tag found but no NonLinear objects to append content to")
@@ -556,8 +554,8 @@ class VastParser: NSObject, XMLParserDelegate {
             }
 
             if nonLinearAds.nonLinears.count > 0 {
-                let nonLinear = nonLinearAds.nonLinears.lastObject as? VastCreativeNonLinearAdsNonLinear
-                nonLinear?.clickTrackingURIs.add(currentElementContent)
+                let nonLinear = nonLinearAds.nonLinears.last
+                nonLinear?.clickTrackingURIs.append(currentElementContent)
             } else {
                 Log.error("NonLinearClickTracking tag found but no NonLinear objects to append content to")
             }
@@ -601,15 +599,15 @@ class VastParser: NSObject, XMLParserDelegate {
         var container: VastResourceContainer?
 
         if let linearCreative = creative as? VastCreativeLinear {
-            if let icon = linearCreative.icons.lastObject as? VastIcon {
+            if let icon = linearCreative.icons.last {
                 container = icon
             }
         } else if let companionAds = creative as? VastCreativeCompanionAds {
-            if let companion = companionAds.companions.lastObject as? VastCreativeCompanionAdsCompanion {
+            if let companion = companionAds.companions.last {
                 container = companion
             }
         } else if let nonLinearAds = creative as? VastCreativeNonLinearAds {
-            if let nonLinear = nonLinearAds.nonLinears.lastObject as? VastCreativeNonLinearAdsNonLinear {
+            if let nonLinear = nonLinearAds.nonLinears.last {
                 container = nonLinear
             }
         }

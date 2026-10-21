@@ -23,9 +23,8 @@ class VastResponse: NSObject {
     var nextResponse: VastResponse?
     weak var parentResponse: VastResponse?
     var noAdsResponseURI: String?
-    // Untyped `NSMutableArray`: elements are `VastAbstractAd`; ObjC code assigns mutable arrays here.
     // TODO: should be readonly
-    var vastAbstractAds = NSMutableArray()
+    var vastAbstractAds = [VastAbstractAd]()
     var version: String?
 
     override init() {
@@ -125,15 +124,15 @@ class VastResponse: NSObject {
         for case let inlineAd as VastInlineAd in inlineAds {
 
             // Walk the creatives on the wrapper
-            for case let wrapperCreative as VastCreativeAbstract in wrapper.creatives {
+            for wrapperCreative in wrapper.creatives {
 
                 // If the inline ad has any "real" creatives of the same type as the "fake" creatives on the wrapper,
                 // copy the "fake" creative's tracking info onto the "real" creative.
-                for case let inlineAdCreative as VastCreativeAbstract in inlineAd.creatives {
+                for inlineAdCreative in inlineAd.creatives {
 
                     if let inlineLinear = inlineAdCreative as? VastCreativeLinear,
                        let wrapperLinear = wrapperCreative as? VastCreativeLinear {
-                        inlineLinear.clickTrackingURIs.addObjects(from: Array(wrapperLinear.clickTrackingURIs))
+                        inlineLinear.clickTrackingURIs.append(contentsOf: Array(wrapperLinear.clickTrackingURIs))
                         inlineLinear.vastTrackingEvents.addTrackingEvents(wrapperLinear.vastTrackingEvents)
                     } else if let inlineNonLinearAds = inlineAdCreative as? VastCreativeNonLinearAds,
                               let wrapperNonLinearAds = wrapperCreative as? VastCreativeNonLinearAds {
@@ -145,8 +144,8 @@ class VastResponse: NSObject {
                 }
             }
 
-            inlineAd.impressionURIs.addObjects(from: Array(wrapper.impressionURIs))
-            inlineAd.errorURIs.addObjects(from: Array(wrapper.errorURIs))
+            inlineAd.impressionURIs.append(contentsOf: Array(wrapper.impressionURIs))
+            inlineAd.errorURIs.append(contentsOf: Array(wrapper.errorURIs))
         }
     }
 }

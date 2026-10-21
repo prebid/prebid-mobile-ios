@@ -24,13 +24,10 @@ class VastAbstractAd: NSObject {
     var adSystem = ""
     var adSystemVersion = ""
 
-    // Untyped `NSMutableArray` (not `[String]`): surviving ObjC code appends in place, which a
-    // Swift value-type array bridged through a getter would not support.
-    var impressionURIs = NSMutableArray()
-    var errorURIs = NSMutableArray()
+    var impressionURIs = [String]()
+    var errorURIs = [String]()
 
-    // Elements are `VastCreativeAbstract`; untyped for the same reason as above.
-    var creatives = NSMutableArray()
+    var creatives = [VastCreativeAbstract]()
 
     override init() {
         super.init()

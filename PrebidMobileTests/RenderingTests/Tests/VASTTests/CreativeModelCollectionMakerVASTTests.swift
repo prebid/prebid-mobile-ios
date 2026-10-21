@@ -61,7 +61,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         let response = try loadResponse(fromVAST: Data(reordered.utf8)).get()
 
         // The swap depends on the creative order in the shared fixture. Make sure CompanionAds really comes first.
-        XCTAssertTrue((response.ads?.first as? VastInlineAd)?.creatives.firstObject is VastCreativeCompanionAds)
+        XCTAssertTrue((response.ads?.first as? VastInlineAd)?.creatives.first is VastCreativeCompanionAds)
 
         let models = try makeModels(from: response).get()
 
@@ -168,7 +168,7 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
     // The maker can also be called without the validation step, so it reports these cases on its own.
     func testMakeModels_noLinearCreative() {
         let ad = VastInlineAd()
-        ad.creatives.add(VastCreativeCompanionAds())
+        ad.creatives.append(VastCreativeCompanionAds())
         let response = AdRequestResponseVAST()
         response.ads = [ad]
 
@@ -190,13 +190,13 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
 
         let unplayableLinear = VastCreativeLinear()
         unplayableLinear.duration = 15
-        unplayableLinear.mediaFiles.add(unsupportedMediaFile)
+        unplayableLinear.mediaFiles.append(unsupportedMediaFile)
 
         let unplayableAd = VastInlineAd()
-        unplayableAd.creatives.add(unplayableLinear)
+        unplayableAd.creatives.append(unplayableLinear)
 
         let companionOnlyAd = VastInlineAd()
-        companionOnlyAd.creatives.add(VastCreativeCompanionAds())
+        companionOnlyAd.creatives.append(VastCreativeCompanionAds())
 
         let cases: [(ads: [VastAbstractAd], code: PBMErrorCode, message: String)] = [
             ([], .generalLinear, "No creative"),

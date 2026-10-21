@@ -17,24 +17,21 @@ import Foundation
 
 class VastCreativeLinear: VastCreativeAbstract {
 
-    // Untyped `NSMutableArray` (not a Swift array): surviving ObjC parser code appends in place.
-    // Elements are `VastIcon`.
-    var icons = NSMutableArray()
+    var icons = [VastIcon]()
     var skipOffset: NSNumber?
     var duration: TimeInterval = 0
-    // Elements are `VastMediaFile`.
-    var mediaFiles = NSMutableArray()
+    var mediaFiles = [VastMediaFile]()
     var vastTrackingEvents = VastTrackingEvents()
 
     var clickThroughURI: String?
-    var clickTrackingURIs = NSMutableArray()
+    var clickTrackingURIs = [String]()
 
     override init() {
         super.init()
     }
 
     func bestMediaFile() -> VastMediaFile? {
-        let eligibleMediaFiles = mediaFiles.compactMap { $0 as? VastMediaFile }.filter {
+        let eligibleMediaFiles = mediaFiles.filter {
             PrebidConstants.SUPPORTED_VIDEO_MIME_TYPES.contains($0.type)
         }
 

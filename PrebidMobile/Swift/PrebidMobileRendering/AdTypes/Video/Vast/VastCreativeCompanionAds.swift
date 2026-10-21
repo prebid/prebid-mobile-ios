@@ -18,9 +18,7 @@ import UIKit
 
 class VastCreativeCompanionAds: VastCreativeAbstract {
 
-    // Untyped `NSMutableArray`: surviving ObjC parser code appends in place.
-    // Elements are `VastCreativeCompanionAdsCompanion`.
-    var companions = NSMutableArray()
+    var companions = [VastCreativeCompanionAdsCompanion]()
     var requiredMode = ""
 
     // Computed on first use and cached, like the ObjC original: companions added afterwards are not picked up.
@@ -38,7 +36,7 @@ class VastCreativeCompanionAds: VastCreativeAbstract {
         }
 
         let screenSize = UIScreen.main.bounds.size
-        let feasibleCompanions = companions.compactMap { $0 as? VastCreativeCompanionAdsCompanion }.filter { companion in
+        let feasibleCompanions = companions.filter { companion in
             if companion.resourceType == .staticResource && companion.staticType == "application/x-shockwave-flash" {
                 return false
             }
@@ -67,9 +65,9 @@ class VastCreativeCompanionAds: VastCreativeAbstract {
     }
 
     func copyTracking(fromCompanionAds: VastCreativeCompanionAds) {
-        for case let fromCompanion as VastCreativeCompanionAdsCompanion in fromCompanionAds.companions {
-            for case let toCompanion as VastCreativeCompanionAdsCompanion in companions {
-                toCompanion.clickTrackingURIs.addObjects(from: Array(fromCompanion.clickTrackingURIs))
+        for fromCompanion in fromCompanionAds.companions {
+            for toCompanion in companions {
+                toCompanion.clickTrackingURIs.append(contentsOf: fromCompanion.clickTrackingURIs)
                 toCompanion.trackingEvents.addTrackingEvents(fromCompanion.trackingEvents)
             }
         }

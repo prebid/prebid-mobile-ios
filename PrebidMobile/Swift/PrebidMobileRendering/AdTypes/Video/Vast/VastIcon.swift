@@ -27,7 +27,7 @@ class VastIcon: NSObject, VastResourceContainer {
     var startOffset: TimeInterval = 0
     var duration: TimeInterval = 0
     var clickThroughURI: String?
-    var clickTrackingURIs = NSMutableArray()
+    var clickTrackingURIs = [String]()
     var viewTrackingURI: String?
 
     // computed later

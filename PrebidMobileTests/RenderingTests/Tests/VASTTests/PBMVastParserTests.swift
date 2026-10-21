@@ -50,7 +50,7 @@ class PBMVastParserTests: XCTestCase {
         
         //The parser's VastResponse should contain the ad we created with an appropriate sequence number.
         XCTAssert(pbmVastParser.parsedResponse!.vastAbstractAds.count == 1)
-        XCTAssert(pbmVastParser.parsedResponse!.vastAbstractAds.firstObject as! VastAbstractAd === ad)
+        XCTAssert(pbmVastParser.parsedResponse!.vastAbstractAds.first as! VastAbstractAd === ad)
         XCTAssert(ad.sequence == 0)
         
         //The parser should tidy up after the Ad tag is done parsing.
@@ -189,7 +189,8 @@ class PBMVastParserTests: XCTestCase {
         self.checkErrorLog( { parser in
             let creative = VastCreativeCompanionAds()
             
-            creative.companions = [VastCreativeNonLinearAds()]
+            // The ObjC test put a wrong-typed element here; typed arrays make that unrepresentable, so only the empty case remains.
+            creative.companions = []
             
             parser.creative = creative
             
@@ -204,7 +205,7 @@ class PBMVastParserTests: XCTestCase {
         self.checkErrorLog( { parser in
             let creative = VastCreativeLinear()
             
-            creative.icons = [VastCreativeNonLinearAds()]
+            creative.icons = []
             
             parser.creative = creative
             
@@ -219,7 +220,7 @@ class PBMVastParserTests: XCTestCase {
         self.checkErrorLog( { parser in
             let creative = VastCreativeNonLinearAds()
             
-            creative.nonLinears = [VastCreativeCompanionAdsCompanion()]
+            creative.nonLinears = []
             
             parser.creative = creative
             

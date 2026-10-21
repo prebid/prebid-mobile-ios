@@ -19,7 +19,6 @@ import Foundation
 class VastAdsBuilder: NSObject {
 
     // Replaces the ObjC `PBMVastAdsBuilderCompletionBlock` typedef.
-    // Bridges to `void (^)(NSArray<PBMVastAbstractAd *> * _Nullable, NSError * _Nullable)`.
     typealias Completion = ([VastAbstractAd]?, Error?) -> Void
 
     // Replaces the ObjC `PBMVastAdsBuilderWrapperCompletionBlock` typedef (private to the .m).
@@ -91,7 +90,7 @@ class VastAdsBuilder: NSObject {
             firedNoAdsURI = true
         } else {
 
-            for case let ad as VastAbstractAd in vastResponse.vastAbstractAds {
+            for ad in vastResponse.vastAbstractAds {
 
                 // If the Ad is a wrapper
                 if let unwrappedVASTWrapper = ad as? VastWrapperAd {
@@ -188,19 +187,14 @@ class VastAdsBuilder: NSObject {
 
             // If multiple ads are disabled, drop everything but the first ad with a sequence of 0.
             if !wrapperAd.allowMultipleAds {
-                for case let ad as VastAbstractAd in response.vastAbstractAds where ad.sequence == 0 {
-                    response.vastAbstractAds = NSMutableArray(object: ad)
-                    break
+                if let firstAd = response.vastAbstractAds.first(where: { $0.sequence == 0 }) {
+                    response.vastAbstractAds = [firstAd]
                 }
             }
 
             // If the parent asked us not to follow wrappers, remove any wrappers we find in the response.
             if !wrapperAd.followAdditionalWrappers {
-                let filtered = NSMutableArray()
-                for adObject in response.vastAbstractAds where !(adObject is VastWrapperAd) {
-                    filtered.add(adObject)
-                }
-                response.vastAbstractAds = filtered
+                response.vastAbstractAds = response.vastAbstractAds.filter { !($0 is VastWrapperAd) }
             }
 
             // Copy parent's allowMultipleAds setting to child wrappers

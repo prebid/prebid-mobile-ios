@@ -174,7 +174,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         
         PBMAssertEq(pbmVastCreativeLinear.mediaFiles.count, 1)
         
-        let mediaFile = pbmVastCreativeLinear.mediaFiles.firstObject as! VastMediaFile
+        let mediaFile = pbmVastCreativeLinear.mediaFiles.first as! VastMediaFile
         PBMAssertEq(mediaFile.id, "firstFile")
         PBMAssertEq(mediaFile.streamingDeliver, false)
         PBMAssertEq(mediaFile.type, "video/mp4")
