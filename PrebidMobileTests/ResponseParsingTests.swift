@@ -796,12 +796,11 @@ class ResponseParsingTests: XCTestCase {
         return BidResponse(jsonDictionary: dict)
     }
 
-    // `BidInfo.create` surfaces the winning bid's exact economics (cpm/currency/creativeId/adId) and
+    // `BidInfo.create` surfaces the winning bid's exact economics (price/currency/creativeId/adId) and
     // the response-level requestId, so integrators on the original API can read them without the
     // Rendering API or a second auction.
     func testBidInfoSurfacesWinningBidEconomics() {
-        // cur omitted -> currency falls back to the ORTB default "USD".
-        let bidResponse = parseBidResponse(winningBidResponseJSON(cur: nil))
+        let bidResponse = parseBidResponse(winningBidResponseJSON(cur: "USD"))
         guard let winningBid = bidResponse.winningBid else {
             return XCTFail("Fixture should produce a winning bid")
         }
@@ -810,15 +809,15 @@ class ResponseParsingTests: XCTestCase {
 
         XCTAssertEqual(bidInfo.resultCode, .prebidDemandFetchSuccess)
         // Exact price — no Float rounding. `3.14` survives the JSON-text round-trip.
-        XCTAssertEqual(bidInfo.cpm, winningBid.bid.price)
-        XCTAssertEqual(bidInfo.cpm?.doubleValue, 3.14)
+        XCTAssertEqual(bidInfo.price, winningBid.bid.price)
+        XCTAssertEqual(bidInfo.price?.doubleValue, 3.14)
         XCTAssertEqual(bidInfo.currency, "USD")
         XCTAssertEqual(bidInfo.creativeId, "creative-xyz")
         XCTAssertEqual(bidInfo.adId, "ad-123")
         XCTAssertEqual(bidInfo.requestId, "req-abc")
     }
 
-    // When the response carries `cur`, it is used verbatim (not the "USD" fallback).
+    // The response's `cur` is forwarded verbatim.
     func testBidInfoUsesResponseCurrencyWhenPresent() {
         let bidResponse = parseBidResponse(winningBidResponseJSON(cur: "EUR"))
         XCTAssertNotNil(bidResponse.winningBid)
@@ -826,6 +825,17 @@ class ResponseParsingTests: XCTestCase {
         let bidInfo = BidInfo.create(resultCode: .prebidDemandFetchSuccess, bidResponse: bidResponse)
 
         XCTAssertEqual(bidInfo.currency, "EUR")
+    }
+
+    // A response without `cur` is forwarded as is: the SDK does not substitute the ORTB default.
+    func testBidInfoLeavesCurrencyNilWhenResponseOmitsIt() {
+        let bidResponse = parseBidResponse(winningBidResponseJSON(cur: nil))
+        XCTAssertNotNil(bidResponse.winningBid)
+
+        let bidInfo = BidInfo.create(resultCode: .prebidDemandFetchSuccess, bidResponse: bidResponse)
+
+        XCTAssertNotNil(bidInfo.price)
+        XCTAssertNil(bidInfo.currency)
     }
 
     // A response that parses and has a `cur` and bids but NO designated winner (its bid's targeting
@@ -838,7 +848,7 @@ class ResponseParsingTests: XCTestCase {
 
         let bidInfo = BidInfo.create(resultCode: .prebidDemandFetchSuccess, bidResponse: bidResponse)
 
-        XCTAssertNil(bidInfo.cpm)
+        XCTAssertNil(bidInfo.price)
         XCTAssertNil(bidInfo.currency)
         XCTAssertNil(bidInfo.creativeId)
         XCTAssertNil(bidInfo.adId)
