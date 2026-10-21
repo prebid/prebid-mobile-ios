@@ -55,6 +55,6 @@ See the playbook hand-off.
 - [x] `testPrebidMobileAdapters.sh`: exit 0 (re-run after S9.2e)
 - [x] Consumers build: `InternalTestApp`, `InternalTestApp-Skadn`, `PrebidDemoSwift`, `PrebidDemoObjectiveC` (generic simulator destination) after S9.2e
 - [x] Public `.swiftinterface` after S9.2 (SPI only): 0 changed lines; after S9.2b-e: 236 → 147 public types, no newly public type (intended shrink)
-- [ ] `testPrebidMobile.sh --latest --quick` (PR subset): 1016 tests, 0 failures after the skip-list edit, **before S9.2; not re-run after it**
+- [x] `testPrebidMobile.sh --latest --quick` (PR subset) on the final tree: **1016 tests, 0 failures** (two runs). One earlier run failed `PrebidTest.testInitializeSDK` on all three retries: it calls the live `prebid-server-test-j.prebid.org` with a 3 s timeout; the server answered in 0.6 s afterwards and the test passes in the full suite and in both re-runs, so it is network flakiness, not this PR
 - [ ] `verifySPM.sh`, `buildPrebidSPM.sh`: CI only
 - [ ] Manual demo-app OMSDK check
