@@ -30,4 +30,17 @@ class MediationRewardedAdUnitTest: XCTestCase {
         PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
         XCTAssertTrue(adUnitConfig.adFormats.contains(.video))
     }
+
+    private final class StubBidSelector: PrebidBidSelecting {
+        func selectBid(from bids: [Bid]) -> Bid? { bids.first }
+    }
+
+    func testBidSelectorForwardsToAdUnitConfig() {
+        let adUnit = MediationRewardedAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate)
+        let selector = StubBidSelector()
+
+        adUnit.bidSelector = selector
+
+        XCTAssertTrue(adUnit.adUnitConfig.bidSelector === selector)
+    }
 }

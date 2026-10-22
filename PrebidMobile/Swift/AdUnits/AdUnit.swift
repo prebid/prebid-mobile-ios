@@ -233,7 +233,16 @@ public class AdUnit: NSObject, DispatcherDelegate {
     func setUp(_ adObject: AnyObject?, with bidResponse: BidResponse) -> ResultCode {
         
         guard let winningBid = bidResponse.winningBid else {
-            
+
+            // If a publisher-supplied bid selector is active, its decision is final: returning
+            // `nil` means no bid should win, full stop -- it must not fall back to attaching an
+            // arbitrary bid's keywords and reporting success, even when forceSdkToChooseWinner
+            // is false. This only affects the selector-engaged path; behavior for publishers not
+            // using a selector at all (bidSelector == nil) is unchanged below.
+            if bidResponse.bidSelector != nil {
+                return .prebidDemandNoBids
+            }
+
             //When the new behavior is active
             if !Targeting.shared.forceSdkToChooseWinner {
                 
