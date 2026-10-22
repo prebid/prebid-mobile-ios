@@ -49,7 +49,7 @@ public class Host: NSObject {
         self.deviceManager = deviceManager
     }
 
-    func setHostURL(_ urlString: String?, nonTrackingURLString: String?) throws {
+    public func setHostURL(_ urlString: String?, nonTrackingURLString: String?) throws {
         guard let trackingURL = URL.urlWithoutEncoding(from: urlString) else {
             throw ErrorCode.prebidServerURLInvalid(urlString ?? "")
         }
@@ -64,7 +64,7 @@ public class Host: NSObject {
         self.trackingURL = trackingURL
     }
     
-    func getHostURL() throws -> String {
+    public func getHostURL() throws -> String {
         guard let customHostURL else {
             throw ErrorCode.prebidServerURLInvalid("")
         }

@@ -529,26 +529,25 @@ extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
     }
 }
 
-@_spi(PBMInternal)
 extension BannerView: DisplayViewVideoPlaybackDelegate {
     
-    public func videoPlaybackDidPause() {
+    func videoPlaybackDidPause() {
         videoPlaybackDelegate?.videoPlaybackDidPause(self)
     }
     
-    public func videoPlaybackDidResume() {
+    func videoPlaybackDidResume() {
         videoPlaybackDelegate?.videoPlaybackDidResume(self)
     }
     
-    public func videoPlaybackWasMuted() {
+    func videoPlaybackWasMuted() {
         videoPlaybackDelegate?.videoPlaybackWasMuted(self)
     }
     
-    public func videoPlaybackWasUnmuted() {
+    func videoPlaybackWasUnmuted() {
         videoPlaybackDelegate?.videoPlaybackWasUnmuted(self)
     }
     
-    public func videoPlaybackDidComplete() {
+    func videoPlaybackDidComplete() {
         videoPlaybackDelegate?.videoPlaybackDidComplete(self)
     }
 }

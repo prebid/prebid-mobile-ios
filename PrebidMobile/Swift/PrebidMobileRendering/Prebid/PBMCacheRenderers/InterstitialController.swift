@@ -182,7 +182,6 @@ class InterstitialController:
     }
 }
 
-@_spi(PBMInternal)
 extension InterstitialController: AdViewManagerDelegate {
     // MARK: - AdViewManagerDelegate protocol
     
