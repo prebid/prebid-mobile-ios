@@ -103,4 +103,12 @@ class DeviceAccessManager: NSObject {
     func screenSize() -> CGSize {
         UIDevice.current.screenSize
     }
+    
+    @objc public func screenSizeInPixels() -> CGSize {
+        let toPixels = {
+            Int(($0 * UIScreen.main.scale).rounded())
+        }
+        let size = screenSize()
+        return CGSize(width: toPixels(size.width), height: toPixels(size.height))
+    }
 }
