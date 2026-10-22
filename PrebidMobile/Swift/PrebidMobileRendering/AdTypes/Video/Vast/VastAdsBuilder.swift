@@ -26,10 +26,6 @@ class VastAdsBuilder: NSObject {
 
     private static let builderFailedMessage = "VAST error: the ads builder is failed"
 
-    // VAST 4.3, section 2.3.6.4: the `[ERRORCODE]` macro in the Error URI of a no-ad response
-    // is replaced with 303, "No VAST response after one or more Wrappers".
-    private static let noAdsErrorCode = "303"
-
     private let dispatchQueue = DispatchQueue(label: "PBMVastLoaderQueue")
     private let serverConnection: PrebidServerConnectionProtocol
     private var requestsPending = 0
@@ -81,8 +77,7 @@ class VastAdsBuilder: NSObject {
             while let current = parent {
 
                 if let noAdsResponseURI = current.noAdsResponseURI {
-                    serverConnection.fireAndForget(Self.replacingErrorCodeMacro(in: noAdsResponseURI,
-                                                                                with: Self.noAdsErrorCode))
+                    serverConnection.fireAndForget(VastErrorCode.noAdAfterWrappers.replacingMacro(in: noAdsResponseURI))
                 }
 
                 // Avoid infinite loop
@@ -231,14 +226,6 @@ class VastAdsBuilder: NSObject {
             return true
         }
         return false
-    }
-
-    // The ad server expects the player to fill in the macro. Left in place, its brackets also keep the
-    // URI from becoming a URL on iOS 17 and later, so the request is never sent. The percent-encoded
-    // form is replaced too, for servers that encode the whole URI.
-    private static func replacingErrorCodeMacro(in uri: String, with errorCode: String) -> String {
-        uri.replacingOccurrences(of: "[ERRORCODE]", with: errorCode)
-            .replacingOccurrences(of: "%5BERRORCODE%5D", with: errorCode, options: .caseInsensitive)
     }
 
     // Matches `+[PBMError createError:description:statusCode:]`, which logged the error it created.

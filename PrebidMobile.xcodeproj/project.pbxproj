@@ -80,6 +80,7 @@
 		405DA0B2E60CB75B5479CAE6 /* ORTBBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A2D673C8D00CE5C8F2D254 /* ORTBBanner.swift */; };
 		4060735470490D6BB8B9F2B8 /* ExternalURLOpeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F64CA3B3C095D7CA273128 /* ExternalURLOpeners.swift */; };
 		406F0FB7A456699C748BCFFB /* CreativeModelCollectionMakerVAST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563D9746C28EC9AF69166DFA /* CreativeModelCollectionMakerVAST.swift */; };
+		4178A4B21AA605C2F4CE3169 /* VastErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81743198577DDCE8DE29E09 /* VastErrorCode.swift */; };
 		41C5D8CD77FFA6A0AA0BD6AE /* ORTBImpExtPrebid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7382945425DA87CF4D4920D5 /* ORTBImpExtPrebid.swift */; };
 		42D4EA2C9397B5A4473E7502 /* PrebidParameterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF9C08E8C9EB81A92A0E6D8 /* PrebidParameterBuilder.swift */; };
 		4320566E2F778DF16A00EBF2 /* WKScriptMessageHandlerLeakAvoider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595FF282BA416084F96EB1DF /* WKScriptMessageHandlerLeakAvoider.swift */; };
@@ -1360,6 +1361,7 @@
 		B53715F8008F4C4A3FF105E6 /* MRAIDJavascriptCommands.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MRAIDJavascriptCommands.swift; sourceTree = "<group>"; };
 		B5A24D6E6DE17B5C590F8EBF /* VideoViewPlaybackState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VideoViewPlaybackState.swift; sourceTree = "<group>"; };
 		B7C9E1A10000000000000001 /* ImageHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelperTests.swift; sourceTree = "<group>"; };
+		B81743198577DDCE8DE29E09 /* VastErrorCode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastErrorCode.swift; sourceTree = "<group>"; };
 		B8C6E350567344AE2431EBC0 /* TransactionImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TransactionImpl.swift; sourceTree = "<group>"; };
 		B8CED59C60DAFD14AB06D65C /* VastIcon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastIcon.swift; sourceTree = "<group>"; };
 		BB8862B4B876F83E1ADE91EF /* UIView+PBMExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+PBMExtensions.swift"; sourceTree = "<group>"; };
@@ -2170,6 +2172,7 @@
 				153E6501E30543AE6EF3B80F /* VastResponse.swift */,
 				28B18994C3F5C22C18C8203A /* VastParser.swift */,
 				4B589B983A66F5068DF59A31 /* VastAdsBuilder.swift */,
+				B81743198577DDCE8DE29E09 /* VastErrorCode.swift */,
 			);
 			path = Vast;
 			sourceTree = "<group>";
@@ -4026,6 +4029,7 @@
 				B6028888CBF60AEAFD7C104F /* OpenMeasurementWrapper.swift in Sources */,
 				65E2FA7759842AD24A0253AE /* CreativeViewabilityTrackerImpl.swift in Sources */,
 				4E31CA52C3A8F8FEE281F6D1 /* Prebid+ForcedViewability.swift in Sources */,
+				4178A4B21AA605C2F4CE3169 /* VastErrorCode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
