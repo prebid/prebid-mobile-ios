@@ -39,6 +39,21 @@ class AdModelEventTracker: NSObject, EventTrackerProtocol {
         }
     }
     
+    // Requests the VAST `<Error>` URIs of the ad with the `[ERRORCODE]` macro filled in. The player must call
+    // the ad's URIs and those of every Wrapper on the way to it (VAST 4.3, section 2.3.6.2).
+    func trackVastError(_ errorCode: VastErrorCode) {
+        let errorKey = TrackingEvent.error.description
+        
+        guard let urls = creativeModel?.trackingURLs[errorKey] else {
+            Log.info("No tracking URL(s) for event \(errorKey)")
+            return
+        }
+        
+        urls.forEach { url in
+            serverConnection.fireAndForget(errorCode.replacingMacro(in: url))
+        }
+    }
+    
     func trackVideoAdLoaded(_ parameters: VideoVerificationParameters) {
     }
     

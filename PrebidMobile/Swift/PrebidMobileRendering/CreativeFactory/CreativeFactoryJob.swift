@@ -59,12 +59,17 @@ final class CreativeFactoryJob: NSObject, CreativeResolutionDelegate {
         }
     }
 
-    func fail(with error: Error) {
+    // `vastErrorCode` fills in the `[ERRORCODE]` macro of the ad's VAST `<Error>` URIs. They are requested only
+    // for the failure that is reported, so once per ad, and only a creative model made from VAST has them.
+    func fail(with error: Error, vastErrorCode: VastErrorCode? = nil) {
         dispatchQueue.async { [weak self] in
             guard let self else { return }
 
             if self.state == .running {
                 self.state = .error
+                if let vastErrorCode {
+                    self.creativeModel.eventTracker?.trackVastError(vastErrorCode)
+                }
                 self.finishedCallback(self, error)
             }
         }
@@ -112,13 +117,15 @@ final class CreativeFactoryJob: NSObject, CreativeResolutionDelegate {
 
     func attemptVASTCreative() {
         guard let urlString = creativeModel.videoFileURL else {
-            fail(with: PBMError.error(description: "PBMCreativeFactoryJob: Could not initialize VideoCreative without videoFileURL"))
+            fail(with: PBMError.error(description: "PBMCreativeFactoryJob: Could not initialize VideoCreative without videoFileURL"),
+                 vastErrorCode: .mediaFileNotFound)
             return
         }
 
         // `NSURL(string:)` like the ObjC `+URLWithString:`: `URL(string: "")` is nil, `NSURL(string: "")` is a valid empty URL.
         guard let url = NSURL(string: urlString) as URL? else {
-            fail(with: PBMError.error(description: "Could not create URL from url string: \(urlString)"))
+            fail(with: PBMError.error(description: "Could not create URL from url string: \(urlString)"),
+                 vastErrorCode: .mediaFileNotFound)
             return
         }
 
@@ -126,7 +133,7 @@ final class CreativeFactoryJob: NSObject, CreativeResolutionDelegate {
         // `self` is captured strongly, as in the ObjC original (no `@weakify`).
         downloader.downloadData(for: url, maxSize: VideoCreative.maxSizeForPreRenderContent) { preloadedData, error in
             if let error {
-                self.fail(with: error)
+                self.fail(with: error, vastErrorCode: .mediaFileNotFound)
                 return
             }
 
@@ -152,7 +159,8 @@ final class CreativeFactoryJob: NSObject, CreativeResolutionDelegate {
     }
 
     func creativeFailed(_ error: Error) {
-        fail(with: error)
+        // A video creative fails when the player cannot play the MediaFile it was given.
+        fail(with: error, vastErrorCode: creative is VideoCreative ? .mediaFileDisplayProblem : nil)
     }
 
     // MARK: - Private
@@ -164,7 +172,8 @@ final class CreativeFactoryJob: NSObject, CreativeResolutionDelegate {
             guard let self else { return }
 
             self.fail(with: PBMError.error(message: "PBMCreativeFactoryJob: Failed to complete in specified time interval",
-                                           type: PBMErrorType.internalError))
+                                           type: PBMErrorType.internalError),
+                      vastErrorCode: .adNotProducedInTime)
         }
     }
 

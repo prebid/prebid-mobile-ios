@@ -220,6 +220,56 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         }
     }
 
+    // MARK: - Error URIs
+
+    // The Linear creative model carries the Error URIs of the InLine ad and of the Wrapper that led to it,
+    // which `CreativeFactoryJob` requests when the video fails. The end card model has none.
+    func testMakeModels_errorURIsOfInlineAdAndWrapper() throws {
+        MockServer.shared.reset()
+        defer { MockServer.shared.reset() }
+
+        let inlineXML = Self.vast(ads: [
+            Self.inlineAd(id: "1",
+                          errorURIs: ["https://example.com/error/inline-1?code=[ERRORCODE]",
+                                      "https://example.com/error/inline-2?code=[ERRORCODE]"],
+                          creatives: [
+                            Self.linear(mimeType: "video/mp4", mediaURL: "https://example.com/video.mp4"),
+                            Self.companion(imageURL: "https://example.com/companion.png"),
+                          ])
+        ])
+        MockServer.shared.resetRules([
+            MockServerRule(urlNeedle: "example.com/inline.xml",
+                           mimeType: MockServerMimeType.XML.rawValue,
+                           connectionID: connection.internalID,
+                           strResponse: inlineXML)
+        ])
+
+        let wrapperXML = """
+        <VAST version="3.0">
+          <Ad id="wrapper">
+            <Wrapper>
+              <AdSystem>test</AdSystem>
+              <VASTAdTagURI><![CDATA[https://example.com/inline.xml]]></VASTAdTagURI>
+              <Error><![CDATA[https://example.com/error/wrapper?code=[ERRORCODE]]]></Error>
+              <Impression><![CDATA[https://example.com/imp/wrapper]]></Impression>
+            </Wrapper>
+          </Ad>
+        </VAST>
+        """
+
+        let models = try makeModels(fromVAST: wrapperXML).get()
+
+        XCTAssertEqual(models.count, 2)
+        let errorKey = TrackingEventDescription.getDescription(.error)
+        XCTAssertEqual(models.first?.trackingURLs[errorKey], [
+            "https://example.com/error/inline-1?code=[ERRORCODE]",
+            "https://example.com/error/inline-2?code=[ERRORCODE]",
+            "https://example.com/error/wrapper?code=[ERRORCODE]",
+        ])
+        XCTAssertEqual(models.last?.isCompanionAd, true)
+        XCTAssertNil(models.last?.trackingURLs[errorKey])
+    }
+
     // MARK: - Helpers
 
     /// Parses and validates VAST with `AdRequesterVAST`, the first step of `AdLoadManagerVAST`.
@@ -281,13 +331,14 @@ class CreativeModelCollectionMakerVASTTests: XCTestCase {
         "<VAST version=\"3.0\">\(ads.joined())</VAST>"
     }
 
-    private static func inlineAd(id: String, creatives: [String]) -> String {
+    private static func inlineAd(id: String, errorURIs: [String] = [], creatives: [String]) -> String {
         """
         <Ad id="\(id)">
           <InLine>
             <AdSystem>test</AdSystem>
             <AdTitle>t</AdTitle>
             <Impression><![CDATA[https://example.com/imp/\(id)]]></Impression>
+            \(errorURIs.map { "<Error><![CDATA[\($0)]]></Error>" }.joined())
             <Creatives>\(creatives.joined())</Creatives>
           </InLine>
         </Ad>
