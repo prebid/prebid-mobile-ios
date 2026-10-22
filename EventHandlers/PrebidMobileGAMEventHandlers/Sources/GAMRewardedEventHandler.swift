@@ -62,6 +62,22 @@ public class GAMRewardedAdEventHandler :
         }
     }
     
+    // MARK: - GADFullScreenContentDelegate
+    
+    public func adDidDismissFullScreenContent(_ ad: GoogleMobileAds.FullScreenPresentingAd) {
+        interactionDelegate?.didDismissAd()
+    }
+    
+    public func ad(
+        _ ad: GoogleMobileAds.FullScreenPresentingAd,
+        didFailToPresentFullScreenContentWithError error: Error
+    ) {
+        Log.error(error.localizedDescription)
+        // The ad unit has already reported willPresentAd and waits for a dismiss
+        // before it shows another ad.
+        interactionDelegate?.didDismissAd()
+    }
+    
     // MARK: - RewardedEventHandlerProtocol
     
     // This is  a very dirty hack based on dynamic properties of Objc Object.
@@ -84,12 +100,17 @@ public class GAMRewardedAdEventHandler :
     }
     
     public func show(from controller: UIViewController?) {
-        if let ad = embeddedRewarded,
-           let controller = controller {
-            ad.present(from: controller, userDidEarnRewardHandler: {
-                // Do nothing
-            } )
+        guard let ad = embeddedRewarded,
+              let controller = controller else {
+            // The ad unit has already reported willPresentAd and waits for a dismiss
+            // before it shows another ad.
+            interactionDelegate?.didDismissAd()
+            return
         }
+        
+        ad.present(from: controller, userDidEarnRewardHandler: {
+            // Do nothing
+        } )
     }
     
     public func requestAd(with bidResponse: BidResponse?) {
@@ -106,10 +127,8 @@ public class GAMRewardedAdEventHandler :
             return;
         }
         
-        if proxyRewarded != nil || embeddedRewarded != nil {
-            // rewarded already loaded
-            return;
-        }
+        // A new request replaces the previously loaded ad.
+        forgetCurrentRewarded()
         
         requestRewarded = currentRequestRewarded
         
@@ -130,6 +149,7 @@ public class GAMRewardedAdEventHandler :
             
             if let ad = prebidGADRewardedAd {
                 self?.requestRewarded?.adMetadataDelegate = self
+                self?.requestRewarded?.fullScreenContentDelegate = self
                 self?.rewardedAd(didReceive: ad)
             }
         }
@@ -174,11 +194,8 @@ public class GAMRewardedAdEventHandler :
     }
     
     func forgetCurrentRewarded() {
-        if embeddedRewarded != nil {
-            embeddedRewarded = nil;
-        } else if proxyRewarded != nil {
-            proxyRewarded = nil;
-        }
+        embeddedRewarded = nil
+        proxyRewarded = nil
     }
     
     @objc func appEventTimedOut() {
