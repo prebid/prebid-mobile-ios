@@ -184,7 +184,8 @@ public class PrebidAdUnit: NSObject {
             adUnit.adUnitConfig.adFormats.insert(.native)
         }
         
-        adUnit.adUnitConfig.adConfiguration.isInterstitialAd = request.isInterstitial
+        // Rewarded inventory is fullscreen/interstitial even when request.isInterstitial is not explicitly set.
+        adUnit.adUnitConfig.adConfiguration.isInterstitialAd = request.isInterstitial || request.isRewarded
         adUnit.adUnitConfig.adConfiguration.isRewarded = request.isRewarded
         adUnit.adUnitConfig.adPosition = request.adPosition
         adUnit.adUnitConfig.impORTBConfig = request.getImpORTBConfig()
