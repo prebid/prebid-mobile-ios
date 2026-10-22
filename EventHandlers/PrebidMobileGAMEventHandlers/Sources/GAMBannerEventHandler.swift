@@ -206,13 +206,7 @@ public class GAMBannerEventHandler :
             requestBanner = nil
             
             recycleCurrentBanner()
-            embeddedBanner = banner
-            
-            if let banner = banner,
-               let adSize = dfpAdSize {
-                setSizeConstraints(banner.banner, forAdSize: adSize)
-                loadingDelegate?.adServerDidWin(banner.banner, adSize: adSize)
-            }
+            adServerDidWin(banner)
         }
     }
     
@@ -240,15 +234,23 @@ public class GAMBannerEventHandler :
         
         recycleCurrentBanner()
         
-        embeddedBanner = banner
-        
         isExpectingAppEvent = false
         appEventTimer = nil
+        
+        adServerDidWin(banner)
+    }
+    
+    func adServerDidWin(_ banner: GAMBannerViewWrapper?) {
+        embeddedBanner = banner
         
         if let banner = banner,
            let adSize = dfpAdSize {
             setSizeConstraints(banner.banner, forAdSize: adSize)
             loadingDelegate?.adServerDidWin(banner.banner, adSize: adSize)
+            // Manual impressions are enabled on every request, so GAM counts nothing for its own
+            // winning ad until this is called. GMA renders that ad itself, so it never reaches
+            // trackImpression().
+            banner.recordImpression()
         }
     }
     
