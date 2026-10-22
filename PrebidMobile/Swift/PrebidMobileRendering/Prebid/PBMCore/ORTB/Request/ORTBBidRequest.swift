@@ -15,30 +15,28 @@
 
 import Foundation
 
-@objc(PBMORTBBidRequest)
-public class ORTBBidRequest: NSObject, PBMJsonCodable, NSCopying {
+class ORTBBidRequest: NSObject, PBMJsonCodable, NSCopying {
 
     // MARK: - Properties
 
-    @objc public var requestID: String?
-    @objc public var imp: [ORTBImp] = [ORTBImp()]
-    @objc public var app: ORTBApp = ORTBApp()
-    @objc public var device: ORTBDevice = ORTBDevice()
-    @objc public var user: ORTBUser = ORTBUser()
-    @objc public var test: NSNumber?
-    @objc public var tmax: NSNumber?
-    @objc public var regs: ORTBRegs = ORTBRegs()
-    @objc public var source: ORTBSource = ORTBSource()
-    @objc public var extPrebid: ORTBBidRequestExtPrebid = ORTBBidRequestExtPrebid()
+    var requestID: String?
+    var imp: [ORTBImp] = [ORTBImp()]
+    var app: ORTBApp = ORTBApp()
+    var device: ORTBDevice = ORTBDevice()
+    var user: ORTBUser = ORTBUser()
+    var test: NSNumber?
+    var tmax: NSNumber?
+    var regs: ORTBRegs = ORTBRegs()
+    var source: ORTBSource = ORTBSource()
+    var extPrebid: ORTBBidRequestExtPrebid = ORTBBidRequestExtPrebid()
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         requestID = json[.id]
@@ -67,8 +65,7 @@ public class ORTBBidRequest: NSObject, PBMJsonCodable, NSCopying {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    var jsonDictionary: [String: Any] {
         var result = [String: Any]()
 
         // imp and ext are set first so arbitrary params from API/JSON don't override them
@@ -104,7 +101,7 @@ public class ORTBBidRequest: NSObject, PBMJsonCodable, NSCopying {
 
     // MARK: - NSCopying (JSON round-trip, matching original PBMORTBAbstract behaviour)
 
-    public func copy(with zone: NSZone? = nil) -> Any {
+    func copy(with zone: NSZone? = nil) -> Any {
         ORTBBidRequest(jsonDictionary: jsonDictionary)
     }
 

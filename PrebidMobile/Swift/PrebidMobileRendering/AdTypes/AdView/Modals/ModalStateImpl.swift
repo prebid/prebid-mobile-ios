@@ -16,32 +16,30 @@
 import Foundation
 import UIKit
 
-// ObjC class name preserved so Factory.ModalStateType = NSClassFromString("PBMModalState_Objc") resolves at runtime
-@objc(PBMModalState_Objc) @_spi(PBMInternal) public
 class ModalStateImpl: NSObject, ModalState {
 
-    public let adConfiguration: AdConfiguration?
-    public let displayProperties: InterstitialDisplayProperties?
-    public let view: UIView?
+    let adConfiguration: AdConfiguration?
+    let displayProperties: InterstitialDisplayProperties?
+    let view: UIView?
 
-    public var mraidState: MRAIDState = .notEnabled
+    var mraidState: MRAIDState = .notEnabled
 
-    public let onStatePopFinished: ModalStatePopHandler?
-    public let onStateHasLeftApp: ModalStateAppLeavingHandler?
+    let onStatePopFinished: ModalStatePopHandler?
+    let onStateHasLeftApp: ModalStateAppLeavingHandler?
 
-    public let nextOnStatePopFinished: ModalStatePopHandler?
-    public let nextOnStateHasLeftApp: ModalStateAppLeavingHandler?
+    let nextOnStatePopFinished: ModalStatePopHandler?
+    let nextOnStateHasLeftApp: ModalStateAppLeavingHandler?
 
-    public var onModalPushedBlock: VoidBlock?
+    var onModalPushedBlock: VoidBlock?
 
-    public var isRotationEnabled: Bool {
+    var isRotationEnabled: Bool {
         guard let webView = view?.subviews.last as? WebView else {
             return true
         }
         return webView.rotationEnabled
     }
 
-    public required init(
+    required init(
         view: UIView,
         adConfiguration: AdConfiguration?,
         displayProperties: InterstitialDisplayProperties?,

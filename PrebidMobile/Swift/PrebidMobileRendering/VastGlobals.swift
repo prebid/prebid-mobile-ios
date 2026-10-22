@@ -15,15 +15,13 @@
 
 import Foundation
 
-@objc(PBMVastResourceType)
-public enum VastResourceType: Int {
+enum VastResourceType: Int {
     case staticResource
     case iFrameResource
     case htmlResource
 }
 
-@objc(PBMVASTError)
-public enum VASTError: Int {
+enum VASTError: Int {
     case parsing = 100
     case validation
     case unsupportedVersion

@@ -15,21 +15,19 @@
 
 import Foundation
 
-@objc(PBMORTBDeviceExtPrebid)
-public class ORTBDeviceExtPrebid: NSObject, PBMJsonCodable {
+class ORTBDeviceExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var interstitial: ORTBDeviceExtPrebidInterstitial = ORTBDeviceExtPrebidInterstitial()
+    var interstitial: ORTBDeviceExtPrebidInterstitial = ORTBDeviceExtPrebidInterstitial()
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         interstitial = json[.interstitial] ?? ORTBDeviceExtPrebidInterstitial()
@@ -37,8 +35,7 @@ public class ORTBDeviceExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.interstitial] = interstitial
         return json.dict

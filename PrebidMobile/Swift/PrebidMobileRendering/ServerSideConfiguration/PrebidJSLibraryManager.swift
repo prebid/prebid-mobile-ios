@@ -20,12 +20,11 @@ fileprivate let PBMJSLibraryFileDirectory = "PBMJSLibraries"
 fileprivate let mraidLibraryURL = "https://cdn.jsdelivr.net/gh/prebid/prebid-mobile-ios@master/js/mraid.js"
 fileprivate let omsdkLibraryURL = "https://cdn.jsdelivr.net/gh/prebid/prebid-mobile-ios@master/js/omsdk.js"
 
-public typealias PrebidJSLibraryContentsCallback = (String?) -> ()
+typealias PrebidJSLibraryContentsCallback = (String?) -> ()
 
-@objcMembers
-public class PrebidJSLibraryManager: NSObject {
+class PrebidJSLibraryManager: NSObject {
     
-    public static let shared = PrebidJSLibraryManager()
+    static let shared = PrebidJSLibraryManager()
     
     var mraidLibrary: PrebidJSLibrary = {
         PrebidJSLibrary(name: "mraid", downloadURLString: mraidLibraryURL)
@@ -42,7 +41,7 @@ public class PrebidJSLibraryManager: NSObject {
         super.init()
     }
     
-    public func downloadLibraries() {
+    func downloadLibraries() {
         for library in [mraidLibrary, omsdkLibrary] {
             if checkIfCached(library.name) == false {
                 downloadJSLibrary(
@@ -54,11 +53,11 @@ public class PrebidJSLibraryManager: NSObject {
         }
     }
     
-    public func getMRAIDLibrary() -> String? {
+    func getMRAIDLibrary() -> String? {
         fetchLibrary(mraidLibrary)
     }
     
-    public func getOMSDKLibrary() -> String? {
+    func getOMSDKLibrary() -> String? {
         fetchLibrary(omsdkLibrary)
     }
     

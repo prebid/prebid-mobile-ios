@@ -17,8 +17,6 @@
 import Foundation
 import UIKit
 
-@objc(PBMAutoRefreshManager)
-@_spi(PBMInternal) public
 final class AutoRefreshManager: NSObject {
 
     // MARK: - Properties
@@ -36,7 +34,7 @@ final class AutoRefreshManager: NSObject {
 
     // MARK: - Init
 
-    @objc init(prefetchTime: TimeInterval,
+    init(prefetchTime: TimeInterval,
                lockingQueue: DispatchQueue?,
                lockProvider: (() -> NSLocking?)?,
                refreshDelayBlock: @escaping () -> NSNumber?,

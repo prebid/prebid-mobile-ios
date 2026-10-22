@@ -35,8 +35,7 @@ extension UIView {
         superview.addConstraints([centerX, centerY, maxW, maxH, prefW, prefH])
     }
 
-    @objc(PBMAddBottomRightConstraintsWithMarginSize:)
-    public func PBMAddBottomRightConstraintsWithMarginSize(_ marginSize: CGSize) {
+    func PBMAddBottomRightConstraintsWithMarginSize(_ marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -46,8 +45,7 @@ extension UIView {
         superview.addConstraints([right, bottom])
     }
 
-    @objc(PBMAddBottomRightConstraintsWithViewSize:marginSize:)
-    public func PBMAddBottomRightConstraints(viewSize: CGSize, marginSize: CGSize) {
+    func PBMAddBottomRightConstraints(viewSize: CGSize, marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -59,8 +57,7 @@ extension UIView {
         superview.addConstraints([w, h, right, bottom])
     }
 
-    @objc(PBMAddBottomLeftConstraintsWithViewSize:marginSize:)
-    public func PBMAddBottomLeftConstraints(viewSize: CGSize, marginSize: CGSize) {
+    func PBMAddBottomLeftConstraints(viewSize: CGSize, marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -72,8 +69,7 @@ extension UIView {
         superview.addConstraints([w, h, left, bottom])
     }
 
-    @objc(PBMAddTopRightConstraintsWithViewSize:marginSize:)
-    public func PBMAddTopRightConstraints(viewSize: CGSize, marginSize: CGSize) {
+    func PBMAddTopRightConstraints(viewSize: CGSize, marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -85,8 +81,7 @@ extension UIView {
         superview.addConstraints([w, h, right, top])
     }
 
-    @objc(PBMAddTopLeftConstraintsWithViewSize:marginSize:)
-    public func PBMAddTopLeftConstraints(viewSize: CGSize, marginSize: CGSize) {
+    func PBMAddTopLeftConstraints(viewSize: CGSize, marginSize: CGSize) {
         guard let superview = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -98,14 +93,12 @@ extension UIView {
         superview.addConstraints([w, h, left, top])
     }
 
-    @objc(LogViewHierarchy)
-    public func logViewHierarchy() {
+    func logViewHierarchy() {
         Log.info("**********LOGGING VIEW HIERARCHY**********")
         logHierarchyRecursive(view: self, depth: 0)
     }
 
-    @objc(pbmIsVisibleInView:)
-    public func pbmIsVisibleInView(_ inView: UIView) -> Bool {
+    func pbmIsVisibleInView(_ inView: UIView) -> Bool {
         viewExposure.exposureFactor > 0
     }
 

@@ -16,7 +16,6 @@
 
 import UIKit
 
-@objc(PBMModalAnimator)
 final class ModalAnimator: NSObject, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
 
     // MARK: - Properties

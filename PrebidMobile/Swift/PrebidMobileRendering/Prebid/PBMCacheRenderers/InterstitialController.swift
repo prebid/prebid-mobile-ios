@@ -15,34 +15,33 @@
 
 import UIKit
 
-@objcMembers
-public class InterstitialController:
+class InterstitialController:
     NSObject,
     PrebidMobileInterstitialControllerProtocol {
     
-    public var adFormats: Set<AdFormat> {
+    var adFormats: Set<AdFormat> {
         get { adConfiguration.adFormats }
         set { adConfiguration.adFormats = newValue }
     }
     
     /// Sets an ad unit as a rewarded
-    @objc public var isRewarded: Bool {
+    var isRewarded: Bool {
         get { adConfiguration.adConfiguration.isRewarded }
         set { adConfiguration.adConfiguration.isRewarded = newValue }
     }
     
-    public var videoControlsConfig: VideoControlsConfiguration {
+    var videoControlsConfig: VideoControlsConfiguration {
         get { adConfiguration.adConfiguration.videoControlsConfig }
         set { adConfiguration.adConfiguration.videoControlsConfig = newValue }
     }
     
-    public var videoParameters: VideoParameters {
+    var videoParameters: VideoParameters {
         get { adConfiguration.adConfiguration.videoParameters }
         set { adConfiguration.adConfiguration.videoParameters = newValue }
     }
     
-    public weak var loadingDelegate: InterstitialControllerLoadingDelegate?
-    public weak var interactionDelegate: InterstitialControllerInteractionDelegate?
+    weak var loadingDelegate: InterstitialControllerLoadingDelegate?
+    weak var interactionDelegate: InterstitialControllerInteractionDelegate?
     
     var bid: Bid
     var adConfiguration: AdUnitConfig
@@ -57,13 +56,13 @@ public class InterstitialController:
     
     // MARK: - Life cycle
     
-    public init(bid: Bid, adConfiguration: AdUnitConfig) {
+    init(bid: Bid, adConfiguration: AdUnitConfig) {
         self.bid = bid
         self.adConfiguration = adConfiguration
         displayProperties = InterstitialDisplayProperties()
     }
     
-    public convenience init(bid: Bid, configId: String) {
+    convenience init(bid: Bid, configId: String) {
         let adConfig = AdUnitConfig(configId: configId)
         adConfig.adConfiguration.isInterstitialAd = true
         adConfig.adConfiguration.isRewarded = bid.rewardedConfig != nil
@@ -74,7 +73,7 @@ public class InterstitialController:
         expirationWorkItem?.cancel()
     }
     
-    public func loadAd() {
+    func loadAd() {
         guard transactionFactory == nil, !isExpired else {
             return
         }
@@ -114,7 +113,7 @@ public class InterstitialController:
             })
     }
     
-    public func show() {
+    func show() {
         if let adViewManager = adViewManager {
             adViewManager.show()
         }
@@ -127,7 +126,7 @@ public class InterstitialController:
         fatalError("Init is unavailable.")
     }
     
-    public func reportFailureWithError(_ error: Error?) {
+    func reportFailureWithError(_ error: Error?) {
         if let error = error,
            let loadingDelegate = loadingDelegate {
             loadingDelegate.interstitialController(self, didFailWithError: error)
@@ -183,29 +182,28 @@ public class InterstitialController:
     }
 }
 
-@_spi(PBMInternal)
 extension InterstitialController: AdViewManagerDelegate {
     // MARK: - AdViewManagerDelegate protocol
     
-    public func viewControllerForModalPresentation() -> UIViewController? {
+    func viewControllerForModalPresentation() -> UIViewController? {
         interactionDelegate?.viewControllerForModalPresentation(fromInterstitialController: self)
     }
     
-    public func adLoaded(_ pbmAdDetails: AdDetails) {
+    func adLoaded(_ pbmAdDetails: AdDetails) {
         reportSuccess()
     }
     
-    public func failedToLoad(_ error: Error) {
+    func failedToLoad(_ error: Error) {
         reportFailureWithError(error)
     }
     
-    public func adDidComplete() {
+    func adDidComplete() {
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidComplete(self)
         }
     }
     
-    public func adDidDisplay() {
+    func adDidDisplay() {
         isDisplayed = true
         cancelExpiration()
         if let delegate = interactionDelegate {
@@ -213,42 +211,42 @@ extension InterstitialController: AdViewManagerDelegate {
         }
     }
     
-    public func adWasClicked() {
+    func adWasClicked() {
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidClickAd(self)
         }
     }
     
-    public func adViewWasClicked() {
+    func adViewWasClicked() {
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidClickAd(self)
         }
     }
     
-    public func adDidLeaveApp() {
+    func adDidLeaveApp() {
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidLeaveApp(self)
         }
     }
     
-    public func adDidClose() {
+    func adDidClose() {
         adViewManager = nil
         if let delegate = interactionDelegate {
             delegate.interstitialControllerDidCloseAd(self)
         }
     }
     
-    @objc public func adDidSendRewardedEvent() {
+    func adDidSendRewardedEvent() {
         if let delegate = interactionDelegate {
             delegate.trackUserReward?(self, PrebidReward(with: bid.rewardedConfig?.reward))
         }
     }
     
-    @objc public var interstitialDisplayProperties: InterstitialDisplayProperties {
+    var interstitialDisplayProperties: InterstitialDisplayProperties {
         displayProperties
     }
     
-    public func adClickthroughDidClose() {}
-    public func adDidExpand() {}
-    public func adDidCollapse() {}
+    func adClickthroughDidClose() {}
+    func adDidExpand() {}
+    func adDidCollapse() {}
 }

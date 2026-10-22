@@ -20,12 +20,12 @@ public protocol PBMJsonDecodable {
     init?(jsonDictionary: [String : Any])
 }
 
-public protocol PBMJsonEncodable {
+protocol PBMJsonEncodable {
     var jsonDictionary: [String : Any] { get }
 }
 
 extension PBMJsonDecodable {
-    public init?(jsonString: String) throws {
+    init?(jsonString: String) throws {
         guard let data = jsonString.data(using: .utf8),
               let json = try JSONSerialization.jsonObject(with: data) as? [String : Any]
         else {
@@ -37,7 +37,7 @@ extension PBMJsonDecodable {
 }
 
 extension PBMJsonEncodable {
-    public func toJsonString() throws -> String {
+    func toJsonString() throws -> String {
         let dictionary = jsonDictionary
         let data = try JSONSerialization.data(withJSONObject: dictionary, options: .sortedKeys)
         guard let string = String(data: data, encoding: .utf8) else {

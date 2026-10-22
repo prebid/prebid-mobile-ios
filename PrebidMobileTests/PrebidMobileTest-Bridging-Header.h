@@ -21,20 +21,16 @@
 #import "MockServerMimeType.h"
 
 //Imports
-#import "PBMConstants.h"
-#import "PBMMacros.h"
-#import "PBMORTB.h"
-#import "PBMUIApplicationProtocol.h"
 // PBMCircularProgressBarLayer moved to Swift — available via module import
 
 // Extensions
-#import "WKNavigationAction+PBMWKNavigationActionCompatible.h"
-#import "WKWebView+PBMWKWebViewCompatible.h"
-#import "Log+Extensions.h"
 
 
 // Prebid
 
+#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
+#import "SwiftImport.h"
 #import "MediationInterstitialAdUnit+TestExtension.h"
 #import "MediationBannerAdUnit+TestExtension.h"
 

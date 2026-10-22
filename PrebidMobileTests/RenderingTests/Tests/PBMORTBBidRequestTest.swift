@@ -14,99 +14,85 @@
   */
 
 import XCTest
+@testable import PrebidMobile
 
 class PBMORTBBidRequestTest: XCTestCase {
     
     func testCombinedProperties() {
         
         // ORTBBidRequest
-        checkInt(ORTBBidRequest(), property: "tmax")
+        checkInt(ORTBBidRequest(), \.tmax)
         
         // ORTBBanner
-        checkInt(ORTBBanner(), property: "pos")
+        checkInt(ORTBBanner(), \.pos)
         
         // ORTBVideo
-        checkInt(ORTBVideo(), property: "minduration")
-        checkInt(ORTBVideo(), property: "maxduration")
-        checkInt(ORTBVideo(), property: "w")
-        checkInt(ORTBVideo(), property: "h")
-        checkInt(ORTBVideo(), property: "startdelay")
-        checkInt(ORTBVideo(), property: "minbitrate")
-        checkInt(ORTBVideo(), property: "maxbitrate")
+        checkInt(ORTBVideo(), \.minduration)
+        checkInt(ORTBVideo(), \.maxduration)
+        checkInt(ORTBVideo(), \.w)
+        checkInt(ORTBVideo(), \.h)
+        checkInt(ORTBVideo(), \.startdelay)
+        checkInt(ORTBVideo(), \.minbitrate)
+        checkInt(ORTBVideo(), \.maxbitrate)
         
         // ORTBPmp
-        checkInt(ORTBPmp(), property: "private_auction")
+        checkInt(ORTBPmp(), \.private_auction)
         
         // ORTBDeal
-        checkInt(ORTBDeal(), property: "at")
+        checkInt(ORTBDeal(), \.at)
         
         // ORTBApp
-        checkInt(ORTBApp(), property: "privacypolicy")
-        checkInt(ORTBApp(), property: "paid")
+        checkInt(ORTBApp(), \.privacypolicy)
+        checkInt(ORTBApp(), \.paid)
         
         // ORTBDevice
-        checkInt(ORTBDevice(), property: "lmt")
-        checkInt(ORTBDevice(), property: "devicetype")
-        checkInt(ORTBDevice(), property: "h")
-        checkInt(ORTBDevice(), property: "w")
-        checkInt(ORTBDevice(), property: "ppi")
-        checkDouble(ORTBDevice(), property: "pxratio")
-        checkInt(ORTBDevice(), property: "js")
-        checkInt(ORTBDevice(), property: "geofetch")
-        checkInt(ORTBDevice(), property: "connectiontype")
+        checkInt(ORTBDevice(), \.lmt)
+        checkInt(ORTBDevice(), \.devicetype)
+        checkInt(ORTBDevice(), \.h)
+        checkInt(ORTBDevice(), \.w)
+        checkInt(ORTBDevice(), \.ppi)
+        checkDouble(ORTBDevice(), \.pxratio)
+        checkInt(ORTBDevice(), \.js)
+        checkInt(ORTBDevice(), \.geofetch)
+        checkInt(ORTBDevice(), \.connectiontype)
         
         // ORTBGeo
-        checkDouble(ORTBGeo(), property: "lat")
-        checkDouble(ORTBGeo(), property: "lon")
-        checkInt(ORTBGeo(), property: "type")
-        checkInt(ORTBGeo(), property: "accuracy")
-        checkInt(ORTBGeo(), property: "lastfix")
-        checkInt(ORTBGeo(), property: "utcoffset")
+        checkDouble(ORTBGeo(), \.lat)
+        checkDouble(ORTBGeo(), \.lon)
+        checkInt(ORTBGeo(), \.type)
+        checkInt(ORTBGeo(), \.accuracy)
+        checkInt(ORTBGeo(), \.lastfix)
+        checkInt(ORTBGeo(), \.utcoffset)
     }
     
     // MARK: Test Function
     
-    func checkInt(_ object: NSObject, property: String, file: StaticString = #file, line: UInt = #line) {
-        check(object, property: property, testValues: [1, 2], file: file, line: line)
+    func checkInt<Model: AnyObject>(_ model: Model, _ keyPath: ReferenceWritableKeyPath<Model, NSNumber?>, file: StaticString = #file, line: UInt = #line) {
+        check(model, keyPath, testValues: [NSNumber(value: 1), NSNumber(value: 2)], file: file, line: line)
     }
     
-    func checkDouble(_ object: NSObject, property: String, file: StaticString = #file, line: UInt = #line) {
-        check(object, property: property, testValues: [1.1, 2.2], file: file, line: line)
+    func checkDouble<Model: AnyObject>(_ model: Model, _ keyPath: ReferenceWritableKeyPath<Model, NSNumber?>, file: StaticString = #file, line: UInt = #line) {
+        check(model, keyPath, testValues: [NSNumber(value: 1.1), NSNumber(value: 2.2)], file: file, line: line)
     }
     
-    func check<T: Comparable>(_ object: NSObject,
-                              property: String,
-                              typePrefix: String? = nil,
-                              testValues: [T],
-                              file: StaticString = #file, line: UInt = #line) {
-        
-        // Prepare
-        var typedProperty = property
-        if let type = typePrefix {
-            typedProperty = type + String(property.first!).uppercased() + property.dropFirst()
-        }
-        
+    /// A property starts as nil, stores what it is given and can be cleared again.
+    /// (Typed key paths replace the former KVC `setValue(_:forKey:)`, which needed `@objc` on every model property.)
+    func check<Model: AnyObject>(_ model: Model,
+                                 _ keyPath: ReferenceWritableKeyPath<Model, NSNumber?>,
+                                 testValues: [NSNumber],
+                                 file: StaticString = #file, line: UInt = #line) {
         XCTAssertEqual(testValues.count, 2, file: file, line: line)
         XCTAssertNotEqual(testValues[0], testValues[1], file: file, line: line)
         
-        // Check the property existence
-        XCTAssert(object.responds(to: Selector(property)), "There is no property \(property)", file: file, line: line)
-        XCTAssert(object.responds(to: Selector(typedProperty)), "There is no property \(typedProperty)", file: file, line: line)
+        XCTAssertNil(model[keyPath: keyPath], file: file, line: line)
         
-        // Default should be nil
-        XCTAssertNil(object.value(forKey: property), file: file, line: line)
-        XCTAssertNil(object.value(forKey: typedProperty), file: file, line: line)
+        model[keyPath: keyPath] = testValues[0]
+        XCTAssertEqual(model[keyPath: keyPath], testValues[0], file: file, line: line)
         
-        let v1 = testValues[0]
-        object.setValue(v1, forKey: property)
-        XCTAssertEqual(object.value(forKey: typedProperty) as! T , v1, file: file, line: line)
+        model[keyPath: keyPath] = testValues[1]
+        XCTAssertEqual(model[keyPath: keyPath], testValues[1], file: file, line: line)
         
-        let v2 = testValues[1]
-        object.setValue(v2, forKey: typedProperty)
-        XCTAssertEqual(object.value(forKey: property) as! T, v2, file: file, line: line)
-        
-        object.setValue(nil, forKey: property)
-        XCTAssertNil(object.value(forKey: property), file: file, line: line)
-        XCTAssertNil(object.value(forKey: typedProperty), file: file, line: line)
+        model[keyPath: keyPath] = nil
+        XCTAssertNil(model[keyPath: keyPath], file: file, line: line)
     }
 }

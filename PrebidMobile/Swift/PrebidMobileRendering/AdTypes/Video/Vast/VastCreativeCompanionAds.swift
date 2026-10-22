@@ -16,30 +16,27 @@
 import Foundation
 import UIKit
 
-@objc(PBMVastCreativeCompanionAds)
-@_spi(PBMInternal) public class VastCreativeCompanionAds: VastCreativeAbstract {
+class VastCreativeCompanionAds: VastCreativeAbstract {
 
-    // Untyped `NSMutableArray`: surviving ObjC parser code appends in place.
-    // Elements are `VastCreativeCompanionAdsCompanion`.
-    @objc public var companions = NSMutableArray()
-    @objc public var requiredMode = ""
+    var companions = [VastCreativeCompanionAdsCompanion]()
+    var requiredMode = ""
 
     // Computed on first use and cached, like the ObjC original: companions added afterwards are not picked up.
     private var myFeasibleCompanions: [VastCreativeCompanionAdsCompanion]?
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 
     // MARK: - Public
 
-    @objc public func feasibleCompanions() -> [VastCreativeCompanionAdsCompanion] {
+    func feasibleCompanions() -> [VastCreativeCompanionAdsCompanion] {
         if let cachedCompanions = myFeasibleCompanions {
             return cachedCompanions
         }
 
         let screenSize = UIScreen.main.bounds.size
-        let feasibleCompanions = companions.compactMap { $0 as? VastCreativeCompanionAdsCompanion }.filter { companion in
+        let feasibleCompanions = companions.filter { companion in
             if companion.resourceType == .staticResource && companion.staticType == "application/x-shockwave-flash" {
                 return false
             }
@@ -49,7 +46,7 @@ import UIKit
         return feasibleCompanions
     }
 
-    @objc public func canPlayRequiredCompanions() -> Bool {
+    func canPlayRequiredCompanions() -> Bool {
         // The `PBMVastRequiredMode` constants are ObjC-only (S2.1-A), so the raw strings are used here.
         if requiredMode == "all" {
             // Can we play all of them?
@@ -67,11 +64,10 @@ import UIKit
         return true
     }
 
-    @objc(copyTracking:)
-    public func copyTracking(fromCompanionAds: VastCreativeCompanionAds) {
-        for case let fromCompanion as VastCreativeCompanionAdsCompanion in fromCompanionAds.companions {
-            for case let toCompanion as VastCreativeCompanionAdsCompanion in companions {
-                toCompanion.clickTrackingURIs.addObjects(from: Array(fromCompanion.clickTrackingURIs))
+    func copyTracking(fromCompanionAds: VastCreativeCompanionAds) {
+        for fromCompanion in fromCompanionAds.companions {
+            for toCompanion in companions {
+                toCompanion.clickTrackingURIs.append(contentsOf: fromCompanion.clickTrackingURIs)
                 toCompanion.trackingEvents.addTrackingEvents(fromCompanion.trackingEvents)
             }
         }

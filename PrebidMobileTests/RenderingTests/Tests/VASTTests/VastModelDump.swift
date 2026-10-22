@@ -35,10 +35,7 @@ enum VastModelDump {
 
         for (adIndex, element) in response.vastAbstractAds.enumerated() {
             let prefix = "ad[\(adIndex)]"
-            guard let ad = element as? VastAbstractAd else {
-                lines.append("\(prefix)=NOT A VastAbstractAd")
-                continue
-            }
+            let ad = element
 
             lines.append("\(prefix).kind=\(kind(of: ad))")
             lines.append("\(prefix).ownerResponse=\(ad.ownerResponse === response ? "response" : "other")")
@@ -124,10 +121,7 @@ enum VastModelDump {
         lines.append(contentsOf: trackingLines(linear.vastTrackingEvents, prefix: "\(prefix).trackingEvents"))
         lines.append("\(prefix).mediaFiles.count=\(linear.mediaFiles.count)")
         for (index, mediaFileElement) in linear.mediaFiles.enumerated() {
-            guard let mediaFile = mediaFileElement as? VastMediaFile else {
-                lines.append("\(prefix).mediaFile[\(index)]=NOT A VastMediaFile")
-                continue
-            }
+            let mediaFile = mediaFileElement
             let mediaPrefix = "\(prefix).mediaFile[\(index)]"
             lines.append("\(mediaPrefix).id=\(quoted(mediaFile.id))")
             lines.append("\(mediaPrefix).streamingDeliver=\(mediaFile.streamingDeliver)")
@@ -145,10 +139,7 @@ enum VastModelDump {
         }
         lines.append("\(prefix).icons.count=\(linear.icons.count)")
         for (index, iconElement) in linear.icons.enumerated() {
-            guard let icon = iconElement as? VastIcon else {
-                lines.append("\(prefix).icon[\(index)]=NOT A VastIcon")
-                continue
-            }
+            let icon = iconElement
             let iconPrefix = "\(prefix).icon[\(index)]"
             lines.append("\(iconPrefix).program=\(quoted(icon.program))")
             lines.append("\(iconPrefix).width=\(icon.width)")
@@ -172,10 +163,7 @@ enum VastModelDump {
         lines.append("\(prefix).requiredMode=\(quoted(companionAds.requiredMode))")
         lines.append("\(prefix).companions.count=\(companionAds.companions.count)")
         for (index, companionElement) in companionAds.companions.enumerated() {
-            guard let companion = companionElement as? VastCreativeCompanionAdsCompanion else {
-                lines.append("\(prefix).companion[\(index)]=NOT A Companion")
-                continue
-            }
+            let companion = companionElement
             let companionPrefix = "\(prefix).companion[\(index)]"
             lines.append("\(companionPrefix).companionIdentifier=\(quoted(companion.companionIdentifier))")
             lines.append("\(companionPrefix).width=\(companion.width)")
@@ -200,10 +188,7 @@ enum VastModelDump {
         lines.append("\(prefix).staticType=\(quoted(nonLinearAds.staticType))")
         lines.append("\(prefix).nonLinears.count=\(nonLinearAds.nonLinears.count)")
         for (index, nonLinearElement) in nonLinearAds.nonLinears.enumerated() {
-            guard let nonLinear = nonLinearElement as? VastCreativeNonLinearAdsNonLinear else {
-                lines.append("\(prefix).nonLinear[\(index)]=NOT A NonLinear")
-                continue
-            }
+            let nonLinear = nonLinearElement
             let nonLinearPrefix = "\(prefix).nonLinear[\(index)]"
             lines.append("\(nonLinearPrefix).id=\(quoted(nonLinear.id))")
             lines.append("\(nonLinearPrefix).width=\(nonLinear.width)")
@@ -262,10 +247,8 @@ enum VastModelDump {
         return "\(value)"
     }
 
-    private static func list(_ array: NSMutableArray) -> String {
-        let items = array.map { element in
-            (element as? String).map { quoted($0) } ?? "NOT A STRING: \(element)"
-        }
+    private static func list(_ array: [String]) -> String {
+        let items = array.map { quoted($0) }
         return "[" + items.joined(separator: ", ") + "]"
     }
 }

@@ -15,15 +15,14 @@
 
 import Foundation
 
-@objc(PBMBidResponseTransformer) @_spi(PBMInternal) public class BidResponseTransformer: NSObject {
+class BidResponseTransformer: NSObject {
 
     @available(*, unavailable)
     override init() {
         super.init()
     }
 
-    @objc(transformResponse:error:)
-    public static func transform(_ response: PrebidServerResponse) throws -> BidResponse {
+    static func transform(_ response: PrebidServerResponse) throws -> BidResponse {
         guard let jsonDict = response.jsonDict else {
             // Prebid Server rejects a request with a plaintext body, so only a non-JSON body is classified.
             // A valid bid whose markup happens to contain "Invalid request" must not be reported as an error.

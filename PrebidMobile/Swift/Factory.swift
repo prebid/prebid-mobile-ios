@@ -17,49 +17,38 @@
 import Foundation
 import UIKit
 
-@objc(PBMFactory) @_spi(PBMInternal) public
 class Factory: NSObject {
     
     // MARK: BidRequester
     
-    static let bidRequesterType: BidRequester.Type = {
-        NSClassFromString("PBMBidRequester_Objc") as! BidRequester.Type
-    }()
-    
-    @objc public static func createBidRequester(connection: PrebidServerConnectionProtocol,
+    static func createBidRequester(connection: PrebidServerConnectionProtocol,
                                                 sdkConfiguration: Prebid,
                                                 targeting: Targeting,
                                                 adUnitConfiguration: AdUnitConfig) -> BidRequester {
-        bidRequesterType.init(connection: connection,
-                              sdkConfiguration: sdkConfiguration,
-                              targeting: targeting,
-                              adUnitConfiguration: adUnitConfiguration)
+        BidRequesterImpl(connection: connection,
+                         sdkConfiguration: sdkConfiguration,
+                         targeting: targeting,
+                         adUnitConfiguration: adUnitConfiguration)
     }
     
     // MARK: WinNotifier
     
-    @objc public static let WinNotifierType: WinNotifier.Type = {
-        NSClassFromString("PBMWinNotifier_Objc") as! WinNotifier.Type
-    }()
+    static let WinNotifierType: WinNotifier.Type = WinNotifierImpl.self
     
-    @objc public static func createWinNotifier() -> WinNotifier {
-        WinNotifierType.init()
+    static func createWinNotifier() -> WinNotifier {
+        WinNotifierImpl()
     }
     
     // MARK: AdViewManager
     
-    @objc public static let AdViewManagerType: AdViewManager.Type = {
-        NSClassFromString("PBMAdViewManager_Objc") as! AdViewManager.Type
-    }()
-    
-    @objc public static func createAdViewManager(connection: PrebidServerConnectionProtocol,
+    static func createAdViewManager(connection: PrebidServerConnectionProtocol,
                                                  modalManagerDelegate: ModalManagerDelegate?) -> AdViewManager {
-        AdViewManagerType.init(connection: connection, modalManagerDelegate: modalManagerDelegate)
+        AdViewManagerImpl(connection: connection, modalManagerDelegate: modalManagerDelegate)
     }
     
     // MARK: Transaction
     
-    @objc public static func createTransaction(serverConnection: PrebidServerConnectionProtocol,
+    static func createTransaction(serverConnection: PrebidServerConnectionProtocol,
                                                adConfiguration: AdConfiguration,
                                                models: [CreativeModel]) -> Transaction {
         TransactionImpl(serverConnection: serverConnection, adConfiguration: adConfiguration, models: models)
@@ -67,25 +56,19 @@ class Factory: NSObject {
     
     // MARK: ViewExposure
     
-    @objc public static let ViewExposureType: ViewExposure.Type = {
-        NSClassFromString("PBMViewExposure_Objc") as! ViewExposure.Type
-    }()
+    static let ViewExposureType: ViewExposure.Type = ViewExposureImpl.self
     
-    @objc public static func createViewExposure(exposureFactor: Float,
+    static func createViewExposure(exposureFactor: Float,
                                                 visibleRectangle: CGRect,
                                                 occlusionRectangles: [NSValue]?) -> ViewExposure {
-        ViewExposureType.init(exposureFactor: exposureFactor,
-                              visibleRectangle: visibleRectangle,
-                              occlusionRectangles: occlusionRectangles)
+        ViewExposureImpl(exposureFactor: exposureFactor,
+                         visibleRectangle: visibleRectangle,
+                         occlusionRectangles: occlusionRectangles)
     }
     
     // MARK: ModalState
     
-    @objc public static let ModalStateType: ModalState.Type = {
-        NSClassFromString("PBMModalState_Objc") as! ModalState.Type
-    }()
-    
-    @objc public static func createModalState(view: UIView,
+    static func createModalState(view: UIView,
                                               adConfiguration: AdConfiguration?,
                                               displayProperties: InterstitialDisplayProperties?,
                                               onStatePopFinished: ModalStatePopHandler? = nil,
@@ -93,19 +76,19 @@ class Factory: NSObject {
                                               nextOnStatePopFinished: ModalStatePopHandler? = nil,
                                               nextOnStateHasLeftApp: ModalStateAppLeavingHandler? = nil,
                                               onModalPushedBlock: VoidBlock? = nil) -> ModalState {
-        ModalStateType.init(view: view,
-                            adConfiguration: adConfiguration,
-                            displayProperties: displayProperties,
-                            onStatePopFinished: onStatePopFinished,
-                            onStateHasLeftApp: onStateHasLeftApp,
-                            nextOnStatePopFinished: nextOnStatePopFinished,
-                            nextOnStateHasLeftApp: nextOnStateHasLeftApp,
-                            onModalPushedBlock: onModalPushedBlock)
+        ModalStateImpl(view: view,
+                       adConfiguration: adConfiguration,
+                       displayProperties: displayProperties,
+                       onStatePopFinished: onStatePopFinished,
+                       onStateHasLeftApp: onStateHasLeftApp,
+                       nextOnStatePopFinished: nextOnStatePopFinished,
+                       nextOnStateHasLeftApp: nextOnStateHasLeftApp,
+                       onModalPushedBlock: onModalPushedBlock)
     }
     
     // MARK: PBMCreativeViewabilityTracker
     
-    @objc public static func createCreativeViewabilityTracker(
+    static func createCreativeViewabilityTracker(
         view: UIView,
         pollingTimeInterval: TimeInterval,
         onExposureChange: @escaping ViewExposureChangeHandler
@@ -115,7 +98,7 @@ class Factory: NSObject {
                                        onExposureChange: onExposureChange)
     }
     
-    @objc public static func createCreativeViewabilityTracker(
+    static func createCreativeViewabilityTracker(
         creative: AbstractCreative
     ) -> CreativeViewabilityTracker {
         CreativeViewabilityTrackerImpl(creative: creative)
@@ -123,7 +106,7 @@ class Factory: NSObject {
     
     // MARK: PBMTransactionFactory
     
-    @objc public static func createTransactionFactory(
+    static func createTransactionFactory(
         bid: Bid,
         adConfiguration: AdUnitConfig,
         connection: PrebidServerConnectionProtocol,

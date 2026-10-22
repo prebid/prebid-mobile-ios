@@ -16,10 +16,9 @@
 import Foundation
 import UIKit
 
-@objc(PBMVideoCreative) @_spi(PBMInternal) public
 class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
-    public static var maxSizeForPreRenderContent: Int {
+    static var maxSizeForPreRenderContent: Int {
         // 25 MiB
         25 * 1024 * 1024
     }
@@ -38,7 +37,7 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
     // `videoData` stays optional: `CreativeFactoryJob` passes the downloader's nullable result
     // (the ObjC original only asserted on it and went on without data).
-    public init(creativeModel: CreativeModel, transaction: Transaction, videoData: Data?) {
+    init(creativeModel: CreativeModel, transaction: Transaction, videoData: Data?) {
         data = videoData
 
         super.init(creativeModel: creativeModel, transaction: transaction)
@@ -54,19 +53,18 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
     // The inherited ObjC initializer built a creative without a video view; nothing calls it. The creative is built like the
     // designated one, without data.
-    @objc(initWithCreativeModel:transaction:)
-    public required convenience init(creativeModel: CreativeModel, transaction: Transaction) {
+    required convenience init(creativeModel: CreativeModel, transaction: Transaction) {
         self.init(creativeModel: creativeModel, transaction: transaction, videoData: nil)
     }
 
     // MARK: - AbstractCreative
 
-    public override func setupView() {
+    override func setupView() {
         super.setupView()
         showVideoViewWithPreloadedData(data)
     }
 
-    public override func display(rootViewController viewController: UIViewController) {
+    override func display(rootViewController viewController: UIViewController) {
         super.display(rootViewController: viewController)
         viewabilityTracker?.start()
 
@@ -74,7 +72,7 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
         videoView.addFillSuperviewConstraints()
     }
 
-    public override func showAsInterstitial(fromRootViewController uiViewController: UIViewController,
+    override func showAsInterstitial(fromRootViewController uiViewController: UIViewController,
                                             displayProperties: InterstitialDisplayProperties) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -103,7 +101,7 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
         }
     }
 
-    public override func onViewabilityChanged(_ viewable: Bool, viewExposure: ViewExposure) {
+    override func onViewabilityChanged(_ viewable: Bool, viewExposure: ViewExposure) {
         super.onViewabilityChanged(viewable, viewExposure: viewExposure)
 
         if !isVisibilityDrivenPlayback {
@@ -117,23 +115,23 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
         }
     }
 
-    public override func pause() {
+    override func pause() {
         videoView.pause()
     }
 
-    public override func resume() {
+    override func resume() {
         videoView.resume()
     }
 
-    public override func mute() {
+    override func mute() {
         videoView.mute()
     }
 
-    public override func unmute() {
+    override func unmute() {
         videoView.unmute()
     }
 
-    public override var isMuted: Bool {
+    override var isMuted: Bool {
         videoView.isMuted
     }
 
@@ -146,7 +144,7 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
         videoView.playbackState == .finished
     }
 
-    public override func createOpenMeasurementSession() {
+    override func createOpenMeasurementSession() {
 
         if !Thread.current.isMainThread {
             Log.error("Open Measurement session can only be created on the main thread")
@@ -173,7 +171,7 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
     // MARK: - VideoViewDelegate
 
-    public func videoViewCompletedDisplay() {
+    func videoViewCompletedDisplay() {
         creativeViewDelegate?.videoCreativeDidComplete?(self)
 
         // Companion ad:
@@ -197,15 +195,15 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
         }
     }
 
-    public func videoViewFailedWithError(_ error: Error) {
+    func videoViewFailedWithError(_ error: Error) {
         creativeResolutionDelegate?.creativeFailed(error)
     }
 
-    public func videoViewReadyToDisplay() {
+    func videoViewReadyToDisplay() {
         creativeResolutionDelegate?.creativeReady(self)
     }
 
-    public func learnMoreWasClicked() {
+    func learnMoreWasClicked() {
         creativeViewDelegate?.creativeWasClicked(self)
         eventManager.trackEvent(.click)
 
@@ -222,7 +220,7 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
         })
     }
 
-    public func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {
         // NOTE: Rewarded API only
         // Signal to the application that the user has earned the reward after
         // the certain period of time that the ad is on the screen.
@@ -262,7 +260,7 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
         }
     }
 
-    public func videoViewWasTapped() {
+    func videoViewWasTapped() {
         if let clickHandlerOverride = adConfiguration?.clickHandlerOverride {
             eventManager.trackEvent(.click)
             pause()
@@ -283,7 +281,7 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
     // MARK: - ModalManager events
 
-    public override func modalManagerDidFinishPop(_ state: ModalState?) {
+    override func modalManagerDidFinishPop(_ state: ModalState?) {
 
         //Clickthrough
         if clickthroughVisible {
@@ -304,7 +302,7 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
         creativeViewDelegate?.creativeInterstitialDidClose(self)
     }
 
-    public override func modalManagerDidLeaveApp(_ state: ModalState?) {
+    override func modalManagerDidLeaveApp(_ state: ModalState?) {
         creativeViewDelegate?.creativeInterstitialDidLeaveApp(self)
     }
 

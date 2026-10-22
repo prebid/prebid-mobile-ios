@@ -17,14 +17,13 @@ import UIKit
 
 fileprivate typealias StringAnyDict = [String: Any]
 
-@objc(PBMArbitraryORTBService) @objcMembers
-public class ArbitraryORTBService: NSObject {
+class ArbitraryORTBService: NSObject {
     
     private override init() {
         super.init()
     }
     
-    public static func merge(
+    static func merge(
         sdkORTB: [String: Any],
         impORTB: String?,
         globalAdUnitORTB: String?,

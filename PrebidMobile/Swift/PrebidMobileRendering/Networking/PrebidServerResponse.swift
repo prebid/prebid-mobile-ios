@@ -18,15 +18,15 @@ import Foundation
 @objcMembers
 public class PrebidServerResponse: NSObject {
     
-    public var isOKStatusCode: Bool {
+    var isOKStatusCode: Bool {
         return (200...299).contains(statusCode)
     }
     
-    public var jsonDict: [String: Any]?
-    public var rawData: Data?
-    public var requestHeaders: [String: String]?
-    public var responseHeaders: [String: String]?
-    public var requestURL: String?
+    var jsonDict: [String: Any]?
+    var rawData: Data?
+    var requestHeaders: [String: String]?
+    var responseHeaders: [String: String]?
+    var requestURL: String?
     public var error: Error?
     public var statusCode = 0
 }

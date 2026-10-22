@@ -15,23 +15,21 @@
 
 import Foundation
 
-@objc(PBMORTBImpExtSkadn)
-public class ORTBImpExtSkadn: NSObject, PBMJsonCodable {
+class ORTBImpExtSkadn: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var sourceapp: String?
-    @objc public var skadnetids: [String] = []
-    @objc public var skoverlay: NSNumber?
+    var sourceapp: String?
+    var skadnetids: [String] = []
+    var skoverlay: NSNumber?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         sourceapp  = json[.sourceapp]
@@ -41,8 +39,7 @@ public class ORTBImpExtSkadn: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         if let sourceapp = sourceapp, !skadnetids.isEmpty {
             json[.versions]   = Self.supportedSKAdNetworkVersions

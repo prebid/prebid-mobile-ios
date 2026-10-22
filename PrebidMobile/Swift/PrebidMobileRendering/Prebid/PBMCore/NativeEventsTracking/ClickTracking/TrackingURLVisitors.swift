@@ -15,7 +15,6 @@
 
 import Foundation
 
-@objc(PBMTrackingURLVisitors) @_spi(PBMInternal) public
 class TrackingURLVisitors: NSObject {
 
     @available(*, unavailable)
@@ -23,8 +22,7 @@ class TrackingURLVisitors: NSObject {
         fatalError("init() is unavailable")
     }
 
-    @objc(connectionAsTrackingURLVisitor:)
-    public static func connectionAsTrackingURLVisitor(
+    static func connectionAsTrackingURLVisitor(
         _ connection: PrebidServerConnectionProtocol
     ) -> TrackingURLVisitorBlock {
         { trackingUrlStrings in

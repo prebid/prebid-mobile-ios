@@ -15,7 +15,6 @@
 
 import Foundation
 
-@objc(PBMExposureChangeDelegate) @_spi(PBMInternal) public
 protocol ExposureChangeDelegate: NSObjectProtocol {
 
     func webView(_ webView: WebView, exposureChange viewExposure: ViewExposure)

@@ -15,22 +15,20 @@
 
 import Foundation
 
-@objc(PBMORTBDeviceExtPrebidInterstitial)
-public class ORTBDeviceExtPrebidInterstitial: NSObject, PBMJsonCodable {
+class ORTBDeviceExtPrebidInterstitial: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var minheightperc: NSNumber?
-    @objc public var minwidthperc: NSNumber?
+    var minheightperc: NSNumber?
+    var minwidthperc: NSNumber?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         minheightperc = json[.minheightperc]
@@ -39,8 +37,7 @@ public class ORTBDeviceExtPrebidInterstitial: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.minheightperc] = minheightperc
         json[.minwidthperc]  = minwidthperc

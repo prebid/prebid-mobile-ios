@@ -27,7 +27,7 @@ class VastResponseFlattenTest: XCTestCase {
 
     private func makeResponse(ads: [VastAbstractAd]) -> VastResponse {
         let response = VastResponse()
-        response.vastAbstractAds = NSMutableArray(array: ads)
+        response.vastAbstractAds = ads
         return response
     }
 

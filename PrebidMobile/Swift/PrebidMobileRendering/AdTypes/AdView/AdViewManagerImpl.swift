@@ -16,17 +16,15 @@
 import Foundation
 import UIKit
 
-// ObjC class name preserved so Factory.AdViewManagerType = NSClassFromString("PBMAdViewManager_Objc") resolves at runtime
-@objc(PBMAdViewManager_Objc) @_spi(PBMInternal) public
 class AdViewManagerImpl: NSObject, AdViewManager {
 
     public var adConfiguration: AdConfiguration
-    public var modalManager: ModalManager
-    public weak var adViewManagerDelegate: AdViewManagerDelegate?
-    public var autoDisplayOnLoad: Bool
+    var modalManager: ModalManager
+    weak var adViewManagerDelegate: AdViewManagerDelegate?
+    var autoDisplayOnLoad: Bool
 
-    public weak var currentCreative: AbstractCreative?
-    public var externalTransaction: Transaction?
+    weak var currentCreative: AbstractCreative?
+    var externalTransaction: Transaction?
 
     private let serverConnection: PrebidServerConnectionProtocol
     private var videoInterstitialDidClose = false
@@ -43,7 +41,7 @@ class AdViewManagerImpl: NSObject, AdViewManager {
         adConfiguration.isRewarded
     }
 
-    public required init(connection: PrebidServerConnectionProtocol, modalManagerDelegate: ModalManagerDelegate?) {
+    required init(connection: PrebidServerConnectionProtocol, modalManagerDelegate: ModalManagerDelegate?) {
         autoDisplayOnLoad = true
         serverConnection = connection
         modalManager = ModalManager(delegate: modalManagerDelegate)
@@ -53,7 +51,7 @@ class AdViewManagerImpl: NSObject, AdViewManager {
 
     // MARK: - API
 
-    public func revenueForNextCreative() -> String? {
+    func revenueForNextCreative() -> String? {
         guard let currentTransaction else {
             return nil
         }
@@ -65,7 +63,7 @@ class AdViewManagerImpl: NSObject, AdViewManager {
         return currentTransaction.revenueForCreative(after: currentCreative)
     }
 
-    public func isAbleToShowCurrentCreative() -> Bool {
+    func isAbleToShowCurrentCreative() -> Bool {
         if currentCreative == nil {
             Log.error("No creative to display")
             return false
@@ -132,50 +130,50 @@ class AdViewManagerImpl: NSObject, AdViewManager {
         currentCreative?.resume()
     }
 
-    public func mute() {
+    func mute() {
         currentCreative?.mute()
     }
 
-    public func unmute() {
+    func unmute() {
         currentCreative?.unmute()
     }
 
-    public var isMuted: Bool {
+    var isMuted: Bool {
         currentCreative?.isMuted ?? false
     }
 
-    public func handleExternalTransaction(_ transaction: Transaction) {
+    func handleExternalTransaction(_ transaction: Transaction) {
         externalTransaction = transaction
         onTransactionIsReady(transaction)
     }
 
     // MARK: - CreativeViewDelegate
 
-    public func videoDidStart(_ creative: AbstractCreative) {
+    func videoDidStart(_ creative: AbstractCreative) {
         adViewManagerDelegate?.videoAdDidStart?()
     }
 
-    public func videoCreativeDidComplete(_ creative: AbstractCreative) {
+    func videoCreativeDidComplete(_ creative: AbstractCreative) {
         adViewManagerDelegate?.videoAdDidFinish?()
     }
 
-    public func videoWasMuted(_ creative: AbstractCreative) {
+    func videoWasMuted(_ creative: AbstractCreative) {
         adViewManagerDelegate?.videoAdWasMuted?()
     }
 
-    public func videoWasUnmuted(_ creative: AbstractCreative) {
+    func videoWasUnmuted(_ creative: AbstractCreative) {
         adViewManagerDelegate?.videoAdWasUnmuted?()
     }
 
-    public func videoDidPause(_ creative: AbstractCreative) {
+    func videoDidPause(_ creative: AbstractCreative) {
         adViewManagerDelegate?.videoAdDidPause?()
     }
 
-    public func videoDidResume(_ creative: AbstractCreative) {
+    func videoDidResume(_ creative: AbstractCreative) {
         adViewManagerDelegate?.videoAdDidResume?()
     }
 
-    public func creativeDidComplete(_ creative: AbstractCreative) {
+    func creativeDidComplete(_ creative: AbstractCreative) {
         Log.whereAmI()
 
         if !adConfiguration.isBuiltInVideo, let creativeView = currentCreative?.view, creativeView.superview != nil {
@@ -198,16 +196,16 @@ class AdViewManagerImpl: NSObject, AdViewManager {
         adViewManagerDelegate?.adDidComplete()
     }
 
-    public func creativeDidDisplay(_ creative: AbstractCreative) {
+    func creativeDidDisplay(_ creative: AbstractCreative) {
         videoInterstitialDidClose = false
         adViewManagerDelegate?.adDidDisplay()
     }
 
-    public func creativeWasClicked(_ creative: AbstractCreative) {
+    func creativeWasClicked(_ creative: AbstractCreative) {
         adViewManagerDelegate?.adWasClicked()
     }
 
-    public func creativeInterstitialDidClose(_ creative: AbstractCreative) {
+    func creativeInterstitialDidClose(_ creative: AbstractCreative) {
         if adConfiguration.winningBidAdFormat == .video {
             videoInterstitialDidClose = true
         }
@@ -215,24 +213,24 @@ class AdViewManagerImpl: NSObject, AdViewManager {
         adViewManagerDelegate?.adDidClose()
     }
 
-    public func creativeInterstitialDidLeaveApp(_ creative: AbstractCreative) {
+    func creativeInterstitialDidLeaveApp(_ creative: AbstractCreative) {
         adViewManagerDelegate?.adDidLeaveApp()
     }
 
-    public func creativeClickthroughDidClose(_ creative: AbstractCreative) {
+    func creativeClickthroughDidClose(_ creative: AbstractCreative) {
         adViewManagerDelegate?.adClickthroughDidClose()
     }
 
-    public func creativeMraidDidCollapse(_ creative: AbstractCreative) {
+    func creativeMraidDidCollapse(_ creative: AbstractCreative) {
         adViewManagerDelegate?.adDidCollapse()
     }
 
-    public func creativeMraidDidExpand(_ creative: AbstractCreative) {
+    func creativeMraidDidExpand(_ creative: AbstractCreative) {
         adViewManagerDelegate?.adDidExpand()
     }
 
     // TODO: Describe what implanting means
-    public func creativeReadyToReimplant(_ creative: AbstractCreative) {
+    func creativeReadyToReimplant(_ creative: AbstractCreative) {
         guard let creativeView = creative.view else {
             return
         }
@@ -244,7 +242,7 @@ class AdViewManagerImpl: NSObject, AdViewManager {
         creativeView.addFillSuperviewConstraints()
     }
 
-    public func creativeViewWasClicked(_ creative: AbstractCreative) {
+    func creativeViewWasClicked(_ creative: AbstractCreative) {
         // POTENTIAL BUG: if publisher did not provide the controller for modal presentation
         // and we did not check it before 'show'
         // the video will disappear from UI and won't appear in the interstitial controller.
@@ -262,7 +260,7 @@ class AdViewManagerImpl: NSObject, AdViewManager {
         }
     }
 
-    public func creativeFullScreenDidFinish(_ creative: AbstractCreative) {
+    func creativeFullScreenDidFinish(_ creative: AbstractCreative) {
         adConfiguration.forceInterstitialPresentation = nil
         currentCreative?.creativeModel.adConfiguration?.forceInterstitialPresentation = nil
         currentCreative?.eventManager.trackEvent(.normal)
@@ -279,7 +277,7 @@ class AdViewManagerImpl: NSObject, AdViewManager {
     }
 
     /// NOTE: Rewarded API only
-    public func creativeDidSendRewardedEvent(_ creative: AbstractCreative) {
+    func creativeDidSendRewardedEvent(_ creative: AbstractCreative) {
         if isInterstitial && isRewarded {
             adViewManagerDelegate?.adDidSendRewardedEvent?()
         }
@@ -289,7 +287,7 @@ class AdViewManagerImpl: NSObject, AdViewManager {
 
     // Do not load an ad if the current one is "opened"
     // Is the current creative an PBMHTMLCreative? If so, is a clickthrough browser visible/MRAID in Expanded mode?
-    public var isCreativeOpened: Bool {
+    var isCreativeOpened: Bool {
         guard currentTransaction != nil else {
             return false
         }
@@ -303,11 +301,11 @@ class AdViewManagerImpl: NSObject, AdViewManager {
     }
 
     // Changes self.creative and calls show & setupRefreshTimer if possible.
-    public func setupCreative(_ creative: AbstractCreative) {
+    func setupCreative(_ creative: AbstractCreative) {
         setupCreative(creative, withThread: Thread.current)
     }
 
-    public func setupCreative(_ creative: AbstractCreative, withThread thread: ThreadProtocol) {
+    func setupCreative(_ creative: AbstractCreative, withThread thread: ThreadProtocol) {
         guard thread.isMainThread else {
             Log.error("setupCreative must be called on the main thread")
             return

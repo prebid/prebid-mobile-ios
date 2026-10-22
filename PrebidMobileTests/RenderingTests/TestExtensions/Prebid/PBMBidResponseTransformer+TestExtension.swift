@@ -14,7 +14,7 @@
   */
 
 import Foundation
-@_spi(PBMInternal) import PrebidMobile
+@testable @_spi(PBMInternal) import PrebidMobile
 
 extension BidResponseTransformer {
     static func invalidAccountIDResponse(accountID: String) -> PrebidServerResponse {

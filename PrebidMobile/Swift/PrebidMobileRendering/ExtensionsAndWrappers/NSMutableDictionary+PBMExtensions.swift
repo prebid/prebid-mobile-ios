@@ -17,7 +17,7 @@ import Foundation
 
 extension NSMutableDictionary {
 
-    @objc public func pbmRemoveEmptyVals() {
+    func pbmRemoveEmptyVals() {
         for key in allKeys {
             if isEmptyVal(self[key]) {
                 removeObject(forKey: key)
@@ -25,7 +25,7 @@ extension NSMutableDictionary {
         }
     }
 
-    @objc public func pbmCopyWithoutEmptyVals() -> NSMutableDictionary {
+    func pbmCopyWithoutEmptyVals() -> NSMutableDictionary {
         let result = NSMutableDictionary()
         for key in allKeys {
             if let value = self[key], !isEmptyVal(value) {

@@ -15,18 +15,18 @@
 
 import Foundation
 
-public class DemandResponseInfo: NSObject {
+class DemandResponseInfo: NSObject {
     
-    @objc public private(set) var fetchDemandResult: ResultCode
+    private(set) var fetchDemandResult: ResultCode
     
     private(set) var configId: String?
-    @objc public private(set) var bid: Bid?
+    private(set) var bid: Bid?
     
     var winNotifierBlock: WinNotifierBlock
     
     private(set) var bidResponse: BidResponse?
 
-    @objc public required init(fetchDemandResult: ResultCode,
+    required init(fetchDemandResult: ResultCode,
                                bid: Bid?,
                                configId: String?,
                                winNotifierBlock: @escaping WinNotifierBlock,

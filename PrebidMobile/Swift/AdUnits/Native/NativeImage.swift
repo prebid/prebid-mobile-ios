@@ -43,7 +43,7 @@ public class NativeImage: NSObject, JsonDecodable {
     /// Initializes a `NativeImage` object from a JSON dictionary.
     ///
     /// - Parameter jsonDictionary: A dictionary containing the JSON data to initialize the object.
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native image json dicitonary is empty")
             return
@@ -61,7 +61,7 @@ public class NativeImage: NSObject, JsonDecodable {
     }
     
     /// Initializes with default values
-    public override init() {
+    override init() {
         super.init()
     }
 }

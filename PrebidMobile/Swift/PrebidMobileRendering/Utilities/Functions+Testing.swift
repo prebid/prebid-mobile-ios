@@ -16,5 +16,5 @@
 import Foundation
 
 extension Functions {
-    @objc public static var application: PBMUIApplicationProtocol?
+    static var application: PBMUIApplicationProtocol?
 }

@@ -28,24 +28,24 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonEncodable {
     /// [Integer]
     /// A more detailed context in which the ad appears.
     /// See NativeContextSubtype
-    public var contextsubtype: ContextSubType?
+    var contextsubtype: ContextSubType?
     
     /// [Recommended]
     /// [Integer]
     /// The design/format/layout of the ad unit being offered.
     /// See NativePlacementType
-    public var plcmttype: PlacementType?
+    var plcmttype: PlacementType?
     
     /// [Integer]
     /// The number of identical placements in this Layout. Refer Section 8.1 Multiplacement Bid Requests for further detail.
-    public var plcmtcnt = 1
+    var plcmtcnt = 1
     
     /// [Integer]
     /// 0 for the first ad, 1 for the second ad, and so on.
     /// Note this would generally NOT be used in combination with plcmtcnt -
     /// either you are auctioning multiple identical placements (in which case plcmtcnt>1, seq=0)
     /// or you are holding separate auctions for distinct items in the feed (in which case plcmtcnt=1, seq=>=1)
-    public var seq = 0
+    var seq = 0
     
     /// [Required]
     /// An array of Asset Objects. Any objects bid response must comply with the array of elements expressed in the bid request.
@@ -53,12 +53,12 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonEncodable {
     
     /// [Integer]
     /// Whether the supply source / impression supports returning an assetsurl instead of an asset object. 0 or the absence of the field indicates no such support.
-    public var aurlsupport = 0
+    var aurlsupport = 0
     
     /// [Integer]
     /// Whether the supply source / impression supports returning a dco url instead of an asset object. 0 or the absence of the field indicates no such support.
     /// Beta feature.
-    public var durlsupport: Int = 0
+    var durlsupport: Int = 0
     
     /// Specifies what type of event objects tracking is supported - see Event Trackers Request Object
     public var eventtrackers: [NativeEventTracker]?
@@ -72,7 +72,7 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonEncodable {
     public var ext: [String : Any]?
     
     /// Initializes a `NativeMarkupRequestObject` with default values.
-    public override init() {
+    override init() {
         super.init()
     }
     
@@ -143,8 +143,7 @@ public class NativeMarkupRequestObject: NSObject, NSCopying, PBMJsonEncodable {
     ///
     /// - Returns: A JSON string representation of the `NativeMarkupRequestObject` instance.
     /// - Throws: An error if the conversion to JSON string fails.
-    @objc(toJsonStringWithError:)
-    public func toJsonString() throws -> String {
+    func toJsonString() throws -> String {
         try Functions.jsonString(from: jsonDictionary)
     }
     

@@ -20,6 +20,22 @@ class TestStringExtension: XCTestCase {
     
     let animalString = "catcatdogmouse"
     
+    /// Ported from `NSString+pbmExtensionsObjCTest.m`. `PBMdoesMatch(_:)` and `PBMnumberOfMatches(_:)` take a non-optional
+    /// `String`, so the ObjC nil-argument cases for those two cannot be written in Swift and are dropped.
+    func testNilInput() {
+        let testString = "abcd1234"
+        let nilString: String? = nil
+
+        XCTAssertNil(testString.PBMsubstringToString(nilString))
+        XCTAssertNil(testString.PBMsubstringFromString(nilString))
+        XCTAssertNil(testString.PBMsubstringFromString("abc", toString: nilString))
+        XCTAssertNil(testString.PBMsubstringFromString(nilString, toString: "1234"))
+        XCTAssertNil(testString.PBMsubstringFromString(nilString, toString: nilString))
+        XCTAssertEqual(testString.PBMstringByReplacingRegex("abc", replaceWith: nilString), testString)
+        XCTAssertEqual(testString.PBMstringByReplacingRegex(nilString, replaceWith: "xyz"), testString)
+        XCTAssertEqual(testString.PBMstringByReplacingRegex(nilString, replaceWith: nilString), testString)
+    }
+    
     func testNumberOfMatches() {
         
         //Simple tests
@@ -83,6 +99,11 @@ class TestStringExtension: XCTestCase {
         //Standard
         var actual:String? = "foobarbaz".PBMsubstringFromString("foo")
         var expected:String? = "barbaz"
+        XCTAssert(expected == actual, "expected \(String(describing: expected)), got \(String(describing: actual))")
+        
+        //Middle: the match is not at index 0 and the string continues after it (the ObjC original raised NSRangeException here)
+        actual = "foobarbaz".PBMsubstringFromString("bar")
+        expected = "baz"
         XCTAssert(expected == actual, "expected \(String(describing: expected)), got \(String(describing: actual))")
         
         //End

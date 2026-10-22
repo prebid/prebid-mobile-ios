@@ -26,12 +26,11 @@ private struct MRAIDCommandError: LocalizedError {
     var errorDescription: String? { message }
 }
 
-@objc(PBMMRAIDController) @_spi(PBMInternal) public
 class MRAIDController: NSObject, ExposureChangeDelegate {
 
     // MARK: - Properties
 
-    @objc public var mraidState: MRAIDState = .defaultState
+    var mraidState: MRAIDState = .defaultState
 
     private weak var creative: AbstractCreative?
     weak var viewControllerForPresentingModals: UIViewController?
@@ -56,8 +55,7 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
     // Every parameter stays optional: PBMHTMLCreative.m, a surviving ObjC caller, can pass nil for the weak ones, and the ObjC
     // original accepted nil for all of them (playbook S3.1-H). `downloadBlock` is the structural twin of the ObjC
     // `PBMCreativeFactoryDownloadDataCompletionClosure` typedef.
-    @objc(initWithCreative:viewControllerForPresenting:webView:creativeViewDelegate:downloadBlock:)
-    public init(creative: AbstractCreative?,
+    init(creative: AbstractCreative?,
                 viewControllerForPresenting viewControllerForPresentingModals: UIViewController?,
                 webView: WebView?,
                 creativeViewDelegate: CreativeViewDelegate?,
@@ -82,8 +80,7 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
         (urlString as NSString).range(of: MRAIDConstants.mraidURLScheme, options: [.anchored, .literal]).location != NSNotFound
     }
 
-    @objc(webView:handleMRAIDURL:)
-    public func webView(_ webView: WebView, handleMRAIDURL url: URL) {
+    func webView(_ webView: WebView, handleMRAIDURL url: URL) {
         prebidWebView?.MRAID_nativeCallComplete()
         do {
             try handleMRAIDCommand(from: url, webView: webView)
@@ -150,8 +147,7 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
         }
     }
 
-    @objc(updateForClose:)
-    public func updateForClose(_ isInterstitial: Bool) {
+    func updateForClose(_ isInterstitial: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
 
@@ -183,11 +179,11 @@ class MRAIDController: NSObject, ExposureChangeDelegate {
 
     // MARK: - ExposureChangeDelegate
 
-    public func shouldCheckExposure() -> Bool {
+    func shouldCheckExposure() -> Bool {
         !delayedMraidState.isEqual(MRAIDState.notEnabled)
     }
 
-    public func webView(_ webView: WebView, exposureChange viewExposure: ViewExposure) {
+    func webView(_ webView: WebView, exposureChange viewExposure: ViewExposure) {
         if !delayedMraidState.isEqual(MRAIDState.notEnabled) {
             prebidWebView?.changeToMRAIDState(delayedMraidState)
             delayedMraidState = .notEnabled

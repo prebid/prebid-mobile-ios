@@ -15,7 +15,6 @@
 
 import Foundation
 
-@objc(PBMExternalURLOpeners) @_spi(PBMInternal) public
 class ExternalURLOpeners: NSObject {
 
     @available(*, unavailable)
@@ -23,8 +22,7 @@ class ExternalURLOpeners: NSObject {
         fatalError("init() is unavailable")
     }
 
-    @objc(applicationAsExternalUrlOpener:)
-    public static func applicationAsExternalUrlOpener(
+    static func applicationAsExternalUrlOpener(
         _ application: PBMUIApplicationProtocol
     ) -> ExternalURLOpenerBlock {
         { url, completion, onClickthroughExitBlock in

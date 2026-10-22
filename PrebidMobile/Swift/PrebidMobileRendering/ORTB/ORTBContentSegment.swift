@@ -15,20 +15,19 @@
 
 import Foundation
 
-@objc(PBMORTBContentSegment)
-public class ORTBContentSegment: NSObject, PBMJsonCodable {
+class ORTBContentSegment: NSObject, PBMJsonCodable {
     
     /// ID of the data segment specific to the data provider.
-    @objc public var id: String?
+    var id: String?
     
     /// Name of the data segment specific to the data provider.
-    @objc public var name: String?
+    var name: String?
     
     /// String representation of the data segment value.
-    @objc public var value: String?
+    var value: String?
     
     /// Placeholder for exchange-specific extensions to OpenRTB.
-    @objc public var ext: [String : Any]?
+    var ext: [String : Any]?
 
     private enum KeySet: String {
         case id
@@ -37,12 +36,11 @@ public class ORTBContentSegment: NSObject, PBMJsonCodable {
         case ext
     }
     
-    public override init() {
+    override init() {
         super.init()
     }
     
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String : Any]) {
+    required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
         id          = json[.id]
@@ -51,8 +49,7 @@ public class ORTBContentSegment: NSObject, PBMJsonCodable {
         ext         = json[.ext]
     }
     
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String : Any] {
+    var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.id]       = id

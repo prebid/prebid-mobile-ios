@@ -15,18 +15,16 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC code references it any more.
-@objc(PBMAdRequesterVAST) @_spi(PBMInternal) public
 class AdRequesterVAST: NSObject {
 
-    @objc public var adConfiguration: AdConfiguration
-    @objc public var serverConnection: PrebidServerConnectionProtocol
+    var adConfiguration: AdConfiguration
+    var serverConnection: PrebidServerConnectionProtocol
     // Weak: the load manager owns the requester (see AdLoadManagerVAST.adRequester).
-    @objc public weak var adLoadManager: AdLoadManagerVAST?
+    weak var adLoadManager: AdLoadManagerVAST?
 
     private var adsBuilder: VastAdsBuilder?
 
-    @objc(initWithServerConnection:adConfiguration:)
-    public init(serverConnection: PrebidServerConnectionProtocol, adConfiguration: AdConfiguration) {
+    init(serverConnection: PrebidServerConnectionProtocol, adConfiguration: AdConfiguration) {
         self.serverConnection = serverConnection
         self.adConfiguration = adConfiguration
         super.init()
@@ -51,8 +49,7 @@ class AdRequesterVAST: NSObject {
         }
     }
 
-    @objc(buildVastAdsArray:)
-    public func buildAdsArray(_ rawVASTData: Data) {
+    func buildAdsArray(_ rawVASTData: Data) {
         if adsBuilder != nil {
             Log.error("Loading of VAST is failed. Ads Builder is not intended to be re-used.")
             return

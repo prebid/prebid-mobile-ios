@@ -15,14 +15,13 @@
 
 import Foundation
 
-@objc(PBMORTBRegs)
-public class ORTBRegs: NSObject, PBMJsonCodable {
+class ORTBRegs: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
     // coppa only accepts 0 or 1; any other value is treated as nil
     private var _coppa: NSNumber?
-    @objc public var coppa: NSNumber? {
+    var coppa: NSNumber? {
         get { _coppa }
         set {
             guard let val = newValue, val == 0 || val == 1 else { _coppa = nil; return }
@@ -30,18 +29,17 @@ public class ORTBRegs: NSObject, PBMJsonCodable {
         }
     }
 
-    @objc public var gpp: String?
-    @objc public var gppSID: [NSNumber]?
-    @objc public var ext: NSMutableDictionary? = NSMutableDictionary()
+    var gpp: String?
+    var gppSID: [NSNumber]?
+    var ext: NSMutableDictionary? = NSMutableDictionary()
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         _coppa = json[.coppa]
@@ -51,8 +49,7 @@ public class ORTBRegs: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.coppa]  = _coppa
         json[.gpp]    = gpp

@@ -15,7 +15,6 @@
 
 import UIKit
 
-@objcMembers
 class BaseInterstitialAdUnit:
     NSObject,
     InterstitialAdLoaderDelegate,
@@ -151,7 +150,7 @@ class BaseInterstitialAdUnit:
     
     // MARK: - InterstitialAdLoaderDelegate
     
-    public func interstitialAdLoader(
+    func interstitialAdLoader(
         _ interstitialAdLoader: InterstitialAdLoader,
         loadedAd showBlock: @escaping (UIViewController?) -> Void,
         isReadyBlock: @escaping () -> Bool
@@ -165,32 +164,32 @@ class BaseInterstitialAdUnit:
         reportLoadingSuccess()
     }
     
-    public func interstitialAdLoader(
+    func interstitialAdLoader(
         _ interstitialAdLoader: InterstitialAdLoader,
         createdInterstitialController interstitialController: InterstitialController
     ) {
         interstitialController.interactionDelegate = self
     }
     
-    public func interstitialAdLoaderAdDidExpire(_ interstitialAdLoader: InterstitialAdLoader) {
+    func interstitialAdLoaderAdDidExpire(_ interstitialAdLoader: InterstitialAdLoader) {
         expireAd()
     }
     
     // MARK: - AdLoadFlowControllerDelegate
     
-    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: AdLoadFlowController) {}
+    func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: AdLoadFlowController) {}
     
     /// Called when the ad load flow controller is about to request the primary ad.
-    public func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: AdLoadFlowController) {
+    func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: AdLoadFlowController) {
         delegate?.callEventHandler_setInteractionDelegate()
     }
     
     /// Called to determine if the ad load flow controller should continue with the current flow.
-    public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool {
+    func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool {
         true
     }
     
-    public func adLoadFlowController(
+    func adLoadFlowController(
         _ adLoadFlowController: AdLoadFlowController,
         failedWithError error: Error?
     ) {
@@ -200,20 +199,20 @@ class BaseInterstitialAdUnit:
     // MARK: - InterstitialControllerInteractionDelegate
     
     /// Tracks an impression for the given interstitial controller.
-    public func trackImpression(forInterstitialController: PrebidMobileInterstitialControllerProtocol) {
+    func trackImpression(forInterstitialController: PrebidMobileInterstitialControllerProtocol) {
         DispatchQueue.main.async {
             self.delegate?.callEventHandler_trackImpression()
         }
     }
     
     /// Called when the ad in the interstitial controller is clicked.
-    public func interstitialControllerDidClickAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+    func interstitialControllerDidClickAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         delegate?.callDelegate_didClickAd()
     }
     
     /// Called when the ad in the interstitial controller is closed.
-    public func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+    func interstitialControllerDidCloseAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         // The ad has closed, so the next show(from:) may present the next loaded ad.
         // A VAST companion end card reports its close before its modal finishes dismissing.
@@ -224,16 +223,16 @@ class BaseInterstitialAdUnit:
     }
     
     /// Called when the ad in the interstitial controller causes the app to leave.
-    public func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+    func interstitialControllerDidLeaveApp(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
         assert(Thread.isMainThread, "Expected to only be called on the main thread")
         delegate?.callDelegate_willLeaveApplication()
     }
     
-    public func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
-    public func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
-    public func trackUserReward(_ interstitialController: PrebidMobileInterstitialControllerProtocol, _ reward: PrebidReward) {}
+    func interstitialControllerDidDisplay(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    func interstitialControllerDidComplete(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {}
+    func trackUserReward(_ interstitialController: PrebidMobileInterstitialControllerProtocol, _ reward: PrebidReward) {}
     
-    public func viewControllerForModalPresentation(
+    func viewControllerForModalPresentation(
         fromInterstitialController: PrebidMobileInterstitialControllerProtocol
     ) -> UIViewController? {
         return targetController
@@ -242,14 +241,14 @@ class BaseInterstitialAdUnit:
     // MARK: - InterstitialEventInteractionDelegate
     
     /// Called when an ad is about to be presented.
-    public func willPresentAd() {
+    func willPresentAd() {
         DispatchQueue.main.async {
             self.delegate?.callDelegate_willPresentAd()
         }
     }
     
     /// Called when an ad has been dismissed.
-    public func didDismissAd() {
+    func didDismissAd() {
         objc_sync_enter(blocksLockToken)
         currentAdBlock = nil
         objc_sync_exit(blocksLockToken)
@@ -260,14 +259,14 @@ class BaseInterstitialAdUnit:
     }
     
     /// Called when the ad causes the app to leave.
-    public func willLeaveApp() {
+    func willLeaveApp() {
         DispatchQueue.main.async {
             self.delegate?.callDelegate_willLeaveApplication()
         }
     }
     
     /// Called when an ad is clicked.
-    public func didClickAd() {
+    func didClickAd() {
         DispatchQueue.main.async {
             self.delegate?.callDelegate_didClickAd()
         }

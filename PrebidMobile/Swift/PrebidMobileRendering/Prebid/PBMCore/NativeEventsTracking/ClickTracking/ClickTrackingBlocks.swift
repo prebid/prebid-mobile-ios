@@ -15,13 +15,10 @@
 
 import Foundation
 
-@_spi(PBMInternal) public
 typealias URLOpenResultHandlerBlock = (_ urlOpened: Bool) -> Void
 
-@_spi(PBMInternal) public
 typealias TrackingURLVisitorBlock = (_ trackingUrlStrings: [String]) -> Void
 
-@_spi(PBMInternal) public
 typealias ExternalURLOpenerBlock = (
     _ url: URL,
     _ completion: @escaping URLOpenResultHandlerBlock,
@@ -29,10 +26,8 @@ typealias ExternalURLOpenerBlock = (
 ) -> Void
 
 // will return ('nop', nil) container if passed false; otherwise -- will return completion handlers.
-@_spi(PBMInternal) public
 typealias CanOpenURLResultHandlerBlock = (_ willOpenURL: Bool) -> ExternalURLOpenCallbacks
 
 // pass 'true' to 'compatibilityCheckHandler' to get URL handling completion block;
 // if incompatible, call 'compatibilityCheckHandler' with false.
-@_spi(PBMInternal) public
 typealias URLOpenAttempterBlock = (_ url: URL, _ compatibilityCheckHandler: @escaping CanOpenURLResultHandlerBlock) -> Void

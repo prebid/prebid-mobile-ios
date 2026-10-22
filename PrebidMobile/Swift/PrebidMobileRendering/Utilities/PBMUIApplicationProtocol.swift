@@ -15,7 +15,7 @@
 
 import UIKit
 
-@objc public protocol PBMUIApplicationProtocol: NSObjectProtocol {
+protocol PBMUIApplicationProtocol: NSObjectProtocol {
     var isStatusBarHidden: Bool { get }
     var statusBarOrientation: UIInterfaceOrientation { get }
     var statusBarFrame: CGRect { get }
@@ -29,7 +29,6 @@ import UIKit
     /// apps — the case that matters for an SDK rendering inside a host app's window.
     var pbmKeyWindow: UIWindow? { get }
 
-    @objc(openURL:options:completionHandler:)
     func open(_ url: URL,
               options: [UIApplication.OpenExternalURLOptionsKey: Any],
               completionHandler: ((Bool) -> Void)?)
@@ -37,7 +36,7 @@ import UIKit
 
 extension UIApplication: PBMUIApplicationProtocol {
 
-    public var pbmKeyWindow: UIWindow? {
+    var pbmKeyWindow: UIWindow? {
         connectedScenes
             .compactMap { $0 as? UIWindowScene }
             .flatMap { $0.windows }

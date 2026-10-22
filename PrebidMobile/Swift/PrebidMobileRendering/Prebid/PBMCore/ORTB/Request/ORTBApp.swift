@@ -15,35 +15,33 @@
 
 import Foundation
 
-@objc(PBMORTBApp)
-public class ORTBApp: NSObject, PBMJsonCodable {
+class ORTBApp: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var id: String?
-    @objc public var name: String?
-    @objc public var bundle: String?
-    @objc public var domain: String?
-    @objc public var storeurl: String?
-    @objc public var cat: [String] = []
-    @objc public var sectioncat: [String] = []
-    @objc public var pagecat: [String] = []
-    @objc public var ver: String?
-    @objc public var privacypolicy: NSNumber?
-    @objc public var paid: NSNumber?
-    @objc public var publisher: ORTBPublisher? = ORTBPublisher()
-    @objc public var content: ORTBAppContent = ORTBAppContent()
-    @objc public var keywords: String?
-    @objc public var ext: ORTBAppExt = ORTBAppExt()
+    var id: String?
+    var name: String?
+    var bundle: String?
+    var domain: String?
+    var storeurl: String?
+    var cat: [String] = []
+    var sectioncat: [String] = []
+    var pagecat: [String] = []
+    var ver: String?
+    var privacypolicy: NSNumber?
+    var paid: NSNumber?
+    var publisher: ORTBPublisher? = ORTBPublisher()
+    var content: ORTBAppContent = ORTBAppContent()
+    var keywords: String?
+    var ext: ORTBAppExt = ORTBAppExt()
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         id            = json[.id]
@@ -65,8 +63,7 @@ public class ORTBApp: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.id]            = id
         json[.name]          = name

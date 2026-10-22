@@ -15,9 +15,7 @@
 
 import Foundation
 
-@objc(PBMParameterBuilder)
-public protocol ParameterBuilder {
 
-    @objc(buildBidRequest:)
+protocol ParameterBuilder: AnyObject {
     func build(_ bidRequest: ORTBBidRequest)
 }

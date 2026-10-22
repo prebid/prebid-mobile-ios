@@ -16,13 +16,12 @@
 import Foundation
 
 // ObjC name preserved so the runtime class name stays stable; no ObjC caller remains.
-@objc(PBMCreativeModelCollectionMakerVAST) @_spi(PBMInternal) public
 class CreativeModelCollectionMakerVAST: NSObject {
 
-    @objc public var adConfiguration: AdConfiguration
-    @objc public var serverConnection: PrebidServerConnectionProtocol
+    var adConfiguration: AdConfiguration
+    var serverConnection: PrebidServerConnectionProtocol
 
-    @objc public init(serverConnection: PrebidServerConnectionProtocol,
+    init(serverConnection: PrebidServerConnectionProtocol,
                       adConfiguration: AdConfiguration) {
         self.adConfiguration = adConfiguration
         self.serverConnection = serverConnection
@@ -31,8 +30,7 @@ class CreativeModelCollectionMakerVAST: NSObject {
 
     // The success/failure blocks replace the ObjC `PBMCreativeModelMakerSuccessCallback` /
     // `PBMCreativeModelMakerFailureCallback` typedefs (deleted with PBMCreativeModelMakerResult.h).
-    @objc(makeModels:successCallback:failureCallback:)
-    public func makeModels(_ adRequestResponse: AdRequestResponseVAST,
+    func makeModels(_ adRequestResponse: AdRequestResponseVAST,
                            successCallback: ([CreativeModel]) -> Void,
                            failureCallback: (Error) -> Void) {
         do {
@@ -130,9 +128,9 @@ class CreativeModelCollectionMakerVAST: NSObject {
 
         // Store the impression URIs so that can be fired at the appropriate time.
         let impressionKey = TrackingEventDescription.getDescription(.impression)
-        trackingURLs[impressionKey] = vastAd.impressionURIs.compactMap { $0 as? String }
+        trackingURLs[impressionKey] = vastAd.impressionURIs
         let clickKey = TrackingEventDescription.getDescription(.click)
-        trackingURLs[clickKey] = creative.clickTrackingURIs.compactMap { $0 as? String }
+        trackingURLs[clickKey] = creative.clickTrackingURIs
 
         creativeModel.trackingURLs = trackingURLs
         creativeModel.clickThroughURL = creative.clickThroughURI
@@ -183,7 +181,7 @@ class CreativeModelCollectionMakerVAST: NSObject {
 
         // Create a companion array if it doesn't already exist.
         let trackingArray = trackingURLs[companionClickKey] ?? []
-        let clickTrackingURIs = companion.clickTrackingURIs.compactMap { $0 as? String }
+        let clickTrackingURIs = companion.clickTrackingURIs
         // Save the the tracking urls in the array.
         trackingURLs[companionClickKey] = trackingArray + clickTrackingURIs
 
@@ -202,7 +200,7 @@ class CreativeModelCollectionMakerVAST: NSObject {
         // Todo: add additional logic for the most appropriate using the following:
         //  * size
         //  * type
-        companionAd.companions.firstObject as? VastCreativeCompanionAdsCompanion
+        companionAd.companions.first
     }
 
     private func buildStaticResource(_ companion: VastCreativeCompanionAdsCompanion) -> String {

@@ -32,7 +32,7 @@ public class NativeTitle: NSObject, JsonDecodable {
     /// Initializes a `NativeTitle` object from a JSON dictionary.
     ///
     /// - Parameter jsonDictionary: A dictionary containing the JSON representation of the title.
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native title json dicitonary is empty")
             return
@@ -48,7 +48,7 @@ public class NativeTitle: NSObject, JsonDecodable {
     }
     
     /// Initializes a `NativeTitle` object with default values.
-    public override init() {
+    override init() {
         super.init()
     }
 }

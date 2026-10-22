@@ -15,24 +15,22 @@
 
 import Foundation
 
-@objc(PBMORTBPublisher)
-public class ORTBPublisher: NSObject, PBMJsonCodable {
+class ORTBPublisher: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var publisherID: String?
-    @objc public var name: String?
-    @objc public var cat: [String] = []
-    @objc public var domain: String?
+    var publisherID: String?
+    var name: String?
+    var cat: [String] = []
+    var domain: String?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         publisherID = json[.id]
@@ -43,8 +41,7 @@ public class ORTBPublisher: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    var jsonDictionary: [String: Any] {
         var json = JSONObject<Key>()
         json[.id]     = publisherID
         json[.name]   = name

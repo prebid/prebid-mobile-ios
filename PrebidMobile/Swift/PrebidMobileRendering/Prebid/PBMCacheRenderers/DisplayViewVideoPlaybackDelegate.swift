@@ -15,8 +15,7 @@
 
 import UIKit
 
-@objc(PBMDisplayViewVideoPlaybackDelegate)
-public protocol DisplayViewVideoPlaybackDelegate: NSObjectProtocol {
+protocol DisplayViewVideoPlaybackDelegate: NSObjectProtocol {
     
     func videoPlaybackDidPause()
     func videoPlaybackDidResume()

@@ -15,16 +15,16 @@
 
 import Foundation
 
-@objc @_spi(PBMInternal) public protocol AdLoadFlowControllerDelegate: NSObjectProtocol, PBMSwiftMigrationHelper {
+protocol AdLoadFlowControllerDelegate: NSObjectProtocol {
 
     // Loading callbacks
-    @objc func adLoadFlowController(_ adLoadFlowController: AdLoadFlowController,
+    func adLoadFlowController(_ adLoadFlowController: AdLoadFlowController,
                                     failedWithError error: Error?)
 
     // Refresh controls hooks
-    @objc func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: AdLoadFlowController)
-    @objc func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: AdLoadFlowController)
+    func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: AdLoadFlowController)
+    func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: AdLoadFlowController)
 
     // Hook to pause the flow between 'loading' states
-    @objc func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool
+    func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool
 }

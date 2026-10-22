@@ -19,19 +19,19 @@ import Foundation
 @objc(PBMVideoVerificationResource)
 public class VideoVerificationResource: NSObject {
     
-    @objc public var url: String?
-    @objc public var vendorKey: String?
-    @objc public var params: String?
-    @objc public var apiFramework: String?
+    var url: String?
+    var vendorKey: String?
+    var params: String?
+    var apiFramework: String?
     
-    @objc public var trackingEvents: VastTrackingEvents?
+    var trackingEvents: VastTrackingEvents?
     
 }
 
 @objc(PBMVideoVerificationParameters)
 public class VideoVerificationParameters: NSObject {
     
-    @objc public var verificationResources = [VideoVerificationResource]()
-    @objc public var autoPlay: Bool = false
+    var verificationResources = [VideoVerificationResource]()
+    var autoPlay: Bool = false
     
 }

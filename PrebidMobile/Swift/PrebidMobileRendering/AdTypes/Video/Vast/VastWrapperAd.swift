@@ -15,20 +15,19 @@
 
 import Foundation
 
-@objc(PBMVastWrapperAd)
-@_spi(PBMInternal) public class VastWrapperAd: VastAbstractAd {
+class VastWrapperAd: VastAbstractAd {
 
     /// The location of the next VAST tag.
-    @objc public var vastURI: String?
+    var vastURI: String?
 
-    @objc public var vastResponse: VastResponse?
+    var vastResponse: VastResponse?
 
-    @objc public var depth = 0
-    @objc public var followAdditionalWrappers = true
-    @objc public var allowMultipleAds = false
-    @objc public var fallbackOnNoAd = false
+    var depth = 0
+    var followAdditionalWrappers = true
+    var allowMultipleAds = false
+    var fallbackOnNoAd = false
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 }

@@ -15,12 +15,11 @@
 
 import Foundation
 
-@objc(PBMAdRequestResponseVAST)
-@_spi(PBMInternal) public class AdRequestResponseVAST: NSObject {
 
-    @objc public var ads: [VastAbstractAd]?
+class AdRequestResponseVAST: NSObject {
 
-    @objc public override init() {
+    var ads: [VastAbstractAd]?
+    override init() {
         super.init()
     }
 }

@@ -16,7 +16,7 @@
 
 import Foundation
 
-public class ImpressionTasksExecutor {
+class ImpressionTasksExecutor {
     
     static let shared = ImpressionTasksExecutor()
     

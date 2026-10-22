@@ -25,12 +25,12 @@ public class AdDetails: NSObject {
     /**
      Raw data returned for the ad request.
      */
-    @objc public let rawResponse: String
+    let rawResponse: String
     
     /**
      Unique identifier of the ad, that can be used for managing and reporting ad quality issues.
      */
-    @objc public let transactionId: String
+    let transactionId: String
     
     init(rawResponse: String,
          transactionId: String) {

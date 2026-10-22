@@ -15,13 +15,12 @@
 
 import Foundation
 
-@objc(PBMDeepLinkPlus)
-public class DeepLinkPlus: NSObject {
 
-    @objc public let primaryURL: URL
-    @objc public let fallbackURL: URL?
-    @objc public let primaryTrackingURLs: [URL]?
-    @objc public let fallbackTrackingURLs: [URL]?
+class DeepLinkPlus: NSObject {
+    let primaryURL: URL
+    let fallbackURL: URL?
+    let primaryTrackingURLs: [URL]?
+    let fallbackTrackingURLs: [URL]?
 
     // Internal designated init (also used by convenience init? below)
     init(primaryURL: URL,
@@ -36,7 +35,7 @@ public class DeepLinkPlus: NSObject {
     }
 
     // Swift convenience init — mirrors the ObjC factory selector deepLinkPlusWithURL:
-    public convenience init?(url: URL) {
+    convenience init?(url: URL) {
         guard let deep = DeepLinkPlus.deepLinkPlus(with: url) else { return nil }
         self.init(primaryURL: deep.primaryURL,
                   fallbackURL: deep.fallbackURL,
@@ -44,8 +43,7 @@ public class DeepLinkPlus: NSObject {
                   fallbackTrackingURLs: deep.fallbackTrackingURLs)
     }
 
-    @objc(deepLinkPlusWithURL:)
-    public static func deepLinkPlus(with url: URL) -> DeepLinkPlus? {
+    static func deepLinkPlus(with url: URL) -> DeepLinkPlus? {
         var primaryURL: URL?
         var fallbackURL: URL?
         var primaryTrackingURLs: [URL]?

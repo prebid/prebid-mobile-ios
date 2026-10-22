@@ -26,19 +26,19 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     
     public private(set) var userAgentService = UserAgentService.shared
     
-    public var protocolClasses: [URLProtocol.Type] = []
+    var protocolClasses: [URLProtocol.Type] = []
     
     public static let shared = PrebidServerConnection()
     
-    public static var userAgentHeaderKey: String {
+    static var userAgentHeaderKey: String {
         "User-Agent"
     }
     
-    public static var contentTypeKey: String {
+    static var contentTypeKey: String {
         "Content-Type"
     }
     
-    public static var contentTypeVal: String {
+    static var contentTypeVal: String {
         "application/json"
     }
     
@@ -61,7 +61,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
     
     // MARK: Init
     
-    public convenience init(userAgentService: UserAgentService) {
+    convenience init(userAgentService: UserAgentService) {
         self.init()
         self.userAgentService = userAgentService
     }

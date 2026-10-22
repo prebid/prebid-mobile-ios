@@ -16,7 +16,7 @@
 import Foundation
 
 extension NSDictionary {
-    @objc public func nullIfEmpty() -> Any {
+    func nullIfEmpty() -> Any {
         count > 0 ? self : NSNull()
     }
 }

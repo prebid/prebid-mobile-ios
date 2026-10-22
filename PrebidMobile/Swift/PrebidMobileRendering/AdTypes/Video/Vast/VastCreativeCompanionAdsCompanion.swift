@@ -15,24 +15,23 @@
 
 import Foundation
 
-@objc(PBMVastCreativeCompanionAdsCompanion) @_spi(PBMInternal)
-public class VastCreativeCompanionAdsCompanion: NSObject, VastResourceContainer {
 
-    @objc public var width = 0
-    @objc public var height = 0
-    @objc public var trackingEvents = VastTrackingEvents()
+class VastCreativeCompanionAdsCompanion: NSObject, VastResourceContainer {
 
-    @objc public var assetWidth = 0
-    @objc public var assetHeight = 0
-    @objc public var companionIdentifier: String?
-    @objc public var clickThroughURI: String?
-    @objc public var adParameters: String?
-    @objc public var clickTrackingURIs = NSMutableArray()
+    var width = 0
+    var height = 0
+    var trackingEvents = VastTrackingEvents()
+    var assetWidth = 0
+    var assetHeight = 0
+    var companionIdentifier: String?
+    var clickThroughURI: String?
+    var adParameters: String?
+    var clickTrackingURIs = [String]()
 
     // VastResourceContainer
-    @objc public var resourceType = VastResourceType.staticResource
-    @objc public var resource: String?
-    @objc public var staticType: String?
+    var resourceType = VastResourceType.staticResource
+    var resource: String?
+    var staticType: String?
 
-    @objc public override init() { super.init() }
+    override init() { super.init() }
 }

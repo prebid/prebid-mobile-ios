@@ -16,4 +16,4 @@
 
 import Foundation
 
-public typealias AdMarkupStringHandler = (_ adMarkupString: String?) -> Void
+typealias AdMarkupStringHandler = (_ adMarkupString: String?) -> Void

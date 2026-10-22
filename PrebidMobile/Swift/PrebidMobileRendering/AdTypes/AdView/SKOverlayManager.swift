@@ -16,18 +16,17 @@
 import UIKit
 import StoreKit
 
-@objc(PBMSKOverlayManager) @objcMembers
-public class SKOverlayManager: NSObject {
+class SKOverlayManager: NSObject {
     
     private weak var viewControllerForPresentation: UIViewController?
     private weak var windowScene: NSObject?
     
-    public init(viewControllerForPresentation: UIViewController) {
+    init(viewControllerForPresentation: UIViewController) {
         self.viewControllerForPresentation = viewControllerForPresentation
         super.init()
     }
     
-    public func presentSKOverlay(with skadnInfo: ORTBBidExtSkadn, isCompanionAd: Bool) {
+    func presentSKOverlay(with skadnInfo: ORTBBidExtSkadn, isCompanionAd: Bool) {
         guard #available(iOS 14.0, *) else { return }
         
         guard let scene = viewControllerForPresentation?.view.window?.windowScene else {
@@ -49,7 +48,7 @@ public class SKOverlayManager: NSObject {
         }
     }
     
-    public func dismissSKOverlay() {
+    func dismissSKOverlay() {
         guard #available(iOS 14.0, *) else { return }
         
         guard let windowScene = self.windowScene as? UIWindowScene else {

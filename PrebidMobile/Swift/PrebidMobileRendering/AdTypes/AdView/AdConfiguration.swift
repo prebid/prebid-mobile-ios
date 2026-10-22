@@ -23,7 +23,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     // MARK: - Request
     
-    public var isOriginalAPI = false
+    var isOriginalAPI = false
     
     public var adFormats: Set<AdFormat> = [.banner]
     
@@ -52,20 +52,20 @@ public class AdConfiguration: AutoRefreshCountConfig {
 
      Setting this to true will disable auto refresh.
      */
-    public var forceInterstitialPresentation: NSNumber?
+    var forceInterstitialPresentation: NSNumber?
     
     /**
      Whether or not this ad configuration is intended to represent an intersitial ad.
      Returns the effective result by combining `isInterstitialAd` and `forceInterstitialPresentation`
      */
-    public var presentAsInterstitial: Bool {
+    var presentAsInterstitial: Bool {
         return forceInterstitialPresentation != nil ? forceInterstitialPresentation.boolValue ?? false : isInterstitialAd
     }
     
     /**
      Interstitial layout
      */
-    public var interstitialLayout = InterstitialLayout.undefined
+    var interstitialLayout = InterstitialLayout.undefined
     
     /**
      Size for the ad.
@@ -80,7 +80,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     /**
      Indicates whether the ad is built-in video e.g. 300x250.
      */
-    public var isBuiltInVideo = false
+    var isBuiltInVideo = false
     
     // MARK: - SKAdNetwork
     
@@ -92,7 +92,7 @@ public class AdConfiguration: AutoRefreshCountConfig {
     /**
      This property indicated winning bid ad format (ext.prebid.type)
      */
-    public var winningBidAdFormat: AdFormat?
+    var winningBidAdFormat: AdFormat?
     
     /**
      This property represents video controls custom configuration.
@@ -100,19 +100,19 @@ public class AdConfiguration: AutoRefreshCountConfig {
     public lazy var videoControlsConfig = VideoControlsConfiguration()
     
     /// Server-side configuration for rewarded ads (bid.ext.rwdd)
-    public var rewardedConfig: RewardedConfig?
+    var rewardedConfig: RewardedConfig?
     
     // MARK: - Impression Tracking
     
-    public var pollFrequency: TimeInterval = 0.2
+    var pollFrequency: TimeInterval = 0.2
     
-    public var viewableArea = 1
+    var viewableArea = 1
     
-    public var viewableDuration = 0
+    var viewableDuration = 0
     
     // MARK: - Auto Refresh
     
-    public override var autoRefreshDelay: TimeInterval? {
+    override var autoRefreshDelay: TimeInterval? {
         set {
             if let newValue = newValue, newValue > 0 {
                 let minDelay = max(newValue, PrebidConstants.AUTO_REFRESH_DELAY_MIN)
@@ -129,12 +129,12 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     // MARK: - Other
     
-    public var clickHandlerOverride: ((VoidBlock) -> Void)?
+    var clickHandlerOverride: ((VoidBlock) -> Void)?
     
     // MARK: Private properties
     
     private var _autoRefreshDelay: TimeInterval? = PrebidConstants.AUTO_REFRESH_DELAY_DEFAULT
     
-    public var impORTBConfig: String?
-    public var globalORTBConfig: String?
+    var impORTBConfig: String?
+    var globalORTBConfig: String?
 }

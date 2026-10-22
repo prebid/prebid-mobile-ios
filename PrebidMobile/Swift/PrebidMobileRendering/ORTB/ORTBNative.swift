@@ -15,24 +15,23 @@
 
 import Foundation
 
-@objc(PBMORTBNative)
-public class ORTBNative: NSObject, PBMJsonCodable {
+class ORTBNative: NSObject, PBMJsonCodable {
     
     /// [Required]
     /// Request payload complying with the Native Ad Specification.
-    @objc public var request: String?
+    var request: String?
     
     /// [Recommended]
     /// Version of the Dynamic Native Ads API to which `request` complies; highly recommended for efficient parsing.
-    @objc public var ver: String?
+    var ver: String?
     
     /// [Integer Array]
     /// List of supported API frameworks for this impression. Refer to List 5.6. If an API is not explicitly listed, it is assumed not to be supported.
-    @objc public var api: [NSNumber]?
+    var api: [NSNumber]?
     
     /// [Integer Array]
     /// Blocked creative attributes. Refer to List 5.3.
-    @objc public var battr: [NSNumber]?
+    var battr: [NSNumber]?
 
     private enum KeySet: String {
         case request
@@ -41,13 +40,12 @@ public class ORTBNative: NSObject, PBMJsonCodable {
         case battr
     }
     
-    public override init() {
+    override init() {
         super.init()
         ver = "1.2"
     }
     
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String : Any]) {
+    required init(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
         request  = json[.request]
@@ -56,8 +54,7 @@ public class ORTBNative: NSObject, PBMJsonCodable {
         battr    = json[.battr]
     }
     
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String : Any] {
+    var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.request]  = request

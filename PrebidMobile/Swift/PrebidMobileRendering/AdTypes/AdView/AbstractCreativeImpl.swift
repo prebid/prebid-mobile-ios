@@ -19,27 +19,27 @@ import UIKit
 
 // `AbstractCreative` is the name of the protocol, so the class keeps its ObjC name as the Swift name with an `Impl` suffix,
 // like `ModalStateImpl` / `AdViewManagerImpl`.
-@objc(PBMAbstractCreative_Objc) @_spi(PBMInternal) public
+@objc(PBMAbstractCreative_Objc)
 class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewControllerDelegate {
 
     // MARK: - AbstractCreative
 
     public private(set) weak var transaction: Transaction?
-    public let creativeModel: CreativeModel
-    public let eventManager: EventManager
+    let creativeModel: CreativeModel
+    let eventManager: EventManager
 
-    public var skOverlayManager: SKOverlayManager?
+    var skOverlayManager: SKOverlayManager?
     public var view: UIView?
-    public var clickthroughVisible = false
-    public var modalManager: ModalManager?
-    public var dispatchQueue: DispatchQueue
-    public var viewabilityTracker: CreativeViewabilityTracker?
+    var clickthroughVisible = false
+    var modalManager: ModalManager?
+    var dispatchQueue: DispatchQueue
+    var viewabilityTracker: CreativeViewabilityTracker?
     public private(set) var dismissInterstitialModalState: VoidBlock?
-    public var isDownloaded = false
+    var isDownloaded = false
 
-    public weak var creativeResolutionDelegate: CreativeResolutionDelegate?
-    public weak var creativeViewDelegate: CreativeViewDelegate?
-    public weak var viewControllerForPresentingModals: UIViewController?
+    weak var creativeResolutionDelegate: CreativeResolutionDelegate?
+    weak var creativeViewDelegate: CreativeViewDelegate?
+    weak var viewControllerForPresentingModals: UIViewController?
 
     // MARK: - Internal state
 
@@ -55,7 +55,7 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
 
     // MARK: - Init
 
-    public required init(creativeModel: CreativeModel, transaction: Transaction) {
+    required init(creativeModel: CreativeModel, transaction: Transaction) {
         self.creativeModel = creativeModel
         self.transaction = transaction
         dispatchQueue = DispatchQueue(label: "PBMAbstractCreative")
@@ -116,11 +116,11 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
 
     // MARK: - Properties
 
-    public var isOpened: Bool {
+    var isOpened: Bool {
         false
     }
 
-    public var displayInterval: NSNumber? {
+    var displayInterval: NSNumber? {
         nil
     }
 
@@ -159,7 +159,7 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
         }
     }
 
-    public func showAsInterstitial(fromRootViewController uiViewController: UIViewController,
+    func showAsInterstitial(fromRootViewController uiViewController: UIViewController,
                                    displayProperties: InterstitialDisplayProperties) {
         //This containerView will be stretched to fit the available screen.
         let containerView = UIView(frame: .zero)
@@ -211,7 +211,7 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
 
     // MARK: - Clickthrough handling
 
-    public func handleClickthrough(_ url: URL) {
+    func handleClickthrough(_ url: URL) {
         // Call overridden method with empty non-null closures
         handleClickthrough(url,
                            sdkConfiguration: Prebid.shared,
@@ -411,7 +411,7 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
 
     // MARK: - Resolution
 
-    public func onResolutionCompleted() {
+    func onResolutionCompleted() {
         dispatchQueue.async { [weak self] in
             guard let self else { return }
 
@@ -425,7 +425,7 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
         }
     }
 
-    public func onResolutionFailed(_ error: Error) {
+    func onResolutionFailed(_ error: Error) {
         dispatchQueue.async { [weak self] in
             guard let self else { return }
 
@@ -438,14 +438,14 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
         }
     }
 
-    public func onViewabilityChanged(_ viewable: Bool, viewExposure: ViewExposure) {
+    func onViewabilityChanged(_ viewable: Bool, viewExposure: ViewExposure) {
         if viewable && !adWasShown {
             onAdDisplayed()
             adWasShown = true
         }
     }
 
-    public var isMuted: Bool {
+    var isMuted: Bool {
         false
     }
 
@@ -457,11 +457,11 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
         // Implement in particular creatives
     }
 
-    public func mute() {
+    func mute() {
         // Implement in particular creatives
     }
 
-    public func unmute() {
+    func unmute() {
         // Implement in particular creatives
     }
 
@@ -473,17 +473,17 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
 
     // The state stays optional: `SafariVCOpener` reports a finished clickthrough with `nil`, and the creatives rely on the call, not on the state.
 
-    public func modalManagerDidFinishPop(_ state: ModalState?) {
+    func modalManagerDidFinishPop(_ state: ModalState?) {
         Log.error("Abstract function called")
     }
 
-    public func modalManagerDidLeaveApp(_ state: ModalState?) {
+    func modalManagerDidLeaveApp(_ state: ModalState?) {
         Log.error("Abstract function called")
     }
 
     // MARK: - SKStoreProductViewControllerDelegate
 
-    public func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
         let pendingStatePop = pendingModalStatePop
         pendingModalStatePop = nil
 
@@ -502,7 +502,7 @@ class AbstractCreativeImpl: NSObject, AbstractCreative, SKStoreProductViewContro
 
     // MARK: - Open Measurement
 
-    public func createOpenMeasurementSession() {
+    func createOpenMeasurementSession() {
         Log.error("Abstract function called")
     }
 

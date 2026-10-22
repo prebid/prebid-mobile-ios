@@ -16,8 +16,7 @@
 import Foundation
 import StoreKit
 
-@objc(PBMSkadnParametersManager) @objcMembers
-public class SkadnParametersManager: NSObject {
+class SkadnParametersManager: NSObject {
     
     private static func getFidelity(from skadnInfo: ORTBBidExtSkadn, fidelityType: NSNumber) -> ORTBSkadnFidelity? {
         guard let fidelities = skadnInfo.fidelities else { return nil }
@@ -31,7 +30,7 @@ public class SkadnParametersManager: NSObject {
     }
     
     @available(iOS 14.5, *)
-    public static func getSkadnImpression(for skadnInfo: ORTBBidExtSkadn) -> SKAdImpression? {
+    static func getSkadnImpression(for skadnInfo: ORTBBidExtSkadn) -> SKAdImpression? {
         guard let fidelity = getFidelity(from: skadnInfo, fidelityType: 0) else { return nil }
         
         let imp = SKAdImpression()
@@ -67,7 +66,7 @@ public class SkadnParametersManager: NSObject {
         return nil
     }
     
-    public static func getSkadnProductParameters(for skadnInfo: ORTBBidExtSkadn) -> Dictionary<String, Any>? {
+    static func getSkadnProductParameters(for skadnInfo: ORTBBidExtSkadn) -> Dictionary<String, Any>? {
         // >= SKAdNetwork 2.2
         guard #available(iOS 14.5, *) else { return nil }
         

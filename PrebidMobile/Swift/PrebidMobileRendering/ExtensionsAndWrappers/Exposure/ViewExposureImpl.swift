@@ -15,15 +15,13 @@
 
 import UIKit
 
-// ObjC class name preserved so Factory.ViewExposureType = NSClassFromString("PBMViewExposure_Objc") resolves at runtime
-@objc(PBMViewExposure_Objc) @_spi(PBMInternal) public
 class ViewExposureImpl: NSObject, ViewExposure {
 
-    public let exposureFactor: Float
-    public let visibleRectangle: CGRect
-    public let occlusionRectangles: [NSValue]?
+    let exposureFactor: Float
+    let visibleRectangle: CGRect
+    let occlusionRectangles: [NSValue]?
 
-    public required init(exposureFactor: Float,
+    required init(exposureFactor: Float,
                          visibleRectangle: CGRect,
                          occlusionRectangles: [NSValue]?) {
         self.exposureFactor      = exposureFactor
@@ -32,16 +30,16 @@ class ViewExposureImpl: NSObject, ViewExposure {
         super.init()
     }
 
-    public static func zeroExposure() -> ViewExposure {
+    static func zeroExposure() -> ViewExposure {
         struct Once { static let value: ViewExposure = Factory.createViewExposure(exposureFactor: 0, visibleRectangle: .zero, occlusionRectangles: nil) }
         return Once.value
     }
 
-    public var exposedPercentage: Float { exposureFactor * 100 }
+    var exposedPercentage: Float { exposureFactor * 100 }
 
     // MARK: - NSObject overrides
 
-    public override func isEqual(_ object: Any?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? ViewExposureImpl else { return false }
         return self === other
             || (exposureFactor == other.exposureFactor
@@ -51,7 +49,7 @@ class ViewExposureImpl: NSObject, ViewExposure {
                     || (occlusionRectangles?.elementsEqual(other.occlusionRectangles ?? []) ?? false)))
     }
 
-    public override var hash: Int {
+    override var hash: Int {
         var h = 0
         h ^= NSNumber(value: exposureFactor).hash
         h ^= NSValue(cgRect: visibleRectangle).hash
@@ -59,7 +57,7 @@ class ViewExposureImpl: NSObject, ViewExposure {
         return h
     }
 
-    public override var description: String {
+    override var description: String {
         serializeWith(nulls: false, escapeQuotes: false, usePercentages: false) { s, f in
             s.append(String(format: "%5.3f", f))
         }
@@ -67,7 +65,7 @@ class ViewExposureImpl: NSObject, ViewExposure {
 
     // MARK: - ViewExposure
 
-    public func serialize(withFormatter formatter: NumberFormatter) -> String {
+    func serialize(withFormatter formatter: NumberFormatter) -> String {
         serializeWith(nulls: true, escapeQuotes: true, usePercentages: true) { s, f in
             s.append(formatter.string(from: NSNumber(value: f)) ?? "\(f)")
         }

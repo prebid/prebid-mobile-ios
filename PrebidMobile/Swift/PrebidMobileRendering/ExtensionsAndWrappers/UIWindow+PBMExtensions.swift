@@ -17,7 +17,7 @@ import UIKit
 
 extension UIWindow {
 
-    @objc public static func appVisibleViewController() -> UIViewController? {
+    static func appVisibleViewController() -> UIViewController? {
         UIApplication.shared.keyWindow?.visibleViewController()
     }
 
@@ -26,8 +26,7 @@ extension UIWindow {
         return UIWindow.getVisibleViewControllerFrom(root)
     }
 
-    @objc(getVisibleViewControllerFrom:)
-    public static func getVisibleViewControllerFrom(_ vc: UIViewController) -> UIViewController? {
+    static func getVisibleViewControllerFrom(_ vc: UIViewController) -> UIViewController? {
         if let nav = vc as? UINavigationController {
             return nav.visibleViewController.flatMap { getVisibleViewControllerFrom($0) }
         }

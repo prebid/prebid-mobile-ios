@@ -16,11 +16,9 @@
 
 import UIKit
 
-@objc(PBMModalPresentationController) @_spi(PBMInternal) public
 class ModalPresentationController: UIPresentationController {
     
-    @objc(frameOfPresentedView)
-    public var objc_frameOfPresentedView: CGRect {
+    var objc_frameOfPresentedView: CGRect {
         get { frameOfPresentedView ?? .null }
         set { frameOfPresentedView = newValue == .null ? nil : newValue }
     }
@@ -29,7 +27,7 @@ class ModalPresentationController: UIPresentationController {
     
     var touchForwardingView: TouchForwardingView?
     
-    public override func presentationTransitionWillBegin() {
+    override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
         
         if let containerView {
@@ -43,7 +41,7 @@ class ModalPresentationController: UIPresentationController {
         }
     }
     
-    public override func containerViewWillLayoutSubviews() {
+    override func containerViewWillLayoutSubviews() {
         presentedView?.frame = frameOfPresentedViewInContainerView
         
         if let containerView {
@@ -51,7 +49,7 @@ class ModalPresentationController: UIPresentationController {
         }
     }
     
-    public override var frameOfPresentedViewInContainerView: CGRect {
+    override var frameOfPresentedViewInContainerView: CGRect {
         frameOfPresentedView ?? super.frameOfPresentedViewInContainerView
     }
     

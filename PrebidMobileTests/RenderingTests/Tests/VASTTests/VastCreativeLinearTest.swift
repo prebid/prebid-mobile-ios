@@ -30,7 +30,7 @@ class VastCreativeLinearTest: XCTestCase {
 
     private func makeCreative(_ mediaFiles: [VastMediaFile]) -> VastCreativeLinear {
         let creative = VastCreativeLinear()
-        creative.mediaFiles = NSMutableArray(array: mediaFiles)
+        creative.mediaFiles = mediaFiles
         return creative
     }
 

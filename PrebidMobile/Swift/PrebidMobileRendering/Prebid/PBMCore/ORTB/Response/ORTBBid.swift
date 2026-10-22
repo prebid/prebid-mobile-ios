@@ -164,7 +164,7 @@ class ORTBBid<ExtType: PBMJsonCodable>: PBMJsonCodable, ORTBExtensible {
         self.price = price
     }
     
-    public required convenience init?(jsonDictionary: [String : Any]) {
+    required convenience init?(jsonDictionary: [String : Any]) {
         let json = JSONObject<KeySet>(jsonDictionary)
         
         guard let id: String = json[.id],
@@ -208,7 +208,7 @@ class ORTBBid<ExtType: PBMJsonCodable>: PBMJsonCodable, ORTBExtensible {
         ext = json[.ext]
     }
     
-    public var jsonDictionary: [String : Any] {
+    var jsonDictionary: [String : Any] {
         var json = JSONObject<KeySet>()
         
         json[.id]           = bidID

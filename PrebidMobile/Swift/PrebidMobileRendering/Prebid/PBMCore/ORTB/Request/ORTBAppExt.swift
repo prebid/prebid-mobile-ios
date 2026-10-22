@@ -15,22 +15,20 @@
 
 import Foundation
 
-@objc(PBMORTBAppExt)
-public class ORTBAppExt: NSObject, PBMJsonCodable {
+class ORTBAppExt: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var prebid: ORTBAppExtPrebid = ORTBAppExtPrebid()
-    @objc public var data: [String: [String]]?
+    var prebid: ORTBAppExtPrebid = ORTBAppExtPrebid()
+    var data: [String: [String]]?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         let json = JSONObject<Key>(jsonDictionary)
         prebid = json[.prebid] ?? ORTBAppExtPrebid()
@@ -39,8 +37,7 @@ public class ORTBAppExt: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    var jsonDictionary: [String: Any] {
         var result = [String: Any]()
         let prebidDict = prebid.jsonDictionary
         if !prebidDict.isEmpty {

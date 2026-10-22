@@ -41,7 +41,7 @@ public class NativeEventTrackerResponse: NSObject, JsonDecodable {
     /// Initializes a `NativeEventTrackerResponse` object from a JSON dictionary.
     ///
     /// - Parameter jsonDictionary: A dictionary containing the JSON data to initialize the object.
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native event trackers json dicitonary is empty")
             return
@@ -67,7 +67,7 @@ public class NativeEventTrackerResponse: NSObject, JsonDecodable {
     }
     
     /// Initializes with default values
-    public override init() {
+    override init() {
         super.init()
     }
 }

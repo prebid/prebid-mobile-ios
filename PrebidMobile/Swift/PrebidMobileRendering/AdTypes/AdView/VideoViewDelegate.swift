@@ -16,7 +16,6 @@
 import Foundation
 
 // This protocol allows the VideoView to communicate events out to whatever is using one
-@objc(PBMVideoViewDelegate) @_spi(PBMInternal) public
 protocol VideoViewDelegate: NSObjectProtocol {
 
     func videoViewFailedWithError(_ error: Error)

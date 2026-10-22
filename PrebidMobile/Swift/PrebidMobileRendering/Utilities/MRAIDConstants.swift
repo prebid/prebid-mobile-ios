@@ -17,58 +17,52 @@ import Foundation
 
 // MARK: - PBMMRAIDParseKeys
 
-@objc(PBMMRAIDParseKeys)
-public class MRAIDParseKeys: NSObject {
-    @objc public static let X               = "x"
-    @objc public static let Y               = "y"
-    @objc public static let WIDTH           = "width"
-    @objc public static let HEIGHT          = "height"
-    @objc public static let X_OFFSET        = "offsetX"
-    @objc public static let Y_OFFSET        = "offsetY"
-    @objc public static let ALLOW_OFFSCREEN = "allowOffscreen"
-    @objc public static let FORCE_ORIENTATION = "forceOrientation"
+class MRAIDParseKeys: NSObject {
+    static let X               = "x"
+    static let Y               = "y"
+    static let WIDTH           = "width"
+    static let HEIGHT          = "height"
+    static let X_OFFSET        = "offsetX"
+    static let Y_OFFSET        = "offsetY"
+    static let ALLOW_OFFSCREEN = "allowOffscreen"
+    static let FORCE_ORIENTATION = "forceOrientation"
 }
 
 // MARK: - PBMMRAIDValues
 
-@objc(PBMMRAIDValues)
-public class MRAIDValues: NSObject {
-    @objc public static let LANDSCAPE = "landscape"
-    @objc public static let PORTRAIT  = "portrait"
+class MRAIDValues: NSObject {
+    static let LANDSCAPE = "landscape"
+    static let PORTRAIT  = "portrait"
 }
 
 // MARK: - PBMMRAIDCloseButtonPosition
 
-@objc(PBMMRAIDCloseButtonPosition)
-public class MRAIDCloseButtonPosition: NSObject {
-    @objc public static let BOTTOM_CENTER = "bottom-center"
-    @objc public static let BOTTOM_LEFT   = "bottom-left"
-    @objc public static let BOTTOM_RIGHT  = "bottom-right"
-    @objc public static let CENTER        = "center"
-    @objc public static let TOP_CENTER    = "top-center"
-    @objc public static let TOP_LEFT      = "top-left"
-    @objc public static let TOP_RIGHT     = "top-right"
+class MRAIDCloseButtonPosition: NSObject {
+    static let BOTTOM_CENTER = "bottom-center"
+    static let BOTTOM_LEFT   = "bottom-left"
+    static let BOTTOM_RIGHT  = "bottom-right"
+    static let CENTER        = "center"
+    static let TOP_CENTER    = "top-center"
+    static let TOP_LEFT      = "top-left"
+    static let TOP_RIGHT     = "top-right"
 }
 
 // MARK: - PBMMRAIDCloseButtonSize
 
-@objc(PBMMRAIDCloseButtonSize)
-public class MRAIDCloseButtonSize: NSObject {
-    @objc public static let WIDTH: Float  = 50
-    @objc public static let HEIGHT: Float = 50
+class MRAIDCloseButtonSize: NSObject {
+    static let WIDTH: Float  = 50
+    static let HEIGHT: Float = 50
 }
 
 // MARK: - PBMMRAIDExpandProperties  (NS_SWIFT_NAME = MRAIDExpandProperties)
 
-@objc(PBMMRAIDExpandProperties)
-public class MRAIDExpandProperties: NSObject {
-    @objc public var width: Int = 0
-    @objc public var height: Int = 0
 
-    public override init() { super.init() }
+class MRAIDExpandProperties: NSObject {
+    var width: Int = 0
+    var height: Int = 0
 
-    @objc(initWithWidth:height:)
-    public init(width: Int, height: Int) {
+    override init() { super.init() }
+    init(width: Int, height: Int) {
         self.width  = width
         self.height = height
         super.init()
@@ -77,18 +71,16 @@ public class MRAIDExpandProperties: NSObject {
 
 // MARK: - PBMMRAIDResizeProperties  (NS_SWIFT_NAME = MRAIDResizeProperties)
 
-@objc(PBMMRAIDResizeProperties)
-public class MRAIDResizeProperties: NSObject {
-    @objc public var width: Int = 0
-    @objc public var height: Int = 0
-    @objc public var offsetX: Int = 0
-    @objc public var offsetY: Int = 0
-    @objc public var allowOffscreen: Bool = false
 
-    public override init() { super.init() }
+class MRAIDResizeProperties: NSObject {
+    var width: Int = 0
+    var height: Int = 0
+    var offsetX: Int = 0
+    var offsetY: Int = 0
+    var allowOffscreen: Bool = false
 
-    @objc(initWithWidth:height:offsetX:offsetY:allowOffscreen:)
-    public init(width: Int, height: Int, offsetX: Int, offsetY: Int, allowOffscreen: Bool) {
+    override init() { super.init() }
+    init(width: Int, height: Int, offsetX: Int, offsetY: Int, allowOffscreen: Bool) {
         self.width          = width
         self.height         = height
         self.offsetX        = offsetX
@@ -100,12 +92,11 @@ public class MRAIDResizeProperties: NSObject {
 
 // MARK: - PBMMRAIDConstants
 
-@objc(PBMMRAIDConstants)
-public class MRAIDConstants: NSObject {
-    @objc public static let mraidURLScheme = "mraid:"
+class MRAIDConstants: NSObject {
+    static let mraidURLScheme = "mraid:"
 
     // String values match the `MRAIDAction` constants below
-    @objc public static var allCases: [String] {
+    static var allCases: [String] {
         ["open", "expand", "resize", "close", "playVideo",
          "log", "onOrientationPropertiesChanged", "unload"]
     }
@@ -116,57 +107,54 @@ public class MRAIDConstants: NSObject {
 // so these are plain Swift `RawRepresentable` structs (Strings on the wire, `.rawValue` to read them).
 
 /// MRAID command names (`PBMMRAIDAction`).
-@_spi(PBMInternal) public
 struct MRAIDAction: RawRepresentable, Hashable {
-    public let rawValue: String
+    let rawValue: String
 
-    public init(rawValue: String) {
+    init(rawValue: String) {
         self.rawValue = rawValue
     }
 
     // Debug
-    public static let log = MRAIDAction(rawValue: "log")
+    static let log = MRAIDAction(rawValue: "log")
     // MRAID 1
-    public static let open = MRAIDAction(rawValue: "open")
-    public static let close = MRAIDAction(rawValue: "close")
-    public static let expand = MRAIDAction(rawValue: "expand")
+    static let open = MRAIDAction(rawValue: "open")
+    static let close = MRAIDAction(rawValue: "close")
+    static let expand = MRAIDAction(rawValue: "expand")
     // MRAID 2
-    public static let resize = MRAIDAction(rawValue: "resize")
-    public static let storePicture = MRAIDAction(rawValue: "storepicture")
-    public static let createCalendarEvent = MRAIDAction(rawValue: "createCalendarevent")
-    public static let playVideo = MRAIDAction(rawValue: "playVideo")
-    public static let onOrientationPropertiesChanged = MRAIDAction(rawValue: "onOrientationPropertiesChanged")
+    static let resize = MRAIDAction(rawValue: "resize")
+    static let storePicture = MRAIDAction(rawValue: "storepicture")
+    static let createCalendarEvent = MRAIDAction(rawValue: "createCalendarevent")
+    static let playVideo = MRAIDAction(rawValue: "playVideo")
+    static let onOrientationPropertiesChanged = MRAIDAction(rawValue: "onOrientationPropertiesChanged")
     // MRAID 3
-    public static let unload = MRAIDAction(rawValue: "unload")
+    static let unload = MRAIDAction(rawValue: "unload")
 }
 
 /// MRAID placement types (`PBMMRAIDPlacementType`).
-@_spi(PBMInternal) public
 struct MRAIDPlacementType: RawRepresentable, Hashable {
-    public let rawValue: String
+    let rawValue: String
 
-    public init(rawValue: String) {
+    init(rawValue: String) {
         self.rawValue = rawValue
     }
 
-    public static let inline = MRAIDPlacementType(rawValue: "inline")
-    public static let interstitial = MRAIDPlacementType(rawValue: "interstitial")
+    static let inline = MRAIDPlacementType(rawValue: "inline")
+    static let interstitial = MRAIDPlacementType(rawValue: "interstitial")
 }
 
 /// MRAID supported features (`PBMMRAIDFeature`).
-@_spi(PBMInternal) public
 struct MRAIDFeature: RawRepresentable, Hashable {
-    public let rawValue: String
+    let rawValue: String
 
-    public init(rawValue: String) {
+    init(rawValue: String) {
         self.rawValue = rawValue
     }
 
-    public static let sms = MRAIDFeature(rawValue: "sms")
-    public static let phone = MRAIDFeature(rawValue: "tel")
-    public static let calendar = MRAIDFeature(rawValue: "calendar")
-    public static let savePicture = MRAIDFeature(rawValue: "storePicture")
-    public static let inlineVideo = MRAIDFeature(rawValue: "inlineVideo")
-    public static let location = MRAIDFeature(rawValue: "location")
-    public static let vpaid = MRAIDFeature(rawValue: "vpaid")
+    static let sms = MRAIDFeature(rawValue: "sms")
+    static let phone = MRAIDFeature(rawValue: "tel")
+    static let calendar = MRAIDFeature(rawValue: "calendar")
+    static let savePicture = MRAIDFeature(rawValue: "storePicture")
+    static let inlineVideo = MRAIDFeature(rawValue: "inlineVideo")
+    static let location = MRAIDFeature(rawValue: "location")
+    static let vpaid = MRAIDFeature(rawValue: "vpaid")
 }

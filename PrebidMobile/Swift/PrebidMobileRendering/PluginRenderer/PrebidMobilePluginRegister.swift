@@ -16,13 +16,12 @@
 import Foundation
 
 /// Global singleton responsible to store plugin renderer instances
-@objcMembers
-public class PrebidMobilePluginRegister: NSObject {
+class PrebidMobilePluginRegister: NSObject {
     
-    public static let shared = PrebidMobilePluginRegister()
+    static let shared = PrebidMobilePluginRegister()
     
     /// Default PrebidMobile SDK renderer
-    public var sdkRenderer: PrebidMobilePluginRenderer {
+    var sdkRenderer: PrebidMobilePluginRenderer {
         if let renderer = getPluginRenderer(for: PREBID_MOBILE_RENDERER_NAME) {
             return renderer
         }
@@ -43,7 +42,7 @@ public class PrebidMobilePluginRegister: NSObject {
     }
     
     /// Register plugin as renderer
-    public func registerPlugin(_ renderer: PrebidMobilePluginRenderer) {
+    func registerPlugin(_ renderer: PrebidMobilePluginRenderer) {
         let rendererName = renderer.name
         
         queue.async(flags: .barrier) { [weak self] in
@@ -55,21 +54,21 @@ public class PrebidMobilePluginRegister: NSObject {
         }
     }
     
-    public func unregisterPlugin(_ renderer: PrebidMobilePluginRenderer) {
+    func unregisterPlugin(_ renderer: PrebidMobilePluginRenderer) {
         queue.async(flags: .barrier) { [weak self] in
             self?.plugins.removeValue(forKey: renderer.name)
         }
     }
     
     /// Contains plugin
-    public func containsPlugin(_ renderer: PrebidMobilePluginRenderer) -> Bool {
+    func containsPlugin(_ renderer: PrebidMobilePluginRenderer) -> Bool {
         queue.sync {
             plugins.contains { $0.value === renderer }
         }
     }
     
     /// Register event delegate
-    public func registerEventDelegate(
+    func registerEventDelegate(
         _ pluginEventDelegate: PluginEventDelegate,
         adUnitConfigFingerprint: String
     ) {
@@ -86,7 +85,7 @@ public class PrebidMobilePluginRegister: NSObject {
     }
     
     /// Unregister event delegate
-    public func unregisterEventDelegate(
+    func unregisterEventDelegate(
         _ pluginEventDelegate: PluginEventDelegate,
         adUnitConfigFingerprint: String
     ) {
@@ -105,7 +104,7 @@ public class PrebidMobilePluginRegister: NSObject {
     /// Returns the registered renderer according to the preferred renderer name in the bid response.
     /// If no preferred renderer is found, it returns PrebidRenderer to perform default behavior.
     /// Once bid is win we want to resolve the best PluginRenderer candidate to render the ad.
-    public func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
+    func getPluginForPreferredRenderer(bid: Bid) -> PrebidMobilePluginRenderer {
         guard let preferredRendererName = bid.pluginRendererName,
               let preferredPlugin = getPluginRenderer(for: preferredRendererName),
               preferredPlugin.version == bid.pluginRendererVersion
@@ -116,13 +115,13 @@ public class PrebidMobilePluginRegister: NSObject {
         return preferredPlugin
     }
     
-    public func getAllPlugins() -> [PrebidMobilePluginRenderer] {
+    func getAllPlugins() -> [PrebidMobilePluginRenderer] {
         queue.sync {
             return plugins.isEmpty ? [] : Array(plugins.values)
         }
     }
     
-    public func getAllPluginsJSONRepresentation() -> [[String: Any]] {
+    func getAllPluginsJSONRepresentation() -> [[String: Any]] {
         return PrebidMobilePluginRegister
             .shared
             .getAllPlugins()

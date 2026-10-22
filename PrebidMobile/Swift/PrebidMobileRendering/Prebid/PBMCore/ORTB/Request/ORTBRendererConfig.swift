@@ -16,18 +16,17 @@
 import Foundation
 
 // Plain NSObject — not PBMJsonCodable; constructed directly from renderer descriptors, never decoded from bid JSON.
-@objc(PBMORTBRendererConfig)
-public class ORTBRendererConfig: NSObject {
+class ORTBRendererConfig: NSObject {
 
     // MARK: - Properties
 
-    @objc public var name: String
-    @objc public var version: String
-    @objc public var data: [String: Any]
+    var name: String
+    var version: String
+    var data: [String: Any]
 
     // MARK: - Init
 
-    @objc public init(name: String, version: String, data: [String: Any]) {
+    init(name: String, version: String, data: [String: Any]) {
         self.name    = name
         self.version = version
         self.data    = data

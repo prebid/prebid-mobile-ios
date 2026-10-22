@@ -26,7 +26,7 @@ public class AutoRefreshCountConfig: NSObject {
 
      Also note that this will return @c nil if @c isInterstitial is set to @c YES.
      */
-    public var autoRefreshDelay: TimeInterval? 
+    var autoRefreshDelay: TimeInterval? 
     
     /**
      Maximum number of times the BannerView should refresh.
@@ -36,10 +36,10 @@ public class AutoRefreshCountConfig: NSObject {
 
      Default is 0.
      */
-    public var autoRefreshMax: Double?  = 0
+    var autoRefreshMax: Double?  = 0
     
     /**
      The number of times the BannerView has been refreshed.
      */
-    public var numRefreshes = 0
+    var numRefreshes = 0
 }

@@ -15,8 +15,7 @@
 
 import Foundation
 
-@objc(PBMVastParser)
-@_spi(PBMInternal) public class VastParser: NSObject, XMLParserDelegate {
+class VastParser: NSObject, XMLParserDelegate {
 
     var parsedResponse: VastResponse?
 
@@ -44,12 +43,11 @@ import Foundation
 
     // MARK: - Initialization
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(parseAdsResponse:)
-    public func parseAdsResponse(_ data: Data) -> VastResponse? {
+    func parseAdsResponse(_ data: Data) -> VastResponse? {
         let xmlParser = XMLParser(data: data)
         xmlParser.delegate = self
 
@@ -153,17 +151,17 @@ import Foundation
 
     // MARK: - NSXMLParserDelegate
 
-    public func parserDidStartDocument(_ parser: XMLParser) {
+    func parserDidStartDocument(_ parser: XMLParser) {
         parsedResponse = VastResponse()
     }
 
-    public func parserDidEndDocument(_ parser: XMLParser) {
+    func parserDidEndDocument(_ parser: XMLParser) {
         // sent when the parser has completed parsing. If this is encountered, the parse was successful.
         parseSuccessful = true
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    public func parser(_ parser: XMLParser,
+    func parser(_ parser: XMLParser,
                        didStartElement elementName: String,
                        namespaceURI: String?,
                        qualifiedName qName: String?,
@@ -231,7 +229,7 @@ import Foundation
             companion.height = parseInt(attributeDict["height"])
             companion.assetWidth = parseInt(attributeDict["assetWidth"])
             companion.assetHeight = parseInt(attributeDict["assetHeight"])
-            companionAds.companions.add(companion)
+            companionAds.companions.append(companion)
 
         case "NonLinearAds":
             creative = VastCreativeNonLinearAds()
@@ -252,7 +250,7 @@ import Foundation
             nonLinear.maintainAspectRatio = parseBool(attributeDict["maintainAspectRatio"])
             nonLinear.minSuggestedDuration = parseTimeInterval(attributeDict["minSuggestedDuration"])
             nonLinear.apiFramework = attributeDict["apiFramework"]
-            nonLinearAds.nonLinears.add(nonLinear)
+            nonLinearAds.nonLinears.append(nonLinear)
 
         case "Icon":
             guard let linearCreative = creative as? VastCreativeLinear else {
@@ -268,7 +266,7 @@ import Foundation
             icon.yPosition = parseInt(attributeDict["yPosition"])
             icon.duration = parseTimeInterval(attributeDict["duration"])
             icon.startOffset = parseTimeInterval(attributeDict["startOffset"])
-            linearCreative.icons.add(icon)
+            linearCreative.icons.append(icon)
 
         case "MediaFile":
             guard let linearCreative = creative as? VastCreativeLinear else {
@@ -290,7 +288,7 @@ import Foundation
             mediaFile.maxBitrate = NSNumber(value: parseFloat(attributeDict["maxBitrate"]))
             mediaFile.scalable = NSNumber(value: parseBool(attributeDict["scalable"]))
             mediaFile.maintainAspectRatio = NSNumber(value: parseBool(attributeDict["maintainAspectRatio"]))
-            linearCreative.mediaFiles.add(mediaFile)
+            linearCreative.mediaFiles.append(mediaFile)
 
         case "AdVerifications":
             verificationParameter = VideoVerificationParameters()
@@ -313,14 +311,14 @@ import Foundation
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    public func parser(_ parser: XMLParser,
+    func parser(_ parser: XMLParser,
                        didEndElement elementName: String,
                        namespaceURI: String?,
                        qualifiedName qName: String?) {
         switch elementName {
         case "Error":
             if Array(elementPath.prefix(2)) == ["VAST", "Ad"] {
-                ad?.errorURIs.add(currentElementContent)
+                ad?.errorURIs.append(currentElementContent)
             } else if elementPath == ["VAST", "Error"] {
                 parsedResponse?.noAdsResponseURI = currentElementContent
             }
@@ -339,7 +337,7 @@ import Foundation
             inlineAd?.advertiser = currentElementContent
 
         case "Impression":
-            ad?.impressionURIs.add(currentElementContent)
+            ad?.impressionURIs.append(currentElementContent)
 
         case "Ad":
             if let ad {
@@ -355,9 +353,7 @@ import Foundation
                 ad.ownerResponse = parsedResponse
 
                 if let parsedResponse {
-                    let ads = NSMutableArray(array: parsedResponse.vastAbstractAds)
-                    ads.add(ad)
-                    parsedResponse.vastAbstractAds = ads
+                    parsedResponse.vastAbstractAds.append(ad)
                 }
             } else {
                 Log.error("Ad tag ending with no ad object.")
@@ -381,7 +377,7 @@ import Foundation
 
             // doubleclick can produce empty Creative nodes
             if let creative {
-                ad?.creatives.add(creative)
+                ad?.creatives.append(creative)
             }
 
             creative = nil
@@ -396,14 +392,14 @@ import Foundation
 
             if let companionAds = creative as? VastCreativeCompanionAds {
                 if companionAds.companions.count > 0 {
-                    let companion = companionAds.companions.lastObject as? VastCreativeCompanionAdsCompanion
+                    let companion = companionAds.companions.last
                     vastTrackingEvents = companion?.trackingEvents
                 }
             } else if let linearCreative = creative as? VastCreativeLinear {
                 vastTrackingEvents = linearCreative.vastTrackingEvents
             } else if let nonLinearAds = creative as? VastCreativeNonLinearAds {
                 if nonLinearAds.nonLinears.count > 0 {
-                    let nonLinear = nonLinearAds.nonLinears.lastObject as? VastCreativeNonLinearAdsNonLinear
+                    let nonLinear = nonLinearAds.nonLinears.last
                     vastTrackingEvents = nonLinear?.vastTrackingEvents
                 }
             } else if let verificationResource {
@@ -460,7 +456,7 @@ import Foundation
         case "MediaFile":
             if let linearCreative = creative as? VastCreativeLinear {
                 if linearCreative.mediaFiles.count > 0 {
-                    let mediaFile = linearCreative.mediaFiles.lastObject as? VastMediaFile
+                    let mediaFile = linearCreative.mediaFiles.last
                     mediaFile?.mediaURI = currentElementContent
                 }
             } else {
@@ -481,7 +477,7 @@ import Foundation
                 Log.error("\(elementName) tag found but creative not PBMVastCreativeLinear")
                 return
             }
-            linearCreative.clickTrackingURIs.add(currentElementContent)
+            linearCreative.clickTrackingURIs.append(currentElementContent)
 
         case "IconClickThrough":
             guard let linearCreative = creative as? VastCreativeLinear else {
@@ -490,7 +486,7 @@ import Foundation
             }
 
             if linearCreative.icons.count > 0 {
-                let icon = linearCreative.icons.lastObject as? VastIcon
+                let icon = linearCreative.icons.last
                 icon?.clickThroughURI = currentElementContent
             }
 
@@ -501,8 +497,8 @@ import Foundation
             }
 
             if linearCreative.icons.count > 0 {
-                let icon = linearCreative.icons.lastObject as? VastIcon
-                icon?.clickTrackingURIs.add(currentElementContent)
+                let icon = linearCreative.icons.last
+                icon?.clickTrackingURIs.append(currentElementContent)
             }
 
         case "IconViewTracking":
@@ -512,7 +508,7 @@ import Foundation
             }
 
             if linearCreative.icons.count > 0 {
-                let icon = linearCreative.icons.lastObject as? VastIcon
+                let icon = linearCreative.icons.last
                 icon?.viewTrackingURI = currentElementContent
             }
 
@@ -523,7 +519,7 @@ import Foundation
             }
 
             if companionAds.companions.count > 0 {
-                let companion = companionAds.companions.lastObject as? VastCreativeCompanionAdsCompanion
+                let companion = companionAds.companions.last
                 companion?.clickThroughURI = currentElementContent
             }
 
@@ -534,8 +530,8 @@ import Foundation
             }
 
             if companionAds.companions.count > 0 {
-                let companion = companionAds.companions.lastObject as? VastCreativeCompanionAdsCompanion
-                companion?.clickTrackingURIs.add(currentElementContent)
+                let companion = companionAds.companions.last
+                companion?.clickTrackingURIs.append(currentElementContent)
             }
 
         case "NonLinearClickThrough":
@@ -545,7 +541,7 @@ import Foundation
             }
 
             if nonLinearAds.nonLinears.count > 0 {
-                let nonLinear = nonLinearAds.nonLinears.lastObject as? VastCreativeNonLinearAdsNonLinear
+                let nonLinear = nonLinearAds.nonLinears.last
                 nonLinear?.clickThroughURI = currentElementContent
             } else {
                 Log.error("NonLinearClickThrough tag found but no NonLinear objects to append content to")
@@ -558,8 +554,8 @@ import Foundation
             }
 
             if nonLinearAds.nonLinears.count > 0 {
-                let nonLinear = nonLinearAds.nonLinears.lastObject as? VastCreativeNonLinearAdsNonLinear
-                nonLinear?.clickTrackingURIs.add(currentElementContent)
+                let nonLinear = nonLinearAds.nonLinears.last
+                nonLinear?.clickTrackingURIs.append(currentElementContent)
             } else {
                 Log.error("NonLinearClickTracking tag found but no NonLinear objects to append content to")
             }
@@ -580,12 +576,12 @@ import Foundation
         currentElementAttributes = nil
     }
 
-    public func parser(_ parser: XMLParser, foundCharacters string: String) {
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
         let trimmedString = string.trimmingCharacters(in: .whitespacesAndNewlines)
         currentElementContent += trimmedString
     }
 
-    public func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
+    func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
         // this reports a CDATA block to the delegate as a Data.
         guard let string = String(data: CDATABlock, encoding: .utf8) else {
             return
@@ -603,15 +599,15 @@ import Foundation
         var container: VastResourceContainer?
 
         if let linearCreative = creative as? VastCreativeLinear {
-            if let icon = linearCreative.icons.lastObject as? VastIcon {
+            if let icon = linearCreative.icons.last {
                 container = icon
             }
         } else if let companionAds = creative as? VastCreativeCompanionAds {
-            if let companion = companionAds.companions.lastObject as? VastCreativeCompanionAdsCompanion {
+            if let companion = companionAds.companions.last {
                 container = companion
             }
         } else if let nonLinearAds = creative as? VastCreativeNonLinearAds {
-            if let nonLinear = nonLinearAds.nonLinears.lastObject as? VastCreativeNonLinearAdsNonLinear {
+            if let nonLinear = nonLinearAds.nonLinears.last {
                 container = nonLinear
             }
         }

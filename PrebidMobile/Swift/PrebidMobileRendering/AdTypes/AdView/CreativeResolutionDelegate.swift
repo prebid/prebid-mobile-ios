@@ -17,7 +17,6 @@
 import Foundation
 
 @objc(PBMCreativeResolutionDelegate)
-@_spi(PBMInternal) public
 protocol CreativeResolutionDelegate {
     
     func creativeReady(_ creative: AbstractCreative)

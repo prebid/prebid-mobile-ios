@@ -15,13 +15,12 @@
 
 import Foundation
 
-@objc(PBMServerEvent) @objcMembers
-public class ServerEvent: NSObject {
+class ServerEvent: NSObject {
     
     var url: String
     var expectedEventType: TrackingEvent
     
-    public init(url: String, expectedEventType: TrackingEvent) {
+    init(url: String, expectedEventType: TrackingEvent) {
         self.url = url
         self.expectedEventType = expectedEventType
     }

@@ -22,7 +22,7 @@ public class SkadnEventTracker: NSObject, EventTrackerProtocol {
     
     let imp: SKAdImpression
     
-    public init(with imp: SKAdImpression) {
+    init(with imp: SKAdImpression) {
         self.imp = imp
     }
     

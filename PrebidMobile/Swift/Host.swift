@@ -49,7 +49,7 @@ public class Host: NSObject {
         self.deviceManager = deviceManager
     }
 
-    @objc public func setHostURL(_ urlString: String?, nonTrackingURLString: String?) throws {
+    public func setHostURL(_ urlString: String?, nonTrackingURLString: String?) throws {
         guard let trackingURL = URL.urlWithoutEncoding(from: urlString) else {
             throw ErrorCode.prebidServerURLInvalid(urlString ?? "")
         }
@@ -72,7 +72,7 @@ public class Host: NSObject {
     }
 
     /// This function verifies if the prebid server URL is in the url format
-    public func verifyUrl (urlString: String?) -> Bool {
+    func verifyUrl (urlString: String?) -> Bool {
         //Check for nil
         if let urlString = urlString {
             // create NSURL instance

@@ -16,35 +16,34 @@
 import UIKit
 import QuartzCore
 
-@objc(PBMCircularProgressBarLayer)
-public class CircularProgressBarLayer: CALayer {
 
-    @NSManaged @objc public var value: CGFloat
+class CircularProgressBarLayer: CALayer {
 
-    @objc public var progressAngle: CGFloat        = 0
-    @objc public var progressRotationAngle: CGFloat = 0
-    @objc public var maxValue: CGFloat             = 0
-    @objc public var animationDuration: TimeInterval = 0
-    @objc public var valueFontSize: CGFloat        = 0
-    @objc public var unitFontSize: CGFloat         = 0
-    @objc public var fontColor: UIColor            = .white
-    @objc public var progressLineWidth: CGFloat    = 0
-    @objc public var progressColor: UIColor        = .white
-    @objc public var emptyLineWidth: CGFloat       = 0
-    @objc public var progressLinePadding: CGFloat  = 0
-    @objc public var emptyLineColor: UIColor       = .white
-    @objc public var emptyLineStrokeColor: UIColor = .white
-    @objc public var valueFontName: String         = ""
-    @objc public var showValueString: Bool         = false
-    @objc public var countdown: Bool               = false
+    @NSManaged var value: CGFloat
+    var progressAngle: CGFloat        = 0
+    var progressRotationAngle: CGFloat = 0
+    var maxValue: CGFloat             = 0
+    var animationDuration: TimeInterval = 0
+    var valueFontSize: CGFloat        = 0
+    var unitFontSize: CGFloat         = 0
+    var fontColor: UIColor            = .white
+    var progressLineWidth: CGFloat    = 0
+    var progressColor: UIColor        = .white
+    var emptyLineWidth: CGFloat       = 0
+    var progressLinePadding: CGFloat  = 0
+    var emptyLineColor: UIColor       = .white
+    var emptyLineStrokeColor: UIColor = .white
+    var valueFontName: String         = ""
+    var showValueString: Bool         = false
+    var countdown: Bool               = false
 
     // MARK: - CALayer
 
-    public override class func needsDisplay(forKey key: String) -> Bool {
+    override class func needsDisplay(forKey key: String) -> Bool {
         key == "value" || super.needsDisplay(forKey: key)
     }
 
-    public override func draw(in context: CGContext) {
+    override func draw(in context: CGContext) {
         super.draw(in: context)
         UIGraphicsPushContext(context)
         let rect = context.boundingBoxOfClipPath

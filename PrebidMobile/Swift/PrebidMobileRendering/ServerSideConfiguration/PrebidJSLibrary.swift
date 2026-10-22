@@ -15,13 +15,12 @@
 
 import Foundation
 
-@objcMembers
-public class PrebidJSLibrary: NSObject {
+class PrebidJSLibrary: NSObject {
     
-    public var downloadURLString: String?
-    public var name: String
+    var downloadURLString: String?
+    var name: String
     
-    public init(name: String, downloadURLString: String? = nil) {
+    init(name: String, downloadURLString: String? = nil) {
         self.name = name
         self.downloadURLString = downloadURLString
         super.init()

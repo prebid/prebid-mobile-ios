@@ -489,35 +489,33 @@ public class BannerView:
     }
 }
 
-@_spi(PBMInternal)
 extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
     // MARK: - AdLoadFlowControllerDelegate
     
-    public func adLoadFlowController(
+    func adLoadFlowController(
         _ adLoadFlowController: AdLoadFlowController,
         failedWithError error: Error?
     ) {
         reportLoadingFailed(with: error)
     }
     
-    public func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: AdLoadFlowController) {
+    func adLoadFlowControllerWillSendBidRequest(_ adLoadFlowController: AdLoadFlowController) {
         isRefreshStopped = false
         autoRefreshManager?.cancelRefreshTimer()
     }
     
-    public func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: AdLoadFlowController) {
+    func adLoadFlowControllerWillRequestPrimaryAd(_ adLoadFlowController: AdLoadFlowController) {
         autoRefreshManager?.setupRefreshTimer()
         eventHandler?.interactionDelegate = self
     }
     
-    public func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool {
+    func adLoadFlowControllerShouldContinue(_ adLoadFlowController: AdLoadFlowController) -> Bool {
         !isRefreshStopped
     }
     
     // MARK: - BannerAdLoaderDelegate
     
-    @_spi(PBMInternal)
-    public func bannerAdLoader(
+    func bannerAdLoader(
         _ bannerAdLoader: BannerAdLoader,
         loadedAdView adView: UIView,
         adSize: CGSize
@@ -526,31 +524,30 @@ extension BannerView : AdLoadFlowControllerDelegate, BannerAdLoaderDelegate {
         reportLoadingSuccess(with: adSize)
     }
     
-    public func bannerAdLoaderDidExpire(_ bannerAdLoader: BannerAdLoader) {
+    func bannerAdLoaderDidExpire(_ bannerAdLoader: BannerAdLoader) {
         reportAdExpired()
     }
 }
 
-@_spi(PBMInternal)
 extension BannerView: DisplayViewVideoPlaybackDelegate {
     
-    public func videoPlaybackDidPause() {
+    func videoPlaybackDidPause() {
         videoPlaybackDelegate?.videoPlaybackDidPause(self)
     }
     
-    public func videoPlaybackDidResume() {
+    func videoPlaybackDidResume() {
         videoPlaybackDelegate?.videoPlaybackDidResume(self)
     }
     
-    public func videoPlaybackWasMuted() {
+    func videoPlaybackWasMuted() {
         videoPlaybackDelegate?.videoPlaybackWasMuted(self)
     }
     
-    public func videoPlaybackWasUnmuted() {
+    func videoPlaybackWasUnmuted() {
         videoPlaybackDelegate?.videoPlaybackWasUnmuted(self)
     }
     
-    public func videoPlaybackDidComplete() {
+    func videoPlaybackDidComplete() {
         videoPlaybackDelegate?.videoPlaybackDidComplete(self)
     }
 }

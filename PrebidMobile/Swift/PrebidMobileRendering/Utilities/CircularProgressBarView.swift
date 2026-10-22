@@ -15,17 +15,16 @@
 
 import UIKit
 
-@objc(PBMCircularProgressBarView)
-public class CircularProgressBarView: UIView {
+class CircularProgressBarView: UIView {
 
     // MARK: - Public properties (forwarded to layer)
 
-    @objc public var showValueString: Bool {
+    var showValueString: Bool {
         get { progressLayer.showValueString }
         set { progressLayer.showValueString = newValue; layer.setNeedsDisplay() }
     }
 
-    @objc public var value: CGFloat {
+    var value: CGFloat {
         get { progressLayer.value }
         set {
             progressLayer.value = newValue
@@ -34,100 +33,100 @@ public class CircularProgressBarView: UIView {
         }
     }
 
-    @objc public var valueFontName: String {
+    var valueFontName: String {
         get { progressLayer.valueFontName }
         set { progressLayer.valueFontName = newValue }
     }
 
-    @objc public var maxValue: CGFloat {
+    var maxValue: CGFloat {
         get { progressLayer.maxValue }
         set { progressLayer.maxValue = newValue; if newValue == 0 { layer.setNeedsDisplay() } }
     }
 
-    @objc public var borderPadding: CGFloat = 0
+    var borderPadding: CGFloat = 0
 
-    @objc public var valueFontSize: CGFloat {
+    var valueFontSize: CGFloat {
         get { progressLayer.valueFontSize }
         set { progressLayer.valueFontSize = newValue }
     }
 
-    @objc public var fontColor: UIColor {
+    var fontColor: UIColor {
         get { progressLayer.fontColor }
         set { progressLayer.fontColor = newValue }
     }
 
-    @objc public var progressRotationAngle: CGFloat {
+    var progressRotationAngle: CGFloat {
         get { progressLayer.progressRotationAngle }
         set { progressLayer.progressRotationAngle = newValue }
     }
 
-    @objc public var progressAngle: CGFloat {
+    var progressAngle: CGFloat {
         get { progressLayer.progressAngle }
         set { progressLayer.progressAngle = newValue }
     }
 
-    @objc public var progressLineWidth: CGFloat {
+    var progressLineWidth: CGFloat {
         get { progressLayer.progressLineWidth }
         set { progressLayer.progressLineWidth = newValue }
     }
 
-    @objc public var progressLinePadding: CGFloat {
+    var progressLinePadding: CGFloat {
         get { progressLayer.progressLinePadding }
         set { progressLayer.progressLinePadding = newValue }
     }
 
-    @objc public var progressColor: UIColor {
+    var progressColor: UIColor {
         get { progressLayer.progressColor }
         set { progressLayer.progressColor = newValue }
     }
 
-    @objc public var emptyLineWidth: CGFloat {
+    var emptyLineWidth: CGFloat {
         get { progressLayer.emptyLineWidth }
         set { progressLayer.emptyLineWidth = newValue }
     }
 
-    @objc public var emptyLineColor: UIColor {
+    var emptyLineColor: UIColor {
         get { progressLayer.emptyLineColor }
         set { progressLayer.emptyLineColor = newValue }
     }
 
-    @objc public var emptyLineStrokeColor: UIColor {
+    var emptyLineStrokeColor: UIColor {
         get { progressLayer.emptyLineStrokeColor }
         set { progressLayer.emptyLineStrokeColor = newValue }
     }
 
-    @objc public var emptyCapType: Int = 0
-    @objc public var textOffset: CGPoint = .zero
+    var emptyCapType: Int = 0
+    var textOffset: CGPoint = .zero
 
-    @objc public var countdown: Bool {
+    var countdown: Bool {
         get { progressLayer.countdown }
         set { progressLayer.countdown = newValue }
     }
 
-    @objc public var duration: CGFloat = 0
+    var duration: CGFloat = 0
 
     // MARK: - Init
 
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
     }
 
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
         initView()
     }
 
     // MARK: - Public
 
-    @objc public func updateProgress(_ value: CGFloat) {
+    func updateProgress(_ value: CGFloat) {
         maxValue = duration
         self.value = value
     }
 
     // MARK: - CALayer
 
-    public override class var layerClass: AnyClass {
+    override class var layerClass: AnyClass {
         CircularProgressBarLayer.self
     }
 

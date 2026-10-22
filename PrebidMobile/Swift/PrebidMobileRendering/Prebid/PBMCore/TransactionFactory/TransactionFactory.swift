@@ -15,10 +15,9 @@
 
 import Foundation
 
-@_spi(PBMInternal) public
 typealias TransactionFactoryCallback = (_ transaction: Transaction?, _ error: Error?) -> Void
 
-@objc(PBMTransactionFactory) @_spi(PBMInternal) public
+@objc(PBMTransactionFactory)
 protocol TransactionFactory: NSObjectProtocol {
 
     @objc(initWithBid:adConfiguration:connection:callback:)

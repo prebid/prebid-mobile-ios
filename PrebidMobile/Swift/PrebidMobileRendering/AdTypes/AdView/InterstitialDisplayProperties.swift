@@ -20,25 +20,24 @@ import UIKit
 @objc(PBMInterstitialDisplayProperties)
 public class InterstitialDisplayProperties: NSObject, Copyable {
     
-    @objc public var closeDelay: TimeInterval = 0
+    var closeDelay: TimeInterval = 0
     
     // The time interval that left from @closeDelay in case of interruption
-    @objc public var closeDelayLeft: TimeInterval = 0
+    var closeDelayLeft: TimeInterval = 0
     
-    @objc public var contentFrame: CGRect = .infinite
-    @objc public var contentViewColor: UIColor = .clear
-    @objc public var interstitialLayout: InterstitialLayout = .undefined
+    var contentFrame: CGRect = .infinite
+    var contentViewColor: UIColor = .clear
+    var interstitialLayout: InterstitialLayout = .undefined
     
-    @objc(rotationEnabled)
-    public var isRotationEnabled: Bool {
+    var isRotationEnabled: Bool {
         interstitialLayout == .aspectRatio
     }
     
-    @objc public func setButtonImageHidden() {
+    func setButtonImageHidden() {
         closeButtonImage = UIImage()
     }
     
-    public override init() {
+    override init() {
         super.init()
         
         setupCloseButtonAccessibility()
@@ -63,7 +62,7 @@ public class InterstitialDisplayProperties: NSObject, Copyable {
         _closeButtonImage?.accessibilityLabel = PrebidConstants.ACCESSIBILITY_CLOSE_BUTTON_LABEL
     }
     
-    @objc public func getCloseButtonImage() -> UIImage? {
+    func getCloseButtonImage() -> UIImage? {
         closeButtonImage
     }
     

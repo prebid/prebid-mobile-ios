@@ -15,15 +15,14 @@
 
 import Foundation
 
-@objc(PBMVastCreativeAbstract)
-@_spi(PBMInternal) public class VastCreativeAbstract: NSObject {
 
-    @objc(identifier) public var id: String?
-    @objc public var adId: String?
-    @objc public var sequence = 0
-    @objc public var adParameters: String?
+class VastCreativeAbstract: NSObject {
 
-    @objc public override init() {
+    var id: String?
+    var adId: String?
+    var sequence = 0
+    var adParameters: String?
+    override init() {
         super.init()
     }
 }

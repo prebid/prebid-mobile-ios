@@ -15,21 +15,18 @@
 
 import Foundation
 
-@objc(PBMWeakTimerTargetBox)
-public class WeakTimerTargetBox: NSObject {
+class WeakTimerTargetBox: NSObject {
 
     private weak var weakTarget: AnyObject?
     private let aSelector: Selector
 
-    @objc(initWithWeakTarget:aSelector:)
-    public init(weakTarget: AnyObject, selector: Selector) {
+    init(weakTarget: AnyObject, selector: Selector) {
         self.weakTarget = weakTarget
         self.aSelector  = selector
         super.init()
     }
 
-    @objc(onTimerFired:)
-    public func onTimerFired(_ timer: TimerInterface) {
+    @objc func onTimerFired(_ timer: TimerInterface) {
         guard let target = weakTarget else {
             timer.invalidate()
             return
@@ -41,8 +38,7 @@ public class WeakTimerTargetBox: NSObject {
         }
     }
 
-    @objc(scheduledTimerFactoryWithWeakifiedTarget:)
-    public static func scheduledTimerFactory(
+    static func scheduledTimerFactory(
         withWeakifiedTarget factory: @escaping (TimeInterval, AnyObject, Selector, Any?, Bool) -> TimerInterface
     ) -> (TimeInterval, AnyObject, Selector, Any?, Bool) -> TimerInterface {
         return { timeInterval, target, selector, userInfo, repeats in

@@ -15,28 +15,26 @@
 
 import Foundation
 
-@objc(PBMORTBBidRequestExtPrebid)
-public class ORTBBidRequestExtPrebid: NSObject, PBMJsonCodable {
+class ORTBBidRequestExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - Properties
 
-    @objc public var storedRequestID: String?
-    @objc public var dataBidders: [String]?
-    @objc public var storedAuctionResponse: String?
-    @objc public var storedBidResponses: [[String: String]]?
+    var storedRequestID: String?
+    var dataBidders: [String]?
+    var storedAuctionResponse: String?
+    var storedBidResponses: [[String: String]]?
     // targeting and cache are write-only via API; not populated on decode (matches ObjC parity)
-    @objc public var cache: NSMutableDictionary?
-    @objc public var targeting: NSMutableDictionary = NSMutableDictionary()
-    @objc public var sdkRenderers: [[String: Any]]?
+    var cache: NSMutableDictionary?
+    var targeting: NSMutableDictionary = NSMutableDictionary()
+    var sdkRenderers: [[String: Any]]?
 
     // MARK: - Init
 
-    public override init() {
+    override init() {
         super.init()
     }
 
-    @objc(initWithJsonDictionary:)
-    public required init(jsonDictionary: [String: Any]) {
+    required init(jsonDictionary: [String: Any]) {
         super.init()
         storedRequestID       = (jsonDictionary["storedrequest"] as? [String: Any])?["id"] as? String
         dataBidders           = (jsonDictionary["data"] as? [String: Any])?["bidders"] as? [String]
@@ -46,8 +44,7 @@ public class ORTBBidRequestExtPrebid: NSObject, PBMJsonCodable {
 
     // MARK: - PBMJsonEncodable
 
-    @objc(toJsonDictionary)
-    public var jsonDictionary: [String: Any] {
+    var jsonDictionary: [String: Any] {
         guard let storedRequestID = storedRequestID else { return [:] }
 
         var result = [String: Any]()

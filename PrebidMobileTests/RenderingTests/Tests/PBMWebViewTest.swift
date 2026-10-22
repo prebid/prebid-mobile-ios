@@ -553,15 +553,16 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         XCTAssertEqual(webView.mraidState, .notEnabled)
         
         // TESTS: state must change
-        let expandedPredicate = NSPredicate(format: "mraidState.rawValue == \"expanded\"" )
+        // Block predicates read the Swift properties directly: no KVC, so the properties need no `@objc`.
+        let expandedPredicate = NSPredicate { object, _ in (object as? WebView)?.mraidState == .expanded }
         expectation(for: expandedPredicate, evaluatedWith: webView, handler: nil)
         
         // FIXME: Investigate cause of different webview states per OS version
         // Older OSes fire [WebView webView:didFinishNavigation:] earlier
         // than we are expecting.
         let osVersion = Int(UIDevice.current.systemVersion.split(separator: ".")[0])!
-        let expectedState = (osVersion >= 10) ? WebViewState.loading.rawValue : WebViewState.loaded.rawValue
-        let loadingPredicate = NSPredicate(format: "state == \(expectedState)" )
+        let expectedState = (osVersion >= 10) ? WebViewState.loading : WebViewState.loaded
+        let loadingPredicate = NSPredicate { object, _ in (object as? WebView)?.state == expectedState }
         expectation(for: loadingPredicate, evaluatedWith: webView, handler: nil)
         
         webView.expand(openxURL)
@@ -631,6 +632,18 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         
         XCTAssertNotNil(testError)
         XCTAssertTrue(testError?.localizedDescription.contains("Could not load mraid.js from library manager") ?? false)
+    }
+    
+    func testLoadHTMLNil() {
+        logToFile = .init()
+        
+        let webView = WebView()
+        webView.loadHTML(nil, baseURL: nil, injectMraidJs: false)
+        
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.contains("Input HTML is nil"))
+        XCTAssertEqual(webView.state, .loading)
+        XCTAssertEqual(webView.mraidState, .notEnabled)
     }
     
     func testLoadHTMLEmpty() {

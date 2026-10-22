@@ -16,20 +16,18 @@
 import Foundation
 
 /// This class is analogous to the <VAST> tag at the root of a Vast XML doc.
-@objc(PBMVastResponse)
-@_spi(PBMInternal) public class VastResponse: NSObject {
+class VastResponse: NSObject {
 
     // TODO: Refactor VastResponse.nextResponse and VastWrapperAd.vastResponse together.
 
-    @objc public var nextResponse: VastResponse?
-    @objc public weak var parentResponse: VastResponse?
-    @objc public var noAdsResponseURI: String?
-    // Untyped `NSMutableArray`: elements are `VastAbstractAd`; ObjC code assigns mutable arrays here.
+    var nextResponse: VastResponse?
+    weak var parentResponse: VastResponse?
+    var noAdsResponseURI: String?
     // TODO: should be readonly
-    @objc public var vastAbstractAds = NSMutableArray()
-    @objc public var version: String?
+    var vastAbstractAds = [VastAbstractAd]()
+    var version: String?
 
-    @objc public override init() {
+    override init() {
         super.init()
     }
 
@@ -42,8 +40,7 @@ import Foundation
     // take the tracking information and add it to the terminating <InLine> tag's creative.
     // If it's of type Companion, then we are to keep the companion in a separate data structure (something we don't currently support)
 
-    @objc(flattenResponseAndReturnError:)
-    public func flattenResponse() throws -> [VastAbstractAd] {
+    func flattenResponse() throws -> [VastAbstractAd] {
         var inlineAdAccumulator = [VastAbstractAd]()
         var nestedError: Error?
 
@@ -127,15 +124,15 @@ import Foundation
         for case let inlineAd as VastInlineAd in inlineAds {
 
             // Walk the creatives on the wrapper
-            for case let wrapperCreative as VastCreativeAbstract in wrapper.creatives {
+            for wrapperCreative in wrapper.creatives {
 
                 // If the inline ad has any "real" creatives of the same type as the "fake" creatives on the wrapper,
                 // copy the "fake" creative's tracking info onto the "real" creative.
-                for case let inlineAdCreative as VastCreativeAbstract in inlineAd.creatives {
+                for inlineAdCreative in inlineAd.creatives {
 
                     if let inlineLinear = inlineAdCreative as? VastCreativeLinear,
                        let wrapperLinear = wrapperCreative as? VastCreativeLinear {
-                        inlineLinear.clickTrackingURIs.addObjects(from: Array(wrapperLinear.clickTrackingURIs))
+                        inlineLinear.clickTrackingURIs.append(contentsOf: Array(wrapperLinear.clickTrackingURIs))
                         inlineLinear.vastTrackingEvents.addTrackingEvents(wrapperLinear.vastTrackingEvents)
                     } else if let inlineNonLinearAds = inlineAdCreative as? VastCreativeNonLinearAds,
                               let wrapperNonLinearAds = wrapperCreative as? VastCreativeNonLinearAds {
@@ -147,8 +144,8 @@ import Foundation
                 }
             }
 
-            inlineAd.impressionURIs.addObjects(from: Array(wrapper.impressionURIs))
-            inlineAd.errorURIs.addObjects(from: Array(wrapper.errorURIs))
+            inlineAd.impressionURIs.append(contentsOf: Array(wrapper.impressionURIs))
+            inlineAd.errorURIs.append(contentsOf: Array(wrapper.errorURIs))
         }
     }
 }

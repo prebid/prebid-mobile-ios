@@ -16,20 +16,20 @@
 import Foundation
 import UIKit
 
-public class RewardedEventHandlerStandalone: NSObject, RewardedEventHandlerProtocol {
+class RewardedEventHandlerStandalone: NSObject, RewardedEventHandlerProtocol {
     
-    public weak var loadingDelegate: InterstitialEventLoadingDelegate?
-    public weak var interactionDelegate: RewardedEventInteractionDelegate?
+    weak var loadingDelegate: InterstitialEventLoadingDelegate?
+    weak var interactionDelegate: RewardedEventInteractionDelegate?
     
-    public var isReady: Bool {
+    var isReady: Bool {
         false
     }
     
-    public func show(from controller: UIViewController?) {
+    func show(from controller: UIViewController?) {
         assertionFailure("should never be called, as PBM SDK always wins")
     }
     
-    public func requestAd(with bidResponse: BidResponse?) {
+    func requestAd(with bidResponse: BidResponse?) {
         loadingDelegate?.prebidDidWin()
     }
 }

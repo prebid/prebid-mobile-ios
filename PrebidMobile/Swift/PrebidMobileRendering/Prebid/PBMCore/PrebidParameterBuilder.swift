@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 
-@objc(PBMPrebidParameterBuilder) @_spi(PBMInternal) public
 class PrebidParameterBuilder: NSObject, ParameterBuilder {
 
     private let adConfiguration: AdUnitConfig
@@ -24,7 +23,7 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
     private let targeting: Targeting
     private let userAgentService: UserAgentService
 
-    @objc public init(
+    init(
         adConfiguration: AdUnitConfig,
         sdkConfiguration: Prebid,
         targeting: Targeting,
@@ -38,7 +37,7 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    public func build(_ bidRequest: ORTBBidRequest) {
+    func build(_ bidRequest: ORTBBidRequest) {
         let adFormats = adConfiguration.adConfiguration.adFormats
         let isHTML = adFormats.contains(.banner)
         let isInterstitial = adConfiguration.adConfiguration.isInterstitialAd

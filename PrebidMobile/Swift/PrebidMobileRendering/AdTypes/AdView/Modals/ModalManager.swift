@@ -17,11 +17,11 @@
 import Foundation
 import UIKit
 
-@objc(PBMModalManager) @_spi(PBMInternal) public
+@objc(PBMModalManager)
 class ModalManager: NSObject, ModalViewControllerDelegate {
     weak var delegate: ModalManagerDelegate?
     
-    @objc public var modalViewController: ModalViewController?
+    var modalViewController: ModalViewController?
     
     //The VC class to use to display modals. Defaults is nil.
     var modalViewControllerClass: ModalViewController.Type?
@@ -30,7 +30,7 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
     
     var isModalDismissing: Bool = false
     
-    @objc public init(delegate: ModalManagerDelegate? = nil) {
+    init(delegate: ModalManagerDelegate? = nil) {
         self.delegate = delegate
     }
     
@@ -43,7 +43,7 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
         }
     }
     
-    @objc public func forceOrientation(_ orientation: UIInterfaceOrientation) {
+    func forceOrientation(_ orientation: UIInterfaceOrientation) {
         //DISCLAIMER: Forcing orientation does not work for iPads
         DispatchQueue.main.async {
             Log.info("Forcing orientation to \(orientation.description)")
@@ -51,7 +51,7 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
         }
     }
     
-    @objc public func pushModal(_ state: ModalState,
+    func pushModal(_ state: ModalState,
                                 fromRootViewController: UIViewController,
                                 animated: Bool,
                                 shouldReplace: Bool,
@@ -132,7 +132,7 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
         }
     }
     
-    @objc public func creativeDisplayCompleted(_ creative: AbstractCreative) {
+    func creativeDisplayCompleted(_ creative: AbstractCreative) {
         modalViewController?.creativeDisplayCompleted(creative)
     }
     
@@ -288,13 +288,13 @@ class ModalManager: NSObject, ModalViewControllerDelegate {
     //TODO: Consider moving to PBMAbstractCreative
     // MARK: PBMModalViewControllerDelegate
     
-    public func modalViewControllerCloseButtonTapped(_ modalViewController: ModalViewController) {
+    func modalViewControllerCloseButtonTapped(_ modalViewController: ModalViewController) {
         if let modalState = modalViewController.modalState {
             removeModal(modalState)
         }
     }
     
-    public func modalViewControllerDidLeaveApp() {
+    func modalViewControllerDidLeaveApp() {
         DispatchQueue.main.async { [weak self] in
             guard let self else {
                 return
