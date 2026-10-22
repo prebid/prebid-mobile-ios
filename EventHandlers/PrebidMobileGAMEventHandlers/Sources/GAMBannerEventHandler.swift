@@ -128,6 +128,14 @@ public class GAMBannerEventHandler :
     }
     
     public func bannerViewDidRecordImpression(_ bannerView: GoogleMobileAds.BannerView) {
+        // Manual impressions are enabled on every request, so GAM counts nothing for its own
+        // winning ad until recordImpression() is called; GMA renders that ad itself, so it never
+        // reaches trackImpression(). GMA still calls this once its ad is on screen, which is when
+        // Google says to record. Not documented for manual impressions: if GMA stops calling it,
+        // GAM wins go uncounted again.
+        if let embeddedBanner = embeddedBanner, embeddedBanner.banner === bannerView {
+            embeddedBanner.recordImpression()
+        }
         interactionDelegate?.didDisplayAd()
     }
 
@@ -206,7 +214,7 @@ public class GAMBannerEventHandler :
             requestBanner = nil
             
             recycleCurrentBanner()
-            adServerDidWin(banner)
+            handleAdServerWin(banner)
         }
     }
     
@@ -237,20 +245,16 @@ public class GAMBannerEventHandler :
         isExpectingAppEvent = false
         appEventTimer = nil
         
-        adServerDidWin(banner)
+        handleAdServerWin(banner)
     }
     
-    func adServerDidWin(_ banner: GAMBannerViewWrapper?) {
+    func handleAdServerWin(_ banner: GAMBannerViewWrapper?) {
         embeddedBanner = banner
         
         if let banner = banner,
            let adSize = dfpAdSize {
             setSizeConstraints(banner.banner, forAdSize: adSize)
             loadingDelegate?.adServerDidWin(banner.banner, adSize: adSize)
-            // Manual impressions are enabled on every request, so GAM counts nothing for its own
-            // winning ad until this is called. GMA renders that ad itself, so it never reaches
-            // trackImpression().
-            banner.recordImpression()
         }
     }
     
