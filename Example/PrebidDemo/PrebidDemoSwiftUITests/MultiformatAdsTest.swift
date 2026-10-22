@@ -28,23 +28,27 @@ class MultiformatAdsTest: BaseAdsTest {
     override func checkAd(testCase: String) {
         if testCase == testCases.gamOriginalMultiformatInAppNativeCase {
             let configIdElement = app.staticTexts.element(matching: .any, identifier: "configIdLabel")
-            XCTAssert(configIdElement.waitForExistence(timeout: 5.0))
+            assertElementExists(
+                configIdElement,
+                testCase: testCase,
+                reason: "Config ID is not displayed"
+            )
             
             let configId = configIdElement.label
             
             if configId.contains("banner") && !configId.contains("native") {
-                XCTAssert(app.webViews.element.waitForExistence(timeout: 10), assertFailedMessage(testCase: testCase, reason: "Banner Web View is not displayed"))
-                XCTAssert(app.staticTexts["Test mode"].waitForExistence(timeout: 10))
+                assertElementExists(app.webViews.element, testCase: testCase, reason: "Banner Web View is not displayed")
+                assertElementExists(app.staticTexts["Test mode"], testCase: testCase, reason: "Test mode is not displayed")
             } else if configId.contains("video") {
-                XCTAssert(app.buttons["Play video"].waitForExistence(timeout: 30), assertFailedMessage(testCase: testCase, reason: "Play video button is not displayed"))
+                assertElementExists(app.buttons["Play video"], testCase: testCase, reason: "Play video button is not displayed")
             } else if configId.contains("native") {
-                XCTAssert(app.staticTexts["Prebid (Title)"].waitForExistence(timeout: 10), assertFailedMessage(testCase: testCase, reason: "Prebid title is not displayed"))
+                assertElementExists(app.staticTexts["Prebid (Title)"], testCase: testCase, reason: "Prebid title is not displayed")
             } else {
                 XCTFail(assertFailedMessage(testCase: testCase, reason: "Undefined ad format. Check config id."))
             }
         } else if testCase == testCases.gamOriginalMultiformatNativeStylesCase {
-            XCTAssert(app.webViews.element.waitForExistence(timeout: 10), assertFailedMessage(testCase: testCase,reason: "Banner Web View is not displayed"))
-            XCTAssert(app.staticTexts["Test mode"].waitForExistence(timeout: 10))
+            assertElementExists(app.webViews.element, testCase: testCase, reason: "Banner Web View is not displayed")
+            assertElementExists(app.staticTexts["Test mode"], testCase: testCase, reason: "Test mode is not displayed")
         }
     }
 }
