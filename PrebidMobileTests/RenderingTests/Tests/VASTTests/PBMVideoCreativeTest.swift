@@ -54,6 +54,8 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
     }
     
     override func tearDown() {
+        // Stop a video that is still playing, so its completion doesn't reach this test's delegate during a later test.
+        videoCreative?.close()
         MockServer.shared.reset()
         logToFile = nil
         super.tearDown()
@@ -588,9 +590,23 @@ class VideoCreativeDelegateTest: XCTestCase, CreativeResolutionDelegate, Creativ
         let model = CreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = videoFileURL
         
-        //Create and start creative
-        self.videoCreative = VideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
-        self.videoCreative.creativeResolutionDelegate = self
-        self.videoCreative.creativeViewDelegate = self
+        // The creative needs the real video data: empty data fails the player item, so the creative is never ready.
+        let downloadCompleted = self.expectation(description: "downloadCompleted")
+        
+        let url = URL(string: videoFileURL)
+        let downloader = DownloadDataHelper(serverConnection: connection)
+        downloader.downloadData(for: url, maxSize: VideoCreative.maxSizeForPreRenderContent, completionClosure: { (data:Data?, error:Error?) in
+            
+            DispatchQueue.main.async {
+                //Create and start creative
+                self.videoCreative = VideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: data!)
+                self.videoCreative.creativeResolutionDelegate = self
+                self.videoCreative.creativeViewDelegate = self
+                
+                downloadCompleted.fulfill()
+            }
+        })
+        
+        wait(for: [downloadCompleted], timeout: 15)
     }
 }

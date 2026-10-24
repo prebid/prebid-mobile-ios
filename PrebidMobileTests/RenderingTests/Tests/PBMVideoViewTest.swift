@@ -24,6 +24,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
     var videoCreative:VideoCreative!
     var expectationDownloadCompleted:XCTestExpectation?
     var expectationCreativeReady:XCTestExpectation?
+    var expectationCreativeFailed:XCTestExpectation?
     var expectationCreativeDidComplete:XCTestExpectation?
     var expectationCreativeWasClicked:XCTestExpectation?
     var expectationClickthroughBrowserClosed:XCTestExpectation?
@@ -44,6 +45,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         self.videoCreative = nil
         self.expectationDownloadCompleted = nil
         self.expectationCreativeReady = nil
+        self.expectationCreativeFailed = nil
         self.expectationCreativeDidComplete = nil
         self.expectationCreativeWasClicked = nil
         self.expectationClickthroughBrowserClosed = nil
@@ -381,6 +383,31 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted == false)
     }
     
+    // The data loads through the resource loader but can't be decoded, so the player item fails
+    // while the AVPlayer itself can still report readyToPlay.
+    func testUndecodableVideoDataFailsCreative() {
+        let model = CreativeModel(adConfiguration: AdConfiguration())
+        model.videoFileURL = "http://get_video/broken.mp4"
+        
+        self.videoCreative = VideoCreative(creativeModel: model,
+                                           transaction: UtilitiesForTesting.createEmptyTransaction(),
+                                           videoData: Data(repeating: 0xAB, count: 4096))
+        self.videoCreative.creativeResolutionDelegate = self
+        self.videoCreative.creativeViewDelegate = self
+        
+        self.expectationCreativeFailed = self.expectation(description: "expectationCreativeFailed")
+        let expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
+        expectationCreativeReady.isInverted = true
+        self.expectationCreativeReady = expectationCreativeReady
+        
+        DispatchQueue.main.async {
+            self.videoCreative?.setupView()
+        }
+        
+        wait(for: [self.expectationCreativeFailed!], timeout: 10)
+        wait(for: [expectationCreativeReady], timeout: 1)
+    }
+    
     func testSetupSkipButton() {
         setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
         guard let videoView = self.videoCreative.videoView else {
@@ -650,7 +677,9 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         self.expectationCreativeReady?.fulfill()
     }
     
-    func creativeFailed(_ error:Error) {}
+    func creativeFailed(_ error:Error) {
+        self.expectationCreativeFailed?.fulfill()
+    }
     
     // MARK: - VideoViewDelegate
     

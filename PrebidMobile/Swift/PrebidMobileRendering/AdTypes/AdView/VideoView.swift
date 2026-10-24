@@ -935,8 +935,10 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
 
-            if let player = self.avPlayer, player.currentItem != nil {
-                switch player.status {
+            // Read the status of the observed item: `AVPlayer.status` doesn't follow it and can
+            // report `readyToPlay` after the item failed to decode its media.
+            if let item = self.avPlayer?.currentItem {
+                switch item.status {
                 case .readyToPlay:
                     Log.info("readyToPlay")
                     self.videoViewDelegate?.videoViewReadyToDisplay()
@@ -945,7 +947,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
                     Log.info("unknown (This is normal at launch)")
 
                 case .failed:
-                    let error: Error = player.currentItem?.error ?? PBMError.error(description: "Unknown Error")
+                    let error: Error = item.error ?? PBMError.error(description: "Unknown Error")
                     self.videoViewDelegate?.videoViewFailedWithError(error)
 
                 @unknown default:
