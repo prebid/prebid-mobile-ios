@@ -131,6 +131,9 @@ class CreativeModelCollectionMakerVAST: NSObject {
         trackingURLs[impressionKey] = vastAd.impressionURIs
         let clickKey = TrackingEventDescription.getDescription(.click)
         trackingURLs[clickKey] = creative.clickTrackingURIs
+        // The ad's Error URIs, followed by those of the Wrappers that led to it (merged by `VastResponse`).
+        let errorKey = TrackingEventDescription.getDescription(.error)
+        trackingURLs[errorKey] = vastAd.errorURIs
 
         creativeModel.trackingURLs = trackingURLs
         creativeModel.clickThroughURL = creative.clickThroughURI

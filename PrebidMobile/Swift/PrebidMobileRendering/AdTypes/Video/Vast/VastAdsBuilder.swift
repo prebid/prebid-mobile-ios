@@ -77,7 +77,7 @@ class VastAdsBuilder: NSObject {
             while let current = parent {
 
                 if let noAdsResponseURI = current.noAdsResponseURI {
-                    serverConnection.fireAndForget(noAdsResponseURI)
+                    serverConnection.fireAndForget(VastErrorCode.noAdAfterWrappers.replacingMacro(in: noAdsResponseURI))
                 }
 
                 // Avoid infinite loop

@@ -248,4 +248,179 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         adConfig.isInterstitialAd = true
         XCTAssertEqual(job.getTimeInterval(), creativeFactoryTimeoutPreRenderContent)
     }
+    
+    // MARK: - VAST Error URIs
+    
+    // One URI with the plain macro, one with the percent-encoded form.
+    private let vastErrorURIs = ["https://example.com/error?code=[ERRORCODE]",
+                                 "https://example.com/wrapper-error/%5BERRORCODE%5D"]
+    
+    private func expectedErrorRequests(_ code: Int) -> [String] {
+        ["https://example.com/error?code=\(code)", "https://example.com/wrapper-error/\(code)"]
+    }
+    
+    // A creative model as `CreativeModelCollectionMakerVAST` makes it for the Linear creative.
+    private func makeVideoModel(connection: PrebidServerConnectionProtocol) -> CreativeModel {
+        let adConfiguration = AdConfiguration()
+        adConfiguration.winningBidAdFormat = .video
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        model.eventTracker = AdModelEventTracker(creativeModel: model, serverConnection: connection)
+        model.videoFileURL = "https://example.com/video.mp4"
+        model.trackingURLs[TrackingEvent.error.description] = vastErrorURIs
+        return model
+    }
+    
+    // Handlers for the two Error URIs. They record the requests and fulfill `expectation` twice.
+    private func errorRequestHandlers(fulfilling expectation: XCTestExpectation,
+                                      into requests: Box<[String]>) -> [MockServerConnection.FireAndForgetHandler] {
+        expectation.expectedFulfillmentCount = 2
+        let handler: MockServerConnection.FireAndForgetHandler = { url in
+            requests.value.append(url)
+            expectation.fulfill()
+        }
+        return [handler, handler]
+    }
+    
+    func testVastErrorURIs_mediaFileDownloadFailed() {
+        let errorRequested = expectation(description: "Error URIs requested")
+        let jobFailed = expectation(description: "Job failed")
+        let requests = Box<[String]>([])
+        
+        let connection = MockServerConnection(
+            onFireAndForget: errorRequestHandlers(fulfilling: errorRequested, into: requests),
+            onHead: [{ _, _, callback in
+                let response = PrebidServerResponse()
+                response.responseHeaders = ["Content-Length": "1024"]
+                callback(response)
+            }],
+            onDownload: [{ _, callback in
+                let response = PrebidServerResponse()
+                response.error = PBMError.error(description: "The media file request failed")
+                callback(response)
+            }])
+        
+        let model = makeVideoModel(connection: connection)
+        let job = CreativeFactoryJob(creativeModel: model,
+                                     transaction: UtilitiesForTesting.createEmptyTransaction(),
+                                     serverConnection: connection) { _, error in
+            XCTAssertEqual(error?.localizedDescription, "The media file request failed")
+            jobFailed.fulfill()
+        }
+        
+        job.state = .running
+        job.attemptVASTCreative()
+        
+        wait(for: [errorRequested, jobFailed], timeout: 5)
+        XCTAssertEqual(requests.value, expectedErrorRequests(401))
+    }
+    
+    // The path of a MediaFile that downloads but cannot be decoded: `VideoView` reports the failed player item.
+    func testVastErrorURIs_playerFailed() {
+        let errorRequested = expectation(description: "Error URIs requested")
+        let jobFailed = expectation(description: "Job failed")
+        let requests = Box<[String]>([])
+        
+        let connection = MockServerConnection(onFireAndForget: errorRequestHandlers(fulfilling: errorRequested, into: requests))
+        let model = makeVideoModel(connection: connection)
+        let transaction = UtilitiesForTesting.createEmptyTransaction()
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection) { _, error in
+            XCTAssertNotNil(error)
+            jobFailed.fulfill()
+        }
+        
+        let videoCreative = VideoCreative(creativeModel: model, transaction: transaction, videoData: Data())
+        videoCreative.creativeResolutionDelegate = job
+        job.creative = videoCreative
+        job.state = .running
+        
+        videoCreative.videoViewFailedWithError(PBMError.error(description: "Cannot Decode"))
+        
+        wait(for: [errorRequested, jobFailed], timeout: 5)
+        XCTAssertEqual(requests.value, expectedErrorRequests(405))
+    }
+    
+    func testVastErrorURIs_timeout() {
+        let errorRequested = expectation(description: "Error URIs requested")
+        let jobFailed = expectation(description: "Job failed")
+        let requests = Box<[String]>([])
+        
+        // The media file request never completes.
+        let connection = MockServerConnection(onFireAndForget: errorRequestHandlers(fulfilling: errorRequested, into: requests),
+                                              onHead: [{ _, _, _ in }])
+        let model = makeVideoModel(connection: connection)
+        let job = CreativeFactoryJob(creativeModel: model,
+                                     transaction: UtilitiesForTesting.createEmptyTransaction(),
+                                     serverConnection: connection) { _, error in
+            XCTAssertEqual(error?.localizedDescription, "SDK internal error: PBMCreativeFactoryJob: Failed to complete in specified time interval")
+            jobFailed.fulfill()
+        }
+        
+        job.start(timeInterval: 0.1)
+        
+        wait(for: [errorRequested, jobFailed], timeout: 5)
+        XCTAssertEqual(requests.value, expectedErrorRequests(304))
+    }
+    
+    // The URIs are requested for the failure the job reports, so once. A failure after the job has finished is not reported.
+    func testVastErrorURIs_requestedOnlyForReportedFailure() {
+        let errorRequested = expectation(description: "Error URIs requested")
+        let jobFailed = expectation(description: "Job failed")
+        let requestedAgain = expectation(description: "Error URIs requested again")
+        requestedAgain.isInverted = true
+        let requests = Box<[String]>([])
+        
+        let connection = MockServerConnection(
+            onFireAndForget: errorRequestHandlers(fulfilling: errorRequested, into: requests) + [{ _ in requestedAgain.fulfill() }])
+        let model = makeVideoModel(connection: connection)
+        let transaction = UtilitiesForTesting.createEmptyTransaction()
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection) { _, _ in
+            jobFailed.fulfill()
+        }
+        
+        let videoCreative = VideoCreative(creativeModel: model, transaction: transaction, videoData: Data())
+        videoCreative.creativeResolutionDelegate = job
+        job.creative = videoCreative
+        job.state = .running
+        
+        job.fail(with: PBMError.error(description: "First failure"), vastErrorCode: .mediaFileNotFound)
+        videoCreative.videoViewFailedWithError(PBMError.error(description: "Second failure"))
+        
+        wait(for: [errorRequested, jobFailed], timeout: 5)
+        wait(for: [requestedAgain], timeout: 0.5)
+        XCTAssertEqual(requests.value, expectedErrorRequests(401))
+    }
+    
+    func testVastErrorURIs_notRequestedAfterSuccess() {
+        let jobSucceeded = expectation(description: "Job succeeded")
+        let errorRequested = expectation(description: "Error URIs requested")
+        errorRequested.isInverted = true
+        
+        let connection = MockServerConnection(onFireAndForget: [{ _ in errorRequested.fulfill() }])
+        let model = makeVideoModel(connection: connection)
+        let transaction = UtilitiesForTesting.createEmptyTransaction()
+        let job = CreativeFactoryJob(creativeModel: model, transaction: transaction, serverConnection: connection) { job, error in
+            XCTAssertNil(error)
+            XCTAssertEqual(job.state, .success)
+            jobSucceeded.fulfill()
+        }
+        
+        let videoCreative = VideoCreative(creativeModel: model, transaction: transaction, videoData: Data())
+        videoCreative.creativeResolutionDelegate = job
+        job.state = .running
+        
+        job.creativeReady(videoCreative)
+        wait(for: [jobSucceeded], timeout: 5)
+        
+        videoCreative.videoViewFailedWithError(PBMError.error(description: "Late failure"))
+        wait(for: [errorRequested], timeout: 0.5)
+    }
+}
+
+// Lets the test read what a handler running on another queue recorded.
+private final class Box<Value> {
+    var value: Value
+    
+    init(_ value: Value) {
+        self.value = value
+    }
 }
