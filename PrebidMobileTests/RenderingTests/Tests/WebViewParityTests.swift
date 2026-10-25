@@ -22,9 +22,34 @@ import WebKit
 /// (`PBMWebView`, `PBMMRAIDController`), over a fixed set of inputs. See `WebViewParityExpectations`.
 class WebViewParityTests: XCTestCase {
 
+    // Each probe replaces window.mraid completely. Keep one page per test case
+    // so the 50 inputs do not repeatedly start and tear down WebKit processes.
+    private var propertyProbeWebView: WebView!
+
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        propertyProbeWebView = WebView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        // Give the probes a loaded document instead of racing JavaScript against
+        // WebKit's initial, implicit about:blank navigation.
+        let loaded = XCTNSPredicateExpectation(
+            predicate: NSPredicate { [weak self] _, _ in self?.propertyProbeWebView?.state == .loaded },
+            object: nil
+        )
+        propertyProbeWebView.loadHTML("<!doctype html><html><body></body></html>", baseURL: nil, injectMraidJs: false)
+        guard XCTWaiter.wait(for: [loaded], timeout: 10) == .completed else {
+            throw NSError(domain: "WebViewParityTests", code: 1,
+                          userInfo: [NSLocalizedDescriptionKey: "The JavaScript probe document did not finish loading"])
+        }
+    }
+
+    override func tearDown() {
+        propertyProbeWebView = nil
+        super.tearDown()
+    }
+
     func testOutputMatchesObjectiveCOriginals() throws {
         let actualLines = WebViewParityDump.dump().split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
-        let expectedLines = WebViewParityExpectations.expected.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
+        let expectedLines = WebViewParityExpectations.expectedForCurrentOS.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
 
         // The resize results depend on the screen size; the expectations were captured on a 402x874 pt screen (iPhone 17 / 17 Pro).
         try XCTSkipUnless(actualLines.first == expectedLines.first, "Parity expectations were captured on a different screen size")
@@ -80,7 +105,7 @@ class WebViewParityTests: XCTestCase {
     // MARK: - Helpers
 
     private func expandProperties(forLiteral literal: String) -> MRAIDExpandProperties? {
-        let webView = WebView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let webView = propertyProbeWebView!
         let setup = expectation(description: "setup")
         webView.internalWebView.evaluateJavaScript("window.mraid = { getExpandProperties: function() { return \(literal); } }; 1;") { _, _ in
             setup.fulfill()
@@ -98,7 +123,7 @@ class WebViewParityTests: XCTestCase {
     }
 
     private func resizeProperties(forLiteral literal: String) -> MRAIDResizeProperties? {
-        let webView = WebView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let webView = propertyProbeWebView!
         let setup = expectation(description: "setup")
         webView.internalWebView.evaluateJavaScript("window.mraid = { getResizeProperties: function() { return \(literal); } }; 1;") { _, _ in
             setup.fulfill()

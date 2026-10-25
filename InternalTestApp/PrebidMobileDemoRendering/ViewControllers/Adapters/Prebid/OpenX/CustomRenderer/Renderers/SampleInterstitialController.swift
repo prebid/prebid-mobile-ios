@@ -54,7 +54,12 @@ class SampleInterstitialController: NSObject, PrebidMobileInterstitialController
     }()
     
     private var topViewController: UIViewController? {
-        var topController = UIApplication.shared.keyWindow?.rootViewController
+        let keyWindow = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .filter { $0.activationState == .foregroundActive }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+        var topController = keyWindow?.rootViewController
         while let presentedController = topController?.presentedViewController {
             topController = presentedController
         }

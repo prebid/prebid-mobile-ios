@@ -14,6 +14,7 @@
   */
 
 import XCTest
+import AVFoundation
 @_spi(PBMInternal) @testable import PrebidMobile
 
 class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, VideoViewDelegate {
@@ -791,4 +792,100 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         return RewardedConfig(ortbRewarded: ortbRewarded)
     }
+}
+
+// Kept separate from the playback class so the PR plan runs these deterministic tests.
+final class VideoViewStatusTests: XCTestCase {
+    // MARK: - Player-item observation
+
+    func testQueuedUnknownAndReadyStatusesNotifyReadinessOnce() {
+        let item = StatusProbePlayerItem(asset: AVMutableComposition())
+        let view = VideoView(eventManager: EventManager())
+        let delegate = StatusProbeVideoDelegate()
+        view.videoViewDelegate = delegate
+        view.avPlayer = StatusProbePlayer(item: item)
+        // These probes call observeValue directly; no native observers were installed.
+        defer { view.avPlayer = nil }
+
+        view.observeValue(forKeyPath: "status", of: item, change: nil, context: nil)
+        item.reportedStatus = .readyToPlay
+        view.observeValue(forKeyPath: "status", of: item, change: nil, context: nil)
+
+        let processed = expectation(description: "Status callbacks processed")
+        DispatchQueue.main.async { processed.fulfill() }
+        wait(for: [processed], timeout: 1)
+
+        XCTAssertEqual(delegate.readyCount, 1)
+        XCTAssertTrue(delegate.errors.isEmpty)
+    }
+
+    func testQueuedUnknownAndFailedStatusesNotifyFailureOnce() {
+        let item = StatusProbePlayerItem(asset: AVMutableComposition())
+        let view = VideoView(eventManager: EventManager())
+        let delegate = StatusProbeVideoDelegate()
+        view.videoViewDelegate = delegate
+        view.avPlayer = StatusProbePlayer(item: item)
+        defer { view.avPlayer = nil }
+
+        view.observeValue(forKeyPath: "status", of: item, change: nil, context: nil)
+        item.reportedError = NSError(domain: "status-probe", code: 27)
+        item.reportedStatus = .failed
+        view.observeValue(forKeyPath: "status", of: item, change: nil, context: nil)
+
+        let processed = expectation(description: "Status callbacks processed")
+        DispatchQueue.main.async { processed.fulfill() }
+        wait(for: [processed], timeout: 1)
+
+        XCTAssertEqual(delegate.readyCount, 0)
+        XCTAssertEqual(delegate.errors.count, 1)
+        XCTAssertEqual(delegate.errors.first as NSError?, item.reportedError)
+    }
+
+    func testStatusNotificationFromReplacedItemIsIgnored() {
+        let currentItem = StatusProbePlayerItem(asset: AVMutableComposition())
+        currentItem.reportedStatus = .readyToPlay
+        let replacedItem = StatusProbePlayerItem(asset: AVMutableComposition())
+        replacedItem.reportedStatus = .failed
+        let view = VideoView(eventManager: EventManager())
+        let delegate = StatusProbeVideoDelegate()
+        view.videoViewDelegate = delegate
+        view.avPlayer = StatusProbePlayer(item: currentItem)
+        defer { view.avPlayer = nil }
+
+        view.observeValue(forKeyPath: "status", of: replacedItem, change: nil, context: nil)
+
+        let processed = expectation(description: "Status callbacks processed")
+        DispatchQueue.main.async { processed.fulfill() }
+        wait(for: [processed], timeout: 1)
+
+        XCTAssertEqual(delegate.readyCount, 0)
+        XCTAssertTrue(delegate.errors.isEmpty)
+    }
+}
+
+private final class StatusProbePlayerItem: AVPlayerItem {
+    var reportedStatus: AVPlayerItem.Status = .unknown
+    var reportedError: NSError?
+    override var status: AVPlayerItem.Status { reportedStatus }
+    override var error: Error? { reportedError }
+}
+
+private final class StatusProbePlayer: AVPlayer {
+    private let item: AVPlayerItem
+    init(item: AVPlayerItem) {
+        self.item = item
+        super.init()
+    }
+    override var currentItem: AVPlayerItem? { item }
+}
+
+private final class StatusProbeVideoDelegate: NSObject, VideoViewDelegate {
+    var readyCount = 0
+    var errors: [Error] = []
+    func videoViewReadyToDisplay() { readyCount += 1 }
+    func videoViewFailedWithError(_ error: Error) { errors.append(error) }
+    func videoViewCompletedDisplay() {}
+    func videoViewWasTapped() {}
+    func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
+    func learnMoreWasClicked() {}
 }
