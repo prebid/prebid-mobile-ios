@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 
-import SVProgressHUD
 
 // AdapterViewController is designed to be a generic and agnostic VC for the displaying of a third party SDK's Banner or Interstitial.
 // It has a UIView to display banners inside of as well as a show button to display interstitials with.
@@ -50,6 +49,8 @@ class AdapterViewController: UIViewController, ConfigurableViewController {
     @IBOutlet var showButton: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
+    private let hud = UIActivityIndicatorView(style: .large)
+
     var adapter: AdaptedController?
     
     private var loadAdClosure: (() -> Void)?
@@ -70,6 +71,18 @@ class AdapterViewController: UIViewController, ConfigurableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hud.backgroundColor = UIColor.secondarySystemBackground.withAlphaComponent(0.9)
+        hud.layer.cornerRadius = 12
+        hud.hidesWhenStopped = true
+        hud.isUserInteractionEnabled = false
+        hud.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hud)
+        NSLayoutConstraint.activate([
+            hud.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            hud.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            hud.widthAnchor.constraint(equalToConstant: 80),
+            hud.heightAnchor.constraint(equalToConstant: 80)
+        ])
         activityIndicator.isHidden = true
         activityIndicator.hidesWhenStopped = true
         actionsView.backgroundColor = .white
@@ -91,14 +104,12 @@ class AdapterViewController: UIViewController, ConfigurableViewController {
         }
         
         if (UserDefaults.standard.bool(forKey: AppSettingsKeys.showHUD)) {
-            SVProgressHUD.show()
+            hud.startAnimating()
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        if (UserDefaults.standard.bool(forKey: AppSettingsKeys.showHUD)) {
-            SVProgressHUD.dismiss()
-        }
+        hud.stopAnimating()
         
         self.postActionClosure?()
         

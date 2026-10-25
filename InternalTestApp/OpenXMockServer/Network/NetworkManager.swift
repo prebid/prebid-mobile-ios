@@ -13,17 +13,22 @@
  limitations under the License.
  */
 
-import Alamofire
-import RxSwift
+import Combine
+import Foundation
+
+internal enum HTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
+}
 
 internal protocol NetworkManager {
-    func makeRequestWithParsing<ResultType: Decodable>(method: Alamofire.HTTPMethod, endpoint: ApiEndpoint,
-                                                       parameters: [String: Any], headers: [String: String]) -> Observable<ResultType>
+    func makeRequestWithParsing<ResultType: Decodable>(method: HTTPMethod, endpoint: ApiEndpoint,
+                                                       parameters: [String: Any], headers: [String: String]) -> AnyPublisher<ResultType, Error>
 }
 
 extension NetworkManager {
-    func makeRequestWithParsing<ResultType: Decodable>(method: Alamofire.HTTPMethod, endpoint: ApiEndpoint,
-                                                       parameters: [String: Any] = [:]) -> Observable<ResultType> {
-        return makeRequestWithParsing(method: method, endpoint: endpoint, parameters: parameters, headers: [:])
+    func makeRequestWithParsing<ResultType: Decodable>(method: HTTPMethod, endpoint: ApiEndpoint,
+                                                       parameters: [String: Any] = [:]) -> AnyPublisher<ResultType, Error> {
+        makeRequestWithParsing(method: method, endpoint: endpoint, parameters: parameters, headers: [:])
     }
 }

@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-import Alamofire
+import Foundation
 
 internal struct ApiEndpoint {
     static let host = "10.0.2.2"
@@ -59,8 +59,8 @@ extension ApiEndpoint {
     }
 }
 
-extension ApiEndpoint: URLConvertible {
-    func asURL() throws -> URL {
+extension ApiEndpoint {
+    var url: URL {
         var components = URLComponents()
         components.scheme = ApiEndpoint.scheme
         components.host = ApiEndpoint.host

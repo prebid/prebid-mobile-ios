@@ -1,4 +1,4 @@
-/*   Copyright 2018-2023 Prebid.org, Inc.
+/*   Copyright 2018-2021 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,83 +13,30 @@
  limitations under the License.
  */
 
-import Foundation
-import Eureka
+import UIKit
 
 class PrebidMultiformatConfigurationController: BaseConfigurationController {
-    
     private(set) var includeBanner = true
     private(set) var includeVideo = true
     private(set) var includeNative = true
-    
     private var loadButton: UIButton?
-    
-    override var loadSection: Section {
-        return Section(header: "Ad Formats", footer: nil) { section in
-            var footer = HeaderFooterView<UIButton>(.class)
-            footer.height = {44}
-            footer.onSetupView = { [weak self] button, _ in
-                guard let self = self else { return }
-                button.setTitle("Load the Ad", for: .normal)
-                button.setTitleColor(.systemBlue, for: .normal)
-                button.setTitleColor(.systemGray, for: .disabled)
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-                button.addTarget(self, action: #selector(self.onLoad(_:)), for: .touchUpInside)
-                button.accessibilityIdentifier = "load_ad"
-                
-                self.loadButton = button
-            }
-            
-            section.footer = footer
-        }
-        <<< includeBannerCheck
-        <<< includeVideoCheck
-        <<< includeNativeCheck
+
+    override var loadSection: FormSection {
+        let button = makeLoadButton()
+        loadButton = button
+        let banner = checkRow("Banner") { [weak self] in self?.includeBanner = $0 }
+        let video = checkRow("Video") { [weak self] in self?.includeVideo = $0 }
+        let native = checkRow("Native") { [weak self] in self?.includeNative = $0 }
+        return FormSection("Ad Formats", rows: [banner, video, native], footer: button)
     }
-    
-    var includeBannerCheck: CheckRow {
-        return CheckRow() { row in
-            row.title = "Banner"
-            row.value = true
-            row.onChange { [weak self] row in
-                guard let self = self else { return }
-                
-                self.includeBanner = row.value!
-                
-                self.loadButton?.isEnabled = self.canLoadAd()
-            }
+
+    private func checkRow(_ title: String, onChange: @escaping (Bool) -> Void) -> FormRow {
+        let row = FormRow(title, kind: .checkmark, isOn: true)
+        row.onToggle = { [weak self] value in
+            onChange(value)
+            guard let self = self else { return }
+            self.loadButton?.isEnabled = [self.includeBanner, self.includeVideo, self.includeNative].filter { $0 }.count >= 2
         }
-    }
-    
-    var includeVideoCheck: CheckRow {
-        return CheckRow() { row in
-            row.title = "Video"
-            row.value = true
-            row.onChange { [weak self] row in
-                guard let self = self else { return }
-                
-                self.includeVideo = row.value!
-                
-                self.loadButton?.isEnabled = self.canLoadAd()
-            }
-        }
-    }
-    
-    var includeNativeCheck: CheckRow {
-        return CheckRow() { row in
-            row.title = "Native"
-            row.value = true
-            row.onChange { [weak self] row in
-                guard let self = self else { return }
-                
-                self.includeNative = row.value!
-                
-                self.loadButton?.isEnabled = self.canLoadAd()
-            }
-        }
-    }
-    
-    private func canLoadAd() -> Bool {
-        return (includeBanner && includeVideo) || (includeBanner && includeNative) || (includeVideo && includeNative)
+        return row
     }
 }
