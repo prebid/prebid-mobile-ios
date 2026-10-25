@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'PrebidMobile/**'
+      - 'PrebidMobile.xcodeproj/**'
+      - 'tools/TestUtils/**'
       - 'EventHandlers/**'
       - 'scripts/**'
       - 'PrebidMobileTests/**'

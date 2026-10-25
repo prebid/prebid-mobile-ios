@@ -29,14 +29,26 @@ for scheme in PrebidDemoObjectiveC InternalTestApp-Skadn; do
         CODE_SIGNING_ALLOWED=NO
 done
 
-# Published Prebid packages have the same product names as the local framework
-# targets. Keep their build products separate to avoid replacing local binaries.
+# Exercise the same derived-data directory for native and published-package
+# builds, as Xcode does interactively. Project settings must keep their products
+# separate; a script-only derived-data override would hide a GUI build failure.
 xcodebuild build \
     -workspace PrebidMobile.xcworkspace \
     -scheme PrebidDemoSPM \
     -sdk iphonesimulator \
     -destination 'generic/platform=iOS Simulator' \
-    -derivedDataPath "$PWD/.build/spm-demo" \
+    -derivedDataPath "$PWD/.build/development-apps" \
+    -clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
+    -disableAutomaticPackageResolution \
+    CODE_SIGNING_ALLOWED=NO
+
+# Rebuild the native app after the SPM demo to catch overwritten modules/binaries.
+xcodebuild build \
+    -workspace PrebidMobile.xcworkspace \
+    -scheme InternalTestApp \
+    -sdk iphonesimulator \
+    -destination 'generic/platform=iOS Simulator' \
+    -derivedDataPath "$PWD/.build/development-apps" \
     -clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
     -disableAutomaticPackageResolution \
     CODE_SIGNING_ALLOWED=NO
