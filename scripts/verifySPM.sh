@@ -29,7 +29,13 @@ if [[ -z "$VERSION" ]]; then
 fi
 
 WORKDIR="$(mktemp -d)"
-trap 'rm -rf "$WORKDIR"' EXIT
+RESOLVED="PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved"
+cp "$RESOLVED" "$WORKDIR/Package.resolved"
+cleanup() {
+  cp "$WORKDIR/Package.resolved" "$RESOLVED"
+  rm -rf "$WORKDIR"
+}
+trap cleanup EXIT
 
 CORE="$WORKDIR/core"
 ADAPTERS="$WORKDIR/adapters"
@@ -64,7 +70,6 @@ export GIT_CONFIG_VALUE_1="$ADAPTERS_URL"
 
 # Pins or package checkouts left over from an earlier build would be reused
 # instead of the local clones, so resolve from scratch.
-RESOLVED="PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved"
 rm -f "$RESOLVED"
 
 ./scripts/buildPrebidSPM.sh \

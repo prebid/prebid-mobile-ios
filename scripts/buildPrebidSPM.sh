@@ -11,6 +11,7 @@ xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDevice
 # Any arguments are passed on to xcodebuild.
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
+    -derivedDataPath "$PWD/.build/spm-demo" \
     -scheme PrebidDemoSPM \
     -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
     "$@"

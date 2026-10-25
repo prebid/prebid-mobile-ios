@@ -13,58 +13,38 @@
  limitations under the License.
  */
 
-import Foundation
-import Eureka
+import UIKit
 
 protocol PrebidConfigurableBannerController: PrebidConfigurableController {
     var refreshInterval: TimeInterval { get set }
 }
 
 class PrebidBannerConfigurationController: BaseConfigurationController {
-    
     var refreshInterval: TimeInterval = 0
-    
+
     override func setupView() {
-        guard let bannerController = self.controller as? PrebidConfigurableBannerController else {
-            assertionFailure()
-            return
-        }
-        
         super.setupView()
-        
-        refreshInterval = bannerController.refreshInterval
+        refreshInterval = (controller as? PrebidConfigurableBannerController)?.refreshInterval ?? 0
     }
-    
-    override var loadSection: Section {
-        super.loadSection
-            <<< rowAutoRefreshDelay
+
+    override var loadSection: FormSection {
+        let section = super.loadSection
+        section.rows.append(rowAutoRefreshDelay)
+        return section
     }
-    
+
     override func onConfigurationFinished() {
-        guard let bannerController = self.controller as? PrebidConfigurableBannerController else {
-            assertionFailure()
-            return
-        }
         super.onConfigurationFinished()
-        
-        bannerController.refreshInterval = refreshInterval
+        (controller as? PrebidConfigurableBannerController)?.refreshInterval = refreshInterval
     }
-    
-    lazy var rowAutoRefreshDelay = TextRow("refresh_interval") { row in
-        row.title = "Refresh Interval"
-        row.value = "\(refreshInterval)"
-    }
-    .cellSetup { cell, row in
-        cell.accessibilityIdentifier = "refreshInterval"
-        cell.textField.isAccessibilityElement = true
-        cell.textField.accessibilityIdentifier = "refreshInterval_field"
-    }
-    .onChange { row in
-        // Clearing the text field resets auto refresh delay to it's the configured default.
-        if let autoRefreshDelayText = row.value.pbm_trimCharactersToNil() {
-            self.refreshInterval = TimeInterval(autoRefreshDelayText) ?? 0
-        } else {
-            self.refreshInterval = 0
+
+    var rowAutoRefreshDelay: FormRow {
+        let row = FormRow("Refresh Interval", kind: .text, value: "\(refreshInterval)")
+        row.identifier = "refreshInterval"
+        row.controlIdentifier = "refreshInterval_field"
+        row.onTextChange = { [weak self] in
+            self?.refreshInterval = TimeInterval($0.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0
         }
+        return row
     }
 }

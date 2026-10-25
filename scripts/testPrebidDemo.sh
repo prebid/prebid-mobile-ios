@@ -1,6 +1,6 @@
-if [ -d "scripts" ]; then
-cd scripts/
-fi
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")/.."
 
 # Set bash script to exit immediately if any commands fail.
 set -e
@@ -11,20 +11,12 @@ NC='\033[0m' # No Color
 echo -e "\n\n${GREEN}RUN PREBID DEMO TESTS${NC}\n\n"
 
 echo -e "\n${GREEN}Creating simulator${NC} \n"
-xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
+xcrun simctl delete iPhone-17-Pro-PrebidMobile 2>/dev/null || true
+SIMULATOR_ID="$(xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro ${PREBID_TEST_RUNTIME:+"$PREBID_TEST_RUNTIME"})"
 
-cd ..
 echo $PWD
 
-if ! command -v pod >/dev/null 2>&1; then
-    echo "CocoaPods is required but 'pod' was not found on PATH." >&2
-    echo "GitHub Actions 'macos-26' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
-    exit 1
-fi
-
-pod deintegrate
-pod install --repo-update
-pod update
+./scripts/resolveDependencies.sh
 
 if [ "$1" == "-ui" ]; then
     echo -e "\n${GREEN}Running UI tests${NC} \n"
@@ -40,10 +32,13 @@ echo -e "\n\n${GREEN}Building ${SCHEME} for testing${NC}\n\n"
 
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
+    -derivedDataPath "$PWD/.build/demo-tests" \
+    -clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
+    -disableAutomaticPackageResolution \
     -scheme $SCHEME \
     -sdk iphonesimulator \
     -configuration Debug \
-    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
+    -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
     -destination-timeout 60 \
     build-for-testing
 
@@ -54,9 +49,12 @@ echo -e "\n\n${GREEN}Testing ${SCHEME}${NC}\n\n"
 TEST_STATUS=0
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
+    -derivedDataPath "$PWD/.build/demo-tests" \
+    -clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
+    -disableAutomaticPackageResolution \
     -scheme $SCHEME \
     -sdk iphonesimulator \
-    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
+    -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
     -destination-timeout 60 \
     -test-iterations 2 \
     -retry-tests-on-failure \

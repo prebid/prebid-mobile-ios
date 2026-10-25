@@ -8,15 +8,12 @@
       location = "group:Example/PrebidDemo/PrebidDemo.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Pods/../EventHandlers/EventHandlers.xcodeproj">
+      location = "group:EventHandlers/EventHandlers.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:InternalTestApp/InternalTestApp.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:tools/TestUtils/TestUtils.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
