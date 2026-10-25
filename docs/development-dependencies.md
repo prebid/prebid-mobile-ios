@@ -144,20 +144,11 @@ runtime matching the CI configuration:
 - Shell syntax, workflow YAML, exact package requirements, matching vendor
   lockfiles, and removal of CocoaPods project integration were checked.
 
-The iOS 27 run exposed two compatibility issues outside this dependency change:
-
-- The core PR plan passed 1,019 of 1,020 tests. `WebViewParityTests.testOutputMatchesObjectiveCOriginals`
-  expects an invalid URL percent escape to remain `%E0%A4%A`; Foundation on iOS 27
-  normalizes it to `%E0%A4%25A`, changing the captured parity output. Playback and
-  JavaScript setup timeouts passed on the built-in retries.
-- InternalTestApp cannot launch on iOS 27 when built with the iOS 27 SDK because
-  UIKit now requires scene lifecycle adoption. The crash report identifies
-  `_UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption`. The same app and
-  all 10 support tests pass on iOS 26.5, which emits a future-adoption warning.
-
-No SDK behavior, parity expectations, or app lifecycle code was changed to conceal
-these differences. The published podspecs and published package manifests were not
-modified.
+The initial iOS 27 run exposed a Foundation parity difference and the internal
+app's missing scene lifecycle. Both are addressed in the
+[iOS 27 follow-up](migration/pr-phase-7-ios-27.md), along with the video status
+callback race found during verification. The published podspecs and published
+package manifests were not modified.
 
 ### Follow-up: native builds from Xcode
 
