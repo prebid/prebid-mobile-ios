@@ -815,17 +815,6 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		530E720D292F8D880025B44D /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				53992910292668520078053C /* PrebidMobileGAMEventHandlers.framework */,
-				5399290B2926682F0078053C /* PrebidMobile.framework */,
-				5399290F292668520078053C /* PrebidMobileAdMobAdapters.framework */,
-				53992911292668520078053C /* PrebidMobileMAXAdapters.framework */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		533E0FC029111B46000CC24F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1232,6 +1221,10 @@
 				92F438C52768982700FDC950 /* PrebidMobileAdMobAdapters.framework */,
 				5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */,
 				5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */,
+				53992910292668520078053C /* PrebidMobileGAMEventHandlers.framework */,
+				5399290B2926682F0078053C /* PrebidMobile.framework */,
+				5399290F292668520078053C /* PrebidMobileAdMobAdapters.framework */,
+				53992911292668520078053C /* PrebidMobileMAXAdapters.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1277,7 +1270,6 @@
 				C3781472292FE9FD00870845 /* PrebidDemoSwiftUITests */,
 				FA12E45C231E9C5900CAA05B /* Products */,
 				99D7F73A394177471348CDD1 /* Frameworks */,
-				530E720D292F8D880025B44D /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};

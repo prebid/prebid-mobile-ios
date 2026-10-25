@@ -1728,13 +1728,6 @@
 			path = CacheManagement;
 			sourceTree = "<group>";
 		};
-		53CDA4832D11AEE3004766F8 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		53CDA48C2D11AFD5004766F8 /* MediationAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2565,8 +2558,6 @@
 				FAEE4D8C262DC8CD00AD9966 /* PrebidMobileTests */,
 				60D792F3217E229A0080F428 /* Products */,
 				6062B19A218243FA00CE1BA3 /* Frameworks */,
-				EE09B07119B6562CC4356195 /* Pods */,
-				53CDA4832D11AEE3004766F8 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3037,13 +3028,6 @@
 			);
 			name = Request;
 			path = Request;
-			sourceTree = "<group>";
-		};
-		EE09B07119B6562CC4356195 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		FA5AD5E02271F99D00C8F274 /* UnitTests */ = {
