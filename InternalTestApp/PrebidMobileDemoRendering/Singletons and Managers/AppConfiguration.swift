@@ -14,7 +14,6 @@
  */
 
 import UIKit
-import RxSwift
 import PrebidMobile
 
 final class AppConfiguration: NSObject {

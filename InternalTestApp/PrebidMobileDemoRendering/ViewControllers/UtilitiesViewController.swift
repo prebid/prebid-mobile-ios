@@ -15,67 +15,34 @@
 
 import AppTrackingTransparency
 import UIKit
-import Eureka
 
-import PrebidMobile
-
-class UtilitiesViewController: FormViewController {
-    
+class UtilitiesViewController: FormTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Utilities"
-        buildForm()
-    }
-    
-    private func buildForm() {
-        form
-            +++ Section()
-            <<< makeActionRow(title: "PrebidMobile Configuration", action: { AboutViewController() }) {
-                $0.accessoryType = .detailDisclosureButton
-            }
-            <<< makeActionRow(title: "IAB Consent Settings", action: { IABConsentViewController() })
-            <<< makeActionRow(title: "Command Line Args", action: { CommandArgsViewController() })
-            <<< makeActionRow(title: "App Settings", action: { SettingsViewController() })
-        
-        if #available(iOS 14, *) {
-            form.last! <<< attRequestButton
-        }
-    }
-    
-    private func makeActionRow(title: String,
-                               action: @escaping ()->UIViewController?,
-                               extraCellSetup: ((Cell<String>)->())? = nil) -> BaseRow
-    {
-        return LabelRow() { row in
-            row.title = title
-        }
-        .cellSetup { cell, row in
-            cell.accessoryType = .disclosureIndicator
-            extraCellSetup?(cell)
-        }
-        .onCellSelection { [weak self] cell, row in
-            if let vc = action(), let navigator = self?.navigationController {
-                navigator.pushViewController(vc, animated: true)
-            }
-        }
-    }
-    
-    
-    lazy var attRequestButton = ButtonRow() {
-        $0.title = "Request Tracking Authorization"
-    }
-    .onCellSelection { [weak self] cell, row in
-        if #available(iOS 14, *) {
+        let rows = [
+            navigationRow("PrebidMobile Configuration") { AboutViewController() },
+            navigationRow("IAB Consent Settings") { IABConsentViewController() },
+            navigationRow("Command Line Args") { CommandArgsViewController() },
+            navigationRow("App Settings") { SettingsViewController() }
+        ]
+        let tracking = FormRow("Request Tracking Authorization", kind: .action)
+        tracking.onSelect = { [weak self] in
             ATTrackingManager.requestTrackingAuthorization { [weak self] status in
-                var dialogMessage = UIAlertController(title: "AT Tracking",
-                                                      message: "Authorization status: \(status.rawValue)",
-                                                      preferredStyle: .alert)
-                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                dialogMessage.addAction(ok)
                 DispatchQueue.main.async { [weak self] in
-                    self?.present(dialogMessage, animated: true, completion: nil)
+                    let dialog = UIAlertController(title: "AT Tracking", message: "Authorization status: \(status.rawValue)", preferredStyle: .alert)
+                    dialog.addAction(UIAlertAction(title: "OK", style: .default))
+                    self?.present(dialog, animated: true)
                 }
             }
         }
+        sections = [FormSection(rows: rows + [tracking])]
+    }
+
+    private func navigationRow(_ title: String, destination: @escaping () -> UIViewController) -> FormRow {
+        let row = FormRow(title, kind: .action)
+        row.accessoryType = .disclosureIndicator
+        row.onSelect = { [weak self] in self?.navigationController?.pushViewController(destination(), animated: true) }
+        return row
     }
 }
