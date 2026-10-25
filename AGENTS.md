@@ -100,6 +100,11 @@ update a dependency, change its exact requirement in the projects (and root `Pac
 where applicable), resolve without the frozen-lockfile option, and commit the resulting
 lockfiles. See `docs/development-dependencies.md` for the commands.
 
+Normal native project builds are separated under `$(BUILD_DIR)/LocalPrebid/` by
+project build settings; archive/install actions retain Xcode's standard paths. Keep that separation when changing build paths: the SPM demo's
+published Prebid products share the native framework names and must not overwrite
+the local modules or binaries, including when building directly from Xcode.
+
 ```bash
 ./scripts/verifyDevelopmentApps.sh # compile demo, internal, Skadn, and test/UI-test targets
 ```

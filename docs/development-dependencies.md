@@ -52,8 +52,25 @@ GAM/AdMob frameworks and their unit tests depend on GoogleMobileAds. MAX framewo
 and tests depend on AppLovinSDK. Both native demo apps, the SPM demo, and both
 InternalTestApp variants depend on all three vendor SDKs. Unit tests that import
 GoogleMobileAds link that product explicitly. UI tests obtain their dependencies
-through the tested app. The SPM demo uses a separate derived-data directory because its
-published Prebid products have the same names as local framework targets. OpenXMockServer and its tests use only system frameworks.
+through the tested app. OpenXMockServer and its tests use only system frameworks.
+
+Normal builds of the local framework and app targets use
+`$(BUILD_DIR)/LocalPrebid/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)` for their products.
+The SPM demo and its published packages retain Xcode's default product directory.
+Both copies of PrebidMobile have the same module/framework names, so sharing the
+same product directory can mix published Swift modules with local binaries and
+fail adapter linking with undefined `PrebidMobile.*.unsafeMutableAddressor` symbols.
+The separation is set in all five native projects, including TestUtils, so it also
+applies to builds started directly from Xcode. PrebidDemoSPM overrides the native
+project default to keep its package products separate.
+
+`verifyDevelopmentApps.sh` deliberately builds both kinds of targets in one
+derived-data directory and rebuilds InternalTestApp after the SPM demo. This checks
+that building the published packages cannot overwrite the native products. The
+standalone `buildPrebidSPM.sh` continues to use its own derived-data directory.
+Archive/install builds already use per-scheme directories. They keep Xcode's standard
+product paths (`DEPLOYMENT_LOCATION=YES`), avoiding duplicate vendor XCFramework
+signature copies when Xcode collects the archive's `Signatures` directory.
 
 Google's SPM binary is a static archive. App and test targets disable Xcode's
 package diamond diagnostic/automatic dynamic replacement to retain the previous
@@ -141,3 +158,26 @@ The iOS 27 run exposed two compatibility issues outside this dependency change:
 No SDK behavior, parity expectations, or app lifecycle code was changed to conceal
 these differences. The published podspecs and published package manifests were not
 modified.
+
+### Follow-up: native builds from Xcode
+
+Reproduced the adapter undefined-symbol failure in a regular InternalTestApp build
+using Xcode's default DerivedData location. Giving only the command-line SPM demo a
+separate derived-data directory did not protect builds started from Xcode itself.
+The native project product paths now provide that separation for all build entry
+points, while archive/install actions retain the standard per-scheme paths.
+
+Verified after the project-setting change:
+
+- The default-location InternalTestApp build succeeds, including both simulator
+  architectures. Building PrebidDemoSPM and then InternalTestApp in the same default
+  DerivedData directory also succeeds.
+- All seven steps in `verifyDevelopmentApps.sh` succeed, including the final native
+  rebuild after the SPM demo in the same derived-data directory.
+- The core test bundle builds with TestUtils in the native product directory; all
+  41 TargetingTests pass on iOS 26.5.
+- All 10 development-support tests pass on iOS 26.5.
+- All four device/simulator XCFrameworks archive and package successfully, and all
+  24 Swift interfaces pass the standalone check. Archive actions use the standard
+  product paths to prevent duplicate vendor signature copies in the archive's
+  `Signatures` directory.
