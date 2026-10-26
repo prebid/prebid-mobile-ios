@@ -12,14 +12,14 @@ Build all Prebid Mobile XCFrameworks for distribution. Run from the repo root:
 ## What it does
 
 1. Deletes any previous `generated/` directory.
-2. Runs `pod install --repo-update` (CocoaPods is pre-installed on GHA macos-26).
+2. Runs `scripts/resolveDependencies.sh` to fetch the committed SwiftPM versions into `.swiftpm-cache/`.
 3. For each of four frameworks — `PrebidMobile`, `PrebidMobileGAMEventHandlers`,
    `PrebidMobileAdMobAdapters`, `PrebidMobileMAXAdapters` — it:
    - Archives for device (`iphoneos`, arm64) using scheme `Lib-<name>`
    - Archives for simulator (`iphonesimulator`, arm64 + x86_64) using scheme `Lib-<name>`
    - Bundles both archives + dSYMs into `generated/output/XC<name>.xcframework`
 4. Runs `scripts/verifyXCFrameworkInterfaces.sh`, which typechecks every `.swiftinterface`
-   in `generated/output/` with an empty module cache, the way a consumer's compiler
+   in `generated/output/` with an empty module cache and dependencies from `.swiftpm-cache/artifacts/`, the way a consumer's compiler
    rebuilds the module. `xcodebuild` passes `-no-verify-emitted-module-interface`, so an
    interface that doesn't compile still archives cleanly; this step fails the build instead.
 5. Prints the output path when done.
@@ -54,6 +54,13 @@ scripts, in this order:
 ./scripts/publishSPM.sh     # commit, push and tag that checkout
 ./scripts/buildPrebidSPM.sh # build the SPM demo against the published packages
 ```
+
+The consumer lives in `Example/PrebidDemo/PrebidDemoSPM.xcodeproj`, outside the native
+workspace. `buildPrebidSPM.sh` uses `.build/spm-demo/` and `.swiftpm-spm-demo-cache/`.
+`verifySPM.sh` instead creates a temporary workspace referencing that project, with
+its own pins, package cache, and DerivedData. It never edits normal lockfiles.
+PR checks also run this candidate verification, so a vendor-major update can be
+validated before publishing the new adapters.
 
 `verifySPM.sh` is meant for CI runners. SwiftPM records the local commit of each version
 in its fingerprint store (`~/.swiftpm/security/fingerprints`) and then refuses that

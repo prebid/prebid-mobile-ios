@@ -14,7 +14,6 @@
  */
 
 import UIKit
-import RxSwift
 
 class TestCasesSectionsViewController: UIViewController {
 
@@ -29,7 +28,6 @@ class TestCasesSectionsViewController: UIViewController {
     private var sections: [TestCaseTag] = []
     private var integrations: [TestCaseTag] = []
     private var connections: [TestCaseTag] = []
-    private let disposeBag = DisposeBag()
     
     //This callback is called when the selection changes on either UISegmentedControl.
     //The collection of TestCaseTags that are now visible is passed.

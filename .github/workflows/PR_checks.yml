@@ -4,11 +4,16 @@ on:
   pull_request:
     paths:
       - 'PrebidMobile/**'
+      - 'PrebidMobile.xcodeproj/**'
+      - 'tools/TestUtils/**'
       - 'EventHandlers/**'
       - 'scripts/**'
       - 'PrebidMobileTests/**'
-      - 'Podfile'
-      - 'Podfile.lock'
+      - 'Package.swift'
+      - 'Package.resolved'
+      - 'PrebidMobile.xcworkspace/**'
+      - 'Example/PrebidDemo/**'
+      - 'InternalTestApp/**'
       - '.github/workflows/**'
     types: [opened, reopened, synchronize, ready_for_review, labeled]
 
@@ -28,6 +33,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: .swiftpm-cache
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -57,6 +67,41 @@ jobs:
       - name: Build SPM Package
         run: ./scripts/buildPrebidMobilePackage.sh
 
+  verify-spm-demo:
+    name: Verify SPM Consumer Demo
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Build consumer against candidate packages
+        run: ./scripts/verifySPM.sh
+
+  build-development-apps:
+    name: Build Demo and Internal Apps
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: .swiftpm-cache
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
+      - name: Compile apps and test targets
+        run: ./scripts/verifyDevelopmentApps.sh
+      - name: Test development support code
+        run: ./scripts/testDevelopmentSupport.sh
+
   unit-test-pr:
     name: Run Quick Unit Tests for Frameworks
     if: ${{!github.event.pull_request.draft && !(contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
@@ -65,6 +110,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: .swiftpm-cache
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -80,6 +130,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: .swiftpm-cache
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -95,6 +150,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: .swiftpm-cache
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -105,6 +165,8 @@ jobs:
           filters: |
             adapters:
               - 'EventHandlers/**'
+              - 'PrebidMobile.xcworkspace/**'
+              - 'scripts/**'
       - name: Run Quick Unit Tests for Frameworks
         env:
           ADAPTERS_CHANGED: ${{ steps.changes.outputs.adapters }}
@@ -122,6 +184,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: .swiftpm-cache
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -135,6 +202,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: actions/cache@v4
+        with:
+          path: .swiftpm-cache
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 

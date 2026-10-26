@@ -15,17 +15,19 @@
 
 import UIKit
 import WebKit
+import XCTest
 
 @testable import PrebidMobile
 
-class SetupTests: NSObject {
+class SetupTests: NSObject, XCTestObservation {
 
     private static var warmUpWebView: WKWebView?
 
     override init() {
+        super.init()
         MockServer.shared.connectionIDHeaderKey = PrebidServerConnection.internalIDKey
         SetupTests.seedUserAgent()
-        SetupTests.warmUpWebKit()
+        XCTestObservationCenter.shared.addTestObserver(self)
     }
 
     /// `UserAgentService` resolves the user agent through a `WKWebView`, and `PBMBidRequester`
@@ -44,17 +46,43 @@ class SetupTests: NSObject {
             + " like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148"
     }
 
-    /// Seeding the user agent above removes the side effect that used to start WebKit's helper
-    /// processes at bundle load. Suites that genuinely need a `WKWebView` (`UserAgentServiceTest`,
-    /// the MRAID/HTML creative tests) wait on those launches with short timeouts, so kick them off
-    /// here — fire and forget — to keep the warm-up head start.
-    private static func warmUpWebKit() {
-        DispatchQueue.main.async {
+    /// Cold simulator helper processes can take longer than an individual test's deadline.
+    /// Finish startup before running tests, and retain the page until the bundle finishes so
+    /// WebKit does not shut down between suites. A startup failure is logged, not fatal: a crash
+    /// here ends the run before any test reports, and `-retry-tests-on-failure` cannot restart it.
+    /// Tests that need WebKit still fail on their own deadlines and are retried individually.
+    func testBundleWillStart(_ testBundle: Bundle) {
+        let ready = XCTestExpectation(description: "WebKit helper processes ready")
+        var startupError: Error?
+        let start = {
             let webView = WKWebView()
-            warmUpWebView = webView
-            webView.evaluateJavaScript("navigator.userAgent") { _, _ in
-                warmUpWebView = nil
+            Self.warmUpWebView = webView
+            webView.evaluateJavaScript("navigator.userAgent") { result, error in
+                startupError = error
+                if error == nil, (result as? String)?.isEmpty != false {
+                    startupError = NSError(domain: "SetupTests", code: 1,
+                                           userInfo: [NSLocalizedDescriptionKey: "WebKit returned no user agent"])
+                }
+                ready.fulfill()
             }
         }
+        if Thread.isMainThread {
+            start()
+        } else {
+            DispatchQueue.main.async(execute: start)
+        }
+        // This is the simulator startup budget; individual test deadlines remain unchanged.
+        let startupBudget: TimeInterval = 180
+        let result = XCTWaiter.wait(for: [ready], timeout: startupBudget)
+        if result != .completed {
+            print("⚠️ WebKit startup did not finish within \(Int(startupBudget)) seconds; continuing (XCTWaiter result \(result.rawValue))")
+        } else if let startupError {
+            print("⚠️ WebKit startup failed; continuing: \(startupError.localizedDescription)")
+        }
+    }
+
+    func testBundleDidFinish(_ testBundle: Bundle) {
+        Self.warmUpWebView = nil
+        XCTestObservationCenter.shared.removeTestObserver(self)
     }
 }

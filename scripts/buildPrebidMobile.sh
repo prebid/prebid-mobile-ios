@@ -1,12 +1,11 @@
+#!/usr/bin/env bash
 # Merge Script
-if [ -d "scripts" ]; then
-cd scripts/
-fi
+
+cd "$(dirname "$0")/.."
 
 # 1
 # Set bash script to exit immediately if any commands fail.
 set -e
-cd ../
 
 # Setup some constants for use later on.
 RED='\033[0;31m'
@@ -39,15 +38,9 @@ fi
 mkdir -p "$LOG_DIR"
 touch "$LOG_FILE_FRAMEWORK"
 
-echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
+echo -e "\n\n${GREEN}RESOLVE SWIFT PACKAGES${NC}\n\n"
 
-if ! command -v pod >/dev/null 2>&1; then
-	echo -e "${RED}CocoaPods is required but 'pod' was not found on PATH.${NC}" >&2
-	echo "GitHub Actions 'macos-26' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
-	exit 1
-fi
-
-pod install --repo-update
+./scripts/resolveDependencies.sh
 
 echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
 
@@ -67,6 +60,8 @@ do
 	SKIP_INSTALL=NO \
 	BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
 	-workspace PrebidMobile.xcworkspace \
+	-clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
+	-disableAutomaticPackageResolution \
 	-scheme "Lib-${schemes[$n]}" \
 	-configuration Release \
 	-arch arm64 \
@@ -86,6 +81,8 @@ do
 	SKIP_INSTALL=NO \
 	BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
 	-workspace PrebidMobile.xcworkspace \
+	-clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
+	-disableAutomaticPackageResolution \
 	-scheme "Lib-${schemes[$n]}" \
 	-configuration Release \
 	-sdk "iphonesimulator" \

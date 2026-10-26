@@ -18,53 +18,129 @@ import XCTest
 @testable import PrebidMobile
 
 class DownloadSizeHelperTest: XCTestCase {
-    
-    private let nonexistsFile = "nonexist"
-    
+    private var connection: PrebidServerConnection!
+    private let url = URL(string: "http://download-size.test/video")!
+    private let requestLock = NSLock()
+    private var recordedMethods = [String]()
+
+    override func setUp() {
+        super.setUp()
+        MockServer.shared.reset()
+        connection = UtilitiesForTesting.createConnectionForMockedTest()
+    }
+
     override func tearDown() {
         MockServer.shared.reset()
+        connection = nil
+        recordedMethods = []
+        super.tearDown()
     }
-    
-    func testSize() {
-        
-        let testInfo:[(String,Int)] = [
-            ("small.mp4",  323553),
-            ("medium.mp4", 4605333),
-            ("large.mp4",  58303127),
-            (nonexistsFile, 0)
-        ]
-        
-        for (filename, expectedSize) in testInfo {
-            
-            let connection = UtilitiesForTesting.createConnectionForMockedTest()
-            
-            let rule = MockServerRule(urlNeedle: "http://get_video", mimeType:  MockServerMimeType.MP4.rawValue, connectionID: connection.internalID, fileName: filename)
-            MockServer.shared.resetRules([rule])
-            
-            let expectationNoRestriction = self.expectation(description: "expectationNoRestriction")
-            let expectationWithRestriction = self.expectation(description: "expectationWithRestriction")
-            
-            let downloadSizeHelper = DownloadDataHelper(serverConnection:connection)
-            let url = URL(string:"http://get_video")!
-            
-            // Without size restriction
-            downloadSizeHelper.downloadData(for: url, completionClosure: { (data:Data?, error:Error?) in
-                guard let actual = data?.count else {
-                    XCTFail("sizeInBytes is nil for \(filename)")
-                    return
-                }
-                
-                XCTAssert(expectedSize == actual, "Expected \(expectedSize), got \(actual)")
-                expectationNoRestriction.fulfill()
-            })
-            
-            // With size restriction
-            downloadSizeHelper.downloadData(for: url, maxSize: 10, completionClosure: { (data:Data?, error:Error?) in
-                XCTAssertNil(data)
-                expectationWithRestriction.fulfill()
-            })
-            
-            self.waitForExpectations(timeout: 2, handler:nil)
+
+    // DownloadDataHelper handles bytes and headers, not video decoding. Small
+    // in-memory bodies cover its contract without transferring a 58 MB fixture
+    // within the same two-second deadline on a three-core CI runner.
+    func testUnrestrictedDownloadReturnsExactBytes() {
+        let body = Data((0..<255).map { UInt8($0) })
+        serve(body)
+        let result = download()
+        XCTAssertEqual(result.data, body)
+        XCTAssertNil(result.error)
+        XCTAssertEqual(requestMethods, ["GET"])
+    }
+
+    func testUnrestrictedDownloadReturnsEmptyBody() {
+        serve(Data())
+        let result = download()
+        XCTAssertEqual(result.data, Data())
+        XCTAssertNil(result.error)
+    }
+
+    func testBodyBelowLimitIsDownloaded() {
+        assertBodyIsDownloaded(size: 9, limit: 10)
+    }
+
+    func testBodyAtLimitIsDownloaded() {
+        assertBodyIsDownloaded(size: 10, limit: 10)
+    }
+
+    func testBodyAboveLimitIsRejectedWithoutDownload() {
+        serve(Data(repeating: 1, count: 11))
+        let result = download(maxSize: 10)
+        XCTAssertNil(result.data)
+        XCTAssertTrue(result.error?.localizedDescription.contains("greater than the maximum size") == true)
+        XCTAssertEqual(requestMethods, ["HEAD"])
+    }
+
+    func testMissingContentLengthIsRejectedWithoutDownload() {
+        let rule = serve(Data(repeating: 1, count: 5))
+        rule.responseHeaderFields.removeObject(forKey: "Content-Length")
+        assertInvalidContentLengthIsRejected()
+    }
+
+    func testMalformedContentLengthIsRejectedWithoutDownload() {
+        let rule = serve(Data(repeating: 1, count: 5))
+        rule.responseHeaderFields["Content-Length"] = "invalid"
+        assertInvalidContentLengthIsRejected()
+    }
+
+    func testNegativeContentLengthIsRejectedWithoutDownload() {
+        let rule = serve(Data(repeating: 1, count: 5))
+        rule.responseHeaderFields["Content-Length"] = "-1"
+        assertInvalidContentLengthIsRejected()
+    }
+
+    private var requestMethods: [String] {
+        requestLock.lock()
+        defer { requestLock.unlock() }
+        return recordedMethods
+    }
+
+    @discardableResult
+    private func serve(_ body: Data) -> MockServerRule {
+        let rule = MockServerRule(urlNeedle: url.absoluteString,
+                                  mimeType: MockServerMimeType.MP4.rawValue,
+                                  connectionID: connection.internalID, data: body)
+        rule.mockServerReceivedRequestHandler = { [weak self] request in
+            guard let self else { return }
+            self.requestLock.lock()
+            self.recordedMethods.append(request.httpMethod ?? "")
+            self.requestLock.unlock()
         }
+        MockServer.shared.resetRules([rule])
+        return rule
+    }
+
+    private func download(maxSize: Int? = nil) -> (data: Data?, error: Error?) {
+        let finished = expectation(description: "Download completed")
+        finished.assertForOverFulfill = true
+        var result: (data: Data?, error: Error?) = (nil, nil)
+        let completion: (Data?, Error?) -> Void = { data, error in
+            result = (data, error)
+            finished.fulfill()
+        }
+        let helper = DownloadDataHelper(serverConnection: connection)
+        if let maxSize {
+            helper.downloadData(for: url, maxSize: maxSize, completionClosure: completion)
+        } else {
+            helper.downloadData(for: url, completionClosure: completion)
+        }
+        wait(for: [finished], timeout: 2)
+        return result
+    }
+
+    private func assertBodyIsDownloaded(size: Int, limit: Int, file: StaticString = #filePath, line: UInt = #line) {
+        let body = Data(repeating: 1, count: size)
+        serve(body)
+        let result = download(maxSize: limit)
+        XCTAssertEqual(result.data, body, file: file, line: line)
+        XCTAssertNil(result.error, file: file, line: line)
+        XCTAssertEqual(requestMethods, ["HEAD", "GET"], file: file, line: line)
+    }
+
+    private func assertInvalidContentLengthIsRejected(file: StaticString = #filePath, line: UInt = #line) {
+        let result = download(maxSize: 10)
+        XCTAssertNil(result.data, file: file, line: line)
+        XCTAssertTrue(result.error?.localizedDescription.contains("Unable to determine video file size") == true, file: file, line: line)
+        XCTAssertEqual(requestMethods, ["HEAD"], file: file, line: line)
     }
 }

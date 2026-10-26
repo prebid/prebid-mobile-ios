@@ -1,26 +1,22 @@
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
 
-echo -e "\n\n${GREEN}RUN PREBID DEMO SPM${NC}\n\n"
-
-echo $PWD
-
-echo -e "\n${GREEN}Creating simulator${NC} \n"
-xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
-
-# Any arguments are passed on to xcodebuild.
-xcodebuild \
-    -workspace PrebidMobile.xcworkspace \
-    -scheme PrebidDemoSPM \
-    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
-    "$@"
-
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
-    echo "✅ Build Success"
+# The consumer project has its own graph, build products, and package checkouts.
+# Release verification can supply a temporary workspace containing this project.
+if [[ -n "${PREBID_SPM_WORKSPACE:-}" ]]; then
+    CONTAINER=(-workspace "$PREBID_SPM_WORKSPACE")
 else
-    echo "🔴 Build Failed"
-    exit 1
+    CONTAINER=(-project "$PWD/Example/PrebidDemo/PrebidDemoSPM.xcodeproj")
 fi
 
-echo -e "\n${GREEN}Removing simulator${NC} \n"
-xcrun simctl delete iPhone-17-Pro-PrebidMobile
+xcodebuild build \
+    "${CONTAINER[@]}" \
+    -scheme PrebidDemoSPM \
+    -sdk iphonesimulator \
+    -destination 'generic/platform=iOS Simulator' \
+    -derivedDataPath "${PREBID_SPM_DERIVED_DATA:-$PWD/.build/spm-demo}" \
+    -clonedSourcePackagesDirPath "${PREBID_SPM_PACKAGES:-$PWD/.swiftpm-spm-demo-cache}" \
+    "$@"
+
+echo "✅ Standalone SPM demo build succeeded"

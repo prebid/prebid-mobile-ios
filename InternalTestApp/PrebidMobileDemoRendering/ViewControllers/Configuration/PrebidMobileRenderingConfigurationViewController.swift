@@ -14,61 +14,30 @@
  */
 
 import UIKit
-import Eureka
 import PrebidMobile
 
-final class PrebidMobileXSDKConfigurationController : FormViewController {
-    
-    var sdkConfig: Prebid {
-        return Prebid.shared
-    }
-    
+final class PrebidMobileXSDKConfigurationController: FormTableViewController {
+    var sdkConfig: Prebid { Prebid.shared }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         createForm()
     }
-    
-    // MARK: - Private Methods
-    
+
     func createForm() {
         title = "PrebidMobile SDK Configuration"
-        
-        form
-            +++ sectionTimeouts
-            +++ sectionAppConfig
-    }
-    
-    var sectionTimeouts: Section {
-        return Section("Creative Factory Timeouts")
-            <<< TextRow() { row in
-                    row.title = "General"
-                    row.value = "\(self.sdkConfig.creativeFactoryTimeout)"
-                    row.cell.textField.accessibilityIdentifier = "creativeFactoryTimeoutTextField"
-                }
-                .onChange { row in
-                    self.sdkConfig.creativeFactoryTimeout = row.value.pbm_toTimeInterval()
-            }
-            <<< TextRow() {row in
-                    row.title = "Pre Render Content"
-                    row.value = "\(self.sdkConfig.creativeFactoryTimeoutPreRenderContent)"
-                    row.cell.textField.accessibilityIdentifier = "creativeFactoryTimeoutPreRenderContentTextField"
-                }
-                .onChange { row in
-                    self.sdkConfig.creativeFactoryTimeoutPreRenderContent = row.value.pbm_toTimeInterval()
-            }
-    }
-    
-    var sectionAppConfig: Section {
-        return Section("App configuration")
-            <<< SwitchRow() { row in
-                row.title = "Status Bar Hidden"
-                row.value = AppConfiguration.shared.isAppStatusBarHidden
-                row.cell.switchControl.accessibilityIdentifier = "statusBarHiddenSwitch"
-            }
-            .onChange { row in
-                AppConfiguration.shared.isAppStatusBarHidden = row.value ?? true
-                self.setNeedsStatusBarAppearanceUpdate()
-            }
+        let general = FormRow("General", kind: .text, value: "\(sdkConfig.creativeFactoryTimeout)")
+        general.controlIdentifier = "creativeFactoryTimeoutTextField"
+        general.onTextChange = { [weak self] in self?.sdkConfig.creativeFactoryTimeout = TimeInterval($0.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0 }
+        let preRender = FormRow("Pre Render Content", kind: .text, value: "\(sdkConfig.creativeFactoryTimeoutPreRenderContent)")
+        preRender.controlIdentifier = "creativeFactoryTimeoutPreRenderContentTextField"
+        preRender.onTextChange = { [weak self] in self?.sdkConfig.creativeFactoryTimeoutPreRenderContent = TimeInterval($0.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0 }
+        let statusBar = FormRow("Status Bar Hidden", kind: .toggle, isOn: AppConfiguration.shared.isAppStatusBarHidden)
+        statusBar.controlIdentifier = "statusBarHiddenSwitch"
+        statusBar.onToggle = { [weak self] in
+            AppConfiguration.shared.isAppStatusBarHidden = $0
+            self?.setNeedsStatusBarAppearanceUpdate()
+        }
+        sections = [FormSection("Creative Factory Timeouts", rows: [general, preRender]), FormSection("App configuration", rows: [statusBar])]
     }
 }

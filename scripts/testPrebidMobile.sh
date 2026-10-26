@@ -1,6 +1,6 @@
-if [ -d "scripts" ]; then
-cd scripts/
-fi
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")/.."
 
 # Flags:
 # --latest:             accepted for backward compatibility; it used to skip a sanity test on the
@@ -36,32 +36,31 @@ set -e
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
+echo -e "\n\n${GREEN}RESOLVE SWIFT PACKAGES${NC}\n\n"
 
-cd ..
-
-if ! command -v pod >/dev/null 2>&1; then
-    echo "CocoaPods is required but 'pod' was not found on PATH." >&2
-    echo "GitHub Actions 'macos-26' ships it preinstalled; install it locally with 'brew install cocoapods'." >&2
-    exit 1
-fi
-
-pod install --repo-update
+./scripts/resolveDependencies.sh
 
 echo -e "\n\n${GREEN}RUN PREBID MOBILE TESTS${NC}\n\n"
 
 echo -e "\n${GREEN}Creating simulator${NC} \n"
 # Remove any leftover simulator from a previous interrupted run so `create` doesn't fail.
 xcrun simctl delete iPhone-17-Pro-PrebidMobile 2>/dev/null || true
-xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
+SIMULATOR_ID="$(xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro ${PREBID_TEST_RUNTIME:+"$PREBID_TEST_RUNTIME"})"
+trap 'xcrun simctl delete "$SIMULATOR_ID" >/dev/null 2>&1 || true' EXIT
+# Complete first-boot migration before compiling and launching the test bundle.
+xcrun simctl boot "$SIMULATOR_ID"
+xcrun simctl bootstatus "$SIMULATOR_ID" -b
 
 if [ "$run_only_PR_tests" != "YES" ]; then
     echo -e "\n${GREEN}Clean build\n"
     xcodebuild clean build \
         -workspace PrebidMobile.xcworkspace \
+        -derivedDataPath "$PWD/.build/core-tests" \
+        -clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
+        -disableAutomaticPackageResolution \
         -scheme PrebidMobileTests \
         -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest'
+        -destination "platform=iOS Simulator,id=$SIMULATOR_ID"
 fi
 
 TESTPLAN=""
@@ -76,20 +75,26 @@ echo -e "\n${GREEN}Running PrebidMobile unit tests${NC} \n"
 
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
+    -derivedDataPath "$PWD/.build/core-tests" \
+    -clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
+    -disableAutomaticPackageResolution \
     -scheme PrebidMobileTests \
     -sdk iphonesimulator \
     -configuration Debug \
-    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
+    -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
     -destination-timeout 60 \
     build-for-testing
 
 TEST_STATUS=0
 xcodebuild \
     -workspace PrebidMobile.xcworkspace \
+    -derivedDataPath "$PWD/.build/core-tests" \
+    -clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
+    -disableAutomaticPackageResolution \
     -scheme PrebidMobileTests \
     -sdk iphonesimulator \
     -testPlan "${TESTPLAN}" \
-    -destination 'platform=iOS Simulator,name=iPhone-17-Pro-PrebidMobile,OS=latest' \
+    -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
     -destination-timeout 60 \
     -retry-tests-on-failure \
     test-without-building || TEST_STATUS=$?
@@ -102,7 +107,8 @@ else
 fi
 
 echo -e "\n${GREEN}Removing simulator${NC} \n"
-xcrun simctl delete iPhone-17-Pro-PrebidMobile
+xcrun simctl delete "$SIMULATOR_ID"
+trap - EXIT
 
 # echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
 # swiftlint --config .swiftlint.yml

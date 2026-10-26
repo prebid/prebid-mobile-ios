@@ -22,7 +22,7 @@ files under `.claude/`.
 | Run tests, a single test class, or fix post-migration build errors | `agents/xcodebuild/SKILL.md` |
 | Review a PR on this repo | `agents/review/SKILL.md` |
 | Run SwiftLint | `agents/lint/SKILL.md` |
-| CocoaPods install | `agents/pod-install/SKILL.md` |
+| Resolve development dependencies | `agents/resolve-dependencies/SKILL.md` |
 | Generic iOS/Swift background (not repo-specific; playbook wins on conflicts) | `agents/ios-development/SKILL.md` |
 | Generic ObjC → Swift / XCTest migration background (playbook wins on conflicts) | `agents/migration-patterns/SKILL.md` |
 
@@ -41,15 +41,15 @@ files under `.claude/`.
 ./scripts/buildPrebidSPM.sh # build the SPM demo against the published packages
 ```
 
-Requires CocoaPods installed (`pod` on PATH — GHA `macos-26` ships with it pre-installed). Build output goes to `generated/output/` as `XC<name>.xcframework` (e.g. `XCPrebidMobile.xcframework`). Logs go to `generated/log/prebid_mobile_build.log`. The script ends by running `./scripts/verifyXCFrameworkInterfaces.sh`, which typechecks each XCFramework's `.swiftinterface` files the way a consumer's compiler does; `xcodebuild` skips that check, so a broken interface otherwise archives cleanly. Build uses `Lib-`-prefixed scheme names (`Lib-PrebidMobile`, etc.) to avoid colliding with auto-generated SPM schemes.
+Development dependencies use Swift Package Manager; CocoaPods is not required to build this workspace. Build output goes to `generated/output/` as `XC<name>.xcframework` (e.g. `XCPrebidMobile.xcframework`). Logs go to `generated/log/prebid_mobile_build.log`. The script ends by running `./scripts/verifyXCFrameworkInterfaces.sh`, which typechecks each XCFramework's `.swiftinterface` files the way a consumer's compiler does; `xcodebuild` skips that check, so a broken interface otherwise archives cleanly. Build uses `Lib-`-prefixed scheme names (`Lib-PrebidMobile`, etc.) to avoid colliding with auto-generated SPM schemes.
 
 ### Tests
 
 ```bash
-# Run PR subset (1016 tests) — used on PRs in CI
+# Run PR subset (1030 tests) — used on PRs in CI
 ./scripts/testPrebidMobile.sh --latest --quick
 
-# Run full suite (1410 tests) — used on bump-to branches / run-full-tests label
+# Run full suite (1430 tests) — used on bump-to branches / run-full-tests label
 ./scripts/testPrebidMobile.sh --latest
 
 # Run adapter tests (GAM, AdMob, MAX)
@@ -58,7 +58,9 @@ Requires CocoaPods installed (`pod` on PATH — GHA `macos-26` ships with it pre
 
 Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 sanity run is gone); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-17-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator. Any pre-existing simulator with that name is deleted first.
 
-Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1410 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 1016 tests).
+Use `PREBID_TEST_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-26-5` to select the CI runtime locally when a newer runtime is also installed. The default remains the latest installed runtime.
+
+Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1430 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 1030 tests).
 
 **When adding new tests:** both plans select by *exclusion*, so a new test class runs on every PR without any registration step. `PrebidMobilePRTests.xctestplan` trims the suite via a `skippedTests` list — check that a new class isn't (prefix-)matched there, and add an entry only if you deliberately want it excluded from the PR subset.
 
@@ -88,19 +90,49 @@ build-error checklist.
 ### Setup
 
 ```bash
-pod install --repo-update
+./scripts/resolveDependencies.sh
 ```
 
-Open `PrebidMobile.xcworkspace` (not `.xcodeproj`) for development.
+Open `PrebidMobile.xcworkspace` for native development. Its projects pin vendor
+SDK versions exactly and share a generated, ignored workspace `Package.resolved`.
+Scripts use `.swiftpm-cache/` for package checkouts and binary artifacts. The root
+package retains consumer version ranges; its committed `Package.resolved` selects
+the tested vendor versions for local SPM builds. To update a vendor dependency,
+change the exact project requirements and refresh the root lockfile. See
+`docs/development-dependencies.md`.
+
+Open `Example/PrebidDemo/PrebidDemoSPM.xcodeproj` separately to build the published
+SPM consumer. Keep it outside the native workspace: Xcode resolves one package
+graph per container, and published adapter ranges must not constrain native vendor
+upgrades. It shares demo sources and resources, but has independent project IDs,
+DerivedData, and package resolution. Command-line consumer builds use
+`.build/spm-demo/` and `.swiftpm-spm-demo-cache/`. Native projects use Xcode's standard
+product paths; no `LocalPrebid` build-folder override is needed.
+
+```bash
+./scripts/verifyDevelopmentApps.sh # compile demo, internal, Skadn, and test/UI-test targets
+./scripts/verifyDevelopmentApps.sh --with-spm-demo # also build the standalone published consumer
+```
+
+PR CI runs `verifyDevelopmentApps.sh` without `--with-spm-demo`: the SPM demo compiles the
+Swift demo sources against the published packages, so it fails any PR that uses new SDK API in
+the demo until that API is released. A separate PR job runs `verifySPM.sh` against
+candidate package sources in a temporary consumer workspace, validating new APIs and
+vendor-major upgrades before publication.
 
 ## Architecture
 
 ### Workspace Structure
 
-The workspace (`PrebidMobile.xcworkspace`) contains three projects:
+The workspace (`PrebidMobile.xcworkspace`) contains five projects:
 - `PrebidMobile.xcodeproj` — core SDK + unit tests
 - `EventHandlers/EventHandlers.xcodeproj` — ad network adapters
 - `Example/PrebidDemo/PrebidDemo.xcodeproj` — demo apps
+- `InternalTestApp/InternalTestApp.xcodeproj` — internal apps and mock server
+- `tools/TestUtils/TestUtils.xcodeproj` — shared testing helpers
+
+The published-package consumer is a separate project,
+`Example/PrebidDemo/PrebidDemoSPM.xcodeproj`, and must not be added to this workspace.
 
 ### Core SDK (`PrebidMobile/`)
 
@@ -128,7 +160,7 @@ Each adapter has its own test target (`*Tests/`).
 
 ### SPM vs CocoaPods layout
 
-**SPM** (Package.swift at root): the `PrebidMobile` product is the single `PrebidMobile` target (Swift sources), which depends on the bundled `Frameworks/OMSDK_Prebidorg.xcframework`.
+**SPM**: root `Package.swift` builds local core and adapter products with consumer version ranges; its lockfile selects the development versions. `PrebidMobile/Package.swift` and `EventHandlers/Package.swift` are the published package manifests; their consumer version ranges are independent. The core depends on the bundled `Frameworks/OMSDK_Prebidorg.xcframework`.
 
 **CocoaPods** (PrebidMobile.podspec): Single `core` subspec pulls all `PrebidMobile/**/*.{h,m,swift}` except Package.swift.
 

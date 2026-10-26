@@ -31,6 +31,22 @@ fi
 WORKDIR="$(mktemp -d)"
 trap 'rm -rf "$WORKDIR"' EXIT
 
+# A temporary workspace owns candidate resolution. Neither the native workspace
+# nor the standalone consumer project's generated pins need to be changed.
+SPM_WORKSPACE="$WORKDIR/PrebidDemoSPM.xcworkspace"
+PROJECT="$(cd "$(dirname "$0")/../Example/PrebidDemo" && pwd)/PrebidDemoSPM.xcodeproj"
+python3 - "$SPM_WORKSPACE" "$PROJECT" <<'PYWORKSPACE'
+import sys
+from pathlib import Path
+import xml.etree.ElementTree as ET
+workspace = Path(sys.argv[1])
+workspace.mkdir()
+root = ET.Element("Workspace", version="1.0")
+ET.SubElement(root, "FileRef", location="absolute:" + sys.argv[2])
+ET.ElementTree(root).write(workspace / "contents.xcworkspacedata", encoding="UTF-8", xml_declaration=True)
+PYWORKSPACE
+RESOLVED="$SPM_WORKSPACE/xcshareddata/swiftpm/Package.resolved"
+
 CORE="$WORKDIR/core"
 ADAPTERS="$WORKDIR/adapters"
 
@@ -62,14 +78,11 @@ export GIT_CONFIG_VALUE_0="$CORE_URL"
 export GIT_CONFIG_KEY_1="url.file://${ADAPTERS}.insteadOf"
 export GIT_CONFIG_VALUE_1="$ADAPTERS_URL"
 
-# Pins or package checkouts left over from an earlier build would be reused
-# instead of the local clones, so resolve from scratch.
-RESOLVED="PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved"
-rm -f "$RESOLVED"
-
-./scripts/buildPrebidSPM.sh \
-    -clonedSourcePackagesDirPath "$WORKDIR/packages" \
-    -disablePackageRepositoryCache
+# Candidate packages and products are isolated from both normal build graphs.
+PREBID_SPM_WORKSPACE="$SPM_WORKSPACE" \
+PREBID_SPM_DERIVED_DATA="$WORKDIR/DerivedData" \
+PREBID_SPM_PACKAGES="$WORKDIR/packages" \
+    ./scripts/buildPrebidSPM.sh -disablePackageRepositoryCache
 
 # The build only counts if it used the local commits, not what is already published.
 for repo in "$CORE" "$ADAPTERS"; do
