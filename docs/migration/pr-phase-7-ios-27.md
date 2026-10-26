@@ -38,3 +38,33 @@ native/SPM build-product separation are documented in
 - [x] Skadn app builds and launches on iOS 27; main screen renders.
 - [x] Four device/simulator XCFrameworks built; all 24 Swift interfaces typecheck.
 - [x] Root SPM package build.
+
+## CI follow-up for PR #1421
+
+The first CI run passed framework/interface builds, the root SPM package, adapter
+checks, and development-app checks. The quick suite failed during cold WebKit
+startup, the 58 MB download-size fixture, and delayed wrapper-failure callbacks.
+
+- Wait for simulator boot/migration before building, and delete the owned device
+  on both success and failure.
+- Replace fire-and-forget WebKit warm-up with a bundle observation that waits for
+  JavaScript to execute before tests begin. Keep the page alive until bundle
+  completion. The startup budget is 180 seconds (cold CI helper launches have
+  previously exceeded 170 seconds); failure stops the run. Individual assertion
+  deadlines remain unchanged.
+- Only create the JavaScript property fixture for tests that use it, and attach
+  it to a window while probing. Pure parity comparisons keep their original oracle
+  and no longer load an unused document.
+- Retain both standalone VAST requester/load-manager fixtures through their
+  asynchronous completion waits.
+- Replace the download-size test's three MP4 transfers with eight small byte/header
+  cases using the real URLSession/MockServerURLProtocol path. Assert exact bytes,
+  below/equal/above-limit behavior, missing/malformed/negative Content-Length, and
+  the absence of a GET when HEAD rejects the download. Deadlines remain two seconds.
+
+Validation:
+
+- [x] Local iOS 26.5 PR suite: 1,030 tests passed with zero failures and no retries.
+- [x] Local iOS 27 affected tests: 75 executions across five repetitions, zero failures.
+
+GitHub Actions validation is recorded in [PR #1421 checks](https://github.com/prebid/prebid-mobile-ios/pull/1421/checks).

@@ -46,6 +46,10 @@ echo -e "\n${GREEN}Creating simulator${NC} \n"
 # Remove any leftover simulator from a previous interrupted run so `create` doesn't fail.
 xcrun simctl delete iPhone-17-Pro-PrebidMobile 2>/dev/null || true
 SIMULATOR_ID="$(xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro ${PREBID_TEST_RUNTIME:+"$PREBID_TEST_RUNTIME"})"
+trap 'xcrun simctl delete "$SIMULATOR_ID" >/dev/null 2>&1 || true' EXIT
+# Complete first-boot migration before compiling and launching the test bundle.
+xcrun simctl boot "$SIMULATOR_ID"
+xcrun simctl bootstatus "$SIMULATOR_ID" -b
 
 if [ "$run_only_PR_tests" != "YES" ]; then
     echo -e "\n${GREEN}Clean build\n"
@@ -103,7 +107,8 @@ else
 fi
 
 echo -e "\n${GREEN}Removing simulator${NC} \n"
-xcrun simctl delete iPhone-17-Pro-PrebidMobile
+xcrun simctl delete "$SIMULATOR_ID"
+trap - EXIT
 
 # echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
 # swiftlint --config .swiftlint.yml
