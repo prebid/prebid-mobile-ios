@@ -46,10 +46,10 @@ Development dependencies use Swift Package Manager; CocoaPods is not required to
 ### Tests
 
 ```bash
-# Run PR subset (1020 tests) — used on PRs in CI
+# Run PR subset (1030 tests) — used on PRs in CI
 ./scripts/testPrebidMobile.sh --latest --quick
 
-# Run full suite (1410 tests) — used on bump-to branches / run-full-tests label
+# Run full suite (1430 tests) — used on bump-to branches / run-full-tests label
 ./scripts/testPrebidMobile.sh --latest
 
 # Run adapter tests (GAM, AdMob, MAX)
@@ -60,7 +60,7 @@ Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 san
 
 Use `PREBID_TEST_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-26-5` to select the CI runtime locally when a newer runtime is also installed. The default remains the latest installed runtime.
 
-Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1410 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 1020 tests).
+Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1430 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 1030 tests).
 
 **When adding new tests:** both plans select by *exclusion*, so a new test class runs on every PR without any registration step. `PrebidMobilePRTests.xctestplan` trims the suite via a `skippedTests` list — check that a new class isn't (prefix-)matched there, and add an entry only if you deliberately want it excluded from the PR subset.
 

@@ -66,6 +66,9 @@ class WebViewParityTests: XCTestCase {
         // The resize results depend on the screen size; the expectations were captured on a 402x874 pt screen (iPhone 17 / 17 Pro).
         try XCTSkipUnless(actualLines.first == expectedLines.first, "Parity expectations were captured on a different screen size")
 
+        XCTAssertTrue(WebViewParityExpectations.expected.contains(WebViewParityExpectations.legacyMalformedPercentLine),
+                      "The iOS 27 replacement in expectedForCurrentOS no longer matches a captured line")
+
         XCTAssertEqual(actualLines.count, expectedLines.count)
         for (actual, expected) in zip(actualLines, expectedLines) {
             XCTAssertEqual(actual, expected)
