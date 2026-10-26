@@ -93,12 +93,14 @@ build-error checklist.
 ./scripts/resolveDependencies.sh
 ```
 
-Open `PrebidMobile.xcworkspace` (not `.xcodeproj`) for development. All projects share
-`PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved`. Scripts use `.swiftpm-cache/`
-for package checkouts and binary artifacts, and require the committed versions. To deliberately
-update a dependency, change its exact requirement in the projects (and root `Package.swift`
-where applicable), resolve without the frozen-lockfile option, and commit the resulting
-lockfiles. See `docs/development-dependencies.md` for the commands.
+Open `PrebidMobile.xcworkspace` (not `.xcodeproj`) for development. The projects pin
+vendor SDK versions exactly and share a generated, ignored
+`PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved`. This lets the SPM demo
+resolve newer published Prebid packages without committing stale demo pins. Scripts
+use `.swiftpm-cache/` for package checkouts and binary artifacts. The root package
+retains consumer version ranges; its committed `Package.resolved` selects the tested
+vendor versions for local SPM builds. To update a vendor dependency, change the exact
+project requirements and refresh the root lockfile. See `docs/development-dependencies.md`.
 
 Normal native project builds are separated under `$(BUILD_DIR)/LocalPrebid/` by
 project build settings; archive/install actions retain Xcode's standard paths. Keep that separation when changing build paths: the SPM demo's
@@ -146,7 +148,7 @@ Each adapter has its own test target (`*Tests/`).
 
 ### SPM vs CocoaPods layout
 
-**SPM**: root `Package.swift` builds local core and adapter products with exact development dependency versions. `PrebidMobile/Package.swift` and `EventHandlers/Package.swift` are the published package manifests; their consumer version ranges are independent. The core depends on the bundled `Frameworks/OMSDK_Prebidorg.xcframework`.
+**SPM**: root `Package.swift` builds local core and adapter products with consumer version ranges; its lockfile selects the development versions. `PrebidMobile/Package.swift` and `EventHandlers/Package.swift` are the published package manifests; their consumer version ranges are independent. The core depends on the bundled `Frameworks/OMSDK_Prebidorg.xcframework`.
 
 **CocoaPods** (PrebidMobile.podspec): Single `core` subspec pulls all `PrebidMobile/**/*.{h,m,swift}` except Package.swift.
 

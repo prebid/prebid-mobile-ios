@@ -68,3 +68,27 @@ Validation:
 - [x] Local iOS 27 affected tests: 75 executions across five repetitions, zero failures.
 
 GitHub Actions validation is recorded in [PR #1421 checks](https://github.com/prebid/prebid-mobile-ios/pull/1421/checks).
+
+## Review follow-up for PR #1421
+
+- Restore the root package's existing vendor version ranges so consuming apps can
+  choose compatible versions. Native Xcode project requirements remain exact, and
+  the committed root lockfile keeps local package builds on the tested versions.
+- Restore the ignored workspace lockfile policy. Normal resolution on a fresh
+  checkout is no longer frozen to SDK 3.4.1 or a committed adapters-main revision.
+  CI caches use the root lockfile and project requirements. Release verification
+  preserves an optional local workspace lockfile and also supports its absence.
+- Use registered text, toggle, and display cells. Controls and constraints are built
+  once; reuse rebinds the current row and clears accessory, color, detail, and
+  accessibility state. Three tests cover callback rebinding and presentation reset.
+- The JavaScript-only page setup in the CI follow-up also addresses the review
+  finding that synchronous parity comparisons loaded an unused document.
+
+Validation:
+
+- [x] Fresh workspace resolution without a workspace lockfile retains all four vendor versions.
+- [x] Root SPM package builds with the restored ranges and committed root pins.
+- [x] All 13 development-support tests pass on iOS 26.5, including three reuse tests and the UI smoke test.
+- [x] Release-verifier cleanup preserves an existing lockfile and removes temporary pins when none existed.
+- [x] Shell syntax and workflow YAML parse successfully.
+- [x] All seven development-app verification builds pass after review changes.

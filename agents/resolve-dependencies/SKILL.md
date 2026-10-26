@@ -9,10 +9,12 @@ Run from the repo root:
 ./scripts/resolveDependencies.sh
 ```
 
-This resolves the committed workspace `Package.resolved` into `.swiftpm-cache/`, shared
-by archive, unit-test, demo, and internal-app builds. It does not update versions.
-CocoaPods is only a customer distribution channel; there is no development Podfile.
+The Xcode projects pin vendor SDK versions exactly. This command resolves them into
+`.swiftpm-cache/` and writes the ignored workspace `Package.resolved`. The published
+Prebid demo packages follow their existing version/branch requirements, so their
+resolution is not frozen by a committed workspace lockfile. CocoaPods remains a
+customer distribution channel; there is no development Podfile.
 Open `PrebidMobile.xcworkspace` for development.
 
-For an intentional dependency update, follow `docs/development-dependencies.md` and
-commit both the exact version requirements and regenerated lockfiles.
+For an intentional vendor update, follow `docs/development-dependencies.md`; commit
+the project requirements and the regenerated root `Package.resolved`.
