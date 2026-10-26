@@ -2,13 +2,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-# Flags:
-# --with-spm-demo:      also build PrebidDemoSPM, then rebuild the native app in the same
-#                       derived-data directory. PrebidDemoSPM compiles the Swift demo sources
-#                       against the *published* packages, so a PR that uses new SDK API in the
-#                       demo cannot pass it until that API is released. CI on PRs omits it;
-#                       SPM.yml builds the SPM demo against local package copies instead.
-
+# Opt in to published-package verification only when those APIs are released.
 with_spm_demo="NO"
 
 usage() {
@@ -25,10 +19,12 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+./scripts/verifyDependencyIsolation.sh
 ./scripts/resolveDependencies.sh
 
 # Compile the app, unit-test, and UI-test targets without running network-based
-# integration tests. The Objective-C demo also needs explicit coverage.
+# integration tests. The standalone SPM consumer is checked separately against
+# candidate packages, so native SDK upgrades do not depend on a published release.
 for scheme in PrebidDemoTests PrebidDemoSwiftUITests InternalTestApp; do
     xcodebuild build-for-testing \
         -workspace PrebidMobile.xcworkspace \
@@ -52,30 +48,6 @@ for scheme in PrebidDemoObjectiveC InternalTestApp-Skadn; do
         CODE_SIGNING_ALLOWED=NO
 done
 
-if [ "$with_spm_demo" != "YES" ]; then
-    exit 0
+if [[ "$with_spm_demo" == "YES" ]]; then
+    ./scripts/buildPrebidSPM.sh CODE_SIGNING_ALLOWED=NO
 fi
-
-# Exercise the same derived-data directory for native and published-package
-# builds, as Xcode does interactively. Project settings must keep their products
-# separate; a script-only derived-data override would hide a GUI build failure.
-xcodebuild build \
-    -workspace PrebidMobile.xcworkspace \
-    -scheme PrebidDemoSPM \
-    -sdk iphonesimulator \
-    -destination 'generic/platform=iOS Simulator' \
-    -derivedDataPath "$PWD/.build/development-apps" \
-    -clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
-    -disableAutomaticPackageResolution \
-    CODE_SIGNING_ALLOWED=NO
-
-# Rebuild the native app after the SPM demo to catch overwritten modules/binaries.
-xcodebuild build \
-    -workspace PrebidMobile.xcworkspace \
-    -scheme InternalTestApp \
-    -sdk iphonesimulator \
-    -destination 'generic/platform=iOS Simulator' \
-    -derivedDataPath "$PWD/.build/development-apps" \
-    -clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
-    -disableAutomaticPackageResolution \
-    CODE_SIGNING_ALLOWED=NO

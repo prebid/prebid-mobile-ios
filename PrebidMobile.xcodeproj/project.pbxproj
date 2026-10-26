@@ -97,7 +97,6 @@
 		47D9A20753E95F99F258111F /* MockAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9A1C86EFAE65402D45F07 /* MockAlertAction.swift */; };
 		47D9A23380B17E26208C3744 /* MockPBMHTMLCreative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9A95E9EBD72E368717305 /* MockPBMHTMLCreative.swift */; };
 		47D9A2402A8716A24203EEF3 /* ACJPublisherRevenue1000.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AE4FB6589DB32680F89D /* ACJPublisherRevenue1000.json */; };
-		47D9A2764D4FD6D7437732D9 /* large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 47D9A26C7251DF5F35B0CDB5 /* large.mp4 */; };
 		47D9A339DCD990CEBBA9B9DB /* SSC_test_empty_fields.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9A6CCD40A2B6F9BC571F3 /* SSC_test_empty_fields.json */; };
 		47D9A33C1000000000000001 /* cached_bid_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9A33C1000000000000002 /* cached_bid_response.json */; };
 		47D9A3EF88B06B204F40463E /* MockPBMCreativeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9A65561D54EB501103D1F /* MockPBMCreativeModel.swift */; };
@@ -816,7 +815,6 @@
 		47D9A1FBB10998D523025E6B /* small.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = small.mov; sourceTree = "<group>"; };
 		47D9A230B9C99352DE486DD3 /* document_with_one_wrapper_ad.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = document_with_one_wrapper_ad.xml; sourceTree = "<group>"; };
 		47D9A2491192A084AE14E1E9 /* MockNSThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNSThread.swift; sourceTree = "<group>"; };
-		47D9A26C7251DF5F35B0CDB5 /* large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file.mp4; path = large.mp4; sourceTree = "<group>"; };
 		47D9A33C1000000000000002 /* cached_bid_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cached_bid_response.json; sourceTree = "<group>"; };
 		47D9A356DC60E61416DC1739 /* ACJSingleAdWithoutSDKParams.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ACJSingleAdWithoutSDKParams.json; sourceTree = "<group>"; };
 		47D9A35FC91B425F274DFD8D /* ACJNonChainingAdUnit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ACJNonChainingAdUnit.json; sourceTree = "<group>"; };
@@ -1581,7 +1579,6 @@
 				5355ACA829C454070014F16E /* VAST_with_empty_companion.xml */,
 				47D9A16FABDAC7D6FBEF6568 /* VAST_Empty_Inline.xml */,
 				47D9A788E8D0FBF93345D2AD /* document_with_one_inline_ad.xml */,
-				47D9A26C7251DF5F35B0CDB5 /* large.mp4 */,
 				47D9A36B91A82F353CEB1C3B /* small.mp4 */,
 				47D9A83D5BF4E5DBC9E0A17D /* vast.3.0.xml */,
 				47D9A6D9917A568CEDA774F5 /* small.m4v */,
@@ -3294,7 +3291,6 @@
 				47D9A9F4D3C7F1A2A1CA8315 /* vast_om_verification_one_inline_ad.xml in Resources */,
 				47D9A9AD524C2CDF5386FB65 /* VAST_Empty_Inline.xml in Resources */,
 				47D9A9E76C1B8F455B09F389 /* document_with_one_inline_ad.xml in Resources */,
-				47D9A2764D4FD6D7437732D9 /* large.mp4 in Resources */,
 				47D9A9C67A9B42EF6E68391B /* small.mp4 in Resources */,
 				5355ACA929C454070014F16E /* VAST_with_empty_companion.xml in Resources */,
 				47D9AFC4AC81976FAC285465 /* vast.3.0.xml in Resources */,
@@ -4067,7 +4063,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(PREBID_LOCAL_PRODUCTS_PREFIX_$(DEPLOYMENT_LOCATION))$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -4091,8 +4086,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBID_LOCAL_PRODUCTS_PREFIX_NO = LocalPrebid/;
-				PREBID_LOCAL_PRODUCTS_PREFIX_YES = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile;
 				PRODUCT_NAME = PrebidMobile;
 				SDKROOT = iphoneos;
@@ -4137,7 +4130,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(PREBID_LOCAL_PRODUCTS_PREFIX_$(DEPLOYMENT_LOCATION))$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4154,8 +4146,6 @@
 				INFOPLIST_FILE = Source/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PREBID_LOCAL_PRODUCTS_PREFIX_NO = LocalPrebid/;
-				PREBID_LOCAL_PRODUCTS_PREFIX_YES = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile;
 				PRODUCT_NAME = PrebidMobile;
 				SDKROOT = iphoneos;

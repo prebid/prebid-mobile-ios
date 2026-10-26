@@ -93,28 +93,32 @@ build-error checklist.
 ./scripts/resolveDependencies.sh
 ```
 
-Open `PrebidMobile.xcworkspace` (not `.xcodeproj`) for development. The projects pin
-vendor SDK versions exactly and share a generated, ignored
-`PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved`. This lets the SPM demo
-resolve newer published Prebid packages without committing stale demo pins. Scripts
-use `.swiftpm-cache/` for package checkouts and binary artifacts. The root package
-retains consumer version ranges; its committed `Package.resolved` selects the tested
-vendor versions for local SPM builds. To update a vendor dependency, change the exact
-project requirements and refresh the root lockfile. See `docs/development-dependencies.md`.
+Open `PrebidMobile.xcworkspace` for native development. Its projects pin vendor
+SDK versions exactly and share a generated, ignored workspace `Package.resolved`.
+Scripts use `.swiftpm-cache/` for package checkouts and binary artifacts. The root
+package retains consumer version ranges; its committed `Package.resolved` selects
+the tested vendor versions for local SPM builds. To update a vendor dependency,
+change the exact project requirements and refresh the root lockfile. See
+`docs/development-dependencies.md`.
 
-Normal native project builds are separated under `$(BUILD_DIR)/LocalPrebid/` by
-project build settings; archive/install actions retain Xcode's standard paths. Keep that separation when changing build paths: the SPM demo's
-published Prebid products share the native framework names and must not overwrite
-the local modules or binaries, including when building directly from Xcode.
+Open `Example/PrebidDemo/PrebidDemoSPM.xcodeproj` separately to build the published
+SPM consumer. Keep it outside the native workspace: Xcode resolves one package
+graph per container, and published adapter ranges must not constrain native vendor
+upgrades. It shares demo sources and resources, but has independent project IDs,
+DerivedData, and package resolution. Command-line consumer builds use
+`.build/spm-demo/` and `.swiftpm-spm-demo-cache/`. Native projects use Xcode's standard
+product paths; no `LocalPrebid` build-folder override is needed.
 
 ```bash
 ./scripts/verifyDevelopmentApps.sh # compile demo, internal, Skadn, and test/UI-test targets
-./scripts/verifyDevelopmentApps.sh --with-spm-demo # also check the SPM demo can't overwrite native products
+./scripts/verifyDevelopmentApps.sh --with-spm-demo # also build the standalone published consumer
 ```
 
 PR CI runs `verifyDevelopmentApps.sh` without `--with-spm-demo`: the SPM demo compiles the
 Swift demo sources against the published packages, so it fails any PR that uses new SDK API in
-the demo until that API is released.
+the demo until that API is released. A separate PR job runs `verifySPM.sh` against
+candidate package sources in a temporary consumer workspace, validating new APIs and
+vendor-major upgrades before publication.
 
 ## Architecture
 
@@ -126,6 +130,9 @@ The workspace (`PrebidMobile.xcworkspace`) contains five projects:
 - `Example/PrebidDemo/PrebidDemo.xcodeproj` — demo apps
 - `InternalTestApp/InternalTestApp.xcodeproj` — internal apps and mock server
 - `tools/TestUtils/TestUtils.xcodeproj` — shared testing helpers
+
+The published-package consumer is a separate project,
+`Example/PrebidDemo/PrebidDemoSPM.xcodeproj`, and must not be added to this workspace.
 
 ### Core SDK (`PrebidMobile/`)
 

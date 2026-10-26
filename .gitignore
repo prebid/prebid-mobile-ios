@@ -127,8 +127,12 @@ Pods/
 
 EventHandlers/Package.resolved
 
-# The SPM demo tracks the Prebid packages by branch; committed pins go stale.
+# Native workspace pins are generated; exact requirements live in the projects.
 PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved
 
 # Shared SwiftPM checkouts and binary artifacts used by the build scripts.
 .swiftpm-cache/
+
+# Standalone consumer demo resolution and cache are separate from native builds.
+Example/PrebidDemo/PrebidDemoSPM.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+.swiftpm-spm-demo-cache/

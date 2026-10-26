@@ -55,6 +55,13 @@ scripts, in this order:
 ./scripts/buildPrebidSPM.sh # build the SPM demo against the published packages
 ```
 
+The consumer lives in `Example/PrebidDemo/PrebidDemoSPM.xcodeproj`, outside the native
+workspace. `buildPrebidSPM.sh` uses `.build/spm-demo/` and `.swiftpm-spm-demo-cache/`.
+`verifySPM.sh` instead creates a temporary workspace referencing that project, with
+its own pins, package cache, and DerivedData. It never edits normal lockfiles.
+PR checks also run this candidate verification, so a vendor-major update can be
+validated before publishing the new adapters.
+
 `verifySPM.sh` is meant for CI runners. SwiftPM records the local commit of each version
 in its fingerprint store (`~/.swiftpm/security/fingerprints`) and then refuses that
 version at any other commit on the same machine.
