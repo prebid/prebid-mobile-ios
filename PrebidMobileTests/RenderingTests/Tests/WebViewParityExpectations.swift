@@ -30,13 +30,17 @@ import Foundation
 /// per build and machine. Left out on purpose: `NaN` frames (UIKit rejects them before they reach the code).
 enum WebViewParityExpectations {
 
+    /// The captured line that `expectedForCurrentOS` replaces on iOS 27. The parity test asserts it is
+    /// present in `expected`, so the replacement cannot silently stop applying.
+    static let legacyMalformedPercentLine = #"ctl.command.11."mraid:expand/%E0%A4%A" => url=set command="expand" arguments=["%E0%A4%A"]"#
+
     static var expectedForCurrentOS: String {
         if #available(iOS 27.0, *) {
             // Re-probed the original PBMMRAIDCommand.m on iOS 27: NSURL now
             // escapes only the malformed trailing percent sequence, and the
             // original NSString decoder rejects the remaining incomplete UTF-8.
             return expected.replacingOccurrences(
-                of: #"ctl.command.11."mraid:expand/%E0%A4%A" => url=set command="expand" arguments=["%E0%A4%A"]"#,
+                of: legacyMalformedPercentLine,
                 with: #"ctl.command.11."mraid:expand/%E0%A4%A" => url=set throws reason="Unable to parse MRAID command argument: %E0%A4%25A on url: mraid:expand/%E0%A4%25A""#
             )
         }

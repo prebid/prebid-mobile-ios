@@ -2,7 +2,10 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-# Opt in to published-package verification only when those APIs are released.
+# Flags:
+# --with-spm-demo:      also build the standalone SPM consumer against the *published*
+#                       packages. It fails for demo changes that use SDK API not yet released,
+#                       so PR CI omits it; the PR job runs verifySPM.sh against candidate packages.
 with_spm_demo="NO"
 
 usage() {
