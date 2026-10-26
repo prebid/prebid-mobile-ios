@@ -14,37 +14,42 @@ repository does not require CocoaPods, a Podfile, or a generated Pods project.
 | GoogleUserMessagingPlatform (Google dependency) | 3.1.0 |
 
 These match the previous development Podfile.lock. The three Xcode projects have
-exact requirements, and share the committed lockfile at
-`PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved`. The root development
-`Package.swift` and `Package.resolved` use the same vendor versions. Published
-package manifests and podspecs retain their customer-facing version requirements.
-The SPM demo still follows the Prebid adapter repository's `main` branch; the
-workspace lockfile records the tested commit.
+exact requirements for the vendor SDKs. They share a generated, ignored lockfile at
+`PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved`. The SPM demo keeps
+its existing Prebid version/branch requirements and can resolve newer published
+packages on a fresh checkout, rather than inherit stale committed demo pins.
+Existing local checkouts can use Xcode's Update to Latest Package Versions command.
+
+The root `Package.swift` retains its consumer version ranges. Its committed
+`Package.resolved` selects the same tested vendor versions for the local package
+build, which uses `--force-resolved-versions`. Published package manifests and
+podspecs retain their customer-facing requirements.
 
 ```bash
 ./scripts/resolveDependencies.sh
 ```
 
-This command requires the committed package versions. Scripts keep checkouts and
-binary artifacts in `.swiftpm-cache/`, outside `generated/`, so a new archive build
-can delete its output without deleting its dependencies. CI caches that directory
-using the Xcode version and workspace lockfile as its key. Xcode opened interactively
-can use its default package cache; it still reads the same workspace lockfile.
+Scripts keep checkouts and binary artifacts in `.swiftpm-cache/`, outside
+`generated/`, so archive builds can delete their output without deleting the cache.
+CI keys that cache by Xcode version, the root lockfile, and Xcode project package
+requirements. Xcode opened interactively can use its default package cache.
+The workspace includes the published-package demo, so Xcode resolves those packages
+alongside native dependencies; they benefit from the same cache.
 
-To update a vendor dependency deliberately, change the exact requirement in all
-three projects and the root development manifest where applicable. Resolve without
-the frozen-lockfile option, then regenerate the root lockfile:
+To update a vendor dependency deliberately, change its exact requirement in the
+three projects, resolve the workspace, and refresh the root lockfile to the same
+versions (using `swift package update` for the changed package if needed):
 
 ```bash
-xcodebuild -resolvePackageDependencies \
-  -workspace PrebidMobile.xcworkspace -scheme Lib-PrebidMobile \
-  -clonedSourcePackagesDirPath .swiftpm-cache
+./scripts/resolveDependencies.sh
 swift package resolve
 ```
 
-Commit the updated requirements and both lockfiles together. The release verifier
-intentionally resolves temporary local Prebid packages and restores the development
-lockfile afterward. Published-package release verification resolves afresh in CI.
+Commit the project requirements and the updated root lockfile. Do not commit the
+workspace lockfile. The release verifier resolves temporary local Prebid packages
+and restores the user's generated lockfile if one existed; it also works on a
+fresh checkout without that file. Published-package release verification resolves
+afresh in CI.
 
 ## Targets and linking
 
@@ -93,7 +98,10 @@ The internal app's forms are implemented by `FormTableViewController`, a UIKit t
 with text, switch, checkmark, value-label, and action rows. Configuration controller
 types, the `loadSection` override point, accessibility identifiers, consent defaults,
 the multiformat selection rule, and the optional HUD setting remain available. The
-unused native editor row helper was deleted. The HUD uses `UIActivityIndicatorView`.
+unused native editor row helper was deleted. Text, toggle, and display cells are
+dequeued, with controls/constraints built once. Reconfiguration updates the bound
+row, callbacks, accessibility identifiers, and presentation state. The HUD uses
+`UIActivityIndicatorView`.
 
 OpenXMockServer uses URLSession and Combine. Its public `PBMMockServer` API is
 unchanged. GET parameters use the query string and POST parameters use a form body;
@@ -120,7 +128,8 @@ on a machine that also has iOS 27 installed. Destinations use the created simula
 UUID, so a runtime override cannot accidentally select another device.
 
 `DevelopmentFormsTests` covers configuration edits, refresh reset, multiformat
-selection gating, and clearing consent values. `testDevelopmentSupport.sh` also runs
+selection gating, clearing consent values, and cell reuse without stale callbacks
+or presentation state. `testDevelopmentSupport.sh` also runs
 the existing configuration-sheet UI smoke test, which checks that the refresh field
 and load button remain accessible. It uses its own simulator and removes it afterward.
 

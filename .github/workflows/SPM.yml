@@ -316,7 +316,7 @@ jobs:
           xcode-version: ${{ env.XCODE_VERSION }}
       - name: Build Prebid SPM Demo
         run: |
-          rm PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved
+          rm -f PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved
           ./scripts/buildPrebidSPM.sh
       - name: Upload logs on failure
         if: ${{ failure() }}

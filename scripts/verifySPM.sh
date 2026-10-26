@@ -30,9 +30,15 @@ fi
 
 WORKDIR="$(mktemp -d)"
 RESOLVED="PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved"
-cp "$RESOLVED" "$WORKDIR/Package.resolved"
+if [[ -f "$RESOLVED" ]]; then
+  cp "$RESOLVED" "$WORKDIR/Package.resolved"
+fi
 cleanup() {
-  cp "$WORKDIR/Package.resolved" "$RESOLVED"
+  if [[ -f "$WORKDIR/Package.resolved" ]]; then
+    cp "$WORKDIR/Package.resolved" "$RESOLVED"
+  else
+    rm -f "$RESOLVED"
+  fi
   rm -rf "$WORKDIR"
 }
 trap cleanup EXIT

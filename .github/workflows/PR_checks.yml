@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -82,7 +82,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Compile apps and test targets
         run: ./scripts/verifyDevelopmentApps.sh
       - name: Test development support code
@@ -100,7 +100,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -120,7 +120,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -140,7 +140,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -174,7 +174,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 
@@ -192,7 +192,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with: 

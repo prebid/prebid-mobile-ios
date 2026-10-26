@@ -52,6 +52,9 @@ final class FormSection {
 }
 
 class FormTableViewController: UITableViewController {
+    private static let textCellIdentifier = "FormTextCell"
+    private static let toggleCellIdentifier = "FormToggleCell"
+    private static let displayCellIdentifier = "FormDisplayCell"
     var sections: [FormSection] = []
 
     init() {
@@ -64,6 +67,9 @@ class FormTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(FormTextCell.self, forCellReuseIdentifier: Self.textCellIdentifier)
+        tableView.register(FormToggleCell.self, forCellReuseIdentifier: Self.toggleCellIdentifier)
+        tableView.register(FormTableViewCell.self, forCellReuseIdentifier: Self.displayCellIdentifier)
         tableView.keyboardDismissMode = .interactive
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 50
@@ -89,68 +95,14 @@ class FormTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = sections[indexPath.section].rows[indexPath.row]
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = row.title
-        cell.textLabel?.numberOfLines = 0
-        cell.accessibilityIdentifier = row.identifier
-        cell.selectionStyle = .none
+        let identifier: String
         switch row.kind {
-        case .text:
-            let field = UITextField()
-            field.text = row.value
-            field.textAlignment = .right
-            field.autocorrectionType = .no
-            field.autocapitalizationType = .none
-            field.clearButtonMode = .whileEditing
-            field.accessibilityLabel = row.title
-            field.accessibilityIdentifier = row.controlIdentifier
-            field.translatesAutoresizingMaskIntoConstraints = false
-            cell.contentView.addSubview(field)
-            cell.textLabel?.text = nil
-            let label = UILabel()
-            label.text = row.title
-            label.font = .preferredFont(forTextStyle: .body)
-            label.numberOfLines = 0
-            label.translatesAutoresizingMaskIntoConstraints = false
-            cell.contentView.addSubview(label)
-            NSLayoutConstraint.activate([
-                label.leadingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.leadingAnchor),
-                label.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
-                label.widthAnchor.constraint(lessThanOrEqualTo: cell.contentView.widthAnchor, multiplier: 0.45),
-                label.topAnchor.constraint(greaterThanOrEqualTo: cell.contentView.topAnchor, constant: 8),
-                label.bottomAnchor.constraint(lessThanOrEqualTo: cell.contentView.bottomAnchor, constant: -8),
-                field.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 12),
-                field.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor),
-                field.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 12),
-                field.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -12),
-                field.heightAnchor.constraint(greaterThanOrEqualToConstant: 24)
-            ])
-            field.addAction(UIAction { [weak field] _ in
-                let value = field?.text ?? ""
-                row.value = value
-                row.onTextChange?(value)
-            }, for: .editingChanged)
-        case .toggle:
-            let control = UISwitch()
-            control.isOn = row.isOn
-            control.accessibilityLabel = row.title
-            control.accessibilityIdentifier = row.controlIdentifier
-            control.addAction(UIAction { [weak control] _ in
-                row.isOn = control?.isOn ?? false
-                row.onToggle?(row.isOn)
-            }, for: .valueChanged)
-            cell.accessoryView = control
-        case .checkmark:
-            cell.accessoryType = row.isOn ? .checkmark : .none
-            cell.selectionStyle = .default
-        case .label:
-            cell.detailTextLabel?.text = row.value
-            cell.detailTextLabel?.accessibilityIdentifier = row.detailIdentifier
-        case .action:
-            cell.accessoryType = row.accessoryType
-            cell.selectionStyle = .default
-            cell.textLabel?.textColor = .systemBlue
+        case .text: identifier = Self.textCellIdentifier
+        case .toggle: identifier = Self.toggleCellIdentifier
+        default: identifier = Self.displayCellIdentifier
         }
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! FormTableViewCell
+        cell.configure(row)
         return cell
     }
 
@@ -184,5 +136,124 @@ class FormTableViewController: UITableViewController {
             }
             (cell.accessoryView as? UISwitch)?.isOn = row.isOn
         }
+    }
+}
+
+// Cells build their controls once and bind them to the current row on every reuse.
+class FormTableViewCell: UITableViewCell {
+    fileprivate weak var row: FormRow?
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        textLabel?.numberOfLines = 0
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("Form cells are created programmatically")
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        row = nil
+    }
+
+    func configure(_ row: FormRow) {
+        self.row = row
+        textLabel?.text = row.title
+        textLabel?.textColor = row.kind == .action ? .systemBlue : .label
+        detailTextLabel?.text = row.kind == .label ? row.value : nil
+        detailTextLabel?.accessibilityIdentifier = row.kind == .label ? row.detailIdentifier : nil
+        accessibilityIdentifier = row.identifier
+        selectionStyle = .none
+        accessoryType = .none
+        switch row.kind {
+        case .checkmark:
+            accessoryType = row.isOn ? .checkmark : .none
+            selectionStyle = .default
+        case .action:
+            accessoryType = row.accessoryType
+            selectionStyle = .default
+        default:
+            break
+        }
+    }
+}
+
+private final class FormTextCell: FormTableViewCell {
+    private let titleLabel = UILabel()
+    private let field = UITextField()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        titleLabel.font = .preferredFont(forTextStyle: .body)
+        titleLabel.numberOfLines = 0
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(titleLabel)
+        field.textAlignment = .right
+        field.autocorrectionType = .no
+        field.autocapitalizationType = .none
+        field.clearButtonMode = .whileEditing
+        field.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(field)
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            titleLabel.widthAnchor.constraint(lessThanOrEqualTo: contentView.widthAnchor, multiplier: 0.45),
+            titleLabel.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 8),
+            titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -8),
+            field.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 12),
+            field.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            field.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            field.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            field.heightAnchor.constraint(greaterThanOrEqualToConstant: 24)
+        ])
+        field.addTarget(self, action: #selector(textChanged), for: .editingChanged)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("Form cells are created programmatically")
+    }
+
+    override func configure(_ row: FormRow) {
+        super.configure(row)
+        textLabel?.text = nil
+        titleLabel.text = row.title
+        field.text = row.value
+        field.accessibilityLabel = row.title
+        field.accessibilityIdentifier = row.controlIdentifier
+    }
+
+    @objc private func textChanged() {
+        guard let row else { return }
+        let value = field.text ?? ""
+        row.value = value
+        row.onTextChange?(value)
+    }
+}
+
+private final class FormToggleCell: FormTableViewCell {
+    private let control = UISwitch()
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        accessoryView = control
+        control.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("Form cells are created programmatically")
+    }
+
+    override func configure(_ row: FormRow) {
+        super.configure(row)
+        control.isOn = row.isOn
+        control.accessibilityLabel = row.title
+        control.accessibilityIdentifier = row.controlIdentifier
+    }
+
+    @objc private func valueChanged() {
+        guard let row else { return }
+        row.isOn = control.isOn
+        row.onToggle?(row.isOn)
     }
 }
