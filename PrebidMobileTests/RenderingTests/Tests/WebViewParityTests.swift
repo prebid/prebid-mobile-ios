@@ -25,10 +25,18 @@ class WebViewParityTests: XCTestCase {
     // Each probe replaces window.mraid completely. Keep one page per test case
     // so the 50 inputs do not repeatedly start and tear down WebKit processes.
     private var propertyProbeWebView: WebView!
+    private var propertyProbeWindow: UIWindow?
 
-    override func setUpWithError() throws {
-        try super.setUpWithError()
+    private func preparePropertyProbes() throws {
         propertyProbeWebView = WebView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        // Keep the probe attached while executing JavaScript, rather than let
+        // WebKit suspend an offscreen page between navigation and evaluation.
+        let controller = UIViewController()
+        controller.view.addSubview(propertyProbeWebView)
+        let window = UIWindow(frame: propertyProbeWebView.frame)
+        window.rootViewController = controller
+        propertyProbeWindow = window
+        window.isHidden = false
         // Give the probes a loaded document instead of racing JavaScript against
         // WebKit's initial, implicit about:blank navigation.
         let loaded = XCTNSPredicateExpectation(
@@ -43,6 +51,10 @@ class WebViewParityTests: XCTestCase {
     }
 
     override func tearDown() {
+        propertyProbeWebView?.internalWebView.stopLoading()
+        propertyProbeWindow?.isHidden = true
+        propertyProbeWindow?.rootViewController = nil
+        propertyProbeWindow = nil
         propertyProbeWebView = nil
         super.tearDown()
     }
@@ -61,7 +73,8 @@ class WebViewParityTests: XCTestCase {
     }
 
     /// Runs the JavaScript expressions captured from the Objective-C original through the Swift port.
-    func testJavaScriptPropertiesMatchObjectiveCOriginal() {
+    func testJavaScriptPropertiesMatchObjectiveCOriginal() throws {
+        try preparePropertyProbes()
         let lines = WebViewParityExpectations.javaScriptProperties.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
         XCTAssertEqual(lines.count, 50)
 
@@ -88,7 +101,8 @@ class WebViewParityTests: XCTestCase {
     /// original then sent `-integerValue`/`-boolValue` to an `NSNull`, an array or a dictionary and crashed the host app with
     /// "unrecognized selector" (probed one at a time, 7 of 7 crashed). The port treats such a value as unusable: the
     /// completion handler gets `nil`.
-    func testUnsupportedValueTypesInJSPropertiesAreRejected() {
+    func testUnsupportedValueTypesInJSPropertiesAreRejected() throws {
+        try preparePropertyProbes()
         let expandLiterals = ["{width:null,height:250}", "{width:{},height:1}", "{width:[1],height:2}", "{width:NaN,height:Infinity}"]
         for literal in expandLiterals {
             XCTAssertNil(expandProperties(forLiteral: literal), literal)
