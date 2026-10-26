@@ -109,7 +109,12 @@ the local modules or binaries, including when building directly from Xcode.
 
 ```bash
 ./scripts/verifyDevelopmentApps.sh # compile demo, internal, Skadn, and test/UI-test targets
+./scripts/verifyDevelopmentApps.sh --with-spm-demo # also check the SPM demo can't overwrite native products
 ```
+
+PR CI runs `verifyDevelopmentApps.sh` without `--with-spm-demo`: the SPM demo compiles the
+Swift demo sources against the published packages, so it fails any PR that uses new SDK API in
+the demo until that API is released.
 
 ## Architecture
 

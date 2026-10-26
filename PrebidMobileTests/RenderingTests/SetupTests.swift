@@ -48,7 +48,9 @@ class SetupTests: NSObject, XCTestObservation {
 
     /// Cold simulator helper processes can take longer than an individual test's deadline.
     /// Finish startup before running tests, and retain the page until the bundle finishes so
-    /// WebKit does not shut down between suites. A startup failure fails the run explicitly.
+    /// WebKit does not shut down between suites. A startup failure is logged, not fatal: a crash
+    /// here ends the run before any test reports, and `-retry-tests-on-failure` cannot restart it.
+    /// Tests that need WebKit still fail on their own deadlines and are retried individually.
     func testBundleWillStart(_ testBundle: Bundle) {
         let ready = XCTestExpectation(description: "WebKit helper processes ready")
         var startupError: Error?
@@ -70,9 +72,13 @@ class SetupTests: NSObject, XCTestObservation {
             DispatchQueue.main.async(execute: start)
         }
         // This is the simulator startup budget; individual test deadlines remain unchanged.
-        let result = XCTWaiter.wait(for: [ready], timeout: 180)
-        precondition(result == .completed && startupError == nil,
-                     "WebKit startup failed: \(startupError?.localizedDescription ?? String(describing: result))")
+        let startupBudget: TimeInterval = 180
+        let result = XCTWaiter.wait(for: [ready], timeout: startupBudget)
+        if result != .completed {
+            print("⚠️ WebKit startup did not finish within \(Int(startupBudget)) seconds; continuing (XCTWaiter result \(result.rawValue))")
+        } else if let startupError {
+            print("⚠️ WebKit startup failed; continuing: \(startupError.localizedDescription)")
+        }
     }
 
     func testBundleDidFinish(_ testBundle: Bundle) {

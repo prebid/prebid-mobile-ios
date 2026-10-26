@@ -50,8 +50,8 @@ startup, the 58 MB download-size fixture, and delayed wrapper-failure callbacks.
 - Replace fire-and-forget WebKit warm-up with a bundle observation that waits for
   JavaScript to execute before tests begin. Keep the page alive until bundle
   completion. The startup budget is 180 seconds (cold CI helper launches have
-  previously exceeded 170 seconds); failure stops the run. Individual assertion
-  deadlines remain unchanged.
+  previously exceeded 170 seconds). Individual assertion deadlines remain
+  unchanged. (A timeout no longer stops the run; see the second review follow-up.)
 - Only create the JavaScript property fixture for tests that use it, and attach
   it to a window while probing. Pure parity comparisons keep their original oracle
   and no longer load an unused document.
@@ -92,3 +92,26 @@ Validation:
 - [x] Release-verifier cleanup preserves an existing lockfile and removes temporary pins when none existed.
 - [x] Shell syntax and workflow YAML parse successfully.
 - [x] All seven development-app verification builds pass after review changes.
+
+## Second review follow-up for PR #1421
+
+- PR CI no longer builds `PrebidDemoSPM`. It compiles the same Swift demo sources
+  as `PrebidDemoSwift` against the published packages, so a PR that uses new SDK
+  API in the demo would fail until that API is released (for example the
+  `adFormats` demo change in #1341 against published 3.3.4).
+  `verifyDevelopmentApps.sh --with-spm-demo` keeps the same-DerivedData check for
+  local use; `SPM.yml` still builds the SPM demo against local package copies.
+- The WebKit startup wait in `SetupTests.testBundleWillStart` logs a timeout or
+  error and continues instead of calling `precondition`. Locally, 2 of 4 runs
+  crashed before the first test ("no restart will be attempted"); a crash there
+  cannot be retried by `-retry-tests-on-failure`.
+
+Validation:
+
+- [x] Forced 1 ms startup budget: the warning is logged, the run continues, and
+  only a WebKit-dependent test fails on its own deadline (14 tests executed).
+- [x] With the 180 second budget: VideoViewStatusTests, WebViewParityTests,
+  DownloadSizeHelperTest, PBMVastLoaderMultiWrapperTest and UserAgentServiceTest
+  pass on iOS 26.5 (22 tests, zero failures).
+- [x] `verifyDevelopmentApps.sh` syntax, shellcheck, `--help` and unknown-flag exit codes.
+- [x] `verifyDevelopmentApps.sh` without the flag: all five builds pass, and `PrebidDemoSPM` is not built.

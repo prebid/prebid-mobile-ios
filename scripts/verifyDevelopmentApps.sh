@@ -2,10 +2,33 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Flags:
+# --with-spm-demo:      also build PrebidDemoSPM, then rebuild the native app in the same
+#                       derived-data directory. PrebidDemoSPM compiles the Swift demo sources
+#                       against the *published* packages, so a PR that uses new SDK API in the
+#                       demo cannot pass it until that API is released. CI on PRs omits it;
+#                       SPM.yml builds the SPM demo against local package copies instead.
+
+with_spm_demo="NO"
+
+usage() {
+  cat <<'USAGE'
+Usage: verifyDevelopmentApps.sh [--with-spm-demo]
+USAGE
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --with-spm-demo)  with_spm_demo="YES"; shift ;;
+    -h|--help)        usage; exit 0 ;;
+    *)                echo "Unknown option: $1" >&2; usage; exit 2 ;;
+  esac
+done
+
 ./scripts/resolveDependencies.sh
 
 # Compile the app, unit-test, and UI-test targets without running network-based
-# integration tests. The Objective-C and SPM demos also need explicit coverage.
+# integration tests. The Objective-C demo also needs explicit coverage.
 for scheme in PrebidDemoTests PrebidDemoSwiftUITests InternalTestApp; do
     xcodebuild build-for-testing \
         -workspace PrebidMobile.xcworkspace \
@@ -28,6 +51,10 @@ for scheme in PrebidDemoObjectiveC InternalTestApp-Skadn; do
         -disableAutomaticPackageResolution \
         CODE_SIGNING_ALLOWED=NO
 done
+
+if [ "$with_spm_demo" != "YES" ]; then
+    exit 0
+fi
 
 # Exercise the same derived-data directory for native and published-package
 # builds, as Xcode does interactively. Project settings must keep their products

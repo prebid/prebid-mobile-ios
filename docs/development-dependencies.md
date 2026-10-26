@@ -69,10 +69,14 @@ The separation is set in all five native projects, including TestUtils, so it al
 applies to builds started directly from Xcode. PrebidDemoSPM overrides the native
 project default to keep its package products separate.
 
-`verifyDevelopmentApps.sh` deliberately builds both kinds of targets in one
-derived-data directory and rebuilds InternalTestApp after the SPM demo. This checks
-that building the published packages cannot overwrite the native products. The
-standalone `buildPrebidSPM.sh` continues to use its own derived-data directory.
+`verifyDevelopmentApps.sh --with-spm-demo` deliberately builds both kinds of targets
+in one derived-data directory and rebuilds InternalTestApp after the SPM demo. This
+checks that building the published packages cannot overwrite the native products.
+PR CI omits the flag: PrebidDemoSPM compiles the same Swift demo sources as
+PrebidDemoSwift but against the published packages, so a PR that uses new SDK API in
+the demo would fail until that API is released. `SPM.yml` builds the SPM demo against
+local copies of the packages at release time. The standalone `buildPrebidSPM.sh`
+continues to use its own derived-data directory.
 Archive/install builds already use per-scheme directories. They keep Xcode's standard
 product paths (`DEPLOYMENT_LOCATION=YES`), avoiding duplicate vendor XCFramework
 signature copies when Xcode collects the archive's `Signatures` directory.
@@ -114,7 +118,7 @@ host keeps its self-signed-certificate exception; other hosts use default trust.
 ```bash
 ./scripts/buildPrebidMobile.sh       # four XCFrameworks and textual interfaces
 ./scripts/buildPrebidMobilePackage.sh
-./scripts/verifyDevelopmentApps.sh  # native/SPM demos, internal/Skadn, test targets
+./scripts/verifyDevelopmentApps.sh  # native demos, internal/Skadn, test targets; --with-spm-demo adds the SPM demo
 ./scripts/testDevelopmentSupport.sh # deterministic form and mock-client tests
 ./scripts/testPrebidMobile.sh --latest --quick
 ./scripts/testPrebidMobileAdapters.sh
