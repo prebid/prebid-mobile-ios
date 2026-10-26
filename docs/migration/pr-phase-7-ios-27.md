@@ -115,3 +115,44 @@ Validation:
   pass on iOS 26.5 (22 tests, zero failures).
 - [x] `verifyDevelopmentApps.sh` syntax, shellcheck, `--help` and unknown-flag exit codes.
 - [x] `verifyDevelopmentApps.sh` without the flag: all five builds pass, and `PrebidDemoSPM` is not built.
+
+## Package-graph review follow-up for PR #1421
+
+- Move `PrebidDemoSPM` into `Example/PrebidDemo/PrebidDemoSPM.xcodeproj`, outside
+  the native workspace. Keep the same 64 Swift sources and nine resource entries,
+  with independent project/target IDs. The native workspace now resolves only the
+  four vendor packages; published Prebid adapter ranges cannot constrain it.
+- Let the standalone consumer obtain GoogleMobileAds, AppLovinSDK, and PrebidMobile
+  transitively from its adapters graph. This avoids a second consumer requirement
+  blocking candidate adapter vendor-major upgrades.
+- Remove `LocalPrebid` output-path overrides from all five native projects. Separate
+  containers provide default build-product isolation, and command-line consumer
+  builds use their own package cache and DerivedData. Existing shared-layout build
+  folders need one clean to discard stale modules.
+- Use a temporary consumer workspace, pins, package cache, and DerivedData for
+  candidate release verification. No normal lockfiles are backed up or modified.
+  Add a PR job building the consumer against candidate packages, preserving coverage
+  before a new vendor major or adapter version has been published. Native app
+  verification now builds five native configurations, with an isolation guard.
+  Preserve `--with-spm-demo` as an opt-in call to the standalone published consumer;
+  it no longer shares native products or rebuilds a native app afterward.
+- Delete the unused 58 MB `large.mp4` fixture and its project/resource references.
+  The eight small URLSession download-size cases remain unchanged.
+
+Validation with Xcode 27.0 (before integrating the remote nonfatal-warm-up change;
+that change's focused validation is recorded above, and final-head CI covers both):
+
+- [x] A temporary native workspace with GMA 12.14.0 resolves successfully while the
+  independent published consumer uses GMA 13.11.0. This reproduces the reported
+  incompatible-major scenario without changing committed vendor requirements.
+- [x] Native resolution contains only the four expected vendor packages.
+- [x] Standalone consumer builds for both simulator architectures.
+- [x] Temporary consumer-workspace build creates its own pins and leaves existing
+  native and standalone lockfiles byte-for-byte unchanged.
+- [x] All five native app/test verification builds.
+- [x] Four device/simulator XCFrameworks and all 24 Swift interfaces.
+- [x] Core quick suite: 1,030 passed, zero failures, no retries; all 13
+  development-support tests pass on iOS 26.5.
+- [x] Root SPM package builds with its committed pins.
+- [x] Built test bundle contains no `large.mp4`.
+- [x] Isolation guard, unchanged source/resource membership, shell syntax, and workflow YAML.

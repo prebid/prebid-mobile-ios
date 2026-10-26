@@ -15,10 +15,18 @@ repository does not require CocoaPods, a Podfile, or a generated Pods project.
 
 These match the previous development Podfile.lock. The three Xcode projects have
 exact requirements for the vendor SDKs. They share a generated, ignored lockfile at
-`PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved`. The SPM demo keeps
-its existing Prebid version/branch requirements and can resolve newer published
-packages on a fresh checkout, rather than inherit stale committed demo pins.
-Existing local checkouts can use Xcode's Update to Latest Package Versions command.
+`PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved`. This workspace
+contains only native projects and vendor packages, so published Prebid requirements
+cannot block a native vendor-major upgrade.
+
+The published consumer lives in the standalone
+`Example/PrebidDemo/PrebidDemoSPM.xcodeproj`. Open it separately from the native
+workspace. It retains the adapters' `main` branch requirement and gets the core,
+GoogleMobileAds, and AppLovinSDK products transitively through that graph. It does
+not impose separate Google/AppLovin version requirements; candidate adapter
+manifests can therefore change their supported major versions before publication.
+Its project lockfile is generated and ignored. Existing local checkouts can use
+Xcode's Update to Latest Package Versions command.
 
 The root `Package.swift` retains its consumer version ranges. Its committed
 `Package.resolved` selects the same tested vendor versions for the local package
@@ -33,8 +41,10 @@ Scripts keep checkouts and binary artifacts in `.swiftpm-cache/`, outside
 `generated/`, so archive builds can delete their output without deleting the cache.
 CI keys that cache by Xcode version, the root lockfile, and Xcode project package
 requirements. Xcode opened interactively can use its default package cache.
-The workspace includes the published-package demo, so Xcode resolves those packages
-alongside native dependencies; they benefit from the same cache.
+Standalone consumer builds use `.swiftpm-spm-demo-cache/` and `.build/spm-demo/`.
+Separate package directories keep one graph's checkout or binary artifact from
+replacing another graph's vendor version. Xcode's default DerivedData also separates
+the native workspace from the standalone consumer project.
 
 To update a vendor dependency deliberately, change its exact requirement in the
 three projects, resolve the workspace, and refresh the root lockfile to the same
@@ -46,10 +56,11 @@ swift package resolve
 ```
 
 Commit the project requirements and the updated root lockfile. Do not commit the
-workspace lockfile. The release verifier resolves temporary local Prebid packages
-and restores the user's generated lockfile if one existed; it also works on a
-fresh checkout without that file. Published-package release verification resolves
-afresh in CI.
+workspace or standalone-project lockfiles. The release verifier creates a temporary
+workspace referencing the consumer project, with its own lockfile, package cache,
+and DerivedData. Normal native and consumer lockfiles are never modified. PR checks
+build this consumer against locally staged candidate packages before publication;
+release checks also build against the published packages afterward.
 
 ## Targets and linking
 
@@ -59,27 +70,20 @@ InternalTestApp variants depend on all three vendor SDKs. Unit tests that import
 GoogleMobileAds link that product explicitly. UI tests obtain their dependencies
 through the tested app. OpenXMockServer and its tests use only system frameworks.
 
-Normal builds of the local framework and app targets use
-`$(BUILD_DIR)/LocalPrebid/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)` for their products.
-The SPM demo and its published packages retain Xcode's default product directory.
-Both copies of PrebidMobile have the same module/framework names, so sharing the
-same product directory can mix published Swift modules with local binaries and
-fail adapter linking with undefined `PrebidMobile.*.unsafeMutableAddressor` symbols.
-The separation is set in all five native projects, including TestUtils, so it also
-applies to builds started directly from Xcode. PrebidDemoSPM overrides the native
-project default to keep its package products separate.
+Native and published Prebid products share module/framework names. Keeping the
+consumer in a separate project gives both command-line and Xcode builds separate
+package graphs and default product directories. Native projects use standard Xcode
+product paths; the previous `LocalPrebid` overrides have been removed. When switching
+from the earlier shared-container layout, use Product > Clean Build Folder once in
+the native workspace to discard any previously mixed native/published modules.
 
-`verifyDevelopmentApps.sh --with-spm-demo` deliberately builds both kinds of targets
-in one derived-data directory and rebuilds InternalTestApp after the SPM demo. This
-checks that building the published packages cannot overwrite the native products.
-PR CI omits the flag: PrebidDemoSPM compiles the same Swift demo sources as
-PrebidDemoSwift but against the published packages, so a PR that uses new SDK API in
-the demo would fail until that API is released. `SPM.yml` builds the SPM demo against
-local copies of the packages at release time. The standalone `buildPrebidSPM.sh`
-continues to use its own derived-data directory.
-Archive/install builds already use per-scheme directories. They keep Xcode's standard
-product paths (`DEPLOYMENT_LOCATION=YES`), avoiding duplicate vendor XCFramework
-signature copies when Xcode collects the archive's `Signatures` directory.
+`verifyDevelopmentApps.sh` builds five native app/test configurations. Its optional
+`--with-spm-demo` flag also calls `buildPrebidSPM.sh` for the standalone published
+consumer, using separate caches/products. PR CI omits that flag because demo changes
+may use SDK APIs that have not been published. A separate PR job runs `verifySPM.sh`
+against candidate package sources, so those API changes can still be verified before
+release. `verifyDependencyIsolation.sh` checks that the
+consumer target and published Prebid references stay outside the native workspace.
 
 Google's SPM binary is a static archive. App and test targets disable Xcode's
 package diamond diagnostic/automatic dynamic replacement to retain the previous
@@ -118,7 +122,9 @@ host keeps its self-signed-certificate exception; other hosts use default trust.
 ```bash
 ./scripts/buildPrebidMobile.sh       # four XCFrameworks and textual interfaces
 ./scripts/buildPrebidMobilePackage.sh
-./scripts/verifyDevelopmentApps.sh  # native demos, internal/Skadn, test targets; --with-spm-demo adds the SPM demo
+./scripts/verifyDevelopmentApps.sh  # native demos, internal/Skadn, test targets
+./scripts/buildPrebidSPM.sh          # standalone published-package consumer
+./scripts/verifyDependencyIsolation.sh
 ./scripts/testDevelopmentSupport.sh # deterministic form and mock-client tests
 ./scripts/testPrebidMobile.sh --latest --quick
 ./scripts/testPrebidMobileAdapters.sh
@@ -163,13 +169,13 @@ app's missing scene lifecycle. Both are addressed in the
 callback race found during verification. The published podspecs and published
 package manifests were not modified.
 
-### Follow-up: native builds from Xcode
+### Historical follow-up: native builds from Xcode (superseded by project split)
 
 Reproduced the adapter undefined-symbol failure in a regular InternalTestApp build
 using Xcode's default DerivedData location. Giving only the command-line SPM demo a
 separate derived-data directory did not protect builds started from Xcode itself.
-The native project product paths now provide that separation for all build entry
-points, while archive/install actions retain the standard per-scheme paths.
+The first fix used native project product-path overrides for all build entry
+points. The standalone project split below supersedes those overrides.
 
 Verified after the project-setting change:
 
@@ -185,3 +191,19 @@ Verified after the project-setting change:
   24 Swift interfaces pass the standalone check. Archive actions use the standard
   product paths to prevent duplicate vendor signature copies in the archive's
   `Signatures` directory.
+
+### Standalone consumer verification on 2026-10-26
+
+The standalone project split supersedes the earlier product-directory workaround.
+All five native app/test builds, the standalone published consumer, the root SPM
+package, all four XCFrameworks, and all 24 Swift interfaces pass with Xcode 27.0.
+On iOS 26.5, all 1,030 core PR tests and 13 development-support tests pass without
+failures; the core run needed no retries. The current core test bundle contains no
+`large.mp4`.
+
+A temporary native workspace resolves GMA 12.14.0 while the separate published
+consumer resolves and builds with GMA 13.11.0, reproducing the incompatible-major
+case without changing the committed requirements. A temporary consumer-workspace
+build creates its own pins and leaves normal native/consumer lockfiles unchanged.
+Source/resource membership, the isolation guard, shell syntax, and workflow YAML
+also pass. PR CI separately verifies the consumer against candidate package sources.
