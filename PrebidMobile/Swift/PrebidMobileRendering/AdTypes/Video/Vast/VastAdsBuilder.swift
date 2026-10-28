@@ -65,13 +65,12 @@ class VastAdsBuilder: NSObject {
 
         var firedNoAdsURI = false
 
-        // To check no ads responses, we find any response that had an Ad/Inline element that had zero creatives.
-        // Then we walk backward from that response to any preceding wrapper responses that have an errorURI provided.
+        // An empty response reports 303 to its response-level Error URI and to the wrappers that led to it.
 
         if vastResponse.vastAbstractAds.count == 0 {
 
-            // If we have no ads, fire noAdsResponseURI on every wrapper up the chain.
-            // First check response itself. then loop up
+            // Walk the response chain, selecting only the wrapper that led to the current response.
+            // Other wrappers in the parent response may belong to successful sibling branches.
 
             var parent: VastResponse? = vastResponse
             while let current = parent {
@@ -83,6 +82,14 @@ class VastAdsBuilder: NSObject {
                 // Avoid infinite loop
                 if current.parentResponse === current {
                     break
+                }
+
+                if let parentResponse = current.parentResponse,
+                   let wrapper = parentResponse.vastAbstractAds.compactMap({ $0 as? VastWrapperAd })
+                    .first(where: { $0.vastResponse === current }) {
+                    for errorURI in wrapper.errorURIs where !errorURI.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        serverConnection.fireAndForget(VastErrorCode.noAdAfterWrappers.replacingMacro(in: errorURI))
+                    }
                 }
 
                 parent = current.parentResponse
@@ -97,7 +104,8 @@ class VastAdsBuilder: NSObject {
 
                     // And it has a response
                     if let unwrappedVastResponse = unwrappedVASTWrapper.vastResponse {
-                        firedNoAdsURI = firedNoAdsURI || checkHasNoAdsAndFireURIs(vastResponse: unwrappedVastResponse)
+                        let childHasNoAds = checkHasNoAdsAndFireURIs(vastResponse: unwrappedVastResponse)
+                        firedNoAdsURI = firedNoAdsURI || childHasNoAds
                     } else {
                         Log.error("No vastResponse on Wrapper")
                     }
