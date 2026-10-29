@@ -67,7 +67,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     var bidRequester: BidRequester?
     
-    var completion: ((ResultCode) -> Void)?
+    var completion: ((BidInfo) -> Void)?
     
     let mediationDelegate: PrebidMediationDelegate
     
@@ -93,7 +93,22 @@ public class MediationBaseInterstitialAdUnit : NSObject {
                     targeting: Targeting.shared,
                     completion: completion)
     }
-    
+
+    // See `MediationBannerAdUnit.fetchDemandBidInfo(completion:)` for why this is not a `fetchDemand` overload.
+
+    /// Makes bid request and setups mediation parameters. Like `fetchDemand(completion:)`, but provides
+    /// the full `BidInfo` (including the winning-bid economics) instead of only the result code.
+    /// - Parameters:
+    ///   - completion: A closure called with a `BidInfo` object representing the fetched demand.
+    public func fetchDemandBidInfo(completion: @escaping (_ bidInfo: BidInfo) -> Void) {
+        fetchDemandBidInfo(
+            connection: PrebidServerConnection.shared,
+            sdkConfiguration: Prebid.shared,
+            targeting: Targeting.shared,
+            completion: completion
+        )
+    }
+
     // MARK: Arbitrary ORTB Configuration
     
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
@@ -123,10 +138,27 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     // MARK: - Internal Methods
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(connection: PrebidServerConnectionProtocol,
-                     sdkConfiguration: Prebid,
-                     targeting: Targeting,
-                     completion: ((ResultCode)->Void)?) {
+    func fetchDemand(
+        connection: PrebidServerConnectionProtocol,
+        sdkConfiguration: Prebid,
+        targeting: Targeting,
+        completion: ((ResultCode)->Void)?) {
+        fetchDemandBidInfo(
+            connection: connection,
+            sdkConfiguration: sdkConfiguration,
+            targeting: targeting,
+            completion: completion.map {
+                completion in { completion($0.resultCode) }
+            })
+    }
+
+    // NOTE: do not use `private` to expose this method to unit tests
+    func fetchDemandBidInfo(
+        connection: PrebidServerConnectionProtocol,
+        sdkConfiguration: Prebid,
+        targeting: Targeting,
+        completion: ((BidInfo) -> Void)?
+    ) {
         guard bidRequester == nil else {
             // Request in progress
             return
@@ -179,18 +211,18 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         } else {
             Log.error("The winning bid is absent in response!")
         }
-        
-        completeWithResult(demandResult)
+
+        completeWithResult(BidInfo.create(resultCode: demandResult, bidResponse: bidResponse))
     }
-    
+
     private func handleBidRequestError(_ error: Error?) {
-        completeWithResult(PBMError.demandResult(from: error))
+        completeWithResult(BidInfo(resultCode: PBMError.demandResult(from: error)))
     }
-    
-    private func completeWithResult(_ demandResult: ResultCode) {
+
+    private func completeWithResult(_ bidInfo: BidInfo) {
         if let completion = self.completion {
             DispatchQueue.main.async {
-                completion(demandResult)
+                completion(bidInfo)
             }
         }
         

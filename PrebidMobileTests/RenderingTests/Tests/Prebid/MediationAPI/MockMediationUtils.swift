@@ -36,6 +36,16 @@ class MockEmptyPrebidMediationDelegate: PrebidMediationDelegate {
     func getAdView() -> UIView? { UIView(frame: .zero)}
 }
 
+/// A mediation delegate that cannot set up its ad object.
+class MockRejectingMediationDelegate: PrebidMediationDelegate {
+    // Retained here: `MediationBannerAdUnit` holds the ad view weakly
+    private let adView = UIView(frame: .zero)
+
+    func setUpAdObject(with values: [String : Any]) -> Bool { false }
+    func cleanUpAdObject() {}
+    func getAdView() -> UIView? { adView }
+}
+
 class MockMediationUtils: PrebidMediationDelegate {
     
     let adObject: MockAdObject

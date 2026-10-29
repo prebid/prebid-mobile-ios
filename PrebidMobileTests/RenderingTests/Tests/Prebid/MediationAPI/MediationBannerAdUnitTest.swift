@@ -214,6 +214,106 @@ class MediationBannerAdUnitTest: XCTestCase {
         waitForExpectations(timeout: 0.1)
     }
     
+    // MARK: - fetchDemandBidInfo
+
+    func testFetchDemandBidInfoProvidesWinningBid() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnit = MediationBannerAdUnit(configID: configId, size: primarySize, mediationDelegate: mediationDelegate!)
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidDemandFetchSuccess)
+        assertWinningBidEconomics(bidInfo)
+        XCTAssertEqual(bidInfo?.targetingKeywords?["hb_pb"], "0.10")
+
+        XCTAssertTrue(adObject!.keywords!.contains("hb_pb:0.10"))
+        XCTAssertEqual(adObject!.localExtras?[MockMediationConfigIdKey] as? String, configId)
+        XCTAssertTrue(adObject!.localExtras?[MockMediationAdUnitBidKey] is Bid)
+    }
+
+    func testFetchDemandBidInfoOnServerError() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.serverErrorResponse)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidServerError)
+        XCTAssertNil(bidInfo?.targetingKeywords)
+        XCTAssertNil(bidInfo?.price)
+        XCTAssertNil(bidInfo?.creativeId)
+    }
+
+    func testFetchDemandBidInfoWhenAdObjectSetUpFails() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: MockRejectingMediationDelegate())
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidWrongArguments)
+        // The bid was still received, so its economics are reported
+        assertWinningBidEconomics(bidInfo)
+    }
+
+    func testFetchDemandBidInfoKeepsCompletionForAutoRefresh() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+
+        _ = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+
+        XCTAssertNotNil(adUnit.lastCompletion, "The refresh timer re-runs the request with the stored completion")
+        XCTAssertTrue(adUnit.lastAdView === adObject)
+    }
+
+    func testFetchDemandWithoutCompletionStillSkipsAutoRefresh() {
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(BidResponseTransformer.someValidResponse)
+        }])
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+
+        adUnit.fetchDemand(connection: connection,
+                           sdkConfiguration: getSDKConfiguration(),
+                           targeting: targeting,
+                           completion: nil)
+
+        // The request has been handled once the requester is released.
+        // The predicate is polled roughly once a second.
+        let requestFinished = XCTNSPredicateExpectation(
+            predicate: NSPredicate { _, _ in adUnit.bidRequester == nil },
+            object: nil
+        )
+        wait(for: [requestFinished], timeout: 5)
+
+        XCTAssertNil(adUnit.lastCompletion)
+        XCTAssertNil(adUnit.lastAdView)
+    }
+
+    private func fetchBidInfo(_ adUnit: MediationBannerAdUnit, response: PrebidServerResponse) -> BidInfo? {
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(response)
+        }])
+
+        let asyncExpectation = expectation(description: "fetchDemandBidInfo executed")
+        var result: BidInfo?
+
+        adUnit.fetchDemandBidInfo(connection: connection,
+                                  sdkConfiguration: getSDKConfiguration(),
+                                  targeting: targeting)
+        { bidInfo in
+            XCTAssertTrue(Thread.isMainThread)
+            result = bidInfo
+            asyncExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 1)
+
+        return result
+    }
+
+    private func assertWinningBidEconomics(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
+        // Values of `BidResponseTransformer.someValidResponse`
+        XCTAssertEqual(bidInfo?.price?.doubleValue, 0.1091, file: file, line: line)
+        XCTAssertEqual(bidInfo?.currency, "USD", file: file, line: line)
+        XCTAssertEqual(bidInfo?.creativeId, "test-creative-id-1", file: file, line: line)
+        XCTAssertEqual(bidInfo?.adId, "test-ad-id-12345", file: file, line: line)
+        XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31", file: file, line: line)
+    }
+
     // MARK: - Auto-refresh vs. video creatives
     
     // The adapters hand the rendered `DisplayView` to AdMob / MAX, which embed it somewhere

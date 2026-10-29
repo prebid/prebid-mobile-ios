@@ -62,7 +62,7 @@ class PrebidAdMobNativeViewController:
         setUpBannerArea(rootController: rootController!) 
         setupMediationNativeAdUnit()
         
-        nativeAdUnit.fetchDemand { [weak self] result in
+        nativeAdUnit.fetchDemandBidInfo { [weak self] bidInfo in
             guard let self = self else { return }
             
             self.adLoader = AdLoader(
