@@ -16,6 +16,41 @@ limitations under the License.
 #import <XCTest/XCTest.h>
 #import "SwiftImport.h"
 
+@interface PrebidObjcTestsRenderer : NSObject <PrebidMobilePluginRenderer>
+
+@end
+
+@implementation PrebidObjcTestsRenderer
+
+- (NSString *)name {
+    return @"PrebidObjcTestsRenderer";
+}
+
+- (NSString *)version {
+    return @"1.0";
+}
+
+- (NSDictionary<NSString *, id> *)data {
+    return nil;
+}
+
+- (UIView<PrebidMobileDisplayViewProtocol> *)createBannerViewWith:(CGRect)frame
+                                                              bid:(Bid *)bid
+                                                  adConfiguration:(AdUnitConfig *)adConfiguration
+                                                  loadingDelegate:(id<DisplayViewLoadingDelegate>)loadingDelegate
+                                              interactionDelegate:(id<DisplayViewInteractionDelegate>)interactionDelegate {
+    return nil;
+}
+
+- (id<PrebidMobileInterstitialControllerProtocol>)createInterstitialControllerWithBid:(Bid *)bid
+                                                                      adConfiguration:(AdUnitConfig *)adConfiguration
+                                                                      loadingDelegate:(id<InterstitialControllerLoadingDelegate>)loadingDelegate
+                                                                  interactionDelegate:(id<InterstitialControllerInteractionDelegate>)interactionDelegate {
+    return nil;
+}
+
+@end
+
 @interface PrebidObjcTests : XCTestCase
 
 @end
@@ -94,6 +129,44 @@ limitations under the License.
     
     //then
     XCTAssertEqual(pbsDebug, Prebid.shared.pbsDebug);
+}
+
+- (void)testRegisterPlugin {
+    //given
+    PrebidObjcTestsRenderer *renderer = [PrebidObjcTestsRenderer new];
+    
+    //when
+    [Prebid registerPlugin:renderer as:PluginCapability.renderer];
+    
+    //then
+    XCTAssertTrue([Prebid containsPlugin:renderer as:PluginCapability.renderer]);
+    XCTAssertTrue([Prebid containsPluginRenderer:renderer]);
+    
+    //when
+    [Prebid unregisterPlugin:renderer as:PluginCapability.renderer];
+    
+    //then
+    XCTAssertFalse([Prebid containsPlugin:renderer as:PluginCapability.renderer]);
+}
+
+- (void)testRegisterPluginWithoutCapabilityProtocol {
+    //given
+    NSObject *object = [NSObject new];
+    
+    //when
+    [Prebid registerPlugin:object as:PluginCapability.renderer];
+    
+    //then
+    XCTAssertFalse([Prebid containsPlugin:object as:PluginCapability.renderer]);
+}
+
+- (void)testPluginInfo {
+    PrebidPluginInfo *info = [[PrebidPluginInfo alloc] initWithName:@"plugin" version:@"1.0"];
+    
+    XCTAssertEqualObjects(info, [[PrebidPluginInfo alloc] initWithName:@"plugin" version:@"1.0"]);
+    XCTAssertNotEqualObjects(info, [[PrebidPluginInfo alloc] initWithName:@"plugin" version:@"2.0"]);
+    XCTAssertEqualObjects(info.description, @"plugin/1.0");
+    XCTAssertEqualObjects(PluginCapability.renderer.name, @"renderer");
 }
 
 @end

@@ -345,14 +345,45 @@ public class Prebid: NSObject {
         timeoutMillisDynamic = NSNumber(value: timeoutMillis)
     }
     
+    // MARK: - Plugins
+    
+    /// Registers `plugin` for `capability`:
+    ///
+    /// ```swift
+    /// Prebid.register(vendorRenderer, as: .renderer)
+    /// ```
+    ///
+    /// `plugin` must implement the capability's protocol, e.g. `PrebidMobilePluginRenderer` for `.renderer`.
+    /// Otherwise it is not registered and the SDK logs an error. A plugin whose identity equals a registered
+    /// one is ignored. To register one object for several capabilities, call this once for each.
+    @objc(registerPlugin:as:)
+    public static func register(_ plugin: AnyObject, as capability: PluginCapability) {
+        capability.registry.add(plugin)
+    }
+    
+    /// Unregisters the plugin of `capability` whose identity equals `plugin`'s.
+    /// No-op if no such plugin is registered.
+    @objc(unregisterPlugin:as:)
+    public static func unregister(_ plugin: AnyObject, as capability: PluginCapability) {
+        capability.registry.remove(plugin)
+    }
+    
+    /// Returns whether a plugin whose identity equals `plugin`'s is registered for `capability`.
+    @objc(containsPlugin:as:)
+    public static func contains(_ plugin: AnyObject, as capability: PluginCapability) -> Bool {
+        capability.registry.contains(plugin)
+    }
+    
     public static func registerPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.registerPlugin(pluginRenderer)
+        register(pluginRenderer, as: .renderer)
     }
     
     public static func unregisterPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.unregisterPlugin(pluginRenderer)
+        unregister(pluginRenderer, as: .renderer)
     }
     
+    /// Returns whether this renderer instance is registered. Unlike `contains(_:as:)`, which matches
+    /// any renderer with the same name, it checks the instance itself.
     public static func containsPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) -> Bool {
         PrebidMobilePluginRegister.shared.containsPlugin(pluginRenderer)
     }
