@@ -59,7 +59,8 @@ public class BidInfo: NSObject {
     // designated — a top bid without `hb_pb`/`hb_bidder`/`hb_cache_id` targeting is not one. When
     // `topBidFiltered` is true they describe the promoted cached runner-up (the bid actually
     // attached), not the server's original top bid. Do NOT read a nil `price` as a zero-price win.
-    // `requestId` is response-level and is present whenever the response parsed.
+    // `requestId` is response-level: present whenever the parsed response reaches the ad unit, even
+    // with no designated bid, and `nil` otherwise (see `requestId`).
 
     /// Net price (ORTB `Bid.price`, exact CPM) of the bid whose targeting was attached, or `nil` when
     /// none was designated.
@@ -77,7 +78,10 @@ public class BidInfo: NSObject {
     public private(set) var creativeId: String?
 
     /// The Prebid request id — the ORTB `BidResponse.id`, a per-request UUID the SDK generates for
-    /// each bid request. It identifies this request, not an auction. `nil` if the response did not parse.
+    /// each bid request. It identifies this request, not an auction. `nil` when no response reached
+    /// the ad unit: the request failed or timed out, the response did not parse, or
+    /// `Prebid.shared.filterOutUncachedBids` removed every bid, which is reported as
+    /// `.prebidDemandNoBids` or `.prebidDemandNoCachedBids` without the response.
     public private(set) var requestId: String?
 
     /// Ad id (`adid`) of the attached bid, or `nil` when none was designated.
