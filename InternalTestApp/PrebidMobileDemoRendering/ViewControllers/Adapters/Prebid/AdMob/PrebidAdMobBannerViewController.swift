@@ -125,7 +125,7 @@ class PrebidAdMobBannerViewController:
             Prebid.shared.storedAuctionResponse = storedAuctionResponse
         }
         
-        adUnit?.fetchDemand { [weak self] result in
+        adUnit?.fetchDemandBidInfo { [weak self] bidInfo in
             if self?.storedAuctionResponse != nil {
                 Prebid.shared.storedAuctionResponse = nil
             }
@@ -250,7 +250,7 @@ class PrebidAdMobBannerViewController:
         
         resetEvents()
         
-        adUnit?.fetchDemand { [weak self] result in
+        adUnit?.fetchDemandBidInfo { [weak self] bidInfo in
             self?.adBannerView?.load(self?.request)
         }
     }

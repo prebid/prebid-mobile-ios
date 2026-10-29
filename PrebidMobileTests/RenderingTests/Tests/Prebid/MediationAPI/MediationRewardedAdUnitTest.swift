@@ -30,4 +30,30 @@ class MediationRewardedAdUnitTest: XCTestCase {
         PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
         XCTAssertTrue(adUnitConfig.adFormats.contains(.video))
     }
+
+    func testFetchDemandBidInfoProvidesWinningBid() {
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(BidResponseTransformer.someValidResponse)
+        }])
+        let sdkConfiguration = Prebid.mock
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
+        sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
+
+        let adUnit = MediationRewardedAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate)
+
+        let asyncExpectation = expectation(description: "fetchDemandBidInfo executed")
+
+        adUnit.fetchDemandBidInfo(connection: connection,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: Targeting.shared)
+        { bidInfo in
+            XCTAssertEqual(bidInfo.resultCode, .prebidDemandFetchSuccess)
+            XCTAssertEqual(bidInfo.price?.doubleValue, 0.1091)
+            XCTAssertEqual(bidInfo.creativeId, "test-creative-id-1")
+            XCTAssertEqual(bidInfo.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31")
+
+            asyncExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 1)
+    }
 }

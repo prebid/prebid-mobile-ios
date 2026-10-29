@@ -163,6 +163,74 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         waitForExpectations(timeout: 0.1)
     }
     
+    // MARK: - fetchDemandBidInfo
+
+    func testFetchDemandBidInfoProvidesWinningBid() {
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnit = MediationInterstitialAdUnit(configId: configId, mediationDelegate: mediationDelegate!)
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidDemandFetchSuccess)
+        assertWinningBidEconomics(bidInfo)
+        XCTAssertEqual(bidInfo?.targetingKeywords?["hb_pb"], "0.10")
+
+        XCTAssertTrue(adObject!.keywords!.contains("hb_pb:0.10"))
+        XCTAssertEqual(adObject!.localExtras?[MockMediationConfigIdKey] as? String, configId)
+        XCTAssertTrue(adObject!.localExtras?[MockMediationAdUnitBidKey] is Bid)
+    }
+
+    func testFetchDemandBidInfoOnServerError() {
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate!)
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.serverErrorResponse)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidServerError)
+        XCTAssertNil(bidInfo?.targetingKeywords)
+        XCTAssertNil(bidInfo?.price)
+        XCTAssertNil(bidInfo?.creativeId)
+    }
+
+    func testFetchDemandBidInfoWhenAdObjectSetUpFails() {
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", mediationDelegate: MockRejectingMediationDelegate())
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidWrongArguments)
+        // The bid was still received, so its economics are reported
+        assertWinningBidEconomics(bidInfo)
+    }
+
+    private func fetchBidInfo(_ adUnit: MediationBaseInterstitialAdUnit, response: PrebidServerResponse) -> BidInfo? {
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(response)
+        }])
+
+        let asyncExpectation = expectation(description: "fetchDemandBidInfo executed")
+        var result: BidInfo?
+
+        adUnit.fetchDemandBidInfo(connection: connection,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting)
+        { bidInfo in
+            XCTAssertTrue(Thread.isMainThread)
+            result = bidInfo
+            asyncExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 1)
+
+        return result
+    }
+
+    private func assertWinningBidEconomics(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
+        // Values of `BidResponseTransformer.someValidResponse`
+        XCTAssertEqual(bidInfo?.price?.doubleValue, 0.1091, file: file, line: line)
+        XCTAssertEqual(bidInfo?.currency, "USD", file: file, line: line)
+        XCTAssertEqual(bidInfo?.creativeId, "test-creative-id-1", file: file, line: line)
+        XCTAssertEqual(bidInfo?.adId, "test-ad-id-12345", file: file, line: line)
+        XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31", file: file, line: line)
+    }
+
     func testSetAdPosition() {
         let adUnit = MediationBaseInterstitialAdUnit(
             configId: "test",
