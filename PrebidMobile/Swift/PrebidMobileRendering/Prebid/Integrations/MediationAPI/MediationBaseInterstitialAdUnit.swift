@@ -186,8 +186,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     private func handleBidResponse(_ bidResponse: BidResponse) {
         var demandResult = ResultCode.prebidDemandNoBids
+        let targetingInfo = bidResponse.winningBid?.targetingInfo
         
-        if let winningBid = bidResponse.winningBid, let targetingInfo = winningBid.targetingInfo {
+        if let winningBid = bidResponse.winningBid, let targetingInfo {
             var adObjectSetupDictionary: [String: Any] = [
                 PBMMediationConfigIdKey: configId,
                 PBMMediationTargetingInfoKey: targetingInfo,
@@ -214,7 +215,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
 
         let bidInfo = demandResult == .prebidWrongArguments
             ? BidInfo.create(resultCode: demandResult, requestId: bidResponse.rawResponse?.requestID)
-            : BidInfo.create(resultCode: demandResult, bidResponse: bidResponse)
+            : BidInfo.create(resultCode: demandResult, bidResponse: bidResponse, targetingInfo: targetingInfo)
         completeWithResult(bidInfo)
     }
 

@@ -147,12 +147,27 @@ public class BidInfo: NSObject {
         )
     }
     
-    static func create(resultCode: ResultCode, bidResponse: BidResponse) -> BidInfo {
+    static func create(
+        resultCode: ResultCode,
+        bidResponse: BidResponse
+    ) -> BidInfo {
+        create(
+            resultCode: resultCode,
+            bidResponse: bidResponse,
+            targetingInfo: bidResponse.targetingInfo
+        )
+    }
+
+    static func create(
+        resultCode: ResultCode,
+        bidResponse: BidResponse,
+        targetingInfo: [String: String]?
+    ) -> BidInfo {
         let bidInfo = BidInfo(
             resultCode: resultCode,
-            targetingKeywords: bidResponse.targetingInfo,
+            targetingKeywords: targetingInfo,
             exp: bidResponse.winningBid?.bid.exp?.doubleValue,
-            nativeAdCacheId: bidResponse.targetingInfo?[PrebidLocalCacheIdKey],
+            nativeAdCacheId: targetingInfo?[PrebidLocalCacheIdKey],
             topBidFiltered: bidResponse.topBidWasFiltered
         )
         

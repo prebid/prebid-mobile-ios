@@ -48,6 +48,14 @@ extension BidResponseTransformer {
     static var noWinningBidResponse: PrebidServerResponse {
         return makeValidResponse(bidPrice: 0.1091000000051168, noWinningBidProperties: true)
     }
+
+    /// `someValidResponse` plus a runner-up bid from a second bidder that carries only its
+    /// bidder-suffixed targeting keys, as Prebid Server sends with `includebidderkeys` on.
+    static var twoBiddersResponse: PrebidServerResponse {
+        let winningBidFragment = "{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":0.1091000000051168,\"adm\":\"<html><div>You Won! This is a test bid</div></html>\",\"adid\":\"test-ad-id-12345\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"openx\",\"hb_bidder_openx\":\"openx\",\"hb_env\":\"mobile-app\",\"hb_env_openx\":\"mobile-app\",\"hb_pb\":\"0.10\",\"hb_pb_openx\":\"0.10\",\"hb_size\":\"300x250\",\"hb_size_openx\":\"300x250\"},\"type\":\"banner\"}}}],\"seat\":\"openx\"}"
+        let runnerUpBidFragment = "{\"bid\":[{\"id\":\"test-bid-id-2\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":0.05,\"adm\":\"<html><div>Runner-up</div></html>\",\"adid\":\"test-ad-id-2\",\"crid\":\"test-creative-id-2\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder_appnexus\":\"appnexus\",\"hb_pb_appnexus\":\"0.05\",\"hb_size_appnexus\":\"300x250\"},\"type\":\"banner\"}}}],\"seat\":\"appnexus\"}"
+        return buildResponse("{\"id\":\"B4A2D3F4-41B6-4D37-B68B-EE8893E85C31\",\"seatbid\":[\(winningBidFragment),\(runnerUpBidFragment)],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":62,\"appnexus\":70}}}")
+    }
     
     static func makeValidResponse(bidPrice: Float, noWinningBidProperties: Bool = false) -> PrebidServerResponse {
         let winningBidFragment = noWinningBidProperties ? "" : "{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":\(bidPrice),\"adm\":\"<html><div>You Won! This is a test bid</div></html>\",\"adid\":\"test-ad-id-12345\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"openx\",\"hb_bidder_openx\":\"openx\",\"hb_env\":\"mobile-app\",\"hb_env_openx\":\"mobile-app\",\"hb_pb\":\"0.10\",\"hb_pb_openx\":\"0.10\",\"hb_size\":\"300x250\",\"hb_size_openx\":\"300x250\"},\"type\":\"banner\"},\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099}}}],\"seat\":\"openx\"}"
