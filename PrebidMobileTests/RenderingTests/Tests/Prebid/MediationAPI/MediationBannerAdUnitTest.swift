@@ -248,8 +248,9 @@ class MediationBannerAdUnitTest: XCTestCase {
         let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
 
         XCTAssertEqual(bidInfo?.resultCode, .prebidWrongArguments)
-        // The bid was still received, so its economics are reported
-        assertWinningBidEconomics(bidInfo)
+        // Nothing was attached to the ad object, so only the request id is reported
+        XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31")
+        assertNoBidAttached(bidInfo)
     }
 
     func testFetchDemandBidInfoKeepsCompletionForAutoRefresh() {
@@ -312,6 +313,14 @@ class MediationBannerAdUnitTest: XCTestCase {
         XCTAssertEqual(bidInfo?.creativeId, "test-creative-id-1", file: file, line: line)
         XCTAssertEqual(bidInfo?.adId, "test-ad-id-12345", file: file, line: line)
         XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31", file: file, line: line)
+    }
+
+    private func assertNoBidAttached(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertNil(bidInfo?.targetingKeywords, file: file, line: line)
+        XCTAssertNil(bidInfo?.price, file: file, line: line)
+        XCTAssertNil(bidInfo?.currency, file: file, line: line)
+        XCTAssertNil(bidInfo?.creativeId, file: file, line: line)
+        XCTAssertNil(bidInfo?.adId, file: file, line: line)
     }
 
     // MARK: - Auto-refresh vs. video creatives

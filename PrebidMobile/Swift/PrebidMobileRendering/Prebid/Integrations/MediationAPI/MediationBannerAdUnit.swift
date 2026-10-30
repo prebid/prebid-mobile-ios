@@ -327,7 +327,11 @@ public class MediationBannerAdUnit : NSObject {
             Log.error("The winning bid is absent in response!")
         }
 
-        completeWithResult(BidInfo.create(resultCode: demandResult, bidResponse: response))
+        let bidInfo = demandResult == .prebidWrongArguments
+            ? BidInfo.create(resultCode: demandResult, requestId: response.rawResponse?.requestID)
+            : BidInfo.create(resultCode: demandResult, bidResponse: response)
+        
+        completeWithResult(bidInfo)
     }
 
     private func handlePrebidError(error: Error?) {
