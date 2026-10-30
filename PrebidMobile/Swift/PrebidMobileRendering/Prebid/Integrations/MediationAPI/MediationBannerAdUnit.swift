@@ -24,10 +24,10 @@ public class MediationBannerAdUnit : NSObject {
     var bidRequester: BidRequester?
     // The view in which ad is displayed
     weak var adView: UIView?
-    var completion: ((ResultCode) -> Void)?
-    
+    var completion: ((BidInfo) -> Void)?
+
     weak var lastAdView: UIView?
-    var lastCompletion: ((ResultCode) -> Void)?
+    var lastCompletion: ((BidInfo) -> Void)?
     
     var isRefreshStopped = false
     var autoRefreshManager: AutoRefreshManager?
@@ -159,7 +159,7 @@ public class MediationBannerAdUnit : NSObject {
                     return
                 }
                 
-                self.fetchDemand(
+                self.fetchDemandBidInfo(
                     connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
                     targeting: Targeting.shared,
@@ -168,15 +168,29 @@ public class MediationBannerAdUnit : NSObject {
             }
         )
     }
-    
+
     /// Makes bid request and setups mediation parameters.
     /// - Parameter completion: The completion handler to call when the demand fetch is complete.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
-        
+
         fetchDemand(connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
                     targeting: Targeting.shared,
                     completion: completion)
+    }
+
+    /// Makes bid request and setups mediation parameters. Like `fetchDemand(completion:)`, but provides
+    /// the full `BidInfo` (including the winning-bid economics) instead of only the result code.
+    ///
+    /// With auto-refresh enabled, `completion` is called again on every refresh.
+    /// - Parameter completion: A closure called with a `BidInfo` object representing the fetched demand.
+    public func fetchDemandBidInfo(completion: @escaping (_ bidInfo: BidInfo) -> Void) {
+        fetchDemandBidInfo(
+            connection: PrebidServerConnection.shared,
+            sdkConfiguration: Prebid.shared,
+            targeting: Targeting.shared,
+            completion: completion
+        )
     }
     
     /// Stops the auto-refresh for the ad unit.
@@ -212,10 +226,27 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: Private functions
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(connection: PrebidServerConnectionProtocol,
-                     sdkConfiguration: Prebid,
-                     targeting: Targeting,
-                     completion: ((ResultCode)->Void)?) {
+    func fetchDemand(
+        connection: PrebidServerConnectionProtocol,
+        sdkConfiguration: Prebid,
+        targeting: Targeting,
+        completion: ((ResultCode) -> Void)?
+    ) {
+        fetchDemandBidInfo(
+            connection: connection,
+            sdkConfiguration: sdkConfiguration,
+            targeting: targeting,
+            completion: completion.map { completion in { completion($0.resultCode) } }
+        )
+    }
+
+    // NOTE: do not use `private` to expose this method to unit tests
+    func fetchDemandBidInfo(
+        connection: PrebidServerConnectionProtocol,
+        sdkConfiguration: Prebid,
+        targeting: Targeting,
+        completion: ((BidInfo) -> Void)?
+    ) {
         guard bidRequester == nil else {
             // Request in progress
             return
@@ -295,15 +326,19 @@ public class MediationBannerAdUnit : NSObject {
         } else {
             Log.error("The winning bid is absent in response!")
         }
+
+        let bidInfo = demandResult == .prebidWrongArguments
+            ? BidInfo.create(resultCode: demandResult, requestId: response.rawResponse?.requestID)
+            : BidInfo.create(resultCode: demandResult, bidResponse: response)
         
-        completeWithResult(demandResult)
+        completeWithResult(bidInfo)
     }
-    
+
     private func handlePrebidError(error: Error?) {
-        completeWithResult(PBMError.demandResult(from: error))
+        completeWithResult(BidInfo(resultCode: PBMError.demandResult(from: error)))
     }
-    
-    private func completeWithResult(_ fetchDemandResult: ResultCode) {
+
+    private func completeWithResult(_ bidInfo: BidInfo) {
         defer {
             markLoadingFinished()
         }
@@ -319,7 +354,7 @@ public class MediationBannerAdUnit : NSObject {
         autoRefreshManager?.setupRefreshTimer()
         
         DispatchQueue.main.async {
-            completion(fetchDemandResult)
+            completion(bidInfo)
         }
     }
 }

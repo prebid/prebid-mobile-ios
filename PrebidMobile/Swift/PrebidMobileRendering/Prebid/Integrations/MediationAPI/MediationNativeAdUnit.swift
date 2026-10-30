@@ -20,7 +20,7 @@ import Foundation
 @objcMembers
 public class MediationNativeAdUnit : NSObject {
     
-    var completion: ((ResultCode) -> Void)?
+    var completion: ((BidInfo) -> Void)?
     let mediationDelegate: PrebidMediationDelegate
     
     // MARK: - Public Properties
@@ -136,8 +136,20 @@ public class MediationNativeAdUnit : NSObject {
     
     /// Makes bid request for the native ad unit and setups mediation parameters.
     /// - Parameter completion: The completion handler to call with the result code.
-    public func fetchDemand(completion: ((ResultCode)->Void)?) {
-        
+    public func fetchDemand(completion: ((ResultCode) -> Void)?) {
+        baseFetchDemand(completion: completion.map { completion in { completion($0.resultCode) } })
+    }
+    
+    /// Makes bid request for the native ad unit and setups mediation parameters. Like `fetchDemand(completion:)`,
+    /// but provides the full `BidInfo` (including the winning-bid economics) instead of only the result code.
+    /// - Parameter completion: A closure called with a `BidInfo` object representing the fetched demand.
+    public func fetchDemandBidInfo(completion: @escaping (_ bidInfo: BidInfo) -> Void) {
+        baseFetchDemand(completion: completion)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func baseFetchDemand(completion: ((BidInfo) -> Void)?) {
         self.completion = completion
         
         mediationDelegate.cleanUpAdObject()
@@ -146,7 +158,7 @@ public class MediationNativeAdUnit : NSObject {
             guard let self = self else { return }
             
             guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
-                self.completeWithResult(bidInfo.resultCode)
+                self.completeWithResult(bidInfo)
                 return
             }
             
@@ -169,8 +181,6 @@ public class MediationNativeAdUnit : NSObject {
             
             fetchDemandInfo[PrebidLocalCacheIdKey] = cacheId as AnyObject
             
-            var fetchDemandResult = ResultCode.prebidWrongArguments
-            
             let adObjectSetupDictionary: [String: Any] = [
                 PBMMediationConfigIdKey: self.configID,
                 PBMMediationTargetingInfoKey: kvResultDict,
@@ -178,22 +188,21 @@ public class MediationNativeAdUnit : NSObject {
             ]
         
             if self.mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {
-                fetchDemandResult = .prebidDemandFetchSuccess
+                self.completeWithResult(bidInfo)
+            } else {
+                let newBidInfo = BidInfo.create(resultCode: .prebidWrongArguments, requestId: bidInfo.requestId)
+                self.completeWithResult(newBidInfo)
             }
-            
-            self.completeWithResult(fetchDemandResult)
         }
     }
     
-    // MARK: - Private Methods
-    
-    private func completeWithResult(_ fetchDemandResult: ResultCode) {
+    private func completeWithResult(_ bidInfo: BidInfo) {
         guard let completion = self.completion else {
             return
         }
         
         DispatchQueue.main.async {
-            completion(fetchDemandResult)
+            completion(bidInfo)
         }
     }
 }
