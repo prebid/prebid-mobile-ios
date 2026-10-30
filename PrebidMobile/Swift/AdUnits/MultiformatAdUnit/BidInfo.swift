@@ -52,8 +52,8 @@ public class BidInfo: NSObject {
 
     // MARK: - Winning-bid economics
     // Exact economics of the bid whose targeting Prebid attached to the ad object, surfaced on the
-    // original (GAM) API (Prebid normally exposes only the bucketed `hb_pb` keyword). These read the
-    // bid's real values off the (module-internal) ORTB response inside `create(...)`.
+    // original (GAM) and Mediation APIs (Prebid normally exposes only the bucketed `hb_pb` keyword).
+    // These read the bid's real values off the (module-internal) ORTB response inside `create(...)`.
     //
     // `price`, `currency`, `creativeId` and `adId` describe that bid and are `nil` unless a bid was
     // designated — a top bid without `hb_pb`/`hb_bidder`/`hb_cache_id` targeting is not one. When
@@ -136,6 +136,16 @@ public class BidInfo: NSObject {
     }
     
     // MARK: - Internal Zone
+    
+    static func create(
+        resultCode: ResultCode,
+        requestId: String?
+    ) -> BidInfo {
+        BidInfo(
+            resultCode: resultCode,
+            requestId: requestId
+        )
+    }
     
     static func create(resultCode: ResultCode, bidResponse: BidResponse) -> BidInfo {
         let bidInfo = BidInfo(

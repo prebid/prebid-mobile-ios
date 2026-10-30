@@ -55,9 +55,13 @@ class MediationNativeAdUnitTest: XCTestCase {
         let bidInfo = fetchBidInfo(adUnit)
 
         XCTAssertEqual(bidInfo?.resultCode, .prebidWrongArguments)
+        // Nothing was attached to the ad object, so only the request id is reported
+        XCTAssertEqual(bidInfo?.requestId, requestId)
         XCTAssertNil(bidInfo?.targetingKeywords)
         XCTAssertNil(bidInfo?.price)
+        XCTAssertNil(bidInfo?.currency)
         XCTAssertNil(bidInfo?.creativeId)
+        XCTAssertNil(bidInfo?.adId)
     }
 
     func testFetchDemandBidInfoPassesThroughUnsuccessfulResult() {

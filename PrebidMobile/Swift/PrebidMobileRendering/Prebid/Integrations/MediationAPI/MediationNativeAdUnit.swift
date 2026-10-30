@@ -150,7 +150,6 @@ public class MediationNativeAdUnit : NSObject {
     // MARK: - Private Methods
     
     private func baseFetchDemand(completion: ((BidInfo) -> Void)?) {
-        
         self.completion = completion
         
         mediationDelegate.cleanUpAdObject()
@@ -191,7 +190,8 @@ public class MediationNativeAdUnit : NSObject {
             if self.mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {
                 self.completeWithResult(bidInfo)
             } else {
-                self.completeWithResult(BidInfo(resultCode: .prebidWrongArguments))
+                let newBidInfo = BidInfo.create(resultCode: .prebidWrongArguments, requestId: bidInfo.requestId)
+                self.completeWithResult(newBidInfo)
             }
         }
     }
