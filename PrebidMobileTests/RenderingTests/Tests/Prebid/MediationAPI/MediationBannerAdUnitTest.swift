@@ -267,4 +267,95 @@ class MediationBannerAdUnitTest: XCTestCase {
         adUnit.lastAdView = nil
         XCTAssertFalse(adUnit.isVideoPlaying)
     }
+    
+    // MARK: - fetchDemand callbacks vs. stopRefresh
+    
+    private let validConfigId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+    
+    func testFetchDemandWhileRequestIsInProgressCallsBack() {
+        let adUnit = MediationBannerAdUnit(configID: validConfigId, size: primarySize, mediationDelegate: mediationDelegate!)
+        
+        let requestSent = expectation(description: "The first bid request is sent")
+        var respond: PrebidServerResponseCallback?
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            respond = callback
+            requestSent.fulfill()
+        }])
+        
+        let firstCompletion = expectation(description: "The request in progress completes")
+        adUnit.fetchDemand(connection: connection, sdkConfiguration: getSDKConfiguration(), targeting: targeting) { result in
+            XCTAssertEqual(result, .prebidDemandFetchSuccess)
+            firstCompletion.fulfill()
+        }
+        
+        let secondCompletion = expectation(description: "The rejected request still calls back")
+        adUnit.fetchDemand(connection: connection, sdkConfiguration: getSDKConfiguration(), targeting: targeting) { result in
+            XCTAssertEqual(result, .prebidSDKMisusePreviousFetchNotCompletedYet)
+            secondCompletion.fulfill()
+        }
+        wait(for: [requestSent, secondCompletion], timeout: 1)
+        
+        respond?(BidResponseTransformer.someValidResponse)
+        wait(for: [firstCompletion], timeout: 1)
+    }
+    
+    func testStopRefreshDoesNotDropTheRequestInProgress() {
+        let adUnit = MediationBannerAdUnit(configID: validConfigId, size: primarySize, mediationDelegate: mediationDelegate!)
+        
+        let requestSent = expectation(description: "The bid request is sent")
+        var respond: PrebidServerResponseCallback?
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            respond = callback
+            requestSent.fulfill()
+        }])
+        
+        let completion = expectation(description: "The request in progress completes")
+        adUnit.fetchDemand(connection: connection, sdkConfiguration: getSDKConfiguration(), targeting: targeting) { result in
+            XCTAssertEqual(result, .prebidDemandFetchSuccess)
+            completion.fulfill()
+        }
+        wait(for: [requestSent], timeout: 1)
+        
+        adUnit.stopRefresh()
+        respond?(BidResponseTransformer.someValidResponse)
+        
+        wait(for: [completion], timeout: 1)
+        XCTAssertTrue(adUnit.isRefreshStopped, "Delivering the pending result must not resume auto-refresh")
+    }
+    
+    func testFetchDemandAfterStopRefreshRunsAndResumesAutoRefresh() {
+        let adUnit = MediationBannerAdUnit(configID: validConfigId, size: primarySize, mediationDelegate: mediationDelegate!)
+        adUnit.stopRefresh()
+        
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(BidResponseTransformer.someValidResponse)
+        }])
+        
+        let completion = expectation(description: "A manual fetch after stopRefresh calls back")
+        adUnit.fetchDemand(connection: connection, sdkConfiguration: getSDKConfiguration(), targeting: targeting) { result in
+            XCTAssertEqual(result, .prebidDemandFetchSuccess)
+            completion.fulfill()
+        }
+        
+        wait(for: [completion], timeout: 1)
+        XCTAssertFalse(adUnit.isRefreshStopped, "A manual fetch re-enables auto-refresh, as BannerView.loadAd() does")
+    }
+    
+    func testAutoRefreshTickDoesNothingAfterStopRefresh() {
+        let adUnit = MediationBannerAdUnit(configID: validConfigId, size: primarySize, mediationDelegate: mediationDelegate!)
+        guard let refresh = adUnit.autoRefreshManager?.refreshBlock else {
+            return XCTFail("The ad unit must own an AutoRefreshManager")
+        }
+        
+        adUnit.lastAdView = adObject
+        adUnit.lastCompletion = { _ in
+            XCTFail("A stopped ad unit must not run an auto-refresh cycle")
+        }
+        adUnit.stopRefresh()
+        
+        refresh()
+        
+        XCTAssertNil(adUnit.bidRequester, "No bid request may start after stopRefresh")
+        XCTAssertTrue(adUnit.isRefreshStopped)
+    }
 }
