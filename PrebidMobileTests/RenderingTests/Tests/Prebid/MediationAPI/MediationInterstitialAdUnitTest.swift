@@ -202,6 +202,18 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         assertNoBidAttached(bidInfo)
     }
 
+    func testFetchDemandBidInfoReportsOnlyTheAttachedTargeting() {
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate!)
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.twoBiddersResponse)
+
+        // The interstitial attaches the winning bid's targeting only, so the other bidder's keys are not reported
+        XCTAssertEqual(bidInfo?.targetingKeywords?["hb_pb"], "0.10")
+        XCTAssertNil(bidInfo?.targetingKeywords?["hb_pb_appnexus"])
+        XCTAssertTrue(adObject!.keywords!.contains("hb_pb:0.10"))
+        XCTAssertFalse(adObject!.keywords!.contains("hb_pb_appnexus"))
+    }
+
     private func fetchBidInfo(_ adUnit: MediationBaseInterstitialAdUnit, response: PrebidServerResponse) -> BidInfo? {
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(response)

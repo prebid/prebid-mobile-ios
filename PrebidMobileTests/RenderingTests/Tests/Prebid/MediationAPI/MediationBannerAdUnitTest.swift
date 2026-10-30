@@ -253,6 +253,17 @@ class MediationBannerAdUnitTest: XCTestCase {
         assertNoBidAttached(bidInfo)
     }
 
+    func testFetchDemandBidInfoReportsTheAttachedTargeting() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.twoBiddersResponse)
+
+        // The banner attaches the merged targeting of the response, other bidders' keys included
+        XCTAssertEqual(bidInfo?.targetingKeywords?["hb_pb"], "0.10")
+        XCTAssertEqual(bidInfo?.targetingKeywords?["hb_pb_appnexus"], "0.05")
+        XCTAssertTrue(adObject!.keywords!.contains("hb_pb_appnexus:0.05"))
+    }
+
     func testFetchDemandBidInfoKeepsCompletionForAutoRefresh() {
         let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
 
