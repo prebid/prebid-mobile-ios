@@ -54,6 +54,8 @@ Temporary Items
 ## Build generated
 generated/
 DerivedData/
+# xcresult bundles and simulator logs written by scripts/testPrebidDemo.sh
+TestResults/
 
 ## Various settings
 *.pbxuser
