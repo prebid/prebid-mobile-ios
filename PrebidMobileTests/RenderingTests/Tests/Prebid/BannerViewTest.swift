@@ -178,6 +178,20 @@ class BannerViewTest: XCTestCase {
         XCTAssertEqual(bannerView.adUnitConfig.adFormats, [.video])
     }
     
+    func testIsMutedIsBackedByVideoControlsConfig() {
+        let bannerView = BannerView(frame: .zero, configID: "configID", adSize: CGSize(width: 300, height: 250))
+        let videoControlsConfig = bannerView.adUnitConfig.adConfiguration.videoControlsConfig
+        
+        XCTAssertFalse(bannerView.isMuted, "Outstream video plays with sound unless the publisher asks otherwise")
+        
+        bannerView.isMuted = true
+        XCTAssertTrue(bannerView.isMuted)
+        XCTAssertTrue(videoControlsConfig.isMuted, "The renderer reads the mute state from the shared video controls config")
+        
+        bannerView.isMuted = false
+        XCTAssertFalse(videoControlsConfig.isMuted)
+    }
+    
     func testAccountErrorPropagation() {
         let testID = "auid"
         

@@ -103,6 +103,16 @@ public class MediationBannerAdUnit : NSObject {
         set { adUnitConfig.additionalSizes = newValue }
     }
     
+    /// Whether an outstream video creative starts muted. Defaults to `false`.
+    ///
+    /// Sent to the Prebid banner adapter with every winning video bid, so the value also applies
+    /// to auto-refreshed ads. The user can still unmute the creative on screen; that does not
+    /// change this setting. Has no effect on HTML banners or on ads the mediated SDK renders itself.
+    public var isMuted: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
+    }
+    
     // MARK: Arbitrary ORTB Configuration
     
     /// Sets the impression-level OpenRTB configuration string for the ad unit.
@@ -281,11 +291,15 @@ public class MediationBannerAdUnit : NSObject {
         
         if self.adView != nil, let winningBid = response.winningBid, let targetingInfo = response.targetingInfo {
             
-            let adObjectSetupDictionary: [String: Any] = [
+            var adObjectSetupDictionary: [String: Any] = [
                 PBMMediationConfigIdKey: configID,
                 PBMMediationTargetingInfoKey: targetingInfo,
                 PBMMediationAdUnitBidKey: winningBid
             ]
+            
+            if winningBid.adFormat == .video {
+                adObjectSetupDictionary[PBMMediationVideoAdConfiguration] = adUnitConfig.adConfiguration.videoControlsConfig
+            }
             
             if mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {
                 demandResult = .prebidDemandFetchSuccess

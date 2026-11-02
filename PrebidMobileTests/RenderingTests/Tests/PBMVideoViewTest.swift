@@ -383,6 +383,47 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted == false)
     }
     
+    // An outstream (banner) video is rendered as a plain creative, never through `showAsInterstitial`,
+    // and a refreshed banner is a new creative built from the same `AdConfiguration`. The configured
+    // mute state must apply to each of them, whatever the user did with the previous one.
+    func testConfiguredMuteStateAppliesToEveryOutstreamCreative() {
+        let adConfig = AdConfiguration()
+        adConfig.videoControlsConfig.isMuted = true
+        
+        // First creative
+        displayOutstreamCreative(adConfiguration: adConfig)
+        let firstVideoView: VideoView = self.videoCreative.videoView
+        XCTAssertTrue(firstVideoView.avPlayer.isMuted, "A muted banner video must start muted")
+        
+        // The user turns the sound on: only the creative on screen changes
+        firstVideoView.unmute()
+        XCTAssertFalse(firstVideoView.avPlayer.isMuted)
+        XCTAssertTrue(adConfig.videoControlsConfig.isMuted, "A user action must not rewrite the publisher's setting")
+        
+        // Refresh: a new creative from the same configuration
+        displayOutstreamCreative(adConfiguration: adConfig)
+        XCTAssertTrue(self.videoCreative.videoView !== firstVideoView)
+        XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted, "A refreshed banner video must start muted again")
+        
+        // The publisher turns the sound on for later ads
+        adConfig.videoControlsConfig.isMuted = false
+        displayOutstreamCreative(adConfiguration: adConfig)
+        XCTAssertFalse(self.videoCreative.videoView.avPlayer.isMuted, "The next creative follows the new setting")
+    }
+    
+    private func displayOutstreamCreative(adConfiguration: AdConfiguration) {
+        setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4", adConfiguration: adConfiguration)
+        self.videoCreative.creativeModel.displayDurationInSeconds = 6
+        
+        self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
+        DispatchQueue.main.async {
+            self.videoCreative?.setupView()
+        }
+        self.waitForExpectations(timeout: 10, handler: nil)
+        
+        self.videoCreative?.display(rootViewController: UIViewController())
+    }
+    
     // The data loads through the resource loader but can't be decoded, so the player item fails
     // while the AVPlayer itself can still report readyToPlay.
     func testUndecodableVideoDataFailsCreative() {

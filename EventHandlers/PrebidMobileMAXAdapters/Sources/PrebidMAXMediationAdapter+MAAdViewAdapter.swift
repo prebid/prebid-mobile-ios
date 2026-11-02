@@ -60,6 +60,10 @@ extension PrebidMAXMediationAdapter:
         let frame = CGRect(origin: .zero, size: bid.size)
         let renderingConfig = AdUnitConfig(configId: configId, size: bid.size)
         
+        if let videoControlsConfig = parameters.localExtraParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
+            renderingConfig.adConfiguration.videoControlsConfig = videoControlsConfig
+        }
+        
         guard let view = PluginRendererFactory.createBannerView(
             with: frame,
             bid: bid,
