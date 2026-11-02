@@ -78,13 +78,6 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
 
         let renderingConfiguration = adConfiguration.copy() as? AdUnitConfig ?? adConfiguration
         renderingConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.videoAdConfiguration)
-
-        // This part is dedicating to test server-side ad configurations.
-        // Need to be removed when ext.prebid.passthrough will be available.
-        #if DEBUG
-        renderingConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
-        #endif
-
         self.renderingConfiguration = renderingConfiguration
 
         transactionFactory = Factory.createTransactionFactory(
