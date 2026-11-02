@@ -289,7 +289,31 @@ class BannerViewTest: XCTestCase {
         videoView2.loadAd()
         XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
     }
-    
+
+    // The bid response can carry `ext.prebid.passthrough[].adconfiguration.ismuted`, which the
+    // interstitial path has always applied. Outstream video now reads the same value, so a
+    // publisher can mute banner video from the server without an app release.
+    func testServerSideIsMutedAppliesToOutstreamVideo() {
+        let size = CGSize(width: 300, height: 250)
+        let frame = CGRect(origin: .zero, size: size)
+        let config = AdUnitConfig(configId: "configID", size: size)
+        let videoControlsConfig = config.adConfiguration.videoControlsConfig
+
+        // The server asks for muted: it overrides the publisher's default
+        DisplayView(frame: frame, bid: makeBid(type: "video", serverIsMuted: true), adConfiguration: config).loadAd()
+        XCTAssertTrue(videoControlsConfig.isMuted, "A server-side ismuted=1 mutes the outstream creative")
+
+        // No server value: the publisher's setting is left alone
+        videoControlsConfig.isMuted = false
+        DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config).loadAd()
+        XCTAssertFalse(videoControlsConfig.isMuted, "A bid without a passthrough keeps the app's setting")
+
+        // The server asks for sound: it overrides a publisher mute
+        videoControlsConfig.isMuted = true
+        DisplayView(frame: frame, bid: makeBid(type: "video", serverIsMuted: false), adConfiguration: config).loadAd()
+        XCTAssertFalse(videoControlsConfig.isMuted, "A server-side ismuted=0 wins over the app's setting")
+    }
+
     // MARK: - Auto-refresh vs. video creatives
     
     // Regression: the primary ad server can win over a Prebid video bid (no matching line item,
@@ -391,11 +415,18 @@ class BannerViewTest: XCTestCase {
         XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "Sanity: the timer is armed when the primary ad is requested")
     }
     
-    private func makeBid(type: String) -> Bid {
+    private func makeBid(type: String, serverIsMuted: Bool? = nil) -> Bid {
         let rawBid = ORTBBid<ORTBBidExt>(bidID: "", impid: "", price: 0.1)
         rawBid.ext = .init()
         rawBid.ext?.prebid = .init()
         rawBid.ext?.prebid?.type = type
+        if let serverIsMuted {
+            let passthrough = ORTBExtPrebidPassthrough()
+            passthrough.type = "prebidmobilesdk"
+            passthrough.adConfiguration = ORTBAdConfiguration()
+            passthrough.adConfiguration?.isMuted = NSNumber(value: serverIsMuted)
+            rawBid.ext?.prebid?.passthrough = [passthrough]
+        }
         return Bid(bid: rawBid)
     }
     
