@@ -113,6 +113,15 @@ public class MediationBannerAdUnit : NSObject {
         set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
     }
     
+    /// Whether an outstream video creative shows a mute/unmute button. Defaults to `false`.
+    ///
+    /// Sent to the Prebid banner adapter with every winning video bid, so the value also applies
+    /// to auto-refreshed ads. Has no effect on HTML banners or on ads the mediated SDK renders itself.
+    public var isSoundButtonVisible: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
+    }
+    
     // MARK: Arbitrary ORTB Configuration
     
     /// Sets the impression-level OpenRTB configuration string for the ad unit.

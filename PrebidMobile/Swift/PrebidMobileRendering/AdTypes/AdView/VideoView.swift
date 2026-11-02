@@ -590,15 +590,14 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: Functions.sharedApplication)
 
+        player.isMuted = adConfiguration?.videoControlsConfig.isMuted ?? false
+
         updateControls()
         initTimeObserver()
 
         let isFirstPlayback = playbackState == .unstarted
 
-        player.isMuted = adConfiguration?.videoControlsConfig.isMuted ?? false
-        
         player.play()
-        
         playbackState = .playing
 
         handleSkipDelay(adConfiguration?.videoControlsConfig.skipDelay ?? 0,

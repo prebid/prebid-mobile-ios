@@ -170,6 +170,20 @@ class MediationBannerAdUnitTest: XCTestCase {
         XCTAssertFalse(videoControlsConfig.isMuted)
     }
     
+    func testIsSoundButtonVisibleIsBackedByVideoControlsConfig() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let videoControlsConfig = bannerAdUnit.adUnitConfig.adConfiguration.videoControlsConfig
+        
+        XCTAssertFalse(bannerAdUnit.isSoundButtonVisible, "No mute button unless the publisher asks for one")
+        
+        bannerAdUnit.isSoundButtonVisible = true
+        XCTAssertTrue(bannerAdUnit.isSoundButtonVisible)
+        XCTAssertTrue(videoControlsConfig.isSoundButtonVisible)
+        
+        bannerAdUnit.isSoundButtonVisible = false
+        XCTAssertFalse(videoControlsConfig.isSoundButtonVisible)
+    }
+    
     // The adapters build a fresh rendering config for every creative, so the video controls
     // must be handed over with each winning video bid for `isMuted` to hold across refreshes.
     func testVideoBidHandsVideoControlsConfigToTheAdapter() {

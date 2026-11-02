@@ -192,6 +192,20 @@ class BannerViewTest: XCTestCase {
         XCTAssertFalse(videoControlsConfig.isMuted)
     }
     
+    func testIsSoundButtonVisibleIsBackedByVideoControlsConfig() {
+        let bannerView = BannerView(frame: .zero, configID: "configID", adSize: CGSize(width: 300, height: 250))
+        let videoControlsConfig = bannerView.adUnitConfig.adConfiguration.videoControlsConfig
+        
+        XCTAssertFalse(bannerView.isSoundButtonVisible, "No mute button unless the publisher asks for one")
+        
+        bannerView.isSoundButtonVisible = true
+        XCTAssertTrue(bannerView.isSoundButtonVisible)
+        XCTAssertTrue(videoControlsConfig.isSoundButtonVisible)
+        
+        bannerView.isSoundButtonVisible = false
+        XCTAssertFalse(videoControlsConfig.isSoundButtonVisible)
+    }
+    
     func testAccountErrorPropagation() {
         let testID = "auid"
         

@@ -107,6 +107,15 @@ public class BannerView:
         get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
     }
+    
+    /// Whether an outstream video creative shows a mute/unmute button. Defaults to `false`.
+    ///
+    /// Read when each video creative is created, so the value also applies to auto-refreshed
+    /// ads. Has no effect on HTML banners.
+    public var isSoundButtonVisible: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
+    }
 
     public weak var delegate: BannerViewDelegate?
     public weak var videoPlaybackDelegate: BannerViewVideoPlaybackDelegate?
