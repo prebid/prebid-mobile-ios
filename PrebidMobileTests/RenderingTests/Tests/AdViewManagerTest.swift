@@ -45,6 +45,9 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     var adViewManager:AdViewManager!
     var adLoadManager:AdLoadManagerBase!
     var videoCreative: VideoCreative?
+    // Creatives started with a bare `AVPlayer()` never registered their KVO observers, so their
+    // `VideoView.deinit` would throw on removal. Kept alive for the run, like `videoCreative`.
+    private var startedCreatives: [VideoCreative] = []
     var testDisplayView: UIView!
     var adLoadedHandler: (() -> Void)?
     
@@ -417,6 +420,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         videoCreative?.creativeViewDelegate = adViewManager
         adViewManager.currentCreative = videoCreative
         adViewManager.adViewManagerDelegate = self
+        videoCreative.map { startedCreatives.append($0) }
 
         videoCreative?.videoView.startPlayback()
     }
