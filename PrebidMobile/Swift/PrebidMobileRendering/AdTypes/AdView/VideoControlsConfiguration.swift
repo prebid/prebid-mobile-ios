@@ -19,7 +19,7 @@ import Foundation
 /// This includes properties for video duration, mute status, and button positioning and visibility.
 /// Configuration values can be initialized from bid response or set directly by the user.
 @objc(PBMVideoControlsConfiguration) @objcMembers
-public class VideoControlsConfiguration: NSObject {
+public class VideoControlsConfiguration: NSObject, NSCopying {
     
     /// This property indicates maximum video duration.
     /// Obtained from the field ext,prebid.passthrough[].adConfiguration.maxvideoduration.
@@ -141,8 +141,26 @@ public class VideoControlsConfiguration: NSObject {
         }
     }
     
+    // MARK: - NSCopying
+
+    @objc public func copy(with zone: NSZone? = nil) -> Any {
+        let clone = VideoControlsConfiguration()
+
+        clone.maxVideoDuration = maxVideoDuration
+        clone.isMuted = isMuted
+        clone._closeButtonArea = _closeButtonArea
+        clone._closeButtonPosition = _closeButtonPosition
+        clone._skipButtonArea = _skipButtonArea
+        clone._skipButtonPosition = _skipButtonPosition
+        clone.skipDelay = skipDelay
+        clone.isSoundButtonVisible = isSoundButtonVisible
+        clone.isAutoCloseOnCompletionEnabled = isAutoCloseOnCompletionEnabled
+
+        return clone
+    }
+
     // MARK: - Private properties
-    
+
     private var _closeButtonArea = PrebidConstants.BUTTON_AREA_DEFAULT.doubleValue
     private var _closeButtonPosition = Position.topRight
     

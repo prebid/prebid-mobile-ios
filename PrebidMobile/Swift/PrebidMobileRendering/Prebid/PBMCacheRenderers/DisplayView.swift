@@ -36,6 +36,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
 
     let bid: Bid
     let adConfiguration: AdUnitConfig
+    private(set) var renderingConfiguration: AdUnitConfig?
     public var interstitialDisplayProperties = InterstitialDisplayProperties()
     private(set) var connection: PrebidServerConnectionProtocol? = nil
     var transactionFactory: TransactionFactory?
@@ -74,17 +75,21 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
         adConfiguration.adConfiguration.isBuiltInVideo = bid.adFormat == .video
         adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
-        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.videoAdConfiguration)
+
+        let renderingConfiguration = adConfiguration.copy() as? AdUnitConfig ?? adConfiguration
+        renderingConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.videoAdConfiguration)
 
         // This part is dedicating to test server-side ad configurations.
         // Need to be removed when ext.prebid.passthrough will be available.
         #if DEBUG
-        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
+        renderingConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
         #endif
+
+        self.renderingConfiguration = renderingConfiguration
 
         transactionFactory = Factory.createTransactionFactory(
             bid: bid,
-            adConfiguration: adConfiguration,
+            adConfiguration: renderingConfiguration,
             connection: connection ?? PrebidServerConnection.shared
         ) { [weak self] transaction, error in
             guard let self else { return }
@@ -196,7 +201,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         )
 
         manager.adViewManagerDelegate = self
-        manager.adConfiguration = adConfiguration.adConfiguration
+        manager.adConfiguration = (renderingConfiguration ?? adConfiguration).adConfiguration
 
         self.adViewManager = manager
         manager.handleExternalTransaction(transaction)

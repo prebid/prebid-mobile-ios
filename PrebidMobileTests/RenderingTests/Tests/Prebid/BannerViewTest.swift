@@ -290,28 +290,43 @@ class BannerViewTest: XCTestCase {
         XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
     }
 
-    // The bid response can carry `ext.prebid.passthrough[].adconfiguration.ismuted`, which the
-    // interstitial path has always applied. Outstream video now reads the same value, so a
-    // publisher can mute banner video from the server without an app release.
-    func testServerSideIsMutedAppliesToOutstreamVideo() {
+    // The bid response can carry `ext.prebid.passthrough[].adconfiguration`, which the interstitial
+    // path has always applied. Outstream video reads the same values, but only for the bid that
+    // carries them: `AdUnitConfig` is shared across refreshes, so the server values go into the
+    // `DisplayView`'s own copy and the ad unit keeps whatever the publisher set.
+    func testServerSideVideoControlsApplyToTheirBidOnly() {
         let size = CGSize(width: 300, height: 250)
         let frame = CGRect(origin: .zero, size: size)
         let config = AdUnitConfig(configId: "configID", size: size)
-        let videoControlsConfig = config.adConfiguration.videoControlsConfig
+        let publisherControls = config.adConfiguration.videoControlsConfig
+        publisherControls.isMuted = true
 
-        // The server asks for muted: it overrides the publisher's default
-        DisplayView(frame: frame, bid: makeBid(type: "video", serverIsMuted: true), adConfiguration: config).loadAd()
-        XCTAssertTrue(videoControlsConfig.isMuted, "A server-side ismuted=1 mutes the outstream creative")
+        // Auction 1: the server asks for sound and a 15 s cap on this bid
+        let soundOn = DisplayView(frame: frame, bid: makeBid(type: "video", serverIsMuted: false, serverMaxVideoDuration: 15), adConfiguration: config)
+        soundOn.loadAd()
+        XCTAssertEqual(soundOn.renderedVideoControls?.isMuted, false, "ismuted=0 wins over the app's setting for this bid")
+        XCTAssertEqual(soundOn.renderedVideoControls?.maxVideoDuration, 15)
+        XCTAssertTrue(publisherControls.isMuted, "The ad unit keeps the publisher's value")
+        XCTAssertNil(publisherControls.maxVideoDuration, "Server values never land on the ad unit")
 
-        // No server value: the publisher's setting is left alone
-        videoControlsConfig.isMuted = false
-        DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config).loadAd()
-        XCTAssertFalse(videoControlsConfig.isMuted, "A bid without a passthrough keeps the app's setting")
+        // Auction 2 (refresh): no passthrough, so the publisher's value is back
+        let noPassthrough = DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config)
+        noPassthrough.loadAd()
+        XCTAssertEqual(noPassthrough.renderedVideoControls?.isMuted, true, "A bid without a passthrough renders with the app's setting")
+        XCTAssertNil(noPassthrough.renderedVideoControls?.maxVideoDuration, "The previous bid's cap does not carry over")
 
-        // The server asks for sound: it overrides a publisher mute
-        videoControlsConfig.isMuted = true
-        DisplayView(frame: frame, bid: makeBid(type: "video", serverIsMuted: false), adConfiguration: config).loadAd()
-        XCTAssertFalse(videoControlsConfig.isMuted, "A server-side ismuted=0 wins over the app's setting")
+        // Auction 3: the server asks for muted while the publisher has sound on
+        publisherControls.isMuted = false
+        let muted = DisplayView(frame: frame, bid: makeBid(type: "video", serverIsMuted: true), adConfiguration: config)
+        muted.loadAd()
+        XCTAssertEqual(muted.renderedVideoControls?.isMuted, true, "ismuted=1 mutes this bid")
+        XCTAssertFalse(publisherControls.isMuted)
+
+        // The copy still carries what the publisher set
+        publisherControls.isSoundButtonVisible = true
+        let withButton = DisplayView(frame: frame, bid: makeBid(type: "video", serverIsMuted: true), adConfiguration: config)
+        withButton.loadAd()
+        XCTAssertEqual(withButton.renderedVideoControls?.isSoundButtonVisible, true)
     }
 
     // MARK: - Auto-refresh vs. video creatives
@@ -415,16 +430,18 @@ class BannerViewTest: XCTestCase {
         XCTAssertNotNil(bannerView.autoRefreshManager?.delayedBlock, "Sanity: the timer is armed when the primary ad is requested")
     }
     
-    private func makeBid(type: String, serverIsMuted: Bool? = nil) -> Bid {
+    private func makeBid(type: String, serverIsMuted: Bool? = nil, serverMaxVideoDuration: Int? = nil) -> Bid {
         let rawBid = ORTBBid<ORTBBidExt>(bidID: "", impid: "", price: 0.1)
         rawBid.ext = .init()
         rawBid.ext?.prebid = .init()
         rawBid.ext?.prebid?.type = type
-        if let serverIsMuted {
+        if serverIsMuted != nil || serverMaxVideoDuration != nil {
+            let adConfiguration = ORTBAdConfiguration()
+            adConfiguration.isMuted = serverIsMuted.map { NSNumber(value: $0) }
+            adConfiguration.maxVideoDuration = serverMaxVideoDuration.map { NSNumber(value: $0) }
             let passthrough = ORTBExtPrebidPassthrough()
             passthrough.type = "prebidmobilesdk"
-            passthrough.adConfiguration = ORTBAdConfiguration()
-            passthrough.adConfiguration?.isMuted = NSNumber(value: serverIsMuted)
+            passthrough.adConfiguration = adConfiguration
             rawBid.ext?.prebid?.passthrough = [passthrough]
         }
         return Bid(bid: rawBid)
@@ -644,5 +661,12 @@ class BannerViewDidInjectViewTests: XCTestCase {
         let exp = expectation(description: "main queue flush")
         DispatchQueue.main.async { exp.fulfill() }
         waitForExpectations(timeout: 1.0)
+    }
+}
+
+private extension DisplayView {
+    /// The video controls the creative is rendered with, once `loadAd()` has run.
+    var renderedVideoControls: VideoControlsConfiguration? {
+        renderingConfiguration?.adConfiguration.videoControlsConfig
     }
 }

@@ -129,7 +129,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.nativeAdConfiguration = self.nativeAdConfiguration
         clone.adConfiguration.bannerParameters = self.adConfiguration.bannerParameters
         clone.adConfiguration.videoParameters = self.adConfiguration.videoParameters
-        clone.adConfiguration.videoControlsConfig = self.adConfiguration.videoControlsConfig
         clone.adConfiguration.winningBidAdFormat = self.adConfiguration.winningBidAdFormat
         clone.sizes = sizes
         clone.adSize = adSize
@@ -151,12 +150,14 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.isBuiltInVideo = self.adConfiguration.isBuiltInVideo
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
         clone.adConfiguration.isRewarded = self.adConfiguration.isRewarded
+        clone.adConfiguration.supportSKOverlay = self.adConfiguration.supportSKOverlay
         clone.adConfiguration.forceInterstitialPresentation = self.adConfiguration.forceInterstitialPresentation
         clone.adConfiguration.interstitialLayout = self.adConfiguration.interstitialLayout
         clone.nativeAdConfiguration = self.nativeAdConfiguration
         clone.adConfiguration.bannerParameters = self.adConfiguration.bannerParameters
         clone.adConfiguration.videoParameters = self.adConfiguration.videoParameters
-        clone.adConfiguration.videoControlsConfig = self.adConfiguration.videoControlsConfig
+        clone.adConfiguration.videoControlsConfig = self.adConfiguration.videoControlsConfig.copy() as? VideoControlsConfiguration
+            ?? self.adConfiguration.videoControlsConfig
         clone.adConfiguration.clickHandlerOverride = self.adConfiguration.clickHandlerOverride
         clone.adConfiguration.autoRefreshDelay = self.adConfiguration.autoRefreshDelay
         clone.adConfiguration.pollFrequency = self.adConfiguration.pollFrequency
