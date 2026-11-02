@@ -74,16 +74,6 @@ class VideoCreative: AbstractCreativeImpl, VideoViewDelegate {
 
     override func showAsInterstitial(fromRootViewController uiViewController: UIViewController,
                                             displayProperties: InterstitialDisplayProperties) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-
-            if self.adConfiguration?.videoControlsConfig.isMuted ?? false {
-                self.videoView.mute()
-            } else {
-                self.videoView.unmute()
-            }
-        }
-
         //Create a copy of the interstitialDisplayProperties and modify the closeDelay to take the video length into account.
         let newDisplayProperties = createInterstitialPropertiesForCurrentVideoState(for: displayProperties)
         super.showAsInterstitial(fromRootViewController: uiViewController, displayProperties: newDisplayProperties)

@@ -354,14 +354,19 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     func testVideoCreativePlaybackEvents() {
         videoDidStartExpectation = expectation(description: "Expected a delegate function videoAdDidStart to fire")
         videoWasMutedExpectation = expectation(description: "Expected a delegate function videoAdWasMuted to fire")
-        videoWasUnmutedExpectation = expectation(description: "Expected a delegate function videoAdWasUnmuted to fire")
+        // Once for the sound-on start, once for the explicit unmute() below
+        let unmutedExpectation = expectation(description: "Expected a delegate function videoAdWasUnmuted to fire twice")
+        unmutedExpectation.expectedFulfillmentCount = 2
+        videoWasUnmutedExpectation = unmutedExpectation
         videoDidPauseExpectation = expectation(description: "Expected a delegate function videoAdDidPause to fire")
         videoDidResumeExpectation = expectation(description: "Expected a delegate function videoAdDidResume to fire")
 
         let model = CreativeModel(adConfiguration: AdConfiguration())
-        videoCreative = VideoCreative(creativeModel: model,
-                                            transaction: UtilitiesForTesting.createEmptyTransaction(),
-                                            videoData: Data())
+        videoCreative = VideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
         videoCreative?.videoView.avPlayer = AVPlayer()
         videoCreative?.creativeViewDelegate = adViewManager
         
@@ -376,8 +381,44 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         adViewManager.resume()
         adViewManager.mute()
         adViewManager.unmute()
-        
+
         waitForExpectations(timeout: 0.1)
+    }
+
+    // The configured mute state is applied through mute()/unmute() when playback starts, so the
+    // delegate hears about the initial state the same way it hears about a user tap. Any other
+    // mute or unmute event fails through `fulfillOrFail` with no expectation set.
+    func testConfiguredMuteStateIsReportedWhenPlaybackStarts() {
+        let mutedConfiguration = AdConfiguration()
+        mutedConfiguration.videoControlsConfig.isMuted = true
+
+        videoDidStartExpectation = expectation(description: "videoAdDidStart for the muted start")
+        videoWasMutedExpectation = expectation(description: "videoAdWasMuted once for the muted start")
+        startPlayback(with: mutedConfiguration)
+        waitForExpectations(timeout: 0.1)
+        XCTAssertEqual(videoCreative?.videoView.avPlayer.isMuted, true)
+
+        videoWasMutedExpectation = nil
+        videoDidStartExpectation = expectation(description: "videoAdDidStart for the sound-on start")
+        videoWasUnmutedExpectation = expectation(description: "videoAdWasUnmuted once for the sound-on start")
+        startPlayback(with: AdConfiguration())
+        waitForExpectations(timeout: 0.1)
+        XCTAssertEqual(videoCreative?.videoView.avPlayer.isMuted, false)
+    }
+
+    private func startPlayback(with adConfiguration: AdConfiguration) {
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        videoCreative = VideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+        videoCreative?.videoView.avPlayer = AVPlayer()
+        videoCreative?.creativeViewDelegate = adViewManager
+        adViewManager.currentCreative = videoCreative
+        adViewManager.adViewManagerDelegate = self
+
+        videoCreative?.videoView.startPlayback()
     }
     
     //MARK: AdViewManagerDelegate

@@ -590,7 +590,11 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: Functions.sharedApplication)
 
-        player.isMuted = adConfiguration?.videoControlsConfig.isMuted ?? false
+        if adConfiguration?.videoControlsConfig.isMuted ?? false {
+            mute()
+        } else {
+            unmute()
+        }
 
         updateControls()
         initTimeObserver()
