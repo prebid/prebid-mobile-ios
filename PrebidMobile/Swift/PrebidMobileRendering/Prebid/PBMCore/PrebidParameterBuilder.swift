@@ -51,9 +51,13 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
             }
         }
 
+        // Each request is built for a single ad unit, so its own stored auction response, if set,
+        // applies to both the request and its impressions.
+        let storedAuctionResponse = adConfiguration.storedAuctionResponse ?? Prebid.shared.storedAuctionResponse
+
         bidRequest.requestID = UUID().uuidString
         bidRequest.extPrebid.storedRequestID = requestID
-        bidRequest.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse
+        bidRequest.extPrebid.storedAuctionResponse = storedAuctionResponse
         bidRequest.extPrebid.dataBidders = targeting.accessControlList
         bidRequest.extPrebid.storedBidResponses = Prebid.shared.getStoredBidResponses()
 
@@ -151,7 +155,7 @@ class PrebidParameterBuilder: NSObject, ParameterBuilder {
         for nextImp in bidRequest.imp {
             nextImp.impID = UUID().uuidString
             nextImp.extPrebid.storedRequestID = adConfiguration.configId
-            nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse
+            nextImp.extPrebid.storedAuctionResponse = storedAuctionResponse
             nextImp.extGPID = adConfiguration.gpid
 
             nextImp.extPrebid.isRewardedInventory = adConfiguration.adConfiguration.isRewarded

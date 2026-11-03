@@ -77,6 +77,10 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
     
     public var gpid: String?
+
+    /// Stored auction response for this ad unit only. When set, it takes precedence over
+    /// `Prebid.shared.storedAuctionResponse` for this ad unit's requests.
+    var storedAuctionResponse: String?
     
     public var impORTBConfig: String? {
         get { adConfiguration.impORTBConfig }
@@ -138,6 +142,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.additionalSizes = self.additionalSizes
         clone.refreshInterval = self.refreshInterval
         clone.gpid = self.gpid
+        clone.storedAuctionResponse = self.storedAuctionResponse
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot
         
