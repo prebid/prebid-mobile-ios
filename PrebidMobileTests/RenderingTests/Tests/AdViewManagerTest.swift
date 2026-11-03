@@ -357,10 +357,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     func testVideoCreativePlaybackEvents() {
         videoDidStartExpectation = expectation(description: "Expected a delegate function videoAdDidStart to fire")
         videoWasMutedExpectation = expectation(description: "Expected a delegate function videoAdWasMuted to fire")
-        // Once for the sound-on start, once for the explicit unmute() below
-        let unmutedExpectation = expectation(description: "Expected a delegate function videoAdWasUnmuted to fire twice")
-        unmutedExpectation.expectedFulfillmentCount = 2
-        videoWasUnmutedExpectation = unmutedExpectation
+        videoWasUnmutedExpectation = expectation(description: "Expected a delegate function videoAdWasUnmuted to fire")
         videoDidPauseExpectation = expectation(description: "Expected a delegate function videoAdDidPause to fire")
         videoDidResumeExpectation = expectation(description: "Expected a delegate function videoAdDidResume to fire")
 
@@ -388,9 +385,8 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         waitForExpectations(timeout: 0.1)
     }
 
-    // The configured mute state is applied through mute()/unmute() when playback starts, so the
-    // delegate hears about the initial state the same way it hears about a user tap. Any other
-    // mute or unmute event fails through `fulfillOrFail` with no expectation set.
+    // A muted start is reported to the delegate; a sound-on start is not, since nothing was unmuted.
+    // Any other mute or unmute event fails through `fulfillOrFail` with no expectation set.
     func testConfiguredMuteStateIsReportedWhenPlaybackStarts() {
         let mutedConfiguration = AdConfiguration()
         mutedConfiguration.videoControlsConfig.isMuted = true
@@ -403,7 +399,6 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
 
         videoWasMutedExpectation = nil
         videoDidStartExpectation = expectation(description: "videoAdDidStart for the sound-on start")
-        videoWasUnmutedExpectation = expectation(description: "videoAdWasUnmuted once for the sound-on start")
         startPlayback(with: AdConfiguration())
         waitForExpectations(timeout: 0.1)
         XCTAssertEqual(videoCreative?.videoView.avPlayer.isMuted, false)
