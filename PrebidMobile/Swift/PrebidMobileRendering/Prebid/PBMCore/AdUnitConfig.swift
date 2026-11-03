@@ -135,7 +135,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.minSizePerc = self.minSizePerc
         clone.adPosition = self.adPosition
         clone.additionalSizes = self.additionalSizes
-        clone.refreshInterval = self.refreshInterval
+        clone._refreshInterval = self._refreshInterval
         clone.gpid = self.gpid
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot

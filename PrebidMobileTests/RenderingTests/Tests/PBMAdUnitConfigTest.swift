@@ -90,6 +90,14 @@ class PBMAdUnitConfigTest: XCTestCase {
         adUnitConfig.adConfiguration.winningBidAdFormat = .banner
         XCTAssertEqual(adUnitConfig.refreshInterval, 45)
     }
+
+    func testCopyKeepsDisabledRefreshInterval() {
+        adUnitConfig.refreshInterval = -1
+        XCTAssertEqual(adUnitConfig.refreshInterval, 0)
+
+        let clone = adUnitConfig.copy() as? AdUnitConfig
+        XCTAssertEqual(clone?.refreshInterval, 0, "A disabled interval must not be clamped up to the minimum on copy")
+    }
     
     // MARK: - The Prebid Ad Slot
     
