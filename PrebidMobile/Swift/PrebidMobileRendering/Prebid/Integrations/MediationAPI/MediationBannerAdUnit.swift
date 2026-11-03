@@ -108,8 +108,8 @@ public class MediationBannerAdUnit : NSObject {
     /// Sent to the Prebid banner adapter with every winning video bid, so the value also applies
     /// to auto-refreshed ads. The user can still unmute the creative on screen; that does not
     /// change this setting. A server-side `ismuted` in the bid response
-    /// (`ext.prebid.passthrough[].adconfiguration`) overrides this value, as it does for
-    /// interstitials. Has no effect on HTML banners or on ads the mediated SDK renders itself.
+    /// (`ext.prebid.passthrough[].adconfiguration`) overrides this value for that ad only. Has no
+    /// effect on HTML banners or on ads the mediated SDK renders itself.
     public var isMuted: Bool {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }

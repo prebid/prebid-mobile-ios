@@ -100,10 +100,10 @@ public class BannerView:
     
     /// Whether an outstream video creative starts muted. Defaults to `false`.
     ///
-    /// Read when each video creative starts playing, so the value also applies to auto-refreshed
-    /// ads. The user can still unmute the creative on screen; that does not change this setting.
-    /// A server-side `ismuted` in the bid response (`ext.prebid.passthrough[].adconfiguration`)
-    /// overrides this value, as it does for interstitials. Has no effect on HTML banners.
+    /// Read when each ad is loaded, so the value also applies to auto-refreshed ads. The user can
+    /// still unmute the creative on screen; that does not change this setting. A server-side
+    /// `ismuted` in the bid response (`ext.prebid.passthrough[].adconfiguration`) overrides this
+    /// value for that ad only. Has no effect on HTML banners.
     public var isMuted: Bool {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
