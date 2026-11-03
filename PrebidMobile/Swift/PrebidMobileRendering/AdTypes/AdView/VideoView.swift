@@ -49,8 +49,16 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
     var isMuted: Bool {
         get { avPlayer?.isMuted ?? false }
         set {
+            let wasMuted = isMuted
             avPlayer?.isMuted = newValue
             updateMuteControls()
+
+            // Muting leaves `AVPlayer.volume` unchanged, so the volume observer never sees it.
+            // Before the start event there is nothing to report: the start event carries the state.
+            if isMuted != wasMuted && isPlaybackStartTracked {
+                eventManager?.trackVolumeChanged(playerVolume: trackedPlayerVolume,
+                                                 deviceVolume: Double(AVAudioSession.sharedInstance().outputVolume))
+            }
         }
     }
 
@@ -79,6 +87,16 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
     private var previousCompletionPercentage: CGFloat = 0
 
     private var isInitialVolumeTracked: Float?
+    private var isPlaybackStartTracked = false
+
+    // The volume reported to the trackers. A muted player keeps its `volume`, but it plays no sound.
+    private var trackedPlayerVolume: Double {
+        guard let avPlayer else {
+            return 0
+        }
+
+        return avPlayer.isMuted ? 0 : Double(avPlayer.volume)
+    }
 
     // Optimization: since we show only preloaded data we can free the buffer when data is sent to the player.
     // This property holds the amount of data that was sent to the player.
@@ -562,12 +580,25 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         notifyVideoDidStart()
     }
 
+    // VAST defines `mute` and `unmute` as the user's action on the mute control, so only the sound
+    // button tracks them. The mute state configured for the ad is applied through `mute()` and
+    // `unmute()` without them.
     @objc private func btnMuteClick(_ button: UIButton) {
+        let wasMuted = isMuted
         mute()
+
+        if isMuted != wasMuted {
+            eventManager?.trackEvent(.mute)
+        }
     }
 
     @objc private func btnUnmuteClick(_ button: UIButton) {
+        let wasMuted = isMuted
         unmute()
+
+        if isMuted != wasMuted {
+            eventManager?.trackEvent(.unmute)
+        }
     }
 
     // MARK: - Interface
@@ -897,7 +928,8 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
         // The duration is passed as the raw `CMTime.value` (not seconds), as in the ObjC original.
         eventManager?.trackStartVideo(duration: TimeInterval(avPlayer?.currentItem?.asset.duration.value ?? 0),
-                                      volume: Double(avPlayer?.volume ?? 0))
+                                      volume: trackedPlayerVolume)
+        isPlaybackStartTracked = true
 
         Log.info("Video Playback Progress: PBMTrackingEventCreativeView/PBMTrackingEventStart")
     }
@@ -972,7 +1004,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
             let newVolume = self.avPlayer?.volume ?? 0
             if let initialVolume = self.isInitialVolumeTracked {
                 if newVolume != initialVolume {
-                    self.eventManager?.trackVolumeChanged(playerVolume: Double(newVolume),
+                    self.eventManager?.trackVolumeChanged(playerVolume: self.trackedPlayerVolume,
                                                           deviceVolume: Double(AVAudioSession.sharedInstance().outputVolume))
                 }
             } else {
@@ -985,7 +1017,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
 
-            self.eventManager?.trackVolumeChanged(playerVolume: Double(self.avPlayer?.volume ?? 0),
+            self.eventManager?.trackVolumeChanged(playerVolume: self.trackedPlayerVolume,
                                                   deviceVolume: Double(AVAudioSession.sharedInstance().outputVolume))
         }
     }
