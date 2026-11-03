@@ -17,6 +17,7 @@
 		344A7F1A250B8E5400743A93 /* GADRewardedAdWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F19250B8E5400743A93 /* GADRewardedAdWrapperTest.swift */; };
 		534C61682CB861930026119A /* PrebidAdMobRewardedAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61672CB861930026119A /* PrebidAdMobRewardedAdapter.swift */; };
 		53632B24290BC57A00139EF3 /* AdMobGMATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53632B23290BC57A00139EF3 /* AdMobGMATests.swift */; };
+		A1C0DE0129F0000000000001 /* AdMobInterstitialVideoControlsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0DE0229F0000000000002 /* AdMobInterstitialVideoControlsTest.swift */; };
 		53632B2C290BE17300139EF3 /* GMATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53632B2B290BE17300139EF3 /* GMATests.swift */; };
 		53F2A57B2CB94FBE009B74CA /* GADReward+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2A57A2CB94FB3009B74CA /* GADReward+Extensions.swift */; };
 		5B36172626370A8700AFA1C2 /* GAMUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B36172526370A8700AFA1C2 /* GAMUtils.swift */; };
@@ -117,6 +118,7 @@
 		42CE6323AC67980202BFDE74 /* Pods-PrebidMobileAdMobAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileAdMobAdapters.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileAdMobAdapters/Pods-PrebidMobileAdMobAdapters.release.xcconfig"; sourceTree = "<group>"; };
 		534C61672CB861930026119A /* PrebidAdMobRewardedAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobRewardedAdapter.swift; sourceTree = "<group>"; };
 		53632B23290BC57A00139EF3 /* AdMobGMATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobGMATests.swift; sourceTree = "<group>"; };
+		A1C0DE0229F0000000000002 /* AdMobInterstitialVideoControlsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobInterstitialVideoControlsTest.swift; sourceTree = "<group>"; };
 		53632B2B290BE17300139EF3 /* GMATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMATests.swift; sourceTree = "<group>"; };
 		53F2A57A2CB94FB3009B74CA /* GADReward+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GADReward+Extensions.swift"; sourceTree = "<group>"; };
 		58B193FE14C1F3D7E795F7AC /* Pods-PrebidMobileMAXAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileMAXAdapters.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileMAXAdapters/Pods-PrebidMobileMAXAdapters.release.xcconfig"; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				928310072775FF7500D28142 /* PrebidMobileAdMobAdaptersTests-Bridging-Header.h */,
 				9281F68427A82C38004F18EC /* AdMobMediationUtilsTest.swift */,
 				53632B23290BC57A00139EF3 /* AdMobGMATests.swift */,
+				A1C0DE0229F0000000000002 /* AdMobInterstitialVideoControlsTest.swift */,
 			);
 			path = PrebidMobileAdMobAdaptersTests;
 			sourceTree = "<group>";
@@ -1028,6 +1031,7 @@
 			files = (
 				9281F68527A82C38004F18EC /* AdMobMediationUtilsTest.swift in Sources */,
 				53632B24290BC57A00139EF3 /* AdMobGMATests.swift in Sources */,
+				A1C0DE0129F0000000000001 /* AdMobInterstitialVideoControlsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
