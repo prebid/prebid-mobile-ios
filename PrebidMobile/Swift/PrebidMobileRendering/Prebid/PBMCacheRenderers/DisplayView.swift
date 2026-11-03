@@ -72,11 +72,10 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     public func loadAd() {
         guard transactionFactory == nil, !isExpired else { return }
 
-        adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
-        adConfiguration.adConfiguration.isBuiltInVideo = bid.adFormat == .video
-        adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
-
         let renderingConfiguration = adConfiguration.copy() as? AdUnitConfig ?? adConfiguration
+        renderingConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
+        renderingConfiguration.adConfiguration.isBuiltInVideo = bid.adFormat == .video
+        renderingConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
         renderingConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.videoAdConfiguration)
         self.renderingConfiguration = renderingConfiguration
 

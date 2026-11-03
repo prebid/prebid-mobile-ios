@@ -262,7 +262,8 @@ class BannerViewTest: XCTestCase {
 
     // Regression: `AdUnitConfig` is shared across refreshes of a multiformat
     // banner, so `isBuiltInVideo` must be derived from the current bid on every
-    // load rather than latched to `true` once a video creative has won.
+    // load rather than latched to `true` once a video creative has won. Each
+    // load renders from its own copy; the ad unit's config is never written.
     func testIsBuiltInVideoTracksWinningBidFormatAcrossRefreshes() {
         let size = CGSize(width: 300, height: 250)
         let frame = CGRect(origin: .zero, size: size)
@@ -274,20 +275,24 @@ class BannerViewTest: XCTestCase {
         // Auction 1: video wins
         let videoView = DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config)
         videoView.loadAd()
-        XCTAssertEqual(config.adConfiguration.winningBidAdFormat, .video)
-        XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
+        XCTAssertEqual(videoView.renderedAdConfiguration?.winningBidAdFormat, .video)
+        XCTAssertEqual(videoView.renderedAdConfiguration?.isBuiltInVideo, true)
         
         // Auction 2 (refresh, same config): HTML banner wins
         let bannerView = DisplayView(frame: frame, bid: makeBid(type: "banner"), adConfiguration: config)
         bannerView.loadAd()
-        XCTAssertEqual(config.adConfiguration.winningBidAdFormat, .banner)
-        XCTAssertFalse(config.adConfiguration.isBuiltInVideo,
-                       "isBuiltInVideo must be cleared when a non-video creative wins on refresh")
+        XCTAssertEqual(bannerView.renderedAdConfiguration?.winningBidAdFormat, .banner)
+        XCTAssertEqual(bannerView.renderedAdConfiguration?.isBuiltInVideo, false,
+                       "isBuiltInVideo must be false when a non-video creative wins on refresh")
         
         // Auction 3: video wins again
         let videoView2 = DisplayView(frame: frame, bid: makeBid(type: "video"), adConfiguration: config)
         videoView2.loadAd()
-        XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
+        XCTAssertEqual(videoView2.renderedAdConfiguration?.isBuiltInVideo, true)
+        
+        XCTAssertNil(config.adConfiguration.winningBidAdFormat, "Per-bid state stays off the ad unit's config")
+        XCTAssertFalse(config.adConfiguration.isBuiltInVideo)
+        XCTAssertNil(config.adConfiguration.rewardedConfig)
     }
 
     // The bid response can carry `ext.prebid.passthrough[].adconfiguration`, which the interstitial
@@ -666,6 +671,10 @@ class BannerViewDidInjectViewTests: XCTestCase {
 
 private extension DisplayView {
     /// The video controls the creative is rendered with, once `loadAd()` has run.
+    var renderedAdConfiguration: AdConfiguration? {
+        renderingConfiguration?.adConfiguration
+    }
+
     var renderedVideoControls: VideoControlsConfiguration? {
         renderingConfiguration?.adConfiguration.videoControlsConfig
     }
