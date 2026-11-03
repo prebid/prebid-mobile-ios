@@ -209,7 +209,7 @@ class MediationBannerAdUnitTest: XCTestCase {
             let videoControlsConfig = resultExtras[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration
             XCTAssertNotNil(videoControlsConfig, "A video bid must carry the video controls to the adapter")
             XCTAssertTrue(videoControlsConfig === adUnit.adUnitConfig.adConfiguration.videoControlsConfig,
-                          "The adapter must see the ad unit's own config so later changes reach the next refresh")
+                          "The ad unit hands over its own config; the renderer copies it for each load")
             XCTAssertEqual(videoControlsConfig?.isMuted, true)
             
             asyncExpectation.fulfill()

@@ -186,7 +186,7 @@ class BannerViewTest: XCTestCase {
         
         bannerView.isMuted = true
         XCTAssertTrue(bannerView.isMuted)
-        XCTAssertTrue(videoControlsConfig.isMuted, "The renderer reads the mute state from the shared video controls config")
+        XCTAssertTrue(videoControlsConfig.isMuted, "The value lives on the ad unit's video controls config, which each load copies")
         
         bannerView.isMuted = false
         XCTAssertFalse(videoControlsConfig.isMuted)

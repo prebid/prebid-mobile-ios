@@ -384,8 +384,8 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
     }
     
     // An outstream (banner) video is rendered as a plain creative, never through `showAsInterstitial`,
-    // and a refreshed banner is a new creative built from the same `AdConfiguration`. The configured
-    // mute state must apply to each of them, whatever the user did with the previous one.
+    // and a refreshed banner is a new creative built from a fresh copy of the ad unit's config. The
+    // configured mute state must apply to each of them, whatever the user did with the previous one.
     func testConfiguredMuteStateAppliesToEveryOutstreamCreative() {
         let adConfig = AdConfiguration()
         adConfig.videoControlsConfig.isMuted = true
