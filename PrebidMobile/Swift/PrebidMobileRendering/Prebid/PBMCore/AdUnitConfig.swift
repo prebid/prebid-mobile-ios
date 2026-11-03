@@ -156,8 +156,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.nativeAdConfiguration = self.nativeAdConfiguration
         clone.adConfiguration.bannerParameters = self.adConfiguration.bannerParameters
         clone.adConfiguration.videoParameters = self.adConfiguration.videoParameters
-        clone.adConfiguration.videoControlsConfig = self.adConfiguration.videoControlsConfig.copy() as? VideoControlsConfiguration
-            ?? self.adConfiguration.videoControlsConfig
+        clone.adConfiguration.videoControlsConfig = self.adConfiguration.videoControlsConfig.copy() as! VideoControlsConfiguration
         clone.adConfiguration.clickHandlerOverride = self.adConfiguration.clickHandlerOverride
         clone.adConfiguration.autoRefreshDelay = self.adConfiguration.autoRefreshDelay
         clone.adConfiguration.pollFrequency = self.adConfiguration.pollFrequency

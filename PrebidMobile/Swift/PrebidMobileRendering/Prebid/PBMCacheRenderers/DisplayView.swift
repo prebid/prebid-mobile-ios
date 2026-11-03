@@ -72,7 +72,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
     public func loadAd() {
         guard transactionFactory == nil, !isExpired else { return }
 
-        let renderingConfiguration = adConfiguration.copy() as? AdUnitConfig ?? adConfiguration
+        let renderingConfiguration = adConfiguration.copy() as! AdUnitConfig
         renderingConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
         renderingConfiguration.adConfiguration.isBuiltInVideo = bid.adFormat == .video
         renderingConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
@@ -89,7 +89,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
             if let error = error {
                 self.reportFailure(with: error)
             } else if let transaction = transaction {
-                self.display(transaction: transaction)
+                self.display(transaction: transaction, configuration: renderingConfiguration)
             }
         }
         
@@ -180,7 +180,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         loadingDelegate?.displayViewDidLoadAd(self)
     }
 
-    private func display(transaction: Transaction) {
+    private func display(transaction: Transaction, configuration: AdUnitConfig) {
         guard !isExpired else { return }
         
         expirationInterval = transaction.creativeModels.first?.expirationInterval ?? bid.exp
@@ -193,7 +193,7 @@ class DisplayView: UIView, PrebidMobileDisplayViewProtocol, AdViewManagerDelegat
         )
 
         manager.adViewManagerDelegate = self
-        manager.adConfiguration = (renderingConfiguration ?? adConfiguration).adConfiguration
+        manager.adConfiguration = configuration.adConfiguration
 
         self.adViewManager = manager
         manager.handleExternalTransaction(transaction)
