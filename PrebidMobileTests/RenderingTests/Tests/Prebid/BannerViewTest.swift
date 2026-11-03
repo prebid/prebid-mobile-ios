@@ -482,7 +482,95 @@ class BannerViewTest: XCTestCase {
         XCTAssertEqual(delegate.failCallCount, 0)
         XCTAssertEqual(adLoadFlowController.refreshCallCount, 1)
     }
-    
+
+    // MARK: - Stored auction response on release
+
+    private func makeBanner() -> BannerView {
+        let primarySize = CGSize(width: 320, height: 50)
+        return BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+    }
+
+    // Releasing a banner must not clear the app-level stored auction response.
+    func testReleasingBannerKeepsStoredAuctionResponseSetOnPrebid() {
+        let storedAuctionResponse = "app-stored-auction-response"
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
+
+        weak var weakBanner: BannerView?
+        autoreleasepool {
+            let bannerView = makeBanner()
+            weakBanner = bannerView
+        }
+
+        XCTAssertNil(weakBanner, "The banner must be deallocated for this test to be meaningful")
+        XCTAssertEqual(Prebid.shared.storedAuctionResponse, storedAuctionResponse)
+    }
+
+    // A value set through the banner's own setter is still undone when that banner is released.
+    func testReleasingBannerClearsStoredAuctionResponseItSet() {
+        weak var weakBanner: BannerView?
+        autoreleasepool {
+            let bannerView = makeBanner()
+            bannerView.setStoredAuctionResponse(storedAuction: "banner-stored-auction-response")
+            XCTAssertEqual(Prebid.shared.storedAuctionResponse, "banner-stored-auction-response")
+            weakBanner = bannerView
+        }
+
+        XCTAssertNil(weakBanner, "The banner must be deallocated for this test to be meaningful")
+        XCTAssertNil(Prebid.shared.storedAuctionResponse)
+    }
+
+    // If the app changes the value after the banner set it, releasing the banner keeps the app's value.
+    func testReleasingBannerKeepsStoredAuctionResponseChangedAfterBannerSetIt() {
+        let appStoredAuctionResponse = "app-stored-auction-response"
+
+        weak var weakBanner: BannerView?
+        autoreleasepool {
+            let bannerView = makeBanner()
+            bannerView.setStoredAuctionResponse(storedAuction: "banner-stored-auction-response")
+            Prebid.shared.storedAuctionResponse = appStoredAuctionResponse
+            weakBanner = bannerView
+        }
+
+        XCTAssertNil(weakBanner, "The banner must be deallocated for this test to be meaningful")
+        XCTAssertEqual(Prebid.shared.storedAuctionResponse, appStoredAuctionResponse)
+    }
+
+    // Releasing a banner keeps a different value that a later banner set.
+    func testReleasingBannerKeepsStoredAuctionResponseSetByAnotherBanner() {
+        let secondBanner = makeBanner()
+
+        weak var weakFirstBanner: BannerView?
+        autoreleasepool {
+            let firstBanner = makeBanner()
+            firstBanner.setStoredAuctionResponse(storedAuction: "first-banner-stored-auction-response")
+            secondBanner.setStoredAuctionResponse(storedAuction: "second-banner-stored-auction-response")
+            weakFirstBanner = firstBanner
+        }
+
+        // Keep the second banner alive so its own deinit can't clear the value before the assertions.
+        withExtendedLifetime(secondBanner) {
+            XCTAssertNil(weakFirstBanner, "The first banner must be deallocated for this test to be meaningful")
+            XCTAssertEqual(Prebid.shared.storedAuctionResponse, "second-banner-stored-auction-response")
+        }
+    }
+
+    // Known limit of the ownership check: the SDK-wide value is a plain string, so when the app and a
+    // banner both set the same string, releasing the banner clears it for the app too. Pinned here so
+    // a change in this behaviour is a deliberate one.
+    func testReleasingBannerClearsSameStoredAuctionResponseAlsoSetOnPrebid() {
+        let sharedStoredAuctionResponse = "shared-stored-auction-response"
+        Prebid.shared.storedAuctionResponse = sharedStoredAuctionResponse
+
+        weak var weakBanner: BannerView?
+        autoreleasepool {
+            let bannerView = makeBanner()
+            bannerView.setStoredAuctionResponse(storedAuction: sharedStoredAuctionResponse)
+            weakBanner = bannerView
+        }
+
+        XCTAssertNil(weakBanner, "The banner must be deallocated for this test to be meaningful")
+        XCTAssertNil(Prebid.shared.storedAuctionResponse)
+    }
 }
 
 class BannerViewDidInjectViewTests: XCTestCase {

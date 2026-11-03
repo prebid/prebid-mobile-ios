@@ -43,6 +43,7 @@ extension Prebid {
         Prebid.shared.includeWinners = false
         Prebid.shared.includeBidderKeys = false
         Prebid.shared.eidsPlacement = .compatible
+        Prebid.shared.storedAuctionResponse = nil
                 
         Prebid.shared.creativeFactoryTimeout = 6.0
         Prebid.shared.creativeFactoryTimeoutPreRenderContent = 30.0
