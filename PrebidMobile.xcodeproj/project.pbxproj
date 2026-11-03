@@ -143,6 +143,7 @@
 		49FC57EF0D7F97731FDDB660 /* DisplayTransactionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D116E525763D736DB7E649 /* DisplayTransactionFactory.swift */; };
 		4A774E2B68EE400270BBB5EF /* ParameterBuilderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48643EC7D63AA93728D47E51 /* ParameterBuilderService.swift */; };
 		4C3EF60835DA49D1803DDF9F /* PBMVideoViewPlaybackStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ED8FA6E3C640C08376E837 /* PBMVideoViewPlaybackStateTest.swift */; };
+		D07A9EC9D2AC0C88A79259B9 /* VideoViewMuteTrackingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53621C1B11AF756EAAFC28 /* VideoViewMuteTrackingTest.swift */; };
 		4E31CA52C3A8F8FEE281F6D1 /* Prebid+ForcedViewability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42CBA1B1FB7E16FBBB6C5B4 /* Prebid+ForcedViewability.swift */; };
 		51AECF6ACE5FB028EFCB0D91 /* MRAIDParityExpectations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E33844E8ED9A09BB0CD89D9 /* MRAIDParityExpectations.swift */; };
 		522955424FE10BB6A6F90991 /* TransactionImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C6E350567344AE2431EBC0 /* TransactionImpl.swift */; };
@@ -1378,6 +1379,7 @@
 		C47DBB24DFB7C7D21C787483 /* BasicParameterBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BasicParameterBuilder.swift; sourceTree = "<group>"; };
 		C887C73587A3DFEA520FEBA7 /* ClickTrackingBlocks.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ClickTrackingBlocks.swift; sourceTree = "<group>"; };
 		C9ED8FA6E3C640C08376E837 /* PBMVideoViewPlaybackStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMVideoViewPlaybackStateTest.swift; sourceTree = "<group>"; };
+		BF53621C1B11AF756EAAFC28 /* VideoViewMuteTrackingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewMuteTrackingTest.swift; sourceTree = "<group>"; };
 		CE74A05FD6A5BD54F20B73AB /* WindowLocker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WindowLocker.swift; sourceTree = "<group>"; };
 		D1846FEE0D4A9AD72B7A8025 /* SKAdNetworksParameterBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SKAdNetworksParameterBuilder.swift; sourceTree = "<group>"; };
 		D18B18C8FF34917C31D27DAD /* ORTBDeal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ORTBDeal.swift; sourceTree = "<group>"; };
@@ -2667,6 +2669,7 @@
 				925D5D792737B8DD00A8A2B5 /* PBMVideoCreativeTestCloseDelay.swift */,
 				925D5D7B2737B90600A8A2B5 /* PBMVideoViewTest.swift */,
 				C9ED8FA6E3C640C08376E837 /* PBMVideoViewPlaybackStateTest.swift */,
+				BF53621C1B11AF756EAAFC28 /* VideoViewMuteTrackingTest.swift */,
 				925D5D7D2737B9BE00A8A2B5 /* SkadnParametersManagerTest.swift */,
 				9A0E1C5A2D1F4A0100DE0001 /* SKOverlayManagerTest.swift */,
 				53019E6027E9E40700D509C1 /* LogTest.swift */,
@@ -3444,6 +3447,7 @@
 				922AFCE62736FA6200732C53 /* AdViewManagerTest.swift in Sources */,
 				925D5D7C2737B90600A8A2B5 /* PBMVideoViewTest.swift in Sources */,
 				4C3EF60835DA49D1803DDF9F /* PBMVideoViewPlaybackStateTest.swift in Sources */,
+				D07A9EC9D2AC0C88A79259B9 /* VideoViewMuteTrackingTest.swift in Sources */,
 				38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */,
 				925D5E182737E7D200A8A2B5 /* PBMErrorTest.swift in Sources */,
 				922AFD3D273728D700732C53 /* PBMHTMLCreativeTest_MRAIDClose.swift in Sources */,
