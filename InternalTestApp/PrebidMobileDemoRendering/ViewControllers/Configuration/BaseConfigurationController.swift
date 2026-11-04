@@ -52,7 +52,11 @@ class BaseConfigurationController: FormTableViewController {
     }
 
     func setupView() {
-        prebidConfigId = controller?.prebidConfigId
+        guard let controller else {
+            assertionFailure("The configuration controller needs the PrebidConfigurableController it configures")
+            return
+        }
+        prebidConfigId = controller.prebidConfigId
     }
 
     func buildForm() {

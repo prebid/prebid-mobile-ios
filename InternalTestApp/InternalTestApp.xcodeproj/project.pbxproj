@@ -99,7 +99,6 @@
 		53ED2FF029798104007D13EE /* UtilitiesForTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDCF2101D2A100BAA0C4 /* UtilitiesForTesting.swift */; };
 		53ED2FF129798104007D13EE /* IABConsentSettingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BAD45A23957D1C0042DB33 /* IABConsentSettingKey.swift */; };
 		53ED2FF229798104007D13EE /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDDB2101DB7900BAA0C4 /* TabViewController.swift */; };
-		53ED2FF329798104007D13EE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC41AC92444E50B00B9A3A7 /* SettingsViewController.swift */; };
 		53ED2FF429798104007D13EE /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDD22101D2CF00BAA0C4 /* StringExtensions.swift */; };
 		53ED2FF529798104007D13EE /* PrebidMobileRenderingConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDB42101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift */; };
 		53ED2FF629798104007D13EE /* BaseConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B209B4921075E0A00C0F5CE /* BaseConfigurationController.swift */; };
@@ -131,7 +130,6 @@
 		53ED301229798104007D13EE /* ReactiveSdkInitFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346C6F5625DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift */; };
 		53ED301329798104007D13EE /* PrebidOriginalAPINativeBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD2B2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift */; };
 		53ED301429798104007D13EE /* TestCasesSectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDE12101EDA200BAA0C4 /* TestCasesSectionsViewController.swift */; };
-		53ED301529798104007D13EE /* AppSettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC41ACC2444EADB00B9A3A7 /* AppSettingsKeys.swift */; };
 		53ED301729798104007D13EE /* NativeEventTracker+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C4E60C27A2F6D700738370 /* NativeEventTracker+Extensions.swift */; };
 		53ED301829798104007D13EE /* PrebidRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BA95FF249CC118006AE372 /* PrebidRewardedController.swift */; };
 		53ED301A29798104007D13EE /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C833DC27B3CA8E00B99AC6 /* PrebidMobileAdMobAdapters.framework */; };
@@ -271,8 +269,6 @@
 		ACBBDF852397E10F006D5FE6 /* CommandArgsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBBDF842397E10E006D5FE6 /* CommandArgsViewController.swift */; };
 		ACC2BDEACF0A6497823235D1 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 6F87A02AFC9356C17759B076 /* GoogleMobileAds */; };
 		ACC36671253068600051D8E8 /* PrebidPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC366702530685F0051D8E8 /* PrebidPresentationViewController.swift */; };
-		ACC41ACA2444E50B00B9A3A7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC41AC92444E50B00B9A3A7 /* SettingsViewController.swift */; };
-		ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC41ACC2444EADB00B9A3A7 /* AppSettingsKeys.swift */; };
 		C088AEE54D0167A4E539ABC0 /* FormTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345F7BA086AE46BEC7F039CC /* FormTableViewController.swift */; };
 		CFBC134E24EA909DF0D40FCD /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61C1FD462415A318C05A24E9 /* GoogleMobileAds */; };
 		D08680742398088A00E70E60 /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
@@ -518,8 +514,6 @@
 		ACAF055624D8384B0089DFB1 /* PrebidFeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidFeedTableViewController.swift; sourceTree = "<group>"; };
 		ACBBDF842397E10E006D5FE6 /* CommandArgsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandArgsViewController.swift; sourceTree = "<group>"; };
 		ACC366702530685F0051D8E8 /* PrebidPresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidPresentationViewController.swift; sourceTree = "<group>"; };
-		ACC41AC92444E50B00B9A3A7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		ACC41ACC2444EADB00B9A3A7 /* AppSettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsKeys.swift; sourceTree = "<group>"; };
 		ACE6E80C264D121A009324AC /* NativeAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeAsset+Extensions.swift"; sourceTree = "<group>"; };
 		ACF3557F25CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdFeedController.swift; sourceTree = "<group>"; };
 		D086806B2398088A00E70E60 /* OpenXMockServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenXMockServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -823,7 +817,6 @@
 				ACBBDF842397E10E006D5FE6 /* CommandArgsViewController.swift */,
 				5BCCA3D52136D2E800DA3B5A /* ConfigurableViewController.swift */,
 				34BAD457239564740042DB33 /* IABConsentViewController.swift */,
-				ACC41AC92444E50B00B9A3A7 /* SettingsViewController.swift */,
 				D551B9702149207500FFF51D /* TabNavigationController.swift */,
 				5B3EEDDB2101DB7900BAA0C4 /* TabViewController.swift */,
 				5B3EEDE12101EDA200BAA0C4 /* TestCasesSectionsViewController.swift */,
@@ -852,7 +845,6 @@
 		5B3EEDCD2101D2A100BAA0C4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				ACC41ACC2444EADB00B9A3A7 /* AppSettingsKeys.swift */,
 				5B1CF82F2105E91000238340 /* ArrayExtension.swift */,
 				34BAD450239547420042DB33 /* IABConsentHelper.swift */,
 				34BAD45A23957D1C0042DB33 /* IABConsentSettingKey.swift */,
@@ -1377,7 +1369,6 @@
 				53ED2FF029798104007D13EE /* UtilitiesForTesting.swift in Sources */,
 				53ED2FF129798104007D13EE /* IABConsentSettingKey.swift in Sources */,
 				53ED2FF229798104007D13EE /* TabViewController.swift in Sources */,
-				53ED2FF329798104007D13EE /* SettingsViewController.swift in Sources */,
 				53ED2FF429798104007D13EE /* StringExtensions.swift in Sources */,
 				53ED2FF529798104007D13EE /* PrebidMobileRenderingConfigurationViewController.swift in Sources */,
 				53ED2FF629798104007D13EE /* BaseConfigurationController.swift in Sources */,
@@ -1420,7 +1411,6 @@
 				53ED301229798104007D13EE /* ReactiveSdkInitFlag.swift in Sources */,
 				53ED301329798104007D13EE /* PrebidOriginalAPINativeBannerController.swift in Sources */,
 				53ED301429798104007D13EE /* TestCasesSectionsViewController.swift in Sources */,
-				53ED301529798104007D13EE /* AppSettingsKeys.swift in Sources */,
 				53ED301729798104007D13EE /* NativeEventTracker+Extensions.swift in Sources */,
 				53ED301829798104007D13EE /* PrebidRewardedController.swift in Sources */,
 				539F960C29DEF0B90061E7A5 /* PrebidOriginalAPIMultiformatBannerController.swift in Sources */,
@@ -1480,7 +1470,6 @@
 				5B3EEDD12101D2A100BAA0C4 /* UtilitiesForTesting.swift in Sources */,
 				34BAD45B23957D1C0042DB33 /* IABConsentSettingKey.swift in Sources */,
 				5B3EEDDC2101DB7900BAA0C4 /* TabViewController.swift in Sources */,
-				ACC41ACA2444E50B00B9A3A7 /* SettingsViewController.swift in Sources */,
 				5B3EEDD32101D2CF00BAA0C4 /* StringExtensions.swift in Sources */,
 				5B3EEDC12101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift in Sources */,
 				5B209B4A21075E0A00C0F5CE /* BaseConfigurationController.swift in Sources */,
@@ -1523,7 +1512,6 @@
 				346C6F5725DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift in Sources */,
 				5397BD2C2937764100ABDA22 /* PrebidOriginalAPINativeBannerController.swift in Sources */,
 				5B3EEDE22101EDA200BAA0C4 /* TestCasesSectionsViewController.swift in Sources */,
-				ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */,
 				92C4E60D27A2F6D700738370 /* NativeEventTracker+Extensions.swift in Sources */,
 				34BA9600249CC118006AE372 /* PrebidRewardedController.swift in Sources */,
 				539F960B29DEF0B90061E7A5 /* PrebidOriginalAPIMultiformatBannerController.swift in Sources */,

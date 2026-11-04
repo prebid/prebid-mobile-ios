@@ -23,8 +23,7 @@ class UtilitiesViewController: FormTableViewController {
         let rows = [
             navigationRow("PrebidMobile Configuration") { AboutViewController() },
             navigationRow("IAB Consent Settings") { IABConsentViewController() },
-            navigationRow("Command Line Args") { CommandArgsViewController() },
-            navigationRow("App Settings") { SettingsViewController() }
+            navigationRow("Command Line Args") { CommandArgsViewController() }
         ]
         let tracking = FormRow("Request Tracking Authorization", kind: .action)
         tracking.onSelect = { [weak self] in

@@ -10,8 +10,9 @@ Run from the repo root:
 ```
 
 The Xcode projects pin vendor SDK versions exactly. This command resolves them into
-`.swiftpm-cache/` and writes the ignored workspace `Package.resolved`. The native
-workspace contains no published Prebid packages. CocoaPods remains a customer
+`.swiftpm-cache/` from the committed workspace `Package.resolved`, and fails if that
+lockfile no longer matches the projects. The native workspace contains no published
+Prebid packages. CocoaPods remains a customer
 distribution channel; there is no development Podfile.
 Open `PrebidMobile.xcworkspace` for native development.
 
@@ -24,4 +25,4 @@ CI runs `./scripts/verifySPM.sh` against candidate packages before publication;
 its temporary workspace owns its pins, package cache, and DerivedData.
 
 For an intentional vendor update, follow `docs/development-dependencies.md`; commit
-the project requirements and the regenerated root `Package.resolved`.
+the project requirements together with the regenerated workspace and root lockfiles.

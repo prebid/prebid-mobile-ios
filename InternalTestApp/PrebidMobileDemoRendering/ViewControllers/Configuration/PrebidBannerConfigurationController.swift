@@ -24,7 +24,8 @@ class PrebidBannerConfigurationController: BaseConfigurationController {
 
     override func setupView() {
         super.setupView()
-        refreshInterval = (controller as? PrebidConfigurableBannerController)?.refreshInterval ?? 0
+        guard let bannerController else { return }
+        refreshInterval = bannerController.refreshInterval
     }
 
     override var loadSection: FormSection {
@@ -35,7 +36,15 @@ class PrebidBannerConfigurationController: BaseConfigurationController {
 
     override func onConfigurationFinished() {
         super.onConfigurationFinished()
-        (controller as? PrebidConfigurableBannerController)?.refreshInterval = refreshInterval
+        bannerController?.refreshInterval = refreshInterval
+    }
+
+    private var bannerController: PrebidConfigurableBannerController? {
+        guard let bannerController = controller as? PrebidConfigurableBannerController else {
+            assertionFailure("PrebidBannerConfigurationController needs a PrebidConfigurableBannerController")
+            return nil
+        }
+        return bannerController
     }
 
     var rowAutoRefreshDelay: FormRow {

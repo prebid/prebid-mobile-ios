@@ -124,6 +124,7 @@ class FormTableViewController: UITableViewController {
             tableView.scrollToRow(at: indexPath, at: .none, animated: false)
             tableView.layoutIfNeeded()
             tableView.cellForRow(at: indexPath)?.contentView.subviews.compactMap { $0 as? UITextField }.first?.becomeFirstResponder()
+            return
         }
     }
 
