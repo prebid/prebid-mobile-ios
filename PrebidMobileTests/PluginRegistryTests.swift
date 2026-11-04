@@ -205,47 +205,6 @@ class PluginRegistryTests: XCTestCase {
         XCTAssertEqual(unknown.events, [])
     }
     
-    func testRemove_duringOnRegister_callsOnUnregisterAfterOnRegisterReturns() {
-        let plugin = MockPlugin(name: "plugin")
-        plugin.onRegisterAction = { [unowned self, unowned plugin] in
-            registry.remove(plugin)
-            plugin.record("remove returned")
-        }
-        
-        registry.add(plugin)
-        
-        XCTAssertEqual(plugin.events, ["remove returned", "onRegister", "onUnregister"])
-        XCTAssertFalse(registry.contains(plugin))
-        XCTAssertTrue(registry.active.isEmpty)
-    }
-    
-    func testRemove_duringOnRegisterOnAnotherThread_callsOnUnregisterAfterOnRegisterReturns() {
-        let plugin = MockPlugin(name: "plugin")
-        let onRegisterStarted = DispatchSemaphore(value: 0)
-        let removeReturned = DispatchSemaphore(value: 0)
-        plugin.onRegisterAction = {
-            onRegisterStarted.signal()
-            removeReturned.wait()
-        }
-        
-        let addReturned = expectation(description: "add returned")
-        let registry = registry!
-        DispatchQueue.global().async {
-            registry.add(plugin)
-            addReturned.fulfill()
-        }
-        
-        onRegisterStarted.wait()
-        registry.remove(plugin)
-        plugin.record("remove returned")
-        removeReturned.signal()
-        
-        wait(for: [addReturned], timeout: 5)
-        
-        XCTAssertEqual(plugin.events, ["remove returned", "onRegister", "onUnregister"])
-        XCTAssertTrue(registry.active.isEmpty)
-    }
-    
     func testRemove_thenAdd_registersAgain() {
         let plugin = MockPlugin(name: "plugin")
         registry.add(plugin)

@@ -29,9 +29,21 @@ class PrebidSDKInitializer {
         
         PrebidJSLibraryManager.shared.downloadLibraries()
         
-        Prebid.registerPluginRenderer(PrebidRenderer())
+        registerSDKRenderer()
 
         serverStatusRequester.requestStatus { completion?($0, $1) }
+    }
+    
+    /// Registers the SDK's own renderer. `initializeSDK` can be called more than once, so a renderer
+    /// that is already registered is kept, without the duplicate warning.
+    static func registerSDKRenderer() {
+        let renderer = PrebidRenderer()
+        
+        guard !Prebid.contains(renderer, as: .renderer) else {
+            return
+        }
+        
+        Prebid.register(renderer, as: .renderer)
     }
     
     // check for deprecated `MobileAds.sdkVersion`

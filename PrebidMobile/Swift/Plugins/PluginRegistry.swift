@@ -37,6 +37,10 @@ enum PluginRegistrationSequence {
 /// equals a registered one is ignored. A plugin becomes active once its `onRegister` returns; `active`
 /// lists the active plugins in registration order. Plugin code (`identify`, `onRegister`, `onUnregister`)
 /// always runs outside the lock, so a plugin may call back into the registry.
+///
+/// Plugins are expected to be registered during SDK setup and rarely unregistered. `remove` takes a plugin
+/// out and calls its `onUnregister` right away, even if its `onRegister` is still running. Adding and
+/// removing the same plugin concurrently, or from inside its own callbacks, is not supported.
 final class PluginRegistry<Plugin> {
     
     struct Entry {
@@ -47,16 +51,9 @@ final class PluginRegistry<Plugin> {
     
     private final class Registration {
         
-        enum State {
-            /// `onRegister` is running. The plugin isn't active yet.
-            case registering
-            case active
-            /// Unregistered, possibly while `onRegister` was still running.
-            case removed
-        }
-        
         let entry: Entry
-        var state = State.registering
+        /// Set once `onRegister` returns.
+        var isActive = false
         
         init(_ entry: Entry) {
             self.entry = entry
@@ -98,7 +95,7 @@ final class PluginRegistry<Plugin> {
     /// The entries of the active plugins in registration order (a snapshot).
     var activeEntries: [Entry] {
         synchronized {
-            registrations.filter { $0.state == .active }.map(\.entry)
+            registrations.filter(\.isActive).map(\.entry)
         }
     }
     
@@ -135,22 +132,7 @@ final class PluginRegistry<Plugin> {
         }
         
         onRegister(plugin)
-        
-        let isRemoved = synchronized { () -> Bool in
-            if registration.state == .removed {
-                return true
-            }
-            
-            registration.state = .active
-            return false
-        }
-        
-        // Unregistered while `onRegister` was running: `remove` left `onUnregister` to this call,
-        // so the two callbacks never overlap.
-        guard !isRemoved else {
-            onUnregister(plugin)
-            return
-        }
+        synchronized { registration.isActive = true }
         
         Log.debug("[\(name)] Plugin \(info) registered.")
     }
@@ -165,13 +147,7 @@ final class PluginRegistry<Plugin> {
                 return nil
             }
             
-            let registration = registrations.remove(at: index)
-            let wasActive = registration.state == .active
-            registration.state = .removed
-            
-            // A plugin that isn't active yet is still in `onRegister`; `add` calls `onUnregister`
-            // once `onRegister` returns.
-            return wasActive ? registration : nil
+            return registrations.remove(at: index)
         }
         
         guard let removed else {
@@ -187,7 +163,7 @@ final class PluginRegistry<Plugin> {
         let info = identify(plugin)
         
         return synchronized {
-            registrations.contains { $0.state == .active && $0.entry.info == info }
+            registrations.contains { $0.isActive && $0.entry.info == info }
         }
     }
     

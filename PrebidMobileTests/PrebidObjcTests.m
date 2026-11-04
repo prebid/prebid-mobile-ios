@@ -140,7 +140,6 @@ limitations under the License.
     
     //then
     XCTAssertTrue([Prebid containsPlugin:renderer as:PluginCapability.renderer]);
-    XCTAssertTrue([Prebid containsPluginRenderer:renderer]);
     
     //when
     [Prebid unregisterPlugin:renderer as:PluginCapability.renderer];

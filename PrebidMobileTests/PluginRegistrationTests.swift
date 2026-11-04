@@ -61,7 +61,6 @@ class PluginRegistrationTests: XCTestCase {
         Prebid.register(renderer, as: .renderer)
         
         XCTAssertTrue(Prebid.contains(renderer, as: .renderer))
-        XCTAssertTrue(Prebid.containsPluginRenderer(renderer))
         XCTAssertTrue(register.containsPlugin(renderer))
         XCTAssertTrue(register.getAllPlugins().first === renderer)
     }
@@ -88,9 +87,9 @@ class PluginRegistrationTests: XCTestCase {
         XCTAssertEqual(register.getAllPlugins().count, 1)
         XCTAssertTrue(register.getAllPlugins().first === first)
         
-        // `contains(_:as:)` matches by name, `containsPluginRenderer(_:)` by instance.
+        // `contains(_:as:)` matches by name, the register's `containsPlugin(_:)` by instance.
         XCTAssertTrue(Prebid.contains(second, as: .renderer))
-        XCTAssertFalse(Prebid.containsPluginRenderer(second))
+        XCTAssertFalse(register.containsPlugin(second))
     }
     
     func testUnregister_removesRendererWithSameName() {
@@ -100,21 +99,42 @@ class PluginRegistrationTests: XCTestCase {
         
         Prebid.unregister(other, as: .renderer)
         
-        XCTAssertFalse(Prebid.containsPluginRenderer(registered))
+        XCTAssertFalse(Prebid.contains(registered, as: .renderer))
         XCTAssertTrue(register.getAllPlugins().isEmpty)
     }
     
-    func testRegisterPluginRenderer_usesRendererCapability() {
+    @available(*, deprecated, message: "Covers the deprecated renderer registration methods.")
+    func testDeprecatedRendererMethods_useRendererCapability() {
         let renderer = MockPrebidMobilePluginRenderer(name: "Vendor", version: "1.0")
+        let sameName = MockPrebidMobilePluginRenderer(name: "Vendor", version: "2.0")
         
         Prebid.registerPluginRenderer(renderer)
         
         XCTAssertTrue(Prebid.contains(renderer, as: .renderer))
+        XCTAssertTrue(Prebid.containsPluginRenderer(renderer))
+        
+        // `containsPluginRenderer(_:)` matches the instance, `contains(_:as:)` the name.
+        XCTAssertFalse(Prebid.containsPluginRenderer(sameName))
+        XCTAssertTrue(Prebid.contains(sameName, as: .renderer))
         
         Prebid.unregisterPluginRenderer(renderer)
         
         XCTAssertFalse(Prebid.contains(renderer, as: .renderer))
         XCTAssertFalse(Prebid.containsPluginRenderer(renderer))
+    }
+    
+    func testRegisterSDKRenderer_repeatCall_keepsRendererWithoutWarning() {
+        let logToFile = LogToFileLock()
+        
+        PrebidSDKInitializer.registerSDKRenderer()
+        let sdkRenderer = register.getAllPlugins().first
+        PrebidSDKInitializer.registerSDKRenderer()
+        
+        XCTAssertEqual(register.getAllPlugins().map(\.name), [PREBID_MOBILE_RENDERER_NAME])
+        XCTAssertTrue(register.getAllPlugins().first === sdkRenderer)
+        XCTAssertFalse(Log.getLogFileAsString()?.contains("is not registered") ?? true)
+        
+        withExtendedLifetime(logToFile) {}
     }
     
     func testGetAllPlugins_returnsRenderersInRegistrationOrder() {
