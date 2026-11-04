@@ -30,4 +30,51 @@ class MediationRewardedAdUnitTest: XCTestCase {
         PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
         XCTAssertTrue(adUnitConfig.adFormats.contains(.video))
     }
+    
+    func testSetAdFormats() {
+        let adUnit = MediationRewardedAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate)
+        
+        adUnit.adFormats = [.banner]
+        
+        XCTAssertEqual(adUnit.adFormats, [.banner])
+        XCTAssertEqual(adUnit.adUnitConfig.adConfiguration.adFormats, [.banner])
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isRewarded)
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
+    }
+    
+    func testAdFormatsInitializer() {
+        let adUnit = MediationRewardedAdUnit(
+            configId: "prebidConfigId",
+            mediationDelegate: mediationDelegate,
+            adFormats: [.banner]
+        )
+        
+        XCTAssertEqual(adUnit.adFormats, [.banner])
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isRewarded)
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isInterstitialAd)
+    }
+    
+    func testMultiformatRewarded() {
+        let adUnit = MediationRewardedAdUnit(
+            configId: "prebidConfigId",
+            mediationDelegate: mediationDelegate,
+            adFormats: [.banner, .video]
+        )
+        
+        XCTAssertEqual(adUnit.adFormats, [.banner, .video])
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.adFormats.contains(.banner))
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.adFormats.contains(.video))
+        XCTAssertTrue(adUnit.adUnitConfig.adConfiguration.isRewarded)
+    }
+    
+    func testBannerAndVideoParametersAccessibleAfterFormatChange() {
+        let adUnit = MediationRewardedAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate)
+        
+        adUnit.adFormats = [.banner]
+        adUnit.bannerParameters.api = [Signals.Api.MRAID_1]
+        adUnit.videoParameters.maxDuration = 30
+        
+        XCTAssertEqual(adUnit.bannerParameters.api, [Signals.Api.MRAID_1])
+        XCTAssertEqual(adUnit.videoParameters.maxDuration, 30)
+    }
 }

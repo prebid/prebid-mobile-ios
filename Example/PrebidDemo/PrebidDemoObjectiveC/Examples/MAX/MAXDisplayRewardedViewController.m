@@ -47,13 +47,17 @@ NSString * const maxAdUnitDisplayRewardedId = @"75edc39e22574a9d";
     
     // 3. Create a MediationRewardedAdUnit
     self.maxRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:storedImpDisplayRewardedMAX
-                                                             mediationDelegate:self.mediationDelegate];
+                                                             mediationDelegate:self.mediationDelegate
+                                                                     adFormats:[NSSet setWithObject:AdFormat.banner]];
     
     // 4. Make a bid request to Prebid Server
     @weakify(self);
     [self.maxRewardedAdUnit fetchDemandWithCompletion:^(enum ResultCode resultCode) {
         @strongify(self);
         if (!self) { return; }
+        if (resultCode != ResultCodePrebidDemandFetchSuccess) {
+            NSLog(@"Continuing with MAX waterfall fallback.");
+        }
         
         // 5. Load the rewarded ad
         self.maxRewarded.delegate = self;
