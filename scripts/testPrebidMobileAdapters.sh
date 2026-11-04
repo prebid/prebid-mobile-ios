@@ -20,8 +20,8 @@ echo -e "\n\n${GREEN}RESOLVE SWIFT PACKAGES${NC}\n\n"
 echo -e "\n\n${GREEN}RUN PREBID MOBILE ADAPTER TESTS${NC}\n\n"
 
 echo -e "\n${GREEN}Creating simulator${NC} \n"
-xcrun simctl delete iPhone-17-Pro-PrebidMobile 2>/dev/null || true
-SIMULATOR_ID="$(xcrun simctl create iPhone-17-Pro-PrebidMobile com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro ${PREBID_TEST_RUNTIME:+"$PREBID_TEST_RUNTIME"})"
+source ./scripts/simulator.sh
+create_test_simulator
 
 function testAdapters () {
   local SCHEME="$1"
@@ -90,6 +90,3 @@ else
     echo "🔴 PrebidMobileMAXAdapters Unit Tests Failed"
     exit 1
 fi
-
-echo -e "\n${GREEN}Removing simulator${NC} \n"
-xcrun simctl delete iPhone-17-Pro-PrebidMobile

@@ -2,12 +2,12 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+source ./scripts/simulator.sh
+
 ./scripts/resolveDependencies.sh
 
-SIMULATOR_NAME=iPhone-17-Pro-PrebidSupport
-xcrun simctl delete "$SIMULATOR_NAME" 2>/dev/null || true
-SIMULATOR_ID="$(xcrun simctl create "$SIMULATOR_NAME" com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro ${PREBID_TEST_RUNTIME:+"$PREBID_TEST_RUNTIME"})"
-trap 'xcrun simctl delete "$SIMULATOR_ID"' EXIT
+# Its own device, so it can run next to the framework test scripts on one machine.
+create_test_simulator "$PREBID_SIMULATOR_NAME-Support"
 
 for action in build-for-testing test-without-building; do
     xcodebuild "$action" \

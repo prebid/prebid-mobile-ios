@@ -5,6 +5,8 @@ on:
     paths:
       - 'PrebidMobile/**'
       - 'PrebidMobile.xcodeproj/**'
+      - 'Frameworks/**'
+      - '*.podspec'
       - 'tools/TestUtils/**'
       - 'EventHandlers/**'
       - 'scripts/**'
@@ -15,32 +17,81 @@ on:
       - 'Example/PrebidDemo/**'
       - 'InternalTestApp/**'
       - '.github/workflows/**'
-    types: [opened, reopened, synchronize, ready_for_review, labeled]
+      - '.github/actions/**'
+    types: [opened, reopened, synchronize, ready_for_review, labeled, unlabeled]
 
+# A label change other than run-full-tests gets a group of its own, so it cannot cancel a run in progress.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}${{ (contains(fromJSON('["labeled", "unlabeled"]'), github.event.action) && github.event.label.name != 'run-full-tests') && format('-label-{0}', github.run_id) || '' }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  pull-requests: read
+
 env:
-  XCODE_VERSION: "26.5.0"
+  # Keep both in sync: XCODE_VERSION keys the package cache.
+  XCODE_VERSION: "26.5"
+  DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
 
 jobs:
+  select:
+    name: Select Checks
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.select.outputs.run }}
+      full: ${{ steps.select.outputs.full }}
+      adapters: ${{ steps.changes.outputs.adapters }}
+
+    steps:
+      - name: Select checks for this event
+        id: select
+        env:
+          ACTION: ${{ github.event.action }}
+          LABEL: ${{ github.event.label.name }}
+          DRAFT: ${{ github.event.pull_request.draft }}
+          HEAD_REF: ${{ github.head_ref }}
+          FULL_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'run-full-tests') }}
+        run: |
+          # Drafts run nothing, and only run-full-tests label changes rerun the checks.
+          run=true
+          if [[ "$DRAFT" == "true" ]]; then run=false; fi
+          if [[ "$ACTION" == "labeled" || "$ACTION" == "unlabeled" ]] && [[ "$LABEL" != "run-full-tests" ]]; then run=false; fi
+          # Release branches and the run-full-tests label select the full checks.
+          full=false
+          if [[ "$HEAD_REF" == *bump-to* || "$FULL_LABEL" == "true" ]]; then full=true; fi
+          echo "run=$run" >> "$GITHUB_OUTPUT"
+          echo "full=$full" >> "$GITHUB_OUTPUT"
+      - name: Detect adapter changes
+        id: changes
+        if: ${{ steps.select.outputs.run == 'true' }}
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            adapters:
+              - 'EventHandlers/**'
+              - 'PrebidMobile/**'
+              - 'PrebidMobile.xcodeproj/**'
+              - 'Frameworks/**'
+              - 'PrebidMobile.xcworkspace/**'
+              - 'scripts/testPrebidMobileAdapters.sh'
+              - 'scripts/resolveDependencies.sh'
+              - 'scripts/simulator.sh'
+              - '.github/workflows/PR_checks.yml'
+              - '.github/actions/**'
+
   build:
     name: Build PrebidMobile Frameworks
-    if: ${{ !github.event.pull_request.draft }}
+    needs: select
+    if: ${{ needs.select.outputs.run == 'true' }}
     runs-on: macos-26
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Cache Swift packages
-        uses: actions/cache@v4
+        uses: ./.github/actions/cache-swift-packages
         with:
-          path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
           xcode-version: ${{ env.XCODE_VERSION }}
       - name: Build Prebid Mobile Frameworks
         run: ./scripts/buildPrebidMobile.sh
@@ -54,49 +105,41 @@ jobs:
 
   build-spm-package:
     name: Build SPM Package
-    if: ${{ !github.event.pull_request.draft }}
+    needs: select
+    if: ${{ needs.select.outputs.run == 'true' }}
     runs-on: macos-26
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Build SPM Package
         run: ./scripts/buildPrebidMobilePackage.sh
 
   verify-spm-demo:
     name: Verify SPM Consumer Demo
-    if: ${{ !github.event.pull_request.draft }}
+    needs: select
+    if: ${{ needs.select.outputs.run == 'true' }}
     runs-on: macos-26
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Build consumer against candidate packages
         run: ./scripts/verifySPM.sh
 
   build-development-apps:
     name: Build Demo and Internal Apps
-    if: ${{ !github.event.pull_request.draft }}
+    needs: select
+    if: ${{ needs.select.outputs.run == 'true' }}
     runs-on: macos-26
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
+      - name: Cache Swift packages
+        uses: ./.github/actions/cache-swift-packages
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
-      - name: Cache Swift packages
-        uses: actions/cache@v4
-        with:
-          path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
       - name: Compile apps and test targets
         run: ./scripts/verifyDevelopmentApps.sh
       - name: Test development support code
@@ -104,112 +147,80 @@ jobs:
 
   unit-test-pr:
     name: Run Quick Unit Tests for Frameworks
-    if: ${{!github.event.pull_request.draft && !(contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+    needs: select
+    if: ${{ needs.select.outputs.run == 'true' && needs.select.outputs.full != 'true' }}
     runs-on: macos-26
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Cache Swift packages
-        uses: actions/cache@v4
+        uses: ./.github/actions/cache-swift-packages
         with:
-          path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}        
+          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run Quick Unit Tests for Frameworks
-        run: |
-          ./scripts/testPrebidMobile.sh --latest --quick
+        run: ./scripts/testPrebidMobile.sh --latest --quick
+
   unit-test-full:
     name: Run All Unit Tests for Frameworks
-    if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+    needs: select
+    if: ${{ needs.select.outputs.run == 'true' && needs.select.outputs.full == 'true' }}
     runs-on: macos-26
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Cache Swift packages
-        uses: actions/cache@v4
+        uses: ./.github/actions/cache-swift-packages
         with:
-          path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
           xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run All Unit Tests for Frameworks
         run: ./scripts/testPrebidMobile.sh --latest
 
   unit-test-adapters:
     name: Run Unit Tests for Adapters
-    if: ${{!github.event.pull_request.draft}}
+    needs: select
+    if: ${{ needs.select.outputs.run == 'true' && (needs.select.outputs.adapters == 'true' || needs.select.outputs.full == 'true') }}
     runs-on: macos-26
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Cache Swift packages
-        uses: actions/cache@v4
+        uses: ./.github/actions/cache-swift-packages
         with:
-          path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}        
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: |
-            adapters:
-              - 'EventHandlers/**'
-              - 'PrebidMobile.xcworkspace/**'
-              - 'scripts/**'
-      - name: Run Quick Unit Tests for Frameworks
-        env:
-          ADAPTERS_CHANGED: ${{ steps.changes.outputs.adapters }}
-          IS_RELEASE_PR: ${{ !(contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests')) }}
-        run: |
-          if [[ "${ADAPTERS_CHANGED}" == "true" || "${IS_RELEASE_PR}" == "true" ]]; then
-            ./scripts/testPrebidMobileAdapters.sh
-          fi
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Run Unit Tests for Adapters
+        run: ./scripts/testPrebidMobileAdapters.sh
 
   run-swift-demo-ui-tests:
     name: Run Smoke UI Tests - Swift Demo App
-    if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+    needs: select
+    if: ${{ needs.select.outputs.run == 'true' && needs.select.outputs.full == 'true' }}
     runs-on: macos-26
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Cache Swift packages
-        uses: actions/cache@v4
+        uses: ./.github/actions/cache-swift-packages
         with:
-          path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
           xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run Smoke UI Tests - Swift Demo App
         run: ./scripts/testPrebidDemo.sh -ui -l
+
   run-swift-demo-integration-tests:
     name: Run Integration Tests - Swift Demo App
-    if: ${{!github.event.pull_request.draft && (contains(github.head_ref, 'bump-to') || contains(toJson(github.event.pull_request.labels), 'run-full-tests'))}}
+    needs: select
+    if: ${{ needs.select.outputs.run == 'true' && needs.select.outputs.full == 'true' }}
     runs-on: macos-26
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Cache Swift packages
-        uses: actions/cache@v4
+        uses: ./.github/actions/cache-swift-packages
         with:
-          path: .swiftpm-cache
-          key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('Package.resolved', 'EventHandlers/EventHandlers.xcodeproj/project.pbxproj', 'Example/PrebidDemo/PrebidDemo.xcodeproj/project.pbxproj', 'InternalTestApp/InternalTestApp.xcodeproj/project.pbxproj') }}
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
           xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run Integration Tests - Swift Demo App
         run: ./scripts/testPrebidDemo.sh -l

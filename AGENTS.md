@@ -46,21 +46,21 @@ Development dependencies use Swift Package Manager; CocoaPods is not required to
 ### Tests
 
 ```bash
-# Run PR subset (1030 tests) — used on PRs in CI
+# Run PR subset (1067 tests) — used on PRs in CI
 ./scripts/testPrebidMobile.sh --latest --quick
 
-# Run full suite (1430 tests) — used on bump-to branches / run-full-tests label
+# Run full suite (1478 tests) — used on bump-to branches / run-full-tests label
 ./scripts/testPrebidMobile.sh --latest
 
 # Run adapter tests (GAM, AdMob, MAX)
 ./scripts/testPrebidMobileAdapters.sh
 ```
 
-Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 sanity run is gone); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-17-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator. Any pre-existing simulator with that name is deleted first.
+Flags: `--latest` is a no-op kept for backward compatibility (the old iOS 13 sanity run is gone); `--quick` switches the test plan from `PrebidMobileTests` (full) to `PrebidMobilePRTests` (PR subset). The script creates the `iPhone-17-Pro-PrebidMobile` simulator, runs `build-for-testing` then `test-without-building` with `-retry-tests-on-failure`, then deletes the simulator, on failure too. Any pre-existing simulator with that name is deleted first.
 
-Use `PREBID_TEST_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-26-5` to select the CI runtime locally when a newer runtime is also installed. The default remains the latest installed runtime.
+The test scripts share `scripts/simulator.sh`, which sets the simulator name and device type; override them with `PREBID_SIMULATOR_NAME` and `PREBID_SIMULATOR_DEVICE_TYPE`. Use `PREBID_TEST_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-26-5` to select the CI runtime locally when a newer runtime is also installed. The default remains the latest installed runtime.
 
-Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1430 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 1030 tests).
+Test plans: `PrebidMobileTests/PrebidMobileTests.xctestplan` (full, 1478 tests), `PrebidMobileTests/PrebidMobilePRTests.xctestplan` (PR subset, 1067 tests).
 
 **When adding new tests:** both plans select by *exclusion*, so a new test class runs on every PR without any registration step. `PrebidMobilePRTests.xctestplan` trims the suite via a `skippedTests` list — check that a new class isn't (prefix-)matched there, and add an entry only if you deliberately want it excluded from the PR subset.
 
@@ -94,11 +94,11 @@ build-error checklist.
 ```
 
 Open `PrebidMobile.xcworkspace` for native development. Its projects pin vendor
-SDK versions exactly and share a generated, ignored workspace `Package.resolved`.
-Scripts use `.swiftpm-cache/` for package checkouts and binary artifacts. The root
+SDK versions exactly and share the committed workspace `Package.resolved`, which
+`resolveDependencies.sh` uses as is (`-onlyUsePackageVersionsFromResolvedFile`). Scripts use `.swiftpm-cache/` for package checkouts and binary artifacts. The root
 package retains consumer version ranges; its committed `Package.resolved` selects
 the tested vendor versions for local SPM builds. To update a vendor dependency,
-change the exact project requirements and refresh the root lockfile. See
+change the exact project requirements, then commit the refreshed workspace and root lockfiles. See
 `docs/development-dependencies.md`.
 
 Open `Example/PrebidDemo/PrebidDemoSPM.xcodeproj` separately to build the published

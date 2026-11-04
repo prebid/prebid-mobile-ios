@@ -40,7 +40,9 @@ final class DevelopmentFormsTests: XCTestCase {
     }
 
     func testMultiformatRequiresAtLeastTwoFormats() {
-        let controller = PrebidMultiformatConfigurationController(controller: ConfigurableBanner())
+        // The configuration controller holds its owner weakly; keep it alive for the test.
+        let owner = ConfigurableBanner()
+        let controller = PrebidMultiformatConfigurationController(controller: owner)
         controller.loadViewIfNeeded()
         let section = controller.sections[0]
         XCTAssertTrue(section.footer!.isEnabled)
