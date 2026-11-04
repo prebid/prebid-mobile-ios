@@ -96,4 +96,17 @@ class InterstitialRenderingAdUnitTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.adFormats, [.video])
         XCTAssertEqual(adUnitConfig.adConfiguration.adFormats, [.video])
     }
+
+    private final class StubBidSelector: PrebidBidSelecting {
+        func selectBid(from bids: [Bid]) -> Bid? { bids.first }
+    }
+
+    func testBidSelectorForwardsToAdUnitConfig() {
+        let adUnit = InterstitialRenderingAdUnit(configID: "test")
+        let selector = StubBidSelector()
+
+        adUnit.bidSelector = selector
+
+        XCTAssertTrue(adUnit.adUnitConfig.bidSelector === selector)
+    }
 }

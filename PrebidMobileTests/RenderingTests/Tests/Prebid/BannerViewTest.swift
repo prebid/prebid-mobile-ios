@@ -178,6 +178,22 @@ class BannerViewTest: XCTestCase {
         XCTAssertEqual(bannerView.adUnitConfig.adFormats, [.video])
     }
     
+    func testBidSelectorForwardsToAdUnitConfig() {
+        let testID = "auid"
+        let primarySize = CGSize(width: 320, height: 50)
+
+        final class StubSelector: PrebidBidSelecting {
+            func selectBid(from bids: [Bid]) -> Bid? { bids.first }
+        }
+
+        let bannerView = MockBannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize, eventHandler: BannerEventHandlerStandalone())
+        let selector = StubSelector()
+
+        bannerView.bidSelector = selector
+
+        XCTAssertTrue(bannerView.adUnitConfig.bidSelector === selector)
+    }
+
     func testAccountErrorPropagation() {
         let testID = "auid"
         
