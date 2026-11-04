@@ -51,6 +51,29 @@ limitations under the License.
 
 @end
 
+@interface PrebidObjcTestsIdProvider : NSObject <ExtendedIdProvider>
+
+@property (nonatomic, readonly) ExtendedIdProviderInfo *providerInfo;
+
+@end
+
+@implementation PrebidObjcTestsIdProvider
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _providerInfo = [[ExtendedIdProviderInfo alloc] initWithName:@"PrebidObjcTestsIdProvider" version:@"1.0"];
+    }
+    return self;
+}
+
+- (NSArray<id<ExtendedId>> *)getExtendedIds {
+    UserUniqueID *uid = [[UserUniqueID alloc] initWithUniqueId:@"objc-id" aType:@1 ext:nil];
+    return @[[[ExternalUserId alloc] initWithSource:@"objc.example.com" uids:@[uid] ext:nil]];
+}
+
+@end
+
 @interface PrebidObjcTests : XCTestCase
 
 @end
@@ -159,6 +182,25 @@ limitations under the License.
     XCTAssertFalse([Prebid containsPlugin:object as:PluginCapability.renderer]);
 }
 
+- (void)testRegisterExtendedIdProvider {
+    //given
+    PrebidObjcTestsIdProvider *provider = [PrebidObjcTestsIdProvider new];
+    
+    //when
+    [Prebid registerPlugin:provider as:PluginCapability.extendedIds];
+    
+    //then
+    XCTAssertTrue([Prebid containsPlugin:provider as:PluginCapability.extendedIds]);
+    XCTAssertTrue([[[Targeting.shared getExtendedIds] valueForKey:@"source"] containsObject:@"objc.example.com"]);
+    
+    //when
+    [Prebid unregisterPlugin:provider as:PluginCapability.extendedIds];
+    
+    //then
+    XCTAssertFalse([Prebid containsPlugin:provider as:PluginCapability.extendedIds]);
+    XCTAssertFalse([[[Targeting.shared getExtendedIds] valueForKey:@"source"] containsObject:@"objc.example.com"]);
+}
+
 - (void)testPluginInfo {
     PrebidPluginInfo *info = [[PrebidPluginInfo alloc] initWithName:@"plugin" version:@"1.0"];
     
@@ -166,6 +208,7 @@ limitations under the License.
     XCTAssertNotEqualObjects(info, [[PrebidPluginInfo alloc] initWithName:@"plugin" version:@"2.0"]);
     XCTAssertEqualObjects(info.description, @"plugin/1.0");
     XCTAssertEqualObjects(PluginCapability.renderer.name, @"renderer");
+    XCTAssertEqualObjects(PluginCapability.extendedIds.name, @"extendedIds");
 }
 
 @end

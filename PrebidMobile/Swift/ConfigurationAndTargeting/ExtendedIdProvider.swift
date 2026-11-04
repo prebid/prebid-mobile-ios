@@ -15,18 +15,23 @@
 
 import Foundation
 
-/// A source of Extended IDs (EIDs) for OpenRTB bid requests.
+/// A source of Extended IDs (EIDs) for OpenRTB bid requests. Register it with `Prebid.register(_:as:)`
+/// as `.extendedIds`.
 ///
 /// The SDK calls `getExtendedIds()` on every bid request, so the IDs it sends always reflect the
 /// provider's current state (consent, session changes, refreshed tokens). IDs may be resolved
-/// synchronously or asynchronously, but `getExtendedIds()` itself must not block: it runs while the
-/// bid request is built, on the thread that started the ad load (often the main thread).
+/// synchronously or asynchronously, but `getExtendedIds()` itself must not block, and it may be called
+/// on any thread.
+///
+/// Provider IDs are sent after the static IDs set through `Targeting` and SharedID, in the order the
+/// providers were registered. Registration order is the only ordering guarantee. An ID whose source is
+/// already present (a static ID, SharedID, or an ID from a provider registered earlier) is skipped.
 ///
 /// Lifecycle:
-/// 1. `onRegister()` is called once after `Prebid.registerExtendedIdProvider(_:)`, before the
-///    provider's IDs are included in bid requests.
+/// 1. `onRegister()` is called once after `Prebid.register(_:as:)`, before the provider's IDs are
+///    included in bid requests.
 /// 2. `getExtendedIds()` is called on every bid request.
-/// 3. `onUnregister()` is called after `Prebid.unregisterExtendedIdProvider(_:)`.
+/// 3. `onUnregister()` is called after `Prebid.unregister(_:as:)`.
 ///
 /// ```swift
 /// final class MyIdProvider: NSObject, ExtendedIdProvider {
@@ -38,6 +43,8 @@ import Foundation
 ///         return [ExternalUserId(source: "my-source.com", uids: [UserUniqueID(uniqueId: id, aType: 1)])]
 ///     }
 /// }
+///
+/// Prebid.register(MyIdProvider(), as: .extendedIds)
 /// ```
 @objc
 public protocol ExtendedIdProvider: AnyObject {
@@ -49,7 +56,7 @@ public protocol ExtendedIdProvider: AnyObject {
     /// Returns the provider's current EIDs. May be empty.
     ///
     /// Called on every bid request, so it must return immediately: no network calls, disk I/O,
-    /// or other blocking work.
+    /// or other blocking work. May be called on any thread.
     @objc func getExtendedIds() -> [ExtendedId]
 
     /// Called once after the provider is registered, before its IDs are included in bid requests.
