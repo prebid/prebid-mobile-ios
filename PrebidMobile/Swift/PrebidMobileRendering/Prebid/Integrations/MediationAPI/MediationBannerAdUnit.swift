@@ -163,6 +163,7 @@ public class MediationBannerAdUnit : NSObject {
                     connection: PrebidServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
                     targeting: Targeting.shared,
+                    isAutoRefresh: true,
                     completion: completion
                 )
             }
@@ -180,8 +181,12 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     /// Stops the auto-refresh for the ad unit.
+    ///
+    /// A request that is already in progress still calls back. The next `fetchDemand(completion:)`
+    /// call re-enables auto-refresh.
     public func stopRefresh() {
         isRefreshStopped = true
+        autoRefreshManager?.cancelRefreshTimer()
     }
     
     /// Handles the event when the ad object fails to load an ad.
@@ -215,16 +220,28 @@ public class MediationBannerAdUnit : NSObject {
     func fetchDemand(connection: PrebidServerConnectionProtocol,
                      sdkConfiguration: Prebid,
                      targeting: Targeting,
+                     isAutoRefresh: Bool = false,
                      completion: ((ResultCode)->Void)?) {
         guard bidRequester == nil else {
-            // Request in progress
+            // Request in progress. A skipped auto-refresh tick has nobody waiting for it,
+            // but a publisher call must still get its callback.
+            if !isAutoRefresh, let completion {
+                DispatchQueue.main.async {
+                    completion(.prebidSDKMisusePreviousFetchNotCompletedYet)
+                }
+            }
             return
         }
         
         autoRefreshManager?.cancelRefreshTimer()
         
-        if isRefreshStopped {
-            return
+        if isAutoRefresh {
+            guard !isRefreshStopped else {
+                return
+            }
+        } else {
+            // A publisher call always runs and re-enables auto-refresh, as `BannerView.loadAd()` does
+            isRefreshStopped = false
         }
         
         self.adView = mediationDelegate.getAdView()
@@ -247,11 +264,6 @@ public class MediationBannerAdUnit : NSObject {
             // This point to switch the context to the main thread looks the most accurate.
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                
-                if self.isRefreshStopped {
-                    self.markLoadingFinished()
-                    return
-                }
                 
                 if let response = bidResponse {
                     self.handlePrebidResponse(response: response)
@@ -316,7 +328,9 @@ public class MediationBannerAdUnit : NSObject {
         lastAdView = adObject
         lastCompletion = completion
         
-        autoRefreshManager?.setupRefreshTimer()
+        if !isRefreshStopped {
+            autoRefreshManager?.setupRefreshTimer()
+        }
         
         DispatchQueue.main.async {
             completion(fetchDemandResult)

@@ -128,7 +128,12 @@ public class MediationBaseInterstitialAdUnit : NSObject {
                      targeting: Targeting,
                      completion: ((ResultCode)->Void)?) {
         guard bidRequester == nil else {
-            // Request in progress
+            // Request in progress. The caller still gets its callback.
+            if let completion {
+                DispatchQueue.main.async {
+                    completion(.prebidSDKMisusePreviousFetchNotCompletedYet)
+                }
+            }
             return
         }
         
