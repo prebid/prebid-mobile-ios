@@ -15,18 +15,11 @@
 
 import Foundation
 
-/// Provides the SharedID EID. Registered while `Targeting.sendSharedId` is `true`.
-class SharedId: NSObject, ExtendedIdProvider {
+class SharedId {
     
     static let sharedInstance = SharedId()
     
-    let providerInfo = ExtendedIdProviderInfo(name: "sharedId", version: PrebidConstants.PREBID_VERSION)
-    
     private var sessionId: ExternalUserId? = nil
-    
-    private override init() {
-        super.init()
-    }
     
     var identifier: ExternalUserId {
         let persistentStorageAllowed = Targeting.shared.isAllowedAccessDeviceData()
@@ -53,11 +46,6 @@ class SharedId: NSObject, ExtendedIdProvider {
             StorageUtils.sharedId = eid.uids.first?.uniqueId
         }
         return eid
-    }
-    
-    /// Returns the current SharedID. Reads `identifier`, which checks the device access consent each time.
-    func getExtendedIds() -> [ExtendedId] {
-        [identifier]
     }
     
     func resetIdentifier() {

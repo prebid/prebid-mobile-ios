@@ -302,7 +302,9 @@ typealias JsonDictionary = [String:Any]
         targeting.clearUserKeywords()
         targeting.clearAccessControlList()
         targeting.resetSharedId()
-        targeting.extendedIdRegistry.clearProviders()
+        targeting.clearExternalUserIds()
+        let extendedIdProviders = Registries.extendedIds.typed
+        extendedIdProviders.active.forEach { extendedIdProviders.remove($0) }
         targeting.setGlobalORTBConfig(nil)
         
         UserDefaults.standard.removeObject(forKey: UserConsentDataManager.shared.IABTCF_ConsentString)

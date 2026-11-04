@@ -596,8 +596,9 @@ class TargetingTests: XCTestCase {
     func testClearExternalUserIdsKeepsProviderIds() {
         let targeting = Targeting.shared
         targeting.addExternalUserId(createUserId(source: "static.com", id: "id1"))
-        Prebid.registerExtendedIdProvider(
-            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")])
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")]),
+            as: .extendedIds
         )
     
         targeting.clearExternalUserIds()
@@ -609,8 +610,9 @@ class TargetingTests: XCTestCase {
     func testSetExternalUserIdsReplacesOnlyStaticIds() {
         let targeting = Targeting.shared
         targeting.addExternalUserId(createUserId(source: "static.com", id: "id1"))
-        Prebid.registerExtendedIdProvider(
-            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")])
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")]),
+            as: .extendedIds
         )
     
         targeting.setExternalUserIds([createUserId(source: "other.com", id: "id3")])
@@ -630,25 +632,29 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(targeting.getExtendedIds().map { $0.source }, ["static.com", "pubcid.org"])
     }
     
-    func testSendSharedIdRegistersSharedIdProvider() {
+    func testSendSharedIdAddsSharedIdAfterStaticIds() {
         let targeting = Targeting.shared
         XCTAssertFalse(targeting.sendSharedId)
+        targeting.addExternalUserId(createUserId(source: "static.com", id: "id1"))
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")]),
+            as: .extendedIds
+        )
     
         targeting.sendSharedId = true
     
         XCTAssertTrue(targeting.sendSharedId)
-        XCTAssertTrue(Prebid.containsExtendedIdProvider(SharedId.sharedInstance))
-        XCTAssertEqual(targeting.getExtendedIds().map { $0.source }, ["pubcid.org"])
+        XCTAssertEqual(targeting.getExtendedIds().map { $0.source }, ["static.com", "pubcid.org", "provider.com"])
         XCTAssertEqual(
-            targeting.getExtendedIds().first?.toJSONDictionary() as NSDictionary?,
+            targeting.getExtendedIds()[1].toJSONDictionary() as NSDictionary,
             targeting.sharedId.toJSONDictionary() as NSDictionary
         )
+        XCTAssertEqual(Registries.extendedIds.typed.active.map { $0.providerInfo.name }, ["test"])
     
         targeting.sendSharedId = false
     
         XCTAssertFalse(targeting.sendSharedId)
-        XCTAssertFalse(Prebid.containsExtendedIdProvider(SharedId.sharedInstance))
-        XCTAssertTrue(targeting.getExtendedIds().isEmpty)
+        XCTAssertEqual(targeting.getExtendedIds().map { $0.source }, ["static.com", "provider.com"])
     }
     
     func testEnablingSendSharedIdTwiceSendsOneSharedId() {
@@ -663,15 +669,15 @@ class TargetingTests: XCTestCase {
     func testRegisterExtendedIdProvider() {
         let provider = MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id1")])
     
-        Prebid.registerExtendedIdProvider(provider)
+        Prebid.register(provider, as: .extendedIds)
     
-        XCTAssertTrue(Prebid.containsExtendedIdProvider(provider))
+        XCTAssertTrue(Prebid.contains(provider, as: .extendedIds))
         XCTAssertEqual(provider.onRegisterCount, 1)
         XCTAssertEqual(uniqueIds(Targeting.shared.getExtendedIds()), ["id1"])
     
-        Prebid.unregisterExtendedIdProvider(provider)
+        Prebid.unregister(provider, as: .extendedIds)
     
-        XCTAssertFalse(Prebid.containsExtendedIdProvider(provider))
+        XCTAssertFalse(Prebid.contains(provider, as: .extendedIds))
         XCTAssertEqual(provider.onUnregisterCount, 1)
         XCTAssertTrue(Targeting.shared.getExtendedIds().isEmpty)
     }
@@ -683,6 +689,19 @@ class TargetingTests: XCTestCase {
     
         XCTAssertEqual(uniqueIds(targeting.getExtendedIds()), ["id1"])
         XCTAssertTrue(Targeting.shared.getExtendedIds().isEmpty)
+    }
+    
+    func testRegisteredProvidersApplyToEveryTargetingInstance() {
+        let targeting = Targeting()
+        targeting.addExternalUserId(createUserId(source: "static.com", id: "id1"))
+    
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")]),
+            as: .extendedIds
+        )
+    
+        XCTAssertEqual(uniqueIds(targeting.getExtendedIds()), ["id1", "id2"])
+        XCTAssertEqual(uniqueIds(Targeting.shared.getExtendedIds()), ["id2"])
     }
     
     private func createUserId(source: String, id: String) -> ExternalUserId {

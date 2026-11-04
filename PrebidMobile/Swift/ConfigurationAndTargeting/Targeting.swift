@@ -126,7 +126,7 @@ public class Targeting: NSObject {
     /// Prefer this over `setExternalUserIds(_:)`, which replaces the whole list.
     ///
     /// For IDs that change during the session (e.g. an identity SDK that refreshes tokens), implement
-    /// `ExtendedIdProvider` and register it with `Prebid.registerExtendedIdProvider(_:)`. Identity
+    /// `ExtendedIdProvider` and register it with `Prebid.register(_:as:)` as `.extendedIds`. Identity
     /// vendors may ship ready-made providers.
     public func addExternalUserId(_ externalUserId: ExternalUserId) {
         extendedIdRegistry.staticProvider.addUserId(externalUserId)
@@ -157,11 +157,12 @@ public class Targeting: NSObject {
         return externalUserIds.isEmpty ? nil : externalUserIds.map { $0.toJSONDictionary() }
     }
     
-    /// Returns every external user ID sent in bid requests: the static IDs, then the IDs of each
-    /// registered `ExtendedIdProvider` (including SharedID when `sendSharedId` is `true`)
-    /// in registration order. Calls `getExtendedIds()` on every provider.
+    /// Returns every external user ID sent in bid requests: the static IDs, then SharedID when
+    /// `sendSharedId` is `true`, then the IDs of the providers registered as `.extendedIds`, in
+    /// registration order. A provider's ID whose source is already in the list is skipped.
+    /// Calls `getExtendedIds()` on every provider.
     public func getExtendedIds() -> [ExtendedId] {
-        extendedIdRegistry.getAllExtendedIds()
+        extendedIdRegistry.getAllExtendedIds(sharedId: sendSharedId ? sharedId : nil)
     }
     
     // MARK: - SharedId
@@ -170,20 +171,7 @@ public class Targeting: NSObject {
     /// encouraged to consult with their legal team before enabling this feature.
     ///
     /// See `Targeting.sharedId` for details.
-    public var sendSharedId: Bool {
-        get { extendedIdRegistry.hasProvider(SharedId.sharedInstance) }
-        set {
-            guard newValue != sendSharedId else {
-                return
-            }
-    
-            if newValue {
-                extendedIdRegistry.addProvider(SharedId.sharedInstance)
-            } else {
-                extendedIdRegistry.removeProvider(SharedId.sharedInstance)
-            }
-        }
-    }
+    public var sendSharedId: Bool = false
     
     /// A randomly generated Prebid-owned first-party identifier
     ///
@@ -447,6 +435,6 @@ public class Targeting: NSObject {
         
     private var globalORTBConfig: String?
     
-    /// The static external user IDs and the registered `ExtendedIdProvider`s.
+    /// The static external user IDs. Providers are registered for all instances, as `.extendedIds`.
     let extendedIdRegistry = ExtendedIdRegistry()
 }

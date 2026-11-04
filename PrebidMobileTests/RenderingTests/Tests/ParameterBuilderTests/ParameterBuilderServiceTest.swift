@@ -850,7 +850,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     // MARK: - Extended ID providers
 
     func testProviderEidsReachUserEidsWithProvenanceFields() throws {
-        Prebid.registerExtendedIdProvider(MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId]))
+        Prebid.register(MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId]), as: .extendedIds)
 
         let user = try buildUser(eidsPlacement: .compatible)
 
@@ -862,7 +862,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         Targeting.shared.addExternalUserId(
             ExternalUserId(source: "publisher.com", uids: [UserUniqueID(uniqueId: "publisher-uid", aType: 3)])
         )
-        Prebid.registerExtendedIdProvider(MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId]))
+        Prebid.register(MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId]), as: .extendedIds)
 
         let user = try buildUser(eidsPlacement: .openRTB26)
 
@@ -871,7 +871,7 @@ class ParameterBuilderServiceTest : XCTestCase {
 
     func testRawExtendedIdIsSentAsIs() throws {
         let rawEid = try XCTUnwrap(RawExtendedId(json: try XCTUnwrap(sdkEid as? [String: Any])))
-        Prebid.registerExtendedIdProvider(MockExtendedIdProvider(name: "test", extendedIds: [rawEid]))
+        Prebid.register(MockExtendedIdProvider(name: "test", extendedIds: [rawEid]), as: .extendedIds)
 
         let user = try buildUser(eidsPlacement: .openRTB26)
 
@@ -879,8 +879,9 @@ class ParameterBuilderServiceTest : XCTestCase {
     }
 
     func testEidThatCantBeEncodedIsSkipped() throws {
-        Prebid.registerExtendedIdProvider(
-            MockExtendedIdProvider(name: "test", extendedIds: [MockInvalidExtendedId(), sdkExternalUserId])
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [MockInvalidExtendedId(), sdkExternalUserId]),
+            as: .extendedIds
         )
 
         let user = try buildUser(eidsPlacement: .openRTB26)

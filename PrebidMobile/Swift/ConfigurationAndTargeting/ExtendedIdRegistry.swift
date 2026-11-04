@@ -15,113 +15,41 @@
 
 import Foundation
 
-/// Thread-safe store of the EID sources of a `Targeting` instance: the static IDs set through
-/// `Targeting` and the registered `ExtendedIdProvider`s.
+/// The EID sources of a `Targeting` instance: its static IDs, SharedID, and the providers registered for
+/// `PluginCapability.extendedIds`.
 ///
-/// `getAllExtendedIds()` collects the EIDs of every source and is called for each bid request.
-/// Provider code (`onRegister()`, `getExtendedIds()`, `onUnregister()`) always runs outside the lock,
-/// so a provider may call back into the registry.
+/// `getAllExtendedIds(sharedId:)` is called for each bid request. The providers live in
+/// `Registries.extendedIds`, which keeps them in registration order and makes a provider active only once
+/// its `onRegister()` returns.
 final class ExtendedIdRegistry {
 
     /// Holds the static IDs. It isn't one of the registered providers, so unregistering a provider
     /// can never remove it.
     let staticProvider = StaticExtendedIdProvider()
 
-    private final class Registration {
-        let info: ExtendedIdProviderInfo
-        let provider: ExtendedIdProvider
-
-        /// Set once `onRegister()` returns. Until then the provider's IDs aren't collected.
-        var isActive = false
-
-        init(info: ExtendedIdProviderInfo, provider: ExtendedIdProvider) {
-            self.info = info
-            self.provider = provider
-        }
-    }
-
-    private let lock = NSLock()
-    private var registrations = [Registration]()
-
-    /// Returns the static IDs, then the IDs of each registered provider in registration order.
-    /// Calls `getExtendedIds()` on every provider.
-    func getAllExtendedIds() -> [ExtendedId] {
-        let providers = synchronized {
-            registrations.filter { $0.isActive }.map { $0.provider }
+    /// Returns the static IDs, then `sharedId` if it isn't `nil`, then the IDs of each registered provider
+    /// in registration order. Calls `getExtendedIds()` on every provider.
+    ///
+    /// A provider's ID whose source is already in the list is skipped, so the static IDs and SharedID are
+    /// always sent, and of several providers the first one registered wins.
+    func getAllExtendedIds(sharedId: ExtendedId? = nil) -> [ExtendedId] {
+        var extendedIds = staticProvider.getExtendedIds()
+        if let sharedId {
+            extendedIds.append(sharedId)
         }
 
-        return staticProvider.getExtendedIds() + providers.flatMap { $0.getExtendedIds() }
-    }
+        var sources = Set(extendedIds.map { $0.source })
+        for provider in Registries.extendedIds.typed.active {
+            for extendedId in provider.getExtendedIds() {
+                guard sources.insert(extendedId.source).inserted else {
+                    Log.warn("[extendedIds] Skipping the ID from source \(extendedId.source) provided by \(provider.providerInfo): an ID from this source is already present.")
+                    continue
+                }
 
-    /// Registers `provider` and calls its `onRegister()`. Its IDs are collected once `onRegister()`
-    /// returns. A provider whose info equals a registered one is ignored.
-    func addProvider(_ provider: ExtendedIdProvider) {
-        let info = provider.providerInfo
-        let registration = Registration(info: info, provider: provider)
-
-        let isAdded = synchronized { () -> Bool in
-            guard !registrations.contains(where: { $0.info == info }) else {
-                return false
+                extendedIds.append(extendedId)
             }
-
-            registrations.append(registration)
-            return true
         }
 
-        guard isAdded else {
-            Log.warn("Extended ID provider \(info) is already registered. Ignoring the duplicate.")
-            return
-        }
-
-        provider.onRegister?()
-        synchronized { registration.isActive = true }
-        Log.debug("Extended ID provider \(info) registered.")
-    }
-
-    /// Unregisters the provider whose info equals `provider`'s and calls that provider's `onUnregister()`.
-    /// No-op if no such provider is registered.
-    func removeProvider(_ provider: ExtendedIdProvider) {
-        let info = provider.providerInfo
-
-        let removed = synchronized { () -> Registration? in
-            guard let index = registrations.firstIndex(where: { $0.info == info }) else {
-                return nil
-            }
-
-            return registrations.remove(at: index)
-        }
-
-        guard let removed else {
-            return
-        }
-
-        removed.provider.onUnregister?()
-        Log.debug("Extended ID provider \(info) unregistered.")
-    }
-
-    /// Returns whether a provider whose info equals `provider`'s is registered.
-    func hasProvider(_ provider: ExtendedIdProvider) -> Bool {
-        let info = provider.providerInfo
-        return synchronized {
-            registrations.contains { $0.info == info }
-        }
-    }
-
-    /// Unregisters every provider, calling `onUnregister()` on each, and clears the static IDs.
-    func clearProviders() {
-        let removed = synchronized { () -> [Registration] in
-            let removed = registrations
-            registrations.removeAll()
-            return removed
-        }
-
-        staticProvider.clear()
-        removed.forEach { $0.provider.onUnregister?() }
-    }
-
-    private func synchronized<T>(_ body: () -> T) -> T {
-        lock.lock()
-        defer { lock.unlock() }
-        return body()
+        return extendedIds
     }
 }
