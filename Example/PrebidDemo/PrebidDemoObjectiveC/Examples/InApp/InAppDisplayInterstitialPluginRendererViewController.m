@@ -37,7 +37,7 @@ NSString * const storedImpDisplayInterstitialPluginRendererInApp = @"prebid-demo
 
 - (void)dealloc {
     // Unregister plugin when you no longer needed
-    [Prebid unregisterPluginRenderer:self.samplePluginRenderer];
+    [Prebid unregisterPlugin:self.samplePluginRenderer as:PluginCapability.renderer];
 }
 
 - (void)createAd {
@@ -45,7 +45,7 @@ NSString * const storedImpDisplayInterstitialPluginRendererInApp = @"prebid-demo
     self.samplePluginRenderer = [SampleRenderer new];
     
     // 2. Register the plugin renderer
-    [Prebid registerPluginRenderer:self.samplePluginRenderer];
+    [Prebid registerPlugin:self.samplePluginRenderer as:PluginCapability.renderer];
     
     // 3. Create a InterstitialRenderingAdUnit
     self.renderingInterstitial = [[InterstitialRenderingAdUnit alloc] initWithConfigID:storedImpDisplayInterstitialPluginRendererInApp];

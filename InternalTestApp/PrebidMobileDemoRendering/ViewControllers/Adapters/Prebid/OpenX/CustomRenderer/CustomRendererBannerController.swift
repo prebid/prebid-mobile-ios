@@ -52,7 +52,7 @@ class CustomRendererBannerController:
         super.init()
         self.rootController = rootController
         
-        Prebid.registerPluginRenderer(sampleCustomRenderer)
+        Prebid.register(sampleCustomRenderer, as: .renderer)
         
         reloadButton.addTarget(self, action: #selector(reload), for: .touchUpInside)
         stopRefreshButton.addTarget(self, action: #selector(stopRefresh), for: .touchUpInside)
@@ -62,7 +62,7 @@ class CustomRendererBannerController:
     
     deinit {
         Targeting.shared.sourceapp = nil
-        Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        Prebid.unregister(sampleCustomRenderer, as: .renderer)
     }
     
     func configurationController() -> BaseConfigurationController? {

@@ -34,7 +34,7 @@ class InAppDisplayBannerPluginRendererViewController: BannerBaseViewController, 
         let samplePluginRenderer = SampleAdViewRenderer()
         
         // 2. Register the plugin renderer
-        Prebid.registerPluginRenderer(samplePluginRenderer)
+        Prebid.register(samplePluginRenderer, as: .renderer)
         
         // 3. Create a BannerView
         prebidBannerView = BannerView(

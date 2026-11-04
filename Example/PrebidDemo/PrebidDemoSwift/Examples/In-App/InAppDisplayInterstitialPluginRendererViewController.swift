@@ -34,12 +34,12 @@ class InAppDisplayInterstitialPluginRendererViewController:
     
     deinit {
         // Unregister plugin when you no longer needed
-        Prebid.unregisterPluginRenderer(samplePluginRenderer)
+        Prebid.unregister(samplePluginRenderer, as: .renderer)
     }
     
     func createAd() {
         // 1. Register the plugin renderer
-        Prebid.registerPluginRenderer(samplePluginRenderer)
+        Prebid.register(samplePluginRenderer, as: .renderer)
         
         // 2. Create a InterstitialRenderingAdUnit
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial)

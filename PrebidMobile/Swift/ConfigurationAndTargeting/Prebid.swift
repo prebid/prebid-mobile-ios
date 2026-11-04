@@ -345,14 +345,66 @@ public class Prebid: NSObject {
         timeoutMillisDynamic = NSNumber(value: timeoutMillis)
     }
     
+    // MARK: - Plugins
+    
+    /// Registers `plugin` for `capability`:
+    ///
+    /// ```swift
+    /// Prebid.register(vendorRenderer, as: .renderer)
+    /// ```
+    ///
+    /// `plugin` must implement the capability's protocol, e.g. `PrebidMobilePluginRenderer` for `.renderer`.
+    /// Otherwise it is not registered and the SDK logs an error. A plugin whose identity equals a registered
+    /// one is ignored. To register one object for several capabilities, call this once for each.
+    ///
+    /// Register plugins during SDK setup. Registering or unregistering the same plugin from several threads
+    /// at once, or from inside the plugin's own callbacks, is not supported.
+    @objc(registerPlugin:as:)
+    public static func register(_ plugin: AnyObject, as capability: PluginCapability) {
+        capability.registry.add(plugin)
+    }
+    
+    /// Unregisters the plugin of `capability` whose identity equals `plugin`'s.
+    /// No-op if no such plugin is registered.
+    ///
+    /// Unregistering is best-effort: the SDK stops using the plugin for new work, but work that has already
+    /// started with it, or was already queued for it, can still reach it. Registering or unregistering the
+    /// same plugin from several threads at once, or from inside the plugin's own callbacks, is not supported.
+    @objc(unregisterPlugin:as:)
+    public static func unregister(_ plugin: AnyObject, as capability: PluginCapability) {
+        capability.registry.remove(plugin)
+    }
+    
+    /// Returns whether a plugin whose identity equals `plugin`'s is active for `capability`.
+    ///
+    /// A plugin is active once its registration completes. While its `register(_:as:)` call is still running,
+    /// e.g. while the plugin is inside its own `onRegister` callback, this returns `false` for it.
+    @objc(containsPlugin:as:)
+    public static func contains(_ plugin: AnyObject, as capability: PluginCapability) -> Bool {
+        capability.registry.contains(plugin)
+    }
+    
+    /// Registers a plugin renderer. A renderer whose name is already registered is ignored.
+    ///
+    /// - Warning: Deprecated, will be removed in 4.0. Use `register(_:as:)` with `.renderer` instead.
+    @available(*, deprecated, message: "This method is deprecated and will be removed in 4.0. Use `register(_:as:)` with `.renderer` instead.")
     public static func registerPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.registerPlugin(pluginRenderer)
+        register(pluginRenderer, as: .renderer)
     }
     
+    /// Unregisters the plugin renderer with the same name as `pluginRenderer`.
+    ///
+    /// - Warning: Deprecated, will be removed in 4.0. Use `unregister(_:as:)` with `.renderer` instead.
+    @available(*, deprecated, message: "This method is deprecated and will be removed in 4.0. Use `unregister(_:as:)` with `.renderer` instead.")
     public static func unregisterPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) {
-        PrebidMobilePluginRegister.shared.unregisterPlugin(pluginRenderer)
+        unregister(pluginRenderer, as: .renderer)
     }
     
+    /// Returns whether this renderer instance is registered.
+    ///
+    /// - Warning: Deprecated, will be removed in 4.0. Use `contains(_:as:)` with `.renderer` instead.
+    ///   `contains(_:as:)` matches a renderer by name, while this method matches the instance.
+    @available(*, deprecated, message: "This method is deprecated and will be removed in 4.0. Use `contains(_:as:)` with `.renderer` instead. Note that `contains(_:as:)` matches a renderer by name, while this method matches the instance.")
     public static func containsPluginRenderer(_ pluginRenderer: PrebidMobilePluginRenderer) -> Bool {
         PrebidMobilePluginRegister.shared.containsPlugin(pluginRenderer)
     }

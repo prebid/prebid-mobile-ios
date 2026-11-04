@@ -67,7 +67,7 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
     
     deinit {
         if let sampleCustomRenderer = sampleCustomRenderer {
-            Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+            Prebid.unregister(sampleCustomRenderer, as: .renderer)
         }
     }
 
@@ -216,7 +216,7 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
         guard useSampleCustomRenderer, sampleCustomRenderer == nil else { return }
 
         let renderer = SampleRenderer()
-        Prebid.registerPluginRenderer(renderer)
+        Prebid.register(renderer, as: .renderer)
         sampleCustomRenderer = renderer
     }
 }

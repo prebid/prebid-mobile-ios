@@ -15,7 +15,8 @@
 
 import Foundation
 
-/// Global singleton responsible to store plugin renderer instances
+/// Global singleton for the SDK's access to plugin renderers. The renderers are stored in
+/// `Registries.renderer`, which `Prebid.register(_:as:)` writes to.
 class PrebidMobilePluginRegister: NSObject {
     
     static let shared = PrebidMobilePluginRegister()
@@ -30,41 +31,30 @@ class PrebidMobilePluginRegister: NSObject {
         return PrebidRenderer()
     }
     
-    private let queue = DispatchQueue(
-        label: "PrebidMobilePluginRegisterQueue",
-        attributes: .concurrent
-    )
+    /// Calls the renderers' event delegate methods, in order, off the caller's thread.
+    private let eventDelegateQueue = DispatchQueue(label: "PrebidMobilePluginRegisterQueue")
     
-    private var plugins = [String: PrebidMobilePluginRenderer]()
+    private var registry: PluginRegistry<any PrebidMobilePluginRenderer> {
+        Registries.renderer.typed
+    }
     
     private override init() {
         super.init()
     }
     
-    /// Register plugin as renderer
+    /// Register plugin as renderer. A renderer whose name is already registered is ignored.
     func registerPlugin(_ renderer: PrebidMobilePluginRenderer) {
-        let rendererName = renderer.name
-        
-        queue.async(flags: .barrier) { [weak self] in
-            if self?.plugins[rendererName] != nil {
-                Log.debug("Plugin with name \(rendererName) is already registered.")
-                return
-            }
-            self?.plugins[rendererName] = renderer
-        }
+        registry.add(renderer)
     }
     
+    /// Unregisters the renderer with the same name as `renderer`.
     func unregisterPlugin(_ renderer: PrebidMobilePluginRenderer) {
-        queue.async(flags: .barrier) { [weak self] in
-            self?.plugins.removeValue(forKey: renderer.name)
-        }
+        registry.remove(renderer)
     }
     
-    /// Contains plugin
+    /// Returns whether this renderer instance is registered.
     func containsPlugin(_ renderer: PrebidMobilePluginRenderer) -> Bool {
-        queue.sync {
-            plugins.contains { $0.value === renderer }
-        }
+        registry.active.contains { $0 === renderer }
     }
     
     /// Register event delegate
@@ -72,15 +62,15 @@ class PrebidMobilePluginRegister: NSObject {
         _ pluginEventDelegate: PluginEventDelegate,
         adUnitConfigFingerprint: String
     ) {
-        queue.async(flags: .barrier) { [plugins] in
-            plugins
-                .values
-                .forEach {
-                    $0.registerEventDelegate?(
-                        pluginEventDelegate: pluginEventDelegate,
-                        adUnitConfigFingerprint: adUnitConfigFingerprint
-                    )
-                }
+        let renderers = registry.active
+        
+        eventDelegateQueue.async {
+            renderers.forEach {
+                $0.registerEventDelegate?(
+                    pluginEventDelegate: pluginEventDelegate,
+                    adUnitConfigFingerprint: adUnitConfigFingerprint
+                )
+            }
         }
     }
     
@@ -89,15 +79,15 @@ class PrebidMobilePluginRegister: NSObject {
         _ pluginEventDelegate: PluginEventDelegate,
         adUnitConfigFingerprint: String
     ) {
-        queue.async(flags: .barrier) { [plugins] in
-            plugins
-                .values
-                .forEach {
-                    $0.unregisterEventDelegate?(
-                        pluginEventDelegate: pluginEventDelegate,
-                        adUnitConfigFingerprint: adUnitConfigFingerprint
-                    )
-                }
+        let renderers = registry.active
+        
+        eventDelegateQueue.async {
+            renderers.forEach {
+                $0.unregisterEventDelegate?(
+                    pluginEventDelegate: pluginEventDelegate,
+                    adUnitConfigFingerprint: adUnitConfigFingerprint
+                )
+            }
         }
     }
     
@@ -115,10 +105,9 @@ class PrebidMobilePluginRegister: NSObject {
         return preferredPlugin
     }
     
+    /// The registered renderers in registration order.
     func getAllPlugins() -> [PrebidMobilePluginRenderer] {
-        queue.sync {
-            return plugins.isEmpty ? [] : Array(plugins.values)
-        }
+        registry.active
     }
     
     func getAllPluginsJSONRepresentation() -> [[String: Any]] {
@@ -130,6 +119,6 @@ class PrebidMobilePluginRegister: NSObject {
     }
     
     private func getPluginRenderer(for key: String) -> PrebidMobilePluginRenderer? {
-        queue.sync { plugins[key] }
+        registry.active.first { $0.name == key }
     }
 }

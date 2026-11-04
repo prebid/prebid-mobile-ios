@@ -53,7 +53,7 @@ class CustomRendererInterstitialController:
     // MARK: - AdaptedController
     required init(rootController: AdapterViewController) {
         self.adapterViewController = rootController
-        Prebid.registerPluginRenderer(sampleCustomRenderer)
+        Prebid.register(sampleCustomRenderer, as: .renderer)
         super.init()
         
         setupAdapterController()
@@ -61,7 +61,7 @@ class CustomRendererInterstitialController:
     
     deinit {
         Targeting.shared.sourceapp = nil
-        Prebid.unregisterPluginRenderer(sampleCustomRenderer)
+        Prebid.unregister(sampleCustomRenderer, as: .renderer)
     }
     
     func configurationController() -> BaseConfigurationController? {
