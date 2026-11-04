@@ -110,7 +110,7 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
             Prebid.shared.storedAuctionResponse = storedAuctionResponse
         }
         
-        adUnit?.fetchDemand { [weak self] result in
+        adUnit?.fetchDemandBidInfo { [weak self] bidInfo in
             if self?.storedAuctionResponse != nil {
                 Prebid.shared.storedAuctionResponse = nil
             }
@@ -121,7 +121,7 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
                 return
             }
             
-            if result != .prebidDemandFetchSuccess {
+            if bidInfo.resultCode != .prebidDemandFetchSuccess {
                 self.fetchDemandFailedButton.isEnabled = true
                 self.reloadButton.isEnabled = true
             }
@@ -194,9 +194,9 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
         
         resetEvents()
         
-        adUnit?.fetchDemand { [weak self] result in
+        adUnit?.fetchDemandBidInfo { [weak self] bidInfo in
             
-            if result != .prebidDemandFetchSuccess {
+            if bidInfo.resultCode != .prebidDemandFetchSuccess {
                 self?.fetchDemandFailedButton.isEnabled = true
                 self?.reloadButton.isEnabled = true
             }

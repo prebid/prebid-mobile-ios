@@ -121,14 +121,14 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
             Prebid.shared.storedAuctionResponse = storedAuctionResponse
         }
         
-        adUnit?.fetchDemand { [weak self] result in
+        adUnit?.fetchDemandBidInfo { [weak self] bidInfo in
             if self?.storedAuctionResponse != nil {
                 Prebid.shared.storedAuctionResponse = nil
             }
 
             guard let self = self else { return }
             
-            if result != .prebidDemandFetchSuccess {
+            if bidInfo.resultCode != .prebidDemandFetchSuccess {
                 self.fetchDemandFailedButton.isEnabled = true
             }
             

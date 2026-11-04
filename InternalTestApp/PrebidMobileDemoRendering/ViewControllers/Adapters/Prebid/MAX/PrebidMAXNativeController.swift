@@ -65,10 +65,10 @@ class PrebidMAXNativeController: NSObject, AdaptedController {
             nativeAdUnit.addEventTracker(eventTrackers)
         }
         
-        nativeAdUnit.fetchDemand { [weak self] result in
+        nativeAdUnit.fetchDemandBidInfo { [weak self] bidInfo in
             guard let self = self else { return }
             
-            if result != .prebidDemandFetchSuccess {
+            if bidInfo.resultCode != .prebidDemandFetchSuccess {
                 self.fetchDemandFailedButton.isEnabled = true
             }
             
