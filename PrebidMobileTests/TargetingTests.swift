@@ -569,4 +569,146 @@ class TargetingTests: XCTestCase {
         Targeting.addUserKeyword(keywords2)
         XCTAssertTrue(Targeting.getUserKeywords().allSatisfy([keywords1, keywords2].contains))
     }
+    
+    // MARK: - External user IDs (user.eids)
+    
+    func testAddExternalUserIdReplacesIdWithSameSource() {
+        let targeting = Targeting.shared
+    
+        targeting.addExternalUserId(createUserId(source: "source1", id: "id1"))
+        targeting.addExternalUserId(createUserId(source: "source2", id: "id2"))
+        targeting.addExternalUserId(createUserId(source: "source1", id: "id3"))
+    
+        XCTAssertEqual(uniqueIds(targeting.getExtendedIds()), ["id2", "id3"])
+    }
+    
+    func testRemoveExternalUserId() {
+        let targeting = Targeting.shared
+        targeting.addExternalUserId(createUserId(source: "source1", id: "id1"))
+        targeting.addExternalUserId(createUserId(source: "source2", id: "id2"))
+    
+        targeting.removeExternalUserId("source1")
+        targeting.removeExternalUserId("unknown")
+    
+        XCTAssertEqual(uniqueIds(targeting.getExtendedIds()), ["id2"])
+    }
+    
+    func testClearExternalUserIdsKeepsProviderIds() {
+        let targeting = Targeting.shared
+        targeting.addExternalUserId(createUserId(source: "static.com", id: "id1"))
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")]),
+            as: .extendedIds
+        )
+    
+        targeting.clearExternalUserIds()
+    
+        XCTAssertEqual(uniqueIds(targeting.getExtendedIds()), ["id2"])
+    }
+    
+    @available(*, deprecated)
+    func testSetExternalUserIdsReplacesOnlyStaticIds() {
+        let targeting = Targeting.shared
+        targeting.addExternalUserId(createUserId(source: "static.com", id: "id1"))
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")]),
+            as: .extendedIds
+        )
+    
+        targeting.setExternalUserIds([createUserId(source: "other.com", id: "id3")])
+    
+        XCTAssertEqual(uniqueIds(targeting.getExtendedIds()), ["id3", "id2"])
+    }
+    
+    @available(*, deprecated)
+    func testGetExternalUserIdsReturnsOnlyStaticIds() {
+        let targeting = Targeting.shared
+        XCTAssertNil(targeting.getExternalUserIds())
+    
+        targeting.addExternalUserId(createUserId(source: "static.com", id: "id1"))
+        targeting.sendSharedId = true
+    
+        XCTAssertEqual(targeting.getExternalUserIds()?.compactMap { $0["source"] as? String }, ["static.com"])
+        XCTAssertEqual(targeting.getExtendedIds().map { $0.source }, ["static.com", "pubcid.org"])
+    }
+    
+    func testSendSharedIdAddsSharedIdAfterStaticIds() {
+        let targeting = Targeting.shared
+        XCTAssertFalse(targeting.sendSharedId)
+        targeting.addExternalUserId(createUserId(source: "static.com", id: "id1"))
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")]),
+            as: .extendedIds
+        )
+    
+        targeting.sendSharedId = true
+    
+        XCTAssertTrue(targeting.sendSharedId)
+        XCTAssertEqual(targeting.getExtendedIds().map { $0.source }, ["static.com", "pubcid.org", "provider.com"])
+        XCTAssertEqual(
+            targeting.getExtendedIds()[1].toJSONDictionary() as NSDictionary,
+            targeting.sharedId.toJSONDictionary() as NSDictionary
+        )
+        XCTAssertEqual(Registries.extendedIds.typed.active.map { $0.providerInfo.name }, ["test"])
+    
+        targeting.sendSharedId = false
+    
+        XCTAssertFalse(targeting.sendSharedId)
+        XCTAssertEqual(targeting.getExtendedIds().map { $0.source }, ["static.com", "provider.com"])
+    }
+    
+    func testEnablingSendSharedIdTwiceSendsOneSharedId() {
+        let targeting = Targeting.shared
+    
+        targeting.sendSharedId = true
+        targeting.sendSharedId = true
+    
+        XCTAssertEqual(targeting.getExtendedIds().map { $0.source }, ["pubcid.org"])
+    }
+    
+    func testRegisterExtendedIdProvider() {
+        let provider = MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id1")])
+    
+        Prebid.register(provider, as: .extendedIds)
+    
+        XCTAssertTrue(Prebid.contains(provider, as: .extendedIds))
+        XCTAssertEqual(provider.onRegisterCount, 1)
+        XCTAssertEqual(uniqueIds(Targeting.shared.getExtendedIds()), ["id1"])
+    
+        Prebid.unregister(provider, as: .extendedIds)
+    
+        XCTAssertFalse(Prebid.contains(provider, as: .extendedIds))
+        XCTAssertEqual(provider.onUnregisterCount, 1)
+        XCTAssertTrue(Targeting.shared.getExtendedIds().isEmpty)
+    }
+    
+    func testTargetingInstancesKeepSeparateExternalUserIds() {
+        let targeting = Targeting()
+    
+        targeting.addExternalUserId(createUserId(source: "source1", id: "id1"))
+    
+        XCTAssertEqual(uniqueIds(targeting.getExtendedIds()), ["id1"])
+        XCTAssertTrue(Targeting.shared.getExtendedIds().isEmpty)
+    }
+    
+    func testRegisteredProvidersApplyToEveryTargetingInstance() {
+        let targeting = Targeting()
+        targeting.addExternalUserId(createUserId(source: "static.com", id: "id1"))
+    
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "provider.com", id: "id2")]),
+            as: .extendedIds
+        )
+    
+        XCTAssertEqual(uniqueIds(targeting.getExtendedIds()), ["id1", "id2"])
+        XCTAssertEqual(uniqueIds(Targeting.shared.getExtendedIds()), ["id2"])
+    }
+    
+    private func createUserId(source: String, id: String) -> ExternalUserId {
+        ExternalUserId(source: source, uids: [UserUniqueID(uniqueId: id, aType: 1)])
+    }
+    
+    private func uniqueIds(_ extendedIds: [ExtendedId]) -> [String] {
+        extendedIds.compactMap { ($0 as? ExternalUserId)?.uids.first?.uniqueId }
+    }
 }
