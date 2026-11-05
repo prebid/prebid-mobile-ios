@@ -743,8 +743,8 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
                                       of object: Any?,
                                       change: [NSKeyValueChangeKey: Any]?,
                                       context: UnsafeMutableRawPointer?) {
-        if keyPath == playerObserverKeyStatus {
-            onPlayerStatusChanged()
+        if keyPath == playerObserverKeyStatus, let item = object as? AVPlayerItem {
+            onPlayerStatusChanged(item)
         } else if keyPath == playerObserverKeyVolume && (object as? AVPlayer) === avPlayer {
             onPlayerVolumeChanged()
         } else if keyPath == audioSessionObserverKeyVolume {
@@ -931,28 +931,30 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
 
     // MARK: - Helper Methods
 
-    private func onPlayerStatusChanged() {
+    private func onPlayerStatusChanged(_ item: AVPlayerItem) {
+        // Snapshot the observed item before dispatching. Its initial unknown status can become
+        // ready before the main queue runs, otherwise delivering the ready callback twice.
+        let status = item.status
+        let itemError = item.error
         DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
+            guard let self, item === self.avPlayer?.currentItem else { return }
 
-            // Read the status of the observed item: `AVPlayer.status` doesn't follow it and can
+            // Use the status of the observed item: `AVPlayer.status` doesn't follow it and can
             // report `readyToPlay` after the item failed to decode its media.
-            if let item = self.avPlayer?.currentItem {
-                switch item.status {
-                case .readyToPlay:
-                    Log.info("readyToPlay")
-                    self.videoViewDelegate?.videoViewReadyToDisplay()
+            switch status {
+            case .readyToPlay:
+                Log.info("readyToPlay")
+                self.videoViewDelegate?.videoViewReadyToDisplay()
 
-                case .unknown:
-                    Log.info("unknown (This is normal at launch)")
+            case .unknown:
+                Log.info("unknown (This is normal at launch)")
 
-                case .failed:
-                    let error: Error = item.error ?? PBMError.error(description: "Unknown Error")
-                    self.videoViewDelegate?.videoViewFailedWithError(error)
+            case .failed:
+                let error: Error = itemError ?? PBMError.error(description: "Unknown Error")
+                self.videoViewDelegate?.videoViewFailedWithError(error)
 
-                @unknown default:
-                    break
-                }
+            @unknown default:
+                break
             }
         }
     }
