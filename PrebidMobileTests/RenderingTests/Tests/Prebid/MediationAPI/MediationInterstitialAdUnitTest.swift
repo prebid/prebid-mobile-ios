@@ -214,42 +214,26 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         XCTAssertFalse(adObject!.keywords!.contains("hb_pb_appnexus"))
     }
 
+    // Same response as the banner's no-bid test: both units must report it the same way.
+    func testFetchDemandBidInfoReportsNoTargetingWithoutAWinningBid() {
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate!)
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.bidderKeysOnlyResponse)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidDemandNoBids)
+        XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31")
+        assertNoBidAttached(bidInfo)
+        XCTAssertNil(adObject!.keywords)
+        XCTAssertNil(adObject!.localExtras)
+    }
+
     private func fetchBidInfo(_ adUnit: MediationBaseInterstitialAdUnit, response: PrebidServerResponse) -> BidInfo? {
-        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(response)
-        }])
-
-        let asyncExpectation = expectation(description: "fetchDemandBidInfo executed")
-        var result: BidInfo?
-
-        adUnit.fetchDemandBidInfo(connection: connection,
-                                  sdkConfiguration: sdkConfiguration,
-                                  targeting: targeting)
-        { bidInfo in
-            XCTAssertTrue(Thread.isMainThread)
-            result = bidInfo
-            asyncExpectation.fulfill()
+        fetchMediationBidInfo(response: response) { connection, completion in
+            adUnit.fetchDemandBidInfo(connection: connection,
+                                      sdkConfiguration: sdkConfiguration,
+                                      targeting: targeting,
+                                      completion: completion)
         }
-        waitForExpectations(timeout: 1)
-
-        return result
-    }
-
-    private func assertWinningBidEconomics(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
-        // Values of `BidResponseTransformer.someValidResponse`
-        XCTAssertEqual(bidInfo?.price?.doubleValue, 0.1091, file: file, line: line)
-        XCTAssertEqual(bidInfo?.currency, "USD", file: file, line: line)
-        XCTAssertEqual(bidInfo?.creativeId, "test-creative-id-1", file: file, line: line)
-        XCTAssertEqual(bidInfo?.adId, "test-ad-id-12345", file: file, line: line)
-        XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31", file: file, line: line)
-    }
-
-    private func assertNoBidAttached(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertNil(bidInfo?.targetingKeywords, file: file, line: line)
-        XCTAssertNil(bidInfo?.price, file: file, line: line)
-        XCTAssertNil(bidInfo?.currency, file: file, line: line)
-        XCTAssertNil(bidInfo?.creativeId, file: file, line: line)
-        XCTAssertNil(bidInfo?.adId, file: file, line: line)
     }
 
     func testSetAdPosition() {

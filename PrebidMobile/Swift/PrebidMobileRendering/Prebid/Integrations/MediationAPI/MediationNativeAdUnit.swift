@@ -158,7 +158,7 @@ public class MediationNativeAdUnit : NSObject {
             guard let self = self else { return }
             
             guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
-                self.completeWithResult(bidInfo)
+                self.completeWithResult(BidInfo.create(resultCode: bidInfo.resultCode, nativeRequestBidInfo: bidInfo))
                 return
             }
             
@@ -190,7 +190,7 @@ public class MediationNativeAdUnit : NSObject {
             if self.mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {
                 self.completeWithResult(bidInfo)
             } else {
-                let newBidInfo = BidInfo.create(resultCode: .prebidWrongArguments, requestId: bidInfo.requestId)
+                let newBidInfo = BidInfo.create(resultCode: .prebidWrongArguments, nativeRequestBidInfo: bidInfo)
                 self.completeWithResult(newBidInfo)
             }
         }

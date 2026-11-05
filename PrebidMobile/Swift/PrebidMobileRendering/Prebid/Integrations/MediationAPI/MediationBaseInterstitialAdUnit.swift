@@ -94,7 +94,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
                     completion: completion)
     }
 
-    // See `MediationBannerAdUnit.fetchDemandBidInfo(completion:)` for why this is not a `fetchDemand` overload.
+    // See `AdUnit.fetchDemandBidInfo(adObject:completion:)` for why this is not a `fetchDemand` overload.
 
     /// Makes bid request and setups mediation parameters. Like `fetchDemand(completion:)`, but provides
     /// the full `BidInfo` (including the winning-bid economics) instead of only the result code.
@@ -213,9 +213,12 @@ public class MediationBaseInterstitialAdUnit : NSObject {
             Log.error("The winning bid is absent in response!")
         }
 
-        let bidInfo = demandResult == .prebidWrongArguments
-            ? BidInfo.create(resultCode: demandResult, requestId: bidResponse.rawResponse?.requestID)
-            : BidInfo.create(resultCode: demandResult, bidResponse: bidResponse, targetingInfo: targetingInfo)
+        // The interstitial attaches the winning bid's targeting only
+        let bidInfo = BidInfo.create(
+            resultCode: demandResult,
+            bidResponse: bidResponse,
+            attachedTargeting: targetingInfo
+        )
         completeWithResult(bidInfo)
     }
 
