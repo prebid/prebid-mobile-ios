@@ -246,10 +246,6 @@ public class BannerView:
         )
     }
     
-    deinit {
-        Prebid.shared.storedAuctionResponse = nil
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -260,8 +256,12 @@ public class BannerView:
     }
     
     /// Sets the stored auction response.
+    ///
+    /// This writes the SDK-wide `Prebid.shared.storedAuctionResponse`, so it applies to every ad unit
+    /// and stays set after this banner is released. Set `Prebid.shared.storedAuctionResponse` to `nil`
+    /// to stop using it.
     /// - Parameter storedAuction: The stored auction response string.
-    public func setStoredAuctionResponse(storedAuction:String){
+    public func setStoredAuctionResponse(storedAuction: String) {
         Prebid.shared.storedAuctionResponse = storedAuction
     }
     

@@ -262,6 +262,43 @@ class BannerViewTest: XCTestCase {
         XCTAssertTrue(config.adConfiguration.isBuiltInVideo)
     }
     
+    // MARK: - Stored auction response on release
+
+    private func makeBanner() -> BannerView {
+        let primarySize = CGSize(width: 320, height: 50)
+        return BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: "auid", adSize: primarySize)
+    }
+
+    // Releasing a banner must not clear the app-level stored auction response.
+    func testReleasingBannerKeepsStoredAuctionResponseSetOnPrebid() {
+        let storedAuctionResponse = "app-stored-auction-response"
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
+
+        weak var weakBanner: BannerView?
+        autoreleasepool {
+            let bannerView = makeBanner()
+            weakBanner = bannerView
+        }
+
+        XCTAssertNil(weakBanner, "The banner must be deallocated for this test to be meaningful")
+        XCTAssertEqual(Prebid.shared.storedAuctionResponse, storedAuctionResponse)
+    }
+
+    // The banner setter writes the SDK-wide value, which outlives the banner.
+    func testStoredAuctionResponseSetByBannerOutlivesBanner() {
+        let storedAuctionResponse = "banner-stored-auction-response"
+
+        weak var weakBanner: BannerView?
+        autoreleasepool {
+            let bannerView = makeBanner()
+            bannerView.setStoredAuctionResponse(storedAuction: storedAuctionResponse)
+            weakBanner = bannerView
+        }
+
+        XCTAssertNil(weakBanner, "The banner must be deallocated for this test to be meaningful")
+        XCTAssertEqual(Prebid.shared.storedAuctionResponse, storedAuctionResponse)
+    }
+    
     // MARK: - Auto-refresh vs. video creatives
     
     // Regression: the primary ad server can win over a Prebid video bid (no matching line item,

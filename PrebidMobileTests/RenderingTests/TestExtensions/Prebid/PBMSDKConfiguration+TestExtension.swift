@@ -40,6 +40,7 @@ extension Prebid {
         Prebid.forcedIsViewable = false
         Prebid.shared.clearCustomHeaders()
         Prebid.shared.clearStoredBidResponses()
+        Prebid.shared.storedAuctionResponse = nil
         Prebid.shared.includeWinners = false
         Prebid.shared.includeBidderKeys = false
         Prebid.shared.eidsPlacement = .compatible
