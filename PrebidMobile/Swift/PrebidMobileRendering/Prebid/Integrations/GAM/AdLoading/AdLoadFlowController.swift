@@ -151,6 +151,11 @@ class AdLoadFlowController: NSObject, AdLoaderFlowDelegate {
     }
 
     private func tryLaunchingAdRequestFlow() {
+        // A new load must not report the ad object or size of an earlier one.
+        primaryAdObject = nil
+        prebidAdObject = nil
+        adSize = nil
+
         guard configValidationBlock(savedAdUnitConfig, false) else {
             let error = PBMError.error(message: "AdUnitConfig is not valid.", type: .internalError)
             reportLoadingFailedWithError(error)
