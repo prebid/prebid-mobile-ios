@@ -388,7 +388,11 @@ public class MediationBannerAdUnit : NSObject {
         // The ad view is held weakly, so it can be gone by the time the response arrives.
         guard adView != nil else {
             Log.error("The ad view was released before the bid response arrived.")
-            completeWithResult(BidInfo.create(resultCode: .prebidWrongArguments, requestId: response.rawResponse?.requestID))
+            let bidInfo = BidInfo(
+                resultCode: .prebidWrongArguments,
+                requestId: response.rawResponse?.requestID
+            )
+            completeWithResult(bidInfo)
             return
         }
         
@@ -415,9 +419,12 @@ public class MediationBannerAdUnit : NSObject {
             Log.error("The winning bid is absent in response!")
         }
 
-        let bidInfo = demandResult == .prebidWrongArguments
-            ? BidInfo.create(resultCode: demandResult, requestId: response.rawResponse?.requestID)
-            : BidInfo.create(resultCode: demandResult, bidResponse: response)
+        // The banner attaches the response's merged targeting
+        let bidInfo = BidInfo.create(
+            resultCode: demandResult,
+            bidResponse: response,
+            attachedTargeting: response.targetingInfo
+        )
         
         completeWithResult(bidInfo)
     }
