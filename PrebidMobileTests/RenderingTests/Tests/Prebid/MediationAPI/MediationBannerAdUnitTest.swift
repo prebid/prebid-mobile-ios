@@ -357,25 +357,214 @@ class MediationBannerAdUnitTest: XCTestCase {
         XCTAssertNil(adUnit.lastAdView)
     }
 
+    // MARK: - Every call gets a completion
+
+    func testFetchWhileRequestIsInFlightCompletesWithMisuse() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let heldRequest = HeldRequest()
+        let runningFetch = startFetch(adUnit, connection: heldRequest.connection)
+
+        let rejected = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+
+        XCTAssertEqual(rejected?.resultCode, .prebidSDKMisusePreviousFetchNotCompletedYet)
+        assertNoBidAttached(rejected)
+        XCTAssertTrue(runningFetch.results.isEmpty, "The running fetch has not been answered yet")
+
+        // The running fetch is left alone and still reports to its own completion
+        heldRequest.respond(with: BidResponseTransformer.someValidResponse, in: self)
+        wait(for: [runningFetch.completed], timeout: 1)
+
+        XCTAssertEqual(runningFetch.results.map(\.resultCode), [.prebidDemandFetchSuccess])
+        XCTAssertEqual(adObject?.keywords?.contains("hb_pb:0.10"), true)
+    }
+
+    func testRefreshTickDuringRefreshDoesNotReachTheStoredCompletion() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        // The first request is the app's fetch, the held one is the auto-refresh
+        let heldRequest = HeldRequest(after: [BidResponseTransformer.someValidResponse])
+        let fetch = startFetch(adUnit, connection: heldRequest.connection, expectedCalls: 2)
+
+        wait(for: [fetch.firstCall], timeout: 1)
+        adUnit.autoRefreshManager?.refreshBlock()
+        heldRequest.waitUntilSent(in: self)
+
+        // A second tick while the refresh is running: no request, and nothing for the app
+        adUnit.autoRefreshManager?.refreshBlock()
+        drainMainQueue()
+        XCTAssertEqual(fetch.results.map(\.resultCode), [.prebidDemandFetchSuccess])
+
+        heldRequest.respond(with: BidResponseTransformer.someValidResponse, in: self)
+        wait(for: [fetch.completed], timeout: 1)
+        XCTAssertEqual(fetch.results.map(\.resultCode), [.prebidDemandFetchSuccess, .prebidDemandFetchSuccess])
+    }
+
+    func testAutoRefreshDeliversAnotherBidInfoToTheStoredCompletion() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let connection = MockServerConnection(onPost: [
+            { (url, data, timeout, callback) in callback(BidResponseTransformer.someValidResponse) },
+            { (url, data, timeout, callback) in callback(BidResponseTransformer.serverErrorResponse) },
+        ])
+        let fetch = startFetch(adUnit, connection: connection, expectedCalls: 2)
+
+        wait(for: [fetch.firstCall], timeout: 1)
+        adUnit.autoRefreshManager?.refreshBlock()
+        wait(for: [fetch.completed], timeout: 1)
+
+        // The refresh repeats the request of the app's fetch and reports the new result
+        XCTAssertEqual(fetch.results.map(\.resultCode), [.prebidDemandFetchSuccess, .prebidServerError])
+    }
+
+    func testStopRefreshCancelsThePendingRefresh() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        _ = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+        XCTAssertNotNil(adUnit.autoRefreshManager?.delayedBlock, "Sanity: a completed fetch schedules the next refresh")
+
+        adUnit.stopRefresh()
+
+        XCTAssertNil(adUnit.autoRefreshManager?.delayedBlock)
+
+        // A tick that was already on its way sends no request
+        adUnit.autoRefreshManager?.refreshBlock()
+        XCTAssertNil(adUnit.bidRequester)
+    }
+
+    func testFetchAfterStopRefreshCompletesAndTurnsRefreshBackOn() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        _ = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+        adUnit.stopRefresh()
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidDemandFetchSuccess)
+        XCTAssertFalse(adUnit.isRefreshStopped)
+        XCTAssertNotNil(adUnit.autoRefreshManager?.delayedBlock, "The fetch schedules the next refresh again")
+    }
+
+    func testResponseInFlightAtStopRefreshIsDeliveredWithoutSchedulingRefresh() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let heldRequest = HeldRequest()
+        let fetch = startFetch(adUnit, connection: heldRequest.connection)
+
+        adUnit.stopRefresh()
+        heldRequest.respond(with: BidResponseTransformer.someValidResponse, in: self)
+        wait(for: [fetch.completed], timeout: 1)
+
+        XCTAssertEqual(fetch.results.map(\.resultCode), [.prebidDemandFetchSuccess])
+        XCTAssertEqual(adObject?.keywords?.contains("hb_pb:0.10"), true)
+        XCTAssertNil(adUnit.autoRefreshManager?.delayedBlock, "The stop still holds")
+    }
+
+    func testResumeRefreshSchedulesTheNextRefresh() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        _ = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+        adUnit.stopRefresh()
+
+        adUnit.resumeRefresh()
+
+        XCTAssertFalse(adUnit.isRefreshStopped)
+        XCTAssertNotNil(adUnit.autoRefreshManager?.delayedBlock)
+    }
+
+    func testResumeRefreshDuringFetchLeavesSchedulingToTheFetch() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let heldRequest = HeldRequest()
+        let fetch = startFetch(adUnit, connection: heldRequest.connection)
+        adUnit.stopRefresh()
+
+        adUnit.resumeRefresh()
+        XCTAssertNil(adUnit.autoRefreshManager?.delayedBlock, "No refresh while the fetch is running")
+
+        heldRequest.respond(with: BidResponseTransformer.someValidResponse, in: self)
+        wait(for: [fetch.completed], timeout: 1)
+        XCTAssertNotNil(adUnit.autoRefreshManager?.delayedBlock)
+    }
+
+    func testResumeRefreshBeforeAnyFetchSchedulesNothing() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        adUnit.stopRefresh()
+
+        adUnit.resumeRefresh()
+
+        XCTAssertFalse(adUnit.isRefreshStopped)
+        XCTAssertNil(adUnit.autoRefreshManager?.delayedBlock)
+    }
+
+    func testFetchWithoutAdViewCompletesWithWrongArguments() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize,
+                                           mediationDelegate: ReplaceableAdViewMediationDelegate(adView: nil))
+
+        // No request is expected: the connection fails the test on any post
+        let bidInfo = fetchBidInfo(adUnit, connection: MockServerConnection(onPost: [MockServerConnection.PostHandler]()))
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidWrongArguments)
+        XCTAssertNil(bidInfo?.requestId)
+        XCTAssertNil(adUnit.bidRequester)
+    }
+
+    func testAdViewReleasedBeforeResponseCompletesWithWrongArguments() {
+        let delegate = ReplaceableAdViewMediationDelegate(adView: UIView(frame: .zero))
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: delegate)
+        let heldRequest = HeldRequest()
+        weak var releasedAdView: UIView?
+
+        var fetch: FetchRecorder!
+        autoreleasepool {
+            releasedAdView = delegate.adView
+            fetch = startFetch(adUnit, connection: heldRequest.connection)
+            delegate.adView = nil
+        }
+        XCTAssertNil(releasedAdView, "Sanity: the ad unit holds the ad view weakly")
+
+        heldRequest.respond(with: BidResponseTransformer.someValidResponse, in: self)
+        wait(for: [fetch.completed], timeout: 1)
+
+        let bidInfo = fetch.results.first
+        XCTAssertEqual(bidInfo?.resultCode, .prebidWrongArguments)
+        XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31")
+        assertNoBidAttached(bidInfo)
+        XCTAssertNil(adUnit.lastCompletion, "Without the ad view there is nothing to refresh")
+    }
+
     private func fetchBidInfo(_ adUnit: MediationBannerAdUnit, response: PrebidServerResponse) -> BidInfo? {
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(response)
         }])
 
-        let asyncExpectation = expectation(description: "fetchDemandBidInfo executed")
-        var result: BidInfo?
+        return fetchBidInfo(adUnit, connection: connection)
+    }
+
+    private func fetchBidInfo(_ adUnit: MediationBannerAdUnit, connection: PrebidServerConnectionProtocol) -> BidInfo? {
+        let fetch = startFetch(adUnit, connection: connection)
+        wait(for: [fetch.completed], timeout: 1)
+
+        return fetch.results.first
+    }
+
+    /// Starts a fetch whose completion records every call. `completed` is fulfilled after
+    /// `expectedCalls` calls; more calls fail the test.
+    private func startFetch(
+        _ adUnit: MediationBannerAdUnit,
+        connection: PrebidServerConnectionProtocol,
+        expectedCalls: Int = 1
+    ) -> FetchRecorder {
+        let fetch = FetchRecorder(expectedCalls: expectedCalls)
 
         adUnit.fetchDemandBidInfo(connection: connection,
                                   sdkConfiguration: getSDKConfiguration(),
                                   targeting: targeting)
         { bidInfo in
             XCTAssertTrue(Thread.isMainThread)
-            result = bidInfo
-            asyncExpectation.fulfill()
+            fetch.record(bidInfo)
         }
-        waitForExpectations(timeout: 1)
 
-        return result
+        return fetch
+    }
+
+    /// Runs the main queue up to this point, so completions already dispatched to it have run.
+    private func drainMainQueue() {
+        let drained = XCTestExpectation(description: "main queue drained")
+        DispatchQueue.main.async { drained.fulfill() }
+        wait(for: [drained], timeout: 1)
     }
 
     private func assertWinningBidEconomics(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
@@ -448,4 +637,79 @@ class MediationBannerAdUnitTest: XCTestCase {
         adUnit.lastAdView = nil
         XCTAssertFalse(adUnit.isVideoPlaying)
     }
+}
+
+/// Records every call of a fetch completion.
+private final class FetchRecorder {
+    let firstCall = XCTestExpectation(description: "first completion call")
+    let completed: XCTestExpectation
+    private(set) var results: [BidInfo] = []
+    private let expectedCalls: Int
+
+    init(expectedCalls: Int) {
+        self.expectedCalls = expectedCalls
+        completed = XCTestExpectation(description: "completion called \(expectedCalls) time(s)")
+    }
+
+    func record(_ bidInfo: BidInfo) {
+        results.append(bidInfo)
+
+        if results.count == 1 {
+            firstCall.fulfill()
+        }
+        if results.count == expectedCalls {
+            completed.fulfill()
+        }
+        if results.count > expectedCalls {
+            XCTFail("Unexpected completion call with \(bidInfo.resultCode.name())")
+        }
+    }
+}
+
+/// A connection that answers `responses` at once, then holds the next request until the test
+/// answers it with `respond(with:in:)`. Holding a request keeps its fetch in progress.
+private final class HeldRequest {
+    private let sent = XCTestExpectation(description: "held bid request sent")
+    private var hasWaitedForSend = false
+    private(set) var connection: MockServerConnection!
+    private var callback: PrebidServerResponseCallback?
+
+    init(after responses: [PrebidServerResponse] = []) {
+        var handlers: [MockServerConnection.PostHandler_NoContentType] = responses.map { response in
+            { (url, data, timeout, callback) in callback(response) }
+        }
+        handlers.append { [weak self] (url, data, timeout, callback) in
+            self?.callback = callback
+            self?.sent.fulfill()
+        }
+        connection = MockServerConnection(onPost: handlers)
+    }
+
+    /// Waits until the held request has been sent. Can be called more than once.
+    func waitUntilSent(in testCase: XCTestCase) {
+        guard !hasWaitedForSend else {
+            return
+        }
+
+        testCase.wait(for: [sent], timeout: 1)
+        hasWaitedForSend = true
+    }
+
+    func respond(with response: PrebidServerResponse, in testCase: XCTestCase) {
+        waitUntilSent(in: testCase)
+        callback?(response)
+    }
+}
+
+/// A mediation delegate whose ad view the test can replace or release.
+private final class ReplaceableAdViewMediationDelegate: PrebidMediationDelegate {
+    var adView: UIView?
+
+    init(adView: UIView?) {
+        self.adView = adView
+    }
+
+    func setUpAdObject(with values: [String: Any]) -> Bool { true }
+    func cleanUpAdObject() {}
+    func getAdView() -> UIView? { adView }
 }

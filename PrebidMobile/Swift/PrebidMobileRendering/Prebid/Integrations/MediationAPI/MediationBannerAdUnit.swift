@@ -32,6 +32,11 @@ public class MediationBannerAdUnit : NSObject {
     var isRefreshStopped = false
     var autoRefreshManager: AutoRefreshManager?
     
+    // The connection and SDK configuration of the last explicit fetch, reused by auto-refresh.
+    // The public fetch methods always pass the shared instances; unit tests pass mocks.
+    private var refreshConnection: PrebidServerConnectionProtocol = PrebidServerConnection.shared
+    private var refreshSDKConfiguration: Prebid = .shared
+    
     var adRequestError: Error?
     
     var adUnitConfig: AdUnitConfig
@@ -174,23 +179,15 @@ public class MediationBannerAdUnit : NSObject {
                 (self?.isAdObjectVisible() == true && self?.isVideoPlaying == false) || self?.adRequestError != nil
             },
             refreshBlock: { [weak self] in
-                guard let self = self,
-                      self.lastAdView != nil,
-                      let completion = self.lastCompletion else {
-                    return
-                }
-                
-                self.fetchDemandBidInfo(
-                    connection: PrebidServerConnection.shared,
-                    sdkConfiguration: Prebid.shared,
-                    targeting: Targeting.shared,
-                    completion: completion
-                )
+                self?.refreshDemand()
             }
         )
     }
 
     /// Makes bid request and setups mediation parameters.
+    ///
+    /// If another fetch for this ad unit, an auto-refresh included, is still in progress, `completion`
+    /// is called at once with `.prebidSDKMisusePreviousFetchNotCompletedYet` and that fetch continues.
     /// - Parameter completion: The completion handler to call when the demand fetch is complete.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
 
@@ -204,6 +201,9 @@ public class MediationBannerAdUnit : NSObject {
     /// the full `BidInfo` (including the winning-bid economics) instead of only the result code.
     ///
     /// With auto-refresh enabled, `completion` is called again on every refresh.
+    ///
+    /// If another fetch for this ad unit, an auto-refresh included, is still in progress, `completion`
+    /// is called at once with `.prebidSDKMisusePreviousFetchNotCompletedYet` and that fetch continues.
     /// - Parameter completion: A closure called with a `BidInfo` object representing the fetched demand.
     public func fetchDemandBidInfo(completion: @escaping (_ bidInfo: BidInfo) -> Void) {
         fetchDemandBidInfo(
@@ -215,8 +215,32 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     /// Stops the auto-refresh for the ad unit.
+    ///
+    /// Cancels the pending refresh. A fetch that is in progress still calls its completion, but does
+    /// not schedule another refresh. `fetchDemand(completion:)` and `fetchDemandBidInfo(completion:)`
+    /// keep working, and the next one turns auto-refresh back on. To turn it back on without
+    /// fetching, call `resumeRefresh()`.
     public func stopRefresh() {
         isRefreshStopped = true
+        autoRefreshManager?.cancelRefreshTimer()
+    }
+    
+    /// Resumes the auto-refresh stopped by `stopRefresh()`.
+    ///
+    /// Schedules the next refresh of the last completed fetch. If no fetch has completed with a
+    /// completion yet, auto-refresh starts with the next one. Has no effect if auto-refresh is not
+    /// stopped.
+    public func resumeRefresh() {
+        guard isRefreshStopped else {
+            return
+        }
+        
+        isRefreshStopped = false
+        
+        // A fetch in progress schedules the refresh itself when it completes.
+        if bidRequester == nil, lastAdView != nil, lastCompletion != nil {
+            autoRefreshManager?.setupRefreshTimer()
+        }
     }
     
     /// Handles the event when the ad object fails to load an ad.
@@ -269,22 +293,59 @@ public class MediationBannerAdUnit : NSObject {
         completion: ((BidInfo) -> Void)?
     ) {
         guard bidRequester == nil else {
-            // Request in progress
+            // The running fetch keeps its own completion and is left alone.
+            Log.warn("The previous fetch for this ad unit has not completed yet. This call is ignored.")
+            deliver(BidInfo(resultCode: .prebidSDKMisusePreviousFetchNotCompletedYet), to: completion)
             return
         }
         
+        // An explicit fetch turns auto-refresh back on after `stopRefresh()`.
+        isRefreshStopped = false
+        refreshConnection = connection
+        refreshSDKConfiguration = sdkConfiguration
+        
+        requestBids(connection: connection,
+                    sdkConfiguration: sdkConfiguration,
+                    targeting: targeting,
+                    completion: completion)
+    }
+    
+    private func refreshDemand() {
+        // A fetch clears the stored completion when it starts, so a tick that finds one in progress
+        // stops here. It is skipped silently: the app's completion only hears about requests that ran.
+        guard !isRefreshStopped,
+              bidRequester == nil,
+              lastAdView != nil,
+              let completion = lastCompletion else {
+            return
+        }
+        
+        requestBids(connection: refreshConnection,
+                    sdkConfiguration: refreshSDKConfiguration,
+                    targeting: Targeting.shared,
+                    completion: completion)
+    }
+    
+    private func requestBids(
+        connection: PrebidServerConnectionProtocol,
+        sdkConfiguration: Prebid,
+        targeting: Targeting,
+        completion: ((BidInfo) -> Void)?
+    ) {
         autoRefreshManager?.cancelRefreshTimer()
-        
-        if isRefreshStopped {
-            return
-        }
-        
-        self.adView = mediationDelegate.getAdView()
-        self.completion = completion
         
         lastAdView = nil
         lastCompletion = nil
         adRequestError = nil
+        
+        guard let adView = mediationDelegate.getAdView() else {
+            Log.error("The mediation delegate returned no ad view, so the bid cannot be attached to it.")
+            deliver(BidInfo(resultCode: .prebidWrongArguments), to: completion)
+            return
+        }
+        
+        self.adView = adView
+        self.completion = completion
         
         mediationDelegate.cleanUpAdObject()
         
@@ -299,11 +360,6 @@ public class MediationBannerAdUnit : NSObject {
             // This point to switch the context to the main thread looks the most accurate.
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                
-                if self.isRefreshStopped {
-                    self.markLoadingFinished()
-                    return
-                }
                 
                 if let response = bidResponse {
                     self.handlePrebidResponse(response: response)
@@ -329,9 +385,16 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     private func handlePrebidResponse(response: BidResponse) {
+        // The ad view is held weakly, so it can be gone by the time the response arrives.
+        guard adView != nil else {
+            Log.error("The ad view was released before the bid response arrived.")
+            completeWithResult(BidInfo.create(resultCode: .prebidWrongArguments, requestId: response.rawResponse?.requestID))
+            return
+        }
+        
         var demandResult = ResultCode.prebidDemandNoBids
         
-        if self.adView != nil, let winningBid = response.winningBid, let targetingInfo = response.targetingInfo {
+        if let winningBid = response.winningBid, let targetingInfo = response.targetingInfo {
             
             var adObjectSetupDictionary: [String: Any] = [
                 PBMMediationConfigIdKey: configID,
@@ -364,19 +427,29 @@ public class MediationBannerAdUnit : NSObject {
     }
 
     private func completeWithResult(_ bidInfo: BidInfo) {
-        defer {
-            markLoadingFinished()
+        let adObject = self.adView
+        let completion = self.completion
+        
+        markLoadingFinished()
+        
+        // Without the ad view there is nothing to refresh, but the call still gets its result.
+        if let adObject, let completion {
+            lastAdView = adObject
+            lastCompletion = completion
+            
+            // A fetch that was in progress when `stopRefresh()` was called does not schedule another refresh.
+            if !isRefreshStopped {
+                autoRefreshManager?.setupRefreshTimer()
+            }
         }
         
-        guard let adObject = self.adView,
-              let completion = self.completion else {
+        deliver(bidInfo, to: completion)
+    }
+    
+    private func deliver(_ bidInfo: BidInfo, to completion: ((BidInfo) -> Void)?) {
+        guard let completion else {
             return
         }
-        
-        lastAdView = adObject
-        lastCompletion = completion
-        
-        autoRefreshManager?.setupRefreshTimer()
         
         DispatchQueue.main.async {
             completion(bidInfo)

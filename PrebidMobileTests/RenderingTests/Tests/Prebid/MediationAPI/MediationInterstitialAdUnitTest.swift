@@ -214,6 +214,41 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         XCTAssertFalse(adObject!.keywords!.contains("hb_pb_appnexus"))
     }
 
+    func testFetchWhileRequestIsInFlightCompletesWithMisuse() {
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate!)
+
+        // A first fetch whose request is held until the test answers it
+        var heldCallback: PrebidServerResponseCallback?
+        let requestSent = XCTestExpectation(description: "held bid request sent")
+        let heldConnection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            heldCallback = callback
+            requestSent.fulfill()
+        }])
+        let runningFetchCompleted = XCTestExpectation(description: "running fetch completed")
+        var runningFetchResults: [BidInfo] = []
+        adUnit.fetchDemandBidInfo(connection: heldConnection,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting)
+        { bidInfo in
+            runningFetchResults.append(bidInfo)
+            runningFetchCompleted.fulfill()
+        }
+
+        let rejected = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+
+        XCTAssertEqual(rejected?.resultCode, .prebidSDKMisusePreviousFetchNotCompletedYet)
+        assertNoBidAttached(rejected)
+        XCTAssertTrue(runningFetchResults.isEmpty, "The running fetch has not been answered yet")
+
+        // The running fetch is left alone and still reports to its own completion
+        wait(for: [requestSent], timeout: 1)
+        heldCallback?(BidResponseTransformer.someValidResponse)
+        wait(for: [runningFetchCompleted], timeout: 1)
+
+        XCTAssertEqual(runningFetchResults.map(\.resultCode), [.prebidDemandFetchSuccess])
+        XCTAssertEqual(adObject?.keywords?.contains("hb_pb:0.10"), true)
+    }
+
     private func fetchBidInfo(_ adUnit: MediationBaseInterstitialAdUnit, response: PrebidServerResponse) -> BidInfo? {
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(response)
