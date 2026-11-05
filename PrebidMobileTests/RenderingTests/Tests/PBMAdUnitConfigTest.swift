@@ -21,6 +21,43 @@ class PBMAdUnitConfigTest: XCTestCase {
     
     let adUnitConfig = AdUnitConfig(configId: "dummy-config-id")
     
+    // `DisplayView` renders from a copy and writes per-bid server values into its video controls,
+    // so the copy must own a separate, complete `VideoControlsConfiguration`.
+    func testCopyOwnsItsVideoControlsConfig() {
+        let controls = adUnitConfig.adConfiguration.videoControlsConfig
+        controls.isMuted = true
+        controls.isSoundButtonVisible = true
+        controls.closeButtonArea = 0.5
+        controls.closeButtonPosition = .topLeft
+        controls.skipButtonArea = 0.3
+        controls.skipButtonPosition = .topRight
+        controls.skipDelay = 7
+        controls.isAutoCloseOnCompletionEnabled = false
+        let serverValues = ORTBAdConfiguration()
+        serverValues.maxVideoDuration = 15
+        controls.initialize(with: serverValues)
+        adUnitConfig.adConfiguration.supportSKOverlay = true
+
+        let clone = adUnitConfig.copy() as? AdUnitConfig
+        let clonedControls = clone?.adConfiguration.videoControlsConfig
+
+        XCTAssertNotNil(clonedControls)
+        XCTAssertFalse(clonedControls === controls, "The clone must not share the ad unit's instance")
+        XCTAssertEqual(clonedControls?.isMuted, true)
+        XCTAssertEqual(clonedControls?.isSoundButtonVisible, true)
+        XCTAssertEqual(clonedControls?.closeButtonArea, 0.5)
+        XCTAssertEqual(clonedControls?.closeButtonPosition, .topLeft)
+        XCTAssertEqual(clonedControls?.skipButtonArea, 0.3)
+        XCTAssertEqual(clonedControls?.skipButtonPosition, .topRight)
+        XCTAssertEqual(clonedControls?.skipDelay, 7)
+        XCTAssertEqual(clonedControls?.isAutoCloseOnCompletionEnabled, false)
+        XCTAssertEqual(clonedControls?.maxVideoDuration, 15)
+        XCTAssertEqual(clone?.adConfiguration.supportSKOverlay, true)
+
+        clonedControls?.isMuted = false
+        XCTAssertTrue(controls.isMuted, "Changing the clone leaves the ad unit alone")
+    }
+
     func testSetRefreshInterval() {
         XCTAssertEqual(adUnitConfig.refreshInterval, 60)
         
@@ -52,6 +89,14 @@ class PBMAdUnitConfigTest: XCTestCase {
         
         adUnitConfig.adConfiguration.winningBidAdFormat = .banner
         XCTAssertEqual(adUnitConfig.refreshInterval, 45)
+    }
+
+    func testCopyKeepsDisabledRefreshInterval() {
+        adUnitConfig.refreshInterval = -1
+        XCTAssertEqual(adUnitConfig.refreshInterval, 0)
+
+        let clone = adUnitConfig.copy() as? AdUnitConfig
+        XCTAssertEqual(clone?.refreshInterval, 0, "A disabled interval must not be clamped up to the minimum on copy")
     }
     
     // MARK: - The Prebid Ad Slot

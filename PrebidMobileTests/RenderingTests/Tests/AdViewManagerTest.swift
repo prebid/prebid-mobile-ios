@@ -45,6 +45,9 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     var adViewManager:AdViewManager!
     var adLoadManager:AdLoadManagerBase!
     var videoCreative: VideoCreative?
+    // Creatives started with a bare `AVPlayer()` never registered their KVO observers, so their
+    // `VideoView.deinit` would throw on removal. Kept alive for the run, like `videoCreative`.
+    private var startedCreatives: [VideoCreative] = []
     var testDisplayView: UIView!
     var adLoadedHandler: (() -> Void)?
     
@@ -359,9 +362,11 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         videoDidResumeExpectation = expectation(description: "Expected a delegate function videoAdDidResume to fire")
 
         let model = CreativeModel(adConfiguration: AdConfiguration())
-        videoCreative = VideoCreative(creativeModel: model,
-                                            transaction: UtilitiesForTesting.createEmptyTransaction(),
-                                            videoData: Data())
+        videoCreative = VideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
         videoCreative?.videoView.avPlayer = AVPlayer()
         videoCreative?.creativeViewDelegate = adViewManager
         
@@ -376,8 +381,43 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
         adViewManager.resume()
         adViewManager.mute()
         adViewManager.unmute()
-        
+
         waitForExpectations(timeout: 0.1)
+    }
+
+    // A muted start is reported to the delegate; a sound-on start is not, since nothing was unmuted.
+    // Any other mute or unmute event fails through `fulfillOrFail` with no expectation set.
+    func testConfiguredMuteStateIsReportedWhenPlaybackStarts() {
+        let mutedConfiguration = AdConfiguration()
+        mutedConfiguration.videoControlsConfig.isMuted = true
+
+        videoDidStartExpectation = expectation(description: "videoAdDidStart for the muted start")
+        videoWasMutedExpectation = expectation(description: "videoAdWasMuted once for the muted start")
+        startPlayback(with: mutedConfiguration)
+        waitForExpectations(timeout: 0.1)
+        XCTAssertEqual(videoCreative?.videoView.avPlayer.isMuted, true)
+
+        videoWasMutedExpectation = nil
+        videoDidStartExpectation = expectation(description: "videoAdDidStart for the sound-on start")
+        startPlayback(with: AdConfiguration())
+        waitForExpectations(timeout: 0.1)
+        XCTAssertEqual(videoCreative?.videoView.avPlayer.isMuted, false)
+    }
+
+    private func startPlayback(with adConfiguration: AdConfiguration) {
+        let model = CreativeModel(adConfiguration: adConfiguration)
+        videoCreative = VideoCreative(
+            creativeModel: model,
+            transaction: UtilitiesForTesting.createEmptyTransaction(),
+            videoData: Data()
+        )
+        videoCreative?.videoView.avPlayer = AVPlayer()
+        videoCreative?.creativeViewDelegate = adViewManager
+        adViewManager.currentCreative = videoCreative
+        adViewManager.adViewManagerDelegate = self
+        videoCreative.map { startedCreatives.append($0) }
+
+        videoCreative?.videoView.startPlayback()
     }
     
     //MARK: AdViewManagerDelegate

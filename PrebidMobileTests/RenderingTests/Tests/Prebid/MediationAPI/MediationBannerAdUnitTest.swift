@@ -156,6 +156,67 @@ class MediationBannerAdUnitTest: XCTestCase {
         XCTAssertEqual(bannerAdUnit.adUnitConfig.adFormats, [.video])
     }
     
+    func testIsMutedIsBackedByVideoControlsConfig() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let videoControlsConfig = bannerAdUnit.adUnitConfig.adConfiguration.videoControlsConfig
+        
+        XCTAssertFalse(bannerAdUnit.isMuted, "Outstream video plays with sound unless the publisher asks otherwise")
+        
+        bannerAdUnit.isMuted = true
+        XCTAssertTrue(bannerAdUnit.isMuted)
+        XCTAssertTrue(videoControlsConfig.isMuted)
+        
+        bannerAdUnit.isMuted = false
+        XCTAssertFalse(videoControlsConfig.isMuted)
+    }
+    
+    func testIsSoundButtonVisibleIsBackedByVideoControlsConfig() {
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        let videoControlsConfig = bannerAdUnit.adUnitConfig.adConfiguration.videoControlsConfig
+        
+        XCTAssertFalse(bannerAdUnit.isSoundButtonVisible, "No mute button unless the publisher asks for one")
+        
+        bannerAdUnit.isSoundButtonVisible = true
+        XCTAssertTrue(bannerAdUnit.isSoundButtonVisible)
+        XCTAssertTrue(videoControlsConfig.isSoundButtonVisible)
+        
+        bannerAdUnit.isSoundButtonVisible = false
+        XCTAssertFalse(videoControlsConfig.isSoundButtonVisible)
+    }
+    
+    // The adapters build a fresh rendering config for every creative, so the video controls
+    // must be handed over with each winning video bid for `isMuted` to hold across refreshes.
+    func testVideoBidHandsVideoControlsConfigToTheAdapter() {
+        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
+            callback(BidResponseTransformer.someValidVideoResponse)
+        }])
+        
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+        adUnit.adFormats = [.banner, .video]
+        adUnit.isMuted = true
+        
+        let asyncExpectation = expectation(description: "fetchDemand executed")
+        
+        adUnit.fetchDemand(connection: connection,
+                           sdkConfiguration: getSDKConfiguration(),
+                           targeting: targeting)
+        { [weak self] result in
+            XCTAssertEqual(result, .prebidDemandFetchSuccess)
+            
+            let resultExtras: [AnyHashable : Any] = self!.adObject!.localExtras!
+            XCTAssertEqual(resultExtras.count, 4)
+            
+            let videoControlsConfig = resultExtras[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration
+            XCTAssertNotNil(videoControlsConfig, "A video bid must carry the video controls to the adapter")
+            XCTAssertTrue(videoControlsConfig === adUnit.adUnitConfig.adConfiguration.videoControlsConfig,
+                          "The ad unit hands over its own config; the renderer copies it for each load")
+            XCTAssertEqual(videoControlsConfig?.isMuted, true)
+            
+            asyncExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 0.1)
+    }
+    
     func testAdObjectSetUpCleanUp() {
        
         //a good response with a bid

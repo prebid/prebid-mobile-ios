@@ -384,6 +384,133 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted == false)
     }
     
+    // An outstream (banner) video is rendered as a plain creative, never through `showAsInterstitial`,
+    // and a refreshed banner is a new creative built from a fresh copy of the ad unit's config. The
+    // configured mute state must apply to each of them, whatever the user did with the previous one.
+    func testConfiguredMuteStateAppliesToEveryOutstreamCreative() {
+        let adConfig = AdConfiguration()
+        adConfig.videoControlsConfig.isMuted = true
+        
+        // First creative
+        displayOutstreamCreative(adConfiguration: adConfig)
+        let firstVideoView: VideoView = self.videoCreative.videoView
+        XCTAssertTrue(firstVideoView.avPlayer.isMuted, "A muted banner video must start muted")
+        
+        // The user turns the sound on: only the creative on screen changes
+        firstVideoView.unmute()
+        XCTAssertFalse(firstVideoView.avPlayer.isMuted)
+        XCTAssertTrue(adConfig.videoControlsConfig.isMuted, "A user action must not rewrite the publisher's setting")
+        
+        // Refresh: a new creative from the same configuration
+        displayOutstreamCreative(adConfiguration: adConfig)
+        XCTAssertTrue(self.videoCreative.videoView !== firstVideoView)
+        XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted, "A refreshed banner video must start muted again")
+        
+        // The publisher turns the sound on for later ads
+        adConfig.videoControlsConfig.isMuted = false
+        displayOutstreamCreative(adConfiguration: adConfig)
+        XCTAssertFalse(self.videoCreative.videoView.avPlayer.isMuted, "The next creative follows the new setting")
+    }
+    
+    // The mute button is created from the configuration when the creative is set up, so it must
+    // show on a refreshed outstream creative as well, and stay away when it is not asked for.
+    func testSoundButtonVisibilityFollowsTheConfigurationForEveryOutstreamCreative() {
+        let adConfig = AdConfiguration()
+        
+        displayOutstreamCreative(adConfiguration: adConfig)
+        XCTAssertNil(muteButton(in: self.videoCreative.videoView), "No mute button by default")
+        
+        adConfig.videoControlsConfig.isSoundButtonVisible = true
+        displayOutstreamCreative(adConfiguration: adConfig)
+        XCTAssertNotNil(muteButton(in: self.videoCreative.videoView), "The next creative shows the mute button")
+        
+        displayOutstreamCreative(adConfiguration: adConfig)
+        XCTAssertNotNil(muteButton(in: self.videoCreative.videoView), "And so does the one after the refresh")
+    }
+    
+    // Regression: the controls were drawn before the player was muted, so a muted creative showed
+    // the "tap to mute" icon over a silent video.
+    func testSoundButtonReflectsTheConfiguredMuteState() {
+        let adConfig = AdConfiguration()
+        adConfig.videoControlsConfig.isMuted = true
+        adConfig.videoControlsConfig.isSoundButtonVisible = true
+        
+        displayOutstreamCreative(adConfiguration: adConfig)
+        let videoView: VideoView = self.videoCreative.videoView
+        
+        XCTAssertTrue(videoView.avPlayer.isMuted)
+        XCTAssertEqual(button(labelled: "pbmUnmute", in: videoView)?.isHidden, false, "A muted video offers to unmute")
+        XCTAssertEqual(button(labelled: "pbmMute", in: videoView)?.isHidden, true)
+        
+        videoView.unmute()
+        XCTAssertEqual(button(labelled: "pbmUnmute", in: videoView)?.isHidden, true)
+        XCTAssertEqual(button(labelled: "pbmMute", in: videoView)?.isHidden, false, "An unmuted video offers to mute")
+    }
+    
+    // Every combination of the two settings, each rendered as a fresh outstream creative from a
+    // configuration that is reused across the cases, the way a refreshing banner reuses it.
+    func testEveryCombinationOfMuteAndSoundButtonSettingsIsApplied() {
+        let adConfig = AdConfiguration()
+        
+        let cases: [(isMuted: Bool, isSoundButtonVisible: Bool)] = [
+            (false, false), (true, false), (false, true), (true, true)
+        ]
+        
+        for testCase in cases {
+            adConfig.videoControlsConfig.isMuted = testCase.isMuted
+            adConfig.videoControlsConfig.isSoundButtonVisible = testCase.isSoundButtonVisible
+            displayOutstreamCreative(adConfiguration: adConfig)
+            
+            let videoView: VideoView = self.videoCreative.videoView
+            let detail = "isMuted=\(testCase.isMuted) isSoundButtonVisible=\(testCase.isSoundButtonVisible)"
+            
+            XCTAssertEqual(videoView.avPlayer.isMuted, testCase.isMuted, "Player mute state: \(detail)")
+            
+            let muteButton = button(labelled: "pbmMute", in: videoView)
+            let unmuteButton = button(labelled: "pbmUnmute", in: videoView)
+            
+            if testCase.isSoundButtonVisible {
+                XCTAssertNotNil(muteButton, "Mute button must exist: \(detail)")
+                XCTAssertNotNil(unmuteButton, "Unmute button must exist: \(detail)")
+                // Exactly one of the two is shown, and it offers the opposite of the current state
+                XCTAssertEqual(muteButton?.isHidden, testCase.isMuted, "Mute button visibility: \(detail)")
+                XCTAssertEqual(unmuteButton?.isHidden, !testCase.isMuted, "Unmute button visibility: \(detail)")
+            } else {
+                XCTAssertNil(muteButton, "No mute button was asked for: \(detail)")
+                XCTAssertNil(unmuteButton, "No unmute button was asked for: \(detail)")
+            }
+        }
+    }
+    
+    private func muteButton(in view: UIView) -> UIView? {
+        button(labelled: "pbmMute", in: view)
+    }
+    
+    private func button(labelled label: String, in view: UIView) -> UIView? {
+        if view.accessibilityLabel == label {
+            return view
+        }
+        for subview in view.subviews {
+            if let button = button(labelled: label, in: subview) {
+                return button
+            }
+        }
+        return nil
+    }
+    
+    private func displayOutstreamCreative(adConfiguration: AdConfiguration) {
+        setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4", adConfiguration: adConfiguration)
+        self.videoCreative.creativeModel.displayDurationInSeconds = 6
+        
+        self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
+        DispatchQueue.main.async {
+            self.videoCreative?.setupView()
+        }
+        self.waitForExpectations(timeout: 10, handler: nil)
+        
+        self.videoCreative?.display(rootViewController: UIViewController())
+    }
+    
     // The data loads through the resource loader but can't be decoded, so the player item fails
     // while the AVPlayer itself can still report readyToPlay.
     func testUndecodableVideoDataFailsCreative() {
