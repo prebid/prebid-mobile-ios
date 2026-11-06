@@ -17,48 +17,6 @@ import Foundation
 
 let OMValidationScript = "<script src=\"http://127.0.0.1:66/omid-validation-verification-script.js\"></script>\n"
 
-
-extension Optional where Wrapped == String {
-
-    /**
-     Trims the `String` according to the provided `CharacterSet`. If the trimmed string is empty,
-     returns `nil`.
-
-     - parameters:
-     - characterSet: The `CharacterSet` to trim from the string. Defaults to `.whitespacesAndNewlines`.
-     */
-    func pbm_trimCharactersToNil(characterSet: CharacterSet = .whitespacesAndNewlines) -> String? {
-        guard let value = self?.trimmingCharacters(in: characterSet) else { return nil }
-        return value.isEmpty ? nil : value
-    }
-
-    /**
-     Converts the `String` to a `TimeInterval` returning 0 (by default) if the conversion fails.
-
-     Will first trim the string according to the `CharacterSet` passed as `charset`, and then
-     attempt to conver the string to a `TimeInterval`. If the conversion fails, will return the
-     `defaultValue`, which defaults to `0`.
-
-     This is helpful when you need to a non-nil value to represent nil.
-
-     - parameters:
-     - characterSet: The `CharacterSet` to trim from the string. Defaults to `.whitespacesAndNewlines`.
-     - defaultValue: The value to return when conversion fails. Defaults to `0`.
-     */
-    func pbm_toTimeInterval(characterSet: CharacterSet = .whitespacesAndNewlines, defaultValue: TimeInterval = 0) -> TimeInterval {
-        if let value = self?.trimmingCharacters(in: characterSet), let timeInterval = TimeInterval(value) {
-            return timeInterval
-        } else {
-            return defaultValue
-        }
-    }
-    
-    func pbm_toDouble(characterSet: CharacterSet = .whitespacesAndNewlines, defaultValue: TimeInterval = 0) -> Double {
-       return self.pbm_toTimeInterval(characterSet: characterSet, defaultValue: defaultValue)
-    }
-    
-}
-
 extension String {
     init?(acjWithHtmlFileName htmlFileName: String, width:Int = 320, height:Int = 50) {
         

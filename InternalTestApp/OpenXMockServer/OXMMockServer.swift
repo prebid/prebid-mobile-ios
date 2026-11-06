@@ -30,51 +30,37 @@ public final class PBMMockServer {
     
     public func getLogs() {
         requestManager.makeRequestWithParsing(method: .get, endpoint: .getLogs())
-            .catch { error -> Empty<Requests, Never> in
-                print(error.localizedDescription)
-                return Empty()
-            }
-            .sink(receiveValue: { _ in
-                
-            })
+            .sink(receiveCompletion: Self.logFailure, receiveValue: { (_: Requests) in })
             .store(in: &cancellables)
     }
-    
+
     public func setRandomNoBids() {
         requestManager.makeRequestWithParsing(method: .post, endpoint: .setRandomNoBids())
-            .catch { error -> Empty<Requests, Never> in
-                print(error.localizedDescription)
-                return Empty()
-            }
-            .sink(receiveValue: { _ in
-            })
+            .sink(receiveCompletion: Self.logFailure, receiveValue: { (_: Requests) in })
             .store(in: &cancellables)
     }
-    
+
     public func cancelRandomNoBids() {
         requestManager.makeRequestWithParsing(method: .get, endpoint: .cancelRandomNoBids())
-            .catch { error -> Empty<Requests, Never> in
-                print(error.localizedDescription)
-                return Empty()
-            }
-            .sink(receiveValue: { _ in
-            })
+            .sink(receiveCompletion: Self.logFailure, receiveValue: { (_: Requests) in })
             .store(in: &cancellables)
     }
-    
+
     public func addMockResponse(auid: String, mock: String, type: ResponseType = .regular) {
         let parameters = ["auid": auid, "mock": mock, "type": type.rawValue]
         requestManager.makeRequestWithParsing(method: .post, endpoint: .addMock(),
                                               parameters: parameters)
-            .catch { error -> Empty<AddMockResponse, Never> in
-                print(error.localizedDescription)
-                return Empty()
-            }
-            .sink(receiveValue: { addMockResponse in
+            .sink(receiveCompletion: Self.logFailure, receiveValue: { (addMockResponse: AddMockResponse) in
                 if addMockResponse.result {
                     print("Success adding mock")
                 }
             })
             .store(in: &cancellables)
+    }
+
+    private static func logFailure(_ completion: Subscribers.Completion<Error>) {
+        if case .failure(let error) = completion {
+            print(error.localizedDescription)
+        }
     }
 }
