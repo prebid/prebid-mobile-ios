@@ -99,7 +99,12 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
         set { adUnitConfig.adConfiguration.videoControlsConfig.skipDelay = newValue }
     }
     
-    /// A Boolean value indicating whether the video controls are muted.
+    /// Whether a video ad starts muted. Defaults to `false`.
+    ///
+    /// Read when each ad is loaded, so a change after loading applies to the next ad. Unmuting
+    /// with the sound button on screen does not change this setting. A server-side `ismuted` in
+    /// the bid response (`ext.prebid.passthrough[].adconfiguration`) overrides this value for that
+    /// ad only. Has no effect on HTML ads.
     public var isMuted: Bool {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
