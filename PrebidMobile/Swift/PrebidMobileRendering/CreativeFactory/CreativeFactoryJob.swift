@@ -184,7 +184,7 @@ final class CreativeFactoryJob: NSObject, CreativeResolutionDelegate {
             return
         }
 
-        let htmlCreative = HTMLCreative(creativeModel: creativeModel, transaction: transaction)
+        let htmlCreative = Factory.HTMLCreativeType.init(creativeModel: creativeModel, transaction: transaction)
         htmlCreative.downloadBlock = createLoader()
         htmlCreative.creativeResolutionDelegate = self
         creative = htmlCreative

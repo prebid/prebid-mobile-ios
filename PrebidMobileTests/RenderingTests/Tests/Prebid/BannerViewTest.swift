@@ -337,6 +337,15 @@ class BannerViewTest: XCTestCase {
     // The copy is only useful if the whole rendering pipeline is built from it: the transaction,
     // the creative and the ad view manager must all hold the copy, never the ad unit's config.
     func testRenderingPipelineIsBuiltFromThePerBidCopy() {
+        // The creative resolves without a web view. In the test runner WebKit's processes can take
+        // longer to launch than the creative factory waits, and this test is about which configuration
+        // the pipeline is built from, not about rendering the markup.
+        let htmlCreativeType = Factory.HTMLCreativeType
+        Factory.HTMLCreativeType = ResolvedHTMLCreative.self
+        addTeardownBlock {
+            Factory.HTMLCreativeType = htmlCreativeType
+        }
+
         let size = CGSize(width: 300, height: 250)
         let config = AdUnitConfig(configId: "configID", size: size)
         config.adConfiguration.videoControlsConfig.isMuted = true
@@ -357,6 +366,7 @@ class BannerViewTest: XCTestCase {
         XCTAssertFalse(rendered === config.adConfiguration, "Sanity: the copy is a different instance")
         XCTAssertTrue(manager.adConfiguration === rendered, "The ad view manager renders from the copy")
         XCTAssertTrue(manager.externalTransaction?.adConfiguration === rendered, "The transaction is built from the copy")
+        XCTAssertTrue(manager.currentCreative is ResolvedHTMLCreative, "Sanity: the creative factory built the creative")
         XCTAssertTrue(manager.currentCreative?.creativeModel.adConfiguration === rendered, "The creative is built from the copy")
         XCTAssertEqual(manager.currentCreative?.creativeModel.adConfiguration?.videoControlsConfig.isMuted, false,
                        "The creative sees the server value")
@@ -708,6 +718,13 @@ private class RecordingDisplayViewLoadingDelegate: NSObject, DisplayViewLoadingD
 
     func displayView(_ displayView: UIView, didFailWithError error: Error) {
         XCTFail("The ad failed to load: \(error)")
+    }
+}
+
+/// An HTML creative that reports itself ready without loading its markup into a web view.
+private final class ResolvedHTMLCreative: HTMLCreative {
+    override func setupView() {
+        onResolutionCompleted()
     }
 }
 
