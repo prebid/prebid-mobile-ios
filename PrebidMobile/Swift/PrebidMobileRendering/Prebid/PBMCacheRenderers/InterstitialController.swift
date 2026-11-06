@@ -19,27 +19,6 @@ class InterstitialController:
     NSObject,
     PrebidMobileInterstitialControllerProtocol {
     
-    var adFormats: Set<AdFormat> {
-        get { adConfiguration.adFormats }
-        set { adConfiguration.adFormats = newValue }
-    }
-    
-    /// Sets an ad unit as a rewarded
-    var isRewarded: Bool {
-        get { adConfiguration.adConfiguration.isRewarded }
-        set { adConfiguration.adConfiguration.isRewarded = newValue }
-    }
-    
-    var videoControlsConfig: VideoControlsConfiguration {
-        get { adConfiguration.adConfiguration.videoControlsConfig }
-        set { adConfiguration.adConfiguration.videoControlsConfig = newValue }
-    }
-    
-    var videoParameters: VideoParameters {
-        get { adConfiguration.adConfiguration.videoParameters }
-        set { adConfiguration.adConfiguration.videoParameters = newValue }
-    }
-    
     weak var loadingDelegate: InterstitialControllerLoadingDelegate?
     weak var interactionDelegate: InterstitialControllerInteractionDelegate?
     
