@@ -166,12 +166,6 @@ class LocationManager: NSObject {
         
         startLocationUpdates()
         
-        // CLLocationManager's `location` property may already contain location data upon
-        // initialization (for example, if the application uses significant location updates).
-        if let existingLocation = internalLocationManager?.location, existingLocation.isValid {
-            location = existingLocation
-        }
-        
         NotificationCenter.default.addObserver(
             forName: UIApplication.didEnterBackgroundNotification,
             object: UIApplication.shared,
