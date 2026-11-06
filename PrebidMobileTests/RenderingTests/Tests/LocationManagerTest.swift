@@ -290,7 +290,6 @@ class MockCLLocationManagerRendering: NSObject, LocationManagerProtocol {
     weak var delegate: CLLocationManagerDelegate?
     var distanceFilter: CLLocationDistance = 0
     var desiredAccuracy: CLLocationAccuracy = 0
-    var location: CLLocation?
     
     static var mock_locationServicesEnabled = false
     static var mock_authorizationStatus = CLAuthorizationStatus.denied
