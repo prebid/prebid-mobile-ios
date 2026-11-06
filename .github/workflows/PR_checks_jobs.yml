@@ -1,0 +1,189 @@
+name: Pull Request Check Jobs
+
+# Called only by PR_checks.yml, which decides whether an event runs these checks.
+# The github context here is the caller's pull_request event.
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+env:
+  # Keep both in sync: XCODE_VERSION keys the package cache.
+  XCODE_VERSION: "26.5"
+  DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
+
+jobs:
+  select:
+    name: Select Checks
+    runs-on: ubuntu-latest
+    outputs:
+      full: ${{ steps.select.outputs.full }}
+      adapters: ${{ steps.changes.outputs.adapters }}
+
+    steps:
+      - name: Select checks for this pull request
+        id: select
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          FULL_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'run-full-tests') }}
+        run: |
+          # Release branches and the run-full-tests label select the full checks.
+          full=false
+          if [[ "$HEAD_REF" == *bump-to* || "$FULL_LABEL" == "true" ]]; then full=true; fi
+          echo "full=$full" >> "$GITHUB_OUTPUT"
+      - name: Detect adapter changes
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            adapters:
+              - 'EventHandlers/**'
+              - 'PrebidMobile/**'
+              - 'PrebidMobile.xcodeproj/**'
+              - 'Frameworks/**'
+              - 'PrebidMobile.xcworkspace/**'
+              - 'scripts/testPrebidMobileAdapters.sh'
+              - 'scripts/resolveDependencies.sh'
+              - 'scripts/simulator.sh'
+              - '.github/workflows/PR_checks.yml'
+              - '.github/workflows/PR_checks_jobs.yml'
+              - '.github/actions/**'
+
+  build:
+    name: Build PrebidMobile Frameworks
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: ./.github/actions/cache-swift-packages
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Build Prebid Mobile Frameworks
+        run: ./scripts/buildPrebidMobile.sh
+      - name: Upload logs on failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-${{ github.run_id }}
+          path: generated/log/prebid_mobile_build.log
+          retention-days: 1
+
+  build-spm-package:
+    name: Build SPM Package
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build SPM Package
+        run: ./scripts/buildPrebidMobilePackage.sh
+
+  verify-spm-demo:
+    name: Verify SPM Consumer Demo
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build consumer against candidate packages
+        run: ./scripts/verifySPM.sh
+
+  build-development-apps:
+    name: Build Demo and Internal Apps
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: ./.github/actions/cache-swift-packages
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Compile apps and test targets
+        run: ./scripts/verifyDevelopmentApps.sh
+      - name: Test development support code
+        run: ./scripts/testDevelopmentSupport.sh
+
+  unit-test-pr:
+    name: Run Quick Unit Tests for Frameworks
+    needs: select
+    if: ${{ needs.select.outputs.full != 'true' }}
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: ./.github/actions/cache-swift-packages
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Run Quick Unit Tests for Frameworks
+        run: ./scripts/testPrebidMobile.sh --latest --quick
+
+  unit-test-full:
+    name: Run All Unit Tests for Frameworks
+    needs: select
+    if: ${{ needs.select.outputs.full == 'true' }}
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: ./.github/actions/cache-swift-packages
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Run All Unit Tests for Frameworks
+        run: ./scripts/testPrebidMobile.sh --latest
+
+  unit-test-adapters:
+    name: Run Unit Tests for Adapters
+    needs: select
+    if: ${{ needs.select.outputs.adapters == 'true' || needs.select.outputs.full == 'true' }}
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: ./.github/actions/cache-swift-packages
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Run Unit Tests for Adapters
+        run: ./scripts/testPrebidMobileAdapters.sh
+
+  run-swift-demo-ui-tests:
+    name: Run Smoke UI Tests - Swift Demo App
+    needs: select
+    if: ${{ needs.select.outputs.full == 'true' }}
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: ./.github/actions/cache-swift-packages
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Run Smoke UI Tests - Swift Demo App
+        run: ./scripts/testPrebidDemo.sh -ui -l
+
+  run-swift-demo-integration-tests:
+    name: Run Integration Tests - Swift Demo App
+    needs: select
+    if: ${{ needs.select.outputs.full == 'true' }}
+    runs-on: macos-26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache Swift packages
+        uses: ./.github/actions/cache-swift-packages
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+      - name: Run Integration Tests - Swift Demo App
+        run: ./scripts/testPrebidDemo.sh -l

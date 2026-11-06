@@ -8,9 +8,9 @@ set -euo pipefail
 # interface that doesn't compile still archives cleanly, and consumers only see the
 # failure once their module cache is empty (#1374).
 #
-# Usage: ./scripts/verifyXCFrameworkInterfaces.sh [output dir]
+# Usage: ./scripts/verifyXCFrameworkInterfaces.sh [output dir] [SourcePackages dir]
 # The output dir defaults to generated/output. Dependencies are looked up in
-# Frameworks/ and Pods/, so run it after the pod install done by buildPrebidMobile.sh.
+# Frameworks/ and SwiftPM artifacts, resolved by buildPrebidMobile.sh.
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -19,6 +19,7 @@ NC='\033[0m' # No Color
 cd "$(dirname "$0")/.."
 
 OUTPUT_DIR="${1:-generated/output}"
+PACKAGES_DIR="${2:-.swiftpm-cache}"
 
 MODULE_CACHE="$(mktemp -d)"
 trap 'rm -rf "$MODULE_CACHE"' EXIT
@@ -36,7 +37,7 @@ sdk_for_slice() {
 xcframeworks=()
 while IFS= read -r xcframework; do
     xcframeworks+=("$xcframework")
-done < <(find "$OUTPUT_DIR" Frameworks Pods -name '*.xcframework' -type d -prune 2>/dev/null || true)
+done < <(find "$OUTPUT_DIR" Frameworks "$PACKAGES_DIR/artifacts" -name '*.xcframework' -type d -prune 2>/dev/null || true)
 
 checked=0
 failed=0

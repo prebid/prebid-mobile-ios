@@ -16,7 +16,6 @@
 import Foundation
 import UIKit
 
-import Eureka
 
 import GoogleMobileAds
 
@@ -24,7 +23,7 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
 
-class AboutViewController : FormViewController {
+class AboutViewController : FormTableViewController {
     
     private let info = [
         ("Components", [
@@ -61,18 +60,12 @@ class AboutViewController : FormViewController {
     }
     
     private func createForm() {
-        for (sectionTitle, frameworks) in info {
-            let section = Section(sectionTitle)
-            form +++ section
-            for (frameworkName, frameworkVersion) in frameworks {
-                section <<< LabelRow() { row in
-                    row.title = frameworkName
-                    row.value = frameworkVersion
-                    row.cellStyle = .subtitle
-                }.cellSetup { cell, row in
-                    cell.detailTextLabel?.accessibilityIdentifier = "\(frameworkName) Version"
-                }
-            }
+        sections = info.map { sectionTitle, frameworks in
+            FormSection(sectionTitle, rows: frameworks.map { frameworkName, frameworkVersion in
+                let row = FormRow(frameworkName, kind: .label, value: frameworkVersion)
+                row.detailIdentifier = "\(frameworkName) Version"
+                return row
+            })
         }
     }
 }
