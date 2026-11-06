@@ -284,6 +284,135 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         XCTAssertEqual(firstAdShows, 1)
         XCTAssertEqual(secondAdShows, 1, "show(from:) after a close must show the next ad")
     }
+
+    // MARK: - Server-side video controls
+
+    // The bid response can carry `ext.prebid.passthrough[].adconfiguration`. Those values belong to
+    // the bid that carries them: the controller applies them to its own copy of the ad unit's config,
+    // so the ad unit keeps whatever the app set and the next ad starts from the app's settings.
+    func testServerSideVideoControlsApplyToTheirBidOnly() {
+        let adUnit = InterstitialRenderingAdUnit(configID: "test")
+        adUnit.isMuted = true
+        adUnit.skipDelay = 5
+
+        // Ad 1: the server asks for sound, a 15 s cap and a 2 s skip delay
+        let soundOn = InterstitialController(
+            bid: makeBid(type: "video", serverControls: makeServerControls(isMuted: false, maxVideoDuration: 15, skipDelay: 2)),
+            adConfiguration: adUnit.adUnitConfig
+        )
+        soundOn.loadAd()
+        XCTAssertEqual(soundOn.renderedVideoControls?.isMuted, false, "ismuted=0 wins over the app's setting for this ad")
+        XCTAssertEqual(soundOn.renderedVideoControls?.maxVideoDuration, 15)
+        XCTAssertEqual(soundOn.renderedVideoControls?.skipDelay, 2)
+        XCTAssertTrue(adUnit.isMuted, "The ad unit keeps the app's value")
+        XCTAssertEqual(adUnit.skipDelay, 5)
+        XCTAssertNil(adUnit.adUnitConfig.adConfiguration.videoControlsConfig.maxVideoDuration,
+                     "Server values never land on the ad unit")
+
+        // Ad 2: no passthrough, so the app's settings are back
+        let noPassthrough = InterstitialController(bid: makeBid(type: "video"), adConfiguration: adUnit.adUnitConfig)
+        noPassthrough.loadAd()
+        XCTAssertEqual(noPassthrough.renderedVideoControls?.isMuted, true, "An ad without a passthrough renders with the app's setting")
+        XCTAssertNil(noPassthrough.renderedVideoControls?.maxVideoDuration, "The previous ad's cap does not carry over")
+        XCTAssertEqual(noPassthrough.renderedVideoControls?.skipDelay, 5, "The previous ad's skip delay does not carry over")
+
+        XCTAssertNil(adUnit.adUnitConfig.adConfiguration.winningBidAdFormat, "Per-bid state stays off the ad unit's config")
+        XCTAssertNil(adUnit.adUnitConfig.adConfiguration.rewardedConfig)
+    }
+
+    func testServerSideIsMutedLeavesTheRewardedAdUnitSettingAlone() {
+        let adUnit = RewardedAdUnit(configID: "test")
+        adUnit.isMuted = false
+
+        let controller = InterstitialController(
+            bid: makeBid(type: "video", serverControls: makeServerControls(isMuted: true)),
+            adConfiguration: adUnit.adUnitConfig
+        )
+        controller.loadAd()
+
+        XCTAssertEqual(controller.renderedVideoControls?.isMuted, true, "ismuted=1 mutes this ad")
+        XCTAssertEqual(controller.renderingConfiguration?.adConfiguration.isRewarded, true, "The copy keeps the ad unit's rewarded flag")
+        XCTAssertFalse(adUnit.isMuted, "The ad unit keeps the app's value")
+    }
+
+    // The copy only helps if the ad is built from it. The VAST loader rejects a creative longer than
+    // the `maxVideoDuration` of the config the transaction factory was given, and the app sets no cap
+    // here, so the rejection shows the factory got the copy with the server's cap. It happens before
+    // any media download, so the test needs no network, web view or video player.
+    func testVideoIsBuiltFromThePerBidCopy() {
+        let adUnit = InterstitialRenderingAdUnit(configID: "test")
+        let bid = makeBid(type: "video", adm: makeVAST(duration: "00:00:30"), serverControls: makeServerControls(maxVideoDuration: 10))
+        let controller = InterstitialController(bid: bid, adConfiguration: adUnit.adUnitConfig)
+        let loadingDelegate = RecordingInterstitialLoadingDelegate()
+        loadingDelegate.failed = expectation(description: "The 30 s creative is rejected")
+        controller.loadingDelegate = loadingDelegate
+
+        controller.loadAd()
+        waitForExpectations(timeout: 5)
+
+        XCTAssertEqual(loadingDelegate.error?.localizedDescription,
+                       "Creative duration is bigger than maximum available playback time obtained from server response.")
+        XCTAssertNil(adUnit.adUnitConfig.adConfiguration.videoControlsConfig.maxVideoDuration,
+                     "The cap stays on the copy")
+    }
+
+    // MARK: - Helpers
+
+    private func makeBid(type: String, adm: String? = nil, serverControls: ORTBAdConfiguration? = nil) -> Bid {
+        let rawBid = ORTBBid<ORTBBidExt>(bidID: "bid-id", impid: "imp-id", price: 0.1)
+        rawBid.adm = adm
+        rawBid.ext = .init()
+        rawBid.ext?.prebid = .init()
+        rawBid.ext?.prebid?.type = type
+        if let serverControls {
+            let passthrough = ORTBExtPrebidPassthrough()
+            passthrough.type = "prebidmobilesdk"
+            passthrough.adConfiguration = serverControls
+            rawBid.ext?.prebid?.passthrough = [passthrough]
+        }
+        return Bid(bid: rawBid)
+    }
+
+    private func makeServerControls(isMuted: Bool? = nil, maxVideoDuration: Int? = nil, skipDelay: Double? = nil) -> ORTBAdConfiguration {
+        let serverControls = ORTBAdConfiguration()
+        serverControls.isMuted = isMuted.map { NSNumber(value: $0) }
+        serverControls.maxVideoDuration = maxVideoDuration.map { NSNumber(value: $0) }
+        serverControls.skipDelay = skipDelay.map { NSNumber(value: $0) }
+        return serverControls
+    }
+
+    private func makeVAST(duration: String) -> String {
+        """
+        <VAST version="3.0"><Ad id="ad"><InLine><AdSystem>Prebid</AdSystem><AdTitle>Video</AdTitle>\
+        <Creatives><Creative><Linear><Duration>\(duration)</Duration><MediaFiles>\
+        <MediaFile delivery="progressive" type="video/mp4" width="640" height="360">https://example.com/video.mp4</MediaFile>\
+        </MediaFiles></Linear></Creative></Creatives></InLine></Ad></VAST>
+        """
+    }
+}
+
+private class RecordingInterstitialLoadingDelegate: NSObject, InterstitialControllerLoadingDelegate {
+    var failed: XCTestExpectation?
+    private(set) var error: Error?
+
+    func interstitialControllerDidLoadAd(_ interstitialController: PrebidMobileInterstitialControllerProtocol) {
+        XCTFail("The ad was expected to fail to load")
+    }
+
+    func interstitialController(
+        _ interstitialController: PrebidMobileInterstitialControllerProtocol,
+        didFailWithError error: Error
+    ) {
+        self.error = error
+        failed?.fulfill()
+    }
+}
+
+private extension InterstitialController {
+    /// The video controls the creative is rendered with, once `loadAd()` has run.
+    var renderedVideoControls: VideoControlsConfiguration? {
+        renderingConfiguration?.adConfiguration.videoControlsConfig
+    }
 }
 
 private class BaseInterstitialDelegate: NSObject, BaseInterstitialAdUnitProtocol {
