@@ -337,28 +337,58 @@ class BannerViewTest: XCTestCase {
     // The copy is only useful if the whole rendering pipeline is built from it: the transaction,
     // the creative and the ad view manager must all hold the copy, never the ad unit's config.
     func testRenderingPipelineIsBuiltFromThePerBidCopy() {
-        // The creative resolves without a web view. In the test runner WebKit's processes can take
-        // longer to launch than the creative factory waits, and this test is about which configuration
-        // the pipeline is built from, not about rendering the markup.
-        let htmlCreativeType = Factory.HTMLCreativeType
-        Factory.HTMLCreativeType = ResolvedHTMLCreative.self
+        // Exercise the real video pipeline with bundled media and no HTML companion, so
+        // configuration propagation does not depend on WebKit process startup.
+        let connection = PrebidServerConnection.shared
+        let originalProtocolClasses = connection.protocolClasses
+        connection.protocolClasses.append(MockServerURLProtocol.self)
+        let mediaURL = "http://get_video/per-bid-copy.mp4"
+        let rule = MockServerRule(urlNeedle: mediaURL,
+                                  mimeType: MockServerMimeType.MP4.rawValue,
+                                  connectionID: connection.internalID,
+                                  fileName: "small.mp4")
+        MockServer.shared.resetRules([rule])
         addTeardownBlock {
-            Factory.HTMLCreativeType = htmlCreativeType
+            connection.protocolClasses = originalProtocolClasses
+            MockServer.shared.reset()
         }
 
         let size = CGSize(width: 300, height: 250)
         let config = AdUnitConfig(configId: "configID", size: size)
         config.adConfiguration.videoControlsConfig.isMuted = true
 
-        // No nurl and no cache targeting, so the markup is delivered without a network call
-        let bid = makeBid(type: "banner", serverIsMuted: false, adm: "<html><div>ad</div></html>")
+        // Inline VAST avoids a markup request; the only media request uses the rule above.
+        let vast = """
+        <VAST version="3.0">
+          <Ad id="per-bid-copy">
+            <InLine>
+              <AdSystem>Prebid Test</AdSystem>
+              <AdTitle>Configuration propagation</AdTitle>
+              <Impression></Impression>
+              <Creatives>
+                <Creative>
+                  <Linear>
+                    <Duration>00:00:06</Duration>
+                    <MediaFiles>
+                      <MediaFile delivery="progressive" type="video/mp4" width="300" height="250">
+                        \(mediaURL)
+                      </MediaFile>
+                    </MediaFiles>
+                  </Linear>
+                </Creative>
+              </Creatives>
+            </InLine>
+          </Ad>
+        </VAST>
+        """
+        let bid = makeBid(type: "video", serverIsMuted: false, adm: vast)
         let displayView = DisplayView(frame: CGRect(origin: .zero, size: size), bid: bid, adConfiguration: config)
         let loadingDelegate = RecordingDisplayViewLoadingDelegate()
         loadingDelegate.loaded = expectation(description: "displayViewDidLoadAd")
         displayView.loadingDelegate = loadingDelegate
 
         displayView.loadAd()
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: Prebid.shared.creativeFactoryTimeoutPreRenderContent + 5)
 
         guard let rendered = displayView.renderedAdConfiguration, let manager = displayView.adViewManager else {
             return XCTFail("Expected the rendering copy and the ad view manager after a successful load")
@@ -366,7 +396,7 @@ class BannerViewTest: XCTestCase {
         XCTAssertFalse(rendered === config.adConfiguration, "Sanity: the copy is a different instance")
         XCTAssertTrue(manager.adConfiguration === rendered, "The ad view manager renders from the copy")
         XCTAssertTrue(manager.externalTransaction?.adConfiguration === rendered, "The transaction is built from the copy")
-        XCTAssertTrue(manager.currentCreative is ResolvedHTMLCreative, "Sanity: the creative factory built the creative")
+        XCTAssertTrue(manager.currentCreative is VideoCreative, "Sanity: the creative factory built the creative")
         XCTAssertTrue(manager.currentCreative?.creativeModel.adConfiguration === rendered, "The creative is built from the copy")
         XCTAssertEqual(manager.currentCreative?.creativeModel.adConfiguration?.videoControlsConfig.isMuted, false,
                        "The creative sees the server value")
@@ -718,13 +748,6 @@ private class RecordingDisplayViewLoadingDelegate: NSObject, DisplayViewLoadingD
 
     func displayView(_ displayView: UIView, didFailWithError error: Error) {
         XCTFail("The ad failed to load: \(error)")
-    }
-}
-
-/// An HTML creative that reports itself ready without loading its markup into a web view.
-private final class ResolvedHTMLCreative: HTMLCreative {
-    override func setupView() {
-        onResolutionCompleted()
     }
 }
 

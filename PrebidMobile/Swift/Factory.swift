@@ -54,17 +54,6 @@ class Factory: NSObject {
         TransactionImpl(serverConnection: serverConnection, adConfiguration: adConfiguration, models: models)
     }
     
-    // MARK: HTMLCreative
-    
-    // The creative `CreativeFactoryJob` builds for display markup.
-#if DEBUG
-    // Exposed for tests: a test can resolve display creatives without loading them into a WKWebView,
-    // whose processes can take longer to launch in the test runner than the creative factory waits.
-    static var HTMLCreativeType: HTMLCreative.Type = HTMLCreative.self
-#else
-    static let HTMLCreativeType: HTMLCreative.Type = HTMLCreative.self
-#endif
-    
     // MARK: ViewExposure
     
     static let ViewExposureType: ViewExposure.Type = ViewExposureImpl.self
