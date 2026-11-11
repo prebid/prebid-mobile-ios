@@ -19,32 +19,12 @@ class InterstitialController:
     NSObject,
     PrebidMobileInterstitialControllerProtocol {
     
-    var adFormats: Set<AdFormat> {
-        get { adConfiguration.adFormats }
-        set { adConfiguration.adFormats = newValue }
-    }
-    
-    /// Sets an ad unit as a rewarded
-    var isRewarded: Bool {
-        get { adConfiguration.adConfiguration.isRewarded }
-        set { adConfiguration.adConfiguration.isRewarded = newValue }
-    }
-    
-    var videoControlsConfig: VideoControlsConfiguration {
-        get { adConfiguration.adConfiguration.videoControlsConfig }
-        set { adConfiguration.adConfiguration.videoControlsConfig = newValue }
-    }
-    
-    var videoParameters: VideoParameters {
-        get { adConfiguration.adConfiguration.videoParameters }
-        set { adConfiguration.adConfiguration.videoParameters = newValue }
-    }
-    
     weak var loadingDelegate: InterstitialControllerLoadingDelegate?
     weak var interactionDelegate: InterstitialControllerInteractionDelegate?
     
     var bid: Bid
     var adConfiguration: AdUnitConfig
+    private(set) var renderingConfiguration: AdUnitConfig?
     var displayProperties: InterstitialDisplayProperties
     
     var transactionFactory: TransactionFactory?
@@ -78,24 +58,21 @@ class InterstitialController:
             return
         }
         
-        adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
-        adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
-        videoControlsConfig.initialize(with: bid.videoAdConfiguration)
-        
-        // This part is dedicating to test server-side ad configurations.
-        // Need to be removed when ext.prebid.passthrough will be available.
-        #if DEBUG
-        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
-        #endif
+        // The bid's values go into a copy, so the ad unit's config keeps the app's settings.
+        let renderingConfiguration = adConfiguration.copy() as! AdUnitConfig
+        renderingConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
+        renderingConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
+        renderingConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.videoAdConfiguration)
+        self.renderingConfiguration = renderingConfiguration
         
         transactionFactory = Factory.createTransactionFactory(
             bid: bid,
-            adConfiguration: adConfiguration,
+            adConfiguration: renderingConfiguration,
             connection: PrebidServerConnection.shared,
             callback: { [weak self] transaction, error in
                 
                 if let transaction = transaction {
-                    self?.display(transaction: transaction)
+                    self?.display(transaction: transaction, configuration: renderingConfiguration)
                 } else {
                     self?.reportFailureWithError(error)
                 }
@@ -140,7 +117,7 @@ class InterstitialController:
         }
     }
     
-    private func display(transaction: Transaction) {
+    private func display(transaction: Transaction, configuration: AdUnitConfig) {
         guard !isExpired else { return }
         
         expirationInterval = transaction.creativeModels.first?.expirationInterval ?? bid.exp
@@ -151,7 +128,7 @@ class InterstitialController:
         )
         adViewManager?.adViewManagerDelegate = self
         adViewManager?.adConfiguration.isInterstitialAd = true
-        adViewManager?.adConfiguration.isRewarded = adConfiguration.adConfiguration.isRewarded
+        adViewManager?.adConfiguration.isRewarded = configuration.adConfiguration.isRewarded
         adViewManager?.handleExternalTransaction(transaction)
     }
     
