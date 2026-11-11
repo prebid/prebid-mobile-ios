@@ -46,11 +46,17 @@ class MAXDisplayRewardedViewController: InterstitialBaseViewController, MAReward
         // 3. Create a MediationRewardedAdUnit
         maxRewardedAdUnit = MediationRewardedAdUnit(
             configId: storedImpDisplayRewarded,
-            mediationDelegate: mediationDelegate
+            mediationDelegate: mediationDelegate,
+            adFormats: [.banner]
         )
         
         // 4. Make a bid request to Prebid Server
         maxRewardedAdUnit.fetchDemand { [weak self] result in
+            PrebidDemoLogger.shared.info("Prebid demand fetch result \(result.name())")
+            if result != .prebidDemandFetchSuccess {
+                PrebidDemoLogger.shared.info("Continuing with MAX waterfall fallback.")
+            }
+            
             // 5. Load the rewarded ad
             self?.maxRewarded.delegate = self
             self?.maxRewarded.load()
