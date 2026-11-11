@@ -246,6 +246,15 @@ class PBMError: NSError, @unchecked Sendable {
                 ])
     }
     
+    static func invalidTargeting(_ reason: String) -> NSError {
+        NSError(domain: Self.errorDomain,
+                code: Self.errorCode(4, forFamily: .integrationLayerErrors),
+                userInfo: [
+                    NSLocalizedDescriptionKey : "The selected bid has no valid targeting keywords: \(reason).",
+                    PrebidConstants.FETCH_DEMAND_RESULT_KEY : ResultCode.prebidDemandInvalidTargeting.rawValue
+                ])
+    }
+    
     static func prebidNoVastTagInMediaData() -> NSError {
         NSError(domain: Self.errorDomain,
                 code: Self.errorCode(3, forFamily: .integrationLayerErrors),

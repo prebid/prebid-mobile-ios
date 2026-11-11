@@ -88,9 +88,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         set { adConfiguration.globalORTBConfig = newValue }
     }
 
-    /// A publisher-supplied strategy for choosing the winning bid. See `PrebidBidSelecting`.
-    public var bidSelector: PrebidBidSelecting?
-
     // MARK: - Public Methods
     
     public convenience init(configId: String) {
@@ -142,7 +139,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.gpid = self.gpid
         clone.adPosition = self.adPosition
         clone.pbAdSlot = self.pbAdSlot
-        clone.bidSelector = self.bidSelector
         
         clone.adConfiguration.impORTBConfig = self.adConfiguration.impORTBConfig
         clone.adConfiguration.globalORTBConfig = self.adConfiguration.globalORTBConfig
@@ -150,6 +146,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.winningBidAdFormat = self.adConfiguration.winningBidAdFormat
         clone.adConfiguration.adFormats = self.adConfiguration.adFormats
         clone.adConfiguration.isOriginalAPI = self.adConfiguration.isOriginalAPI
+        clone.adConfiguration.rendersWithoutAdServer = self.adConfiguration.rendersWithoutAdServer
         clone.adConfiguration.size = self.adConfiguration.size
         clone.adConfiguration.isBuiltInVideo = self.adConfiguration.isBuiltInVideo
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd

@@ -118,9 +118,23 @@ class BidRequesterImpl: NSObject, BidRequester {
                 transformationError = error
             }
 
-            if let bidResponse {
-                bidResponse.applyBidSelector(self.adUnitConfiguration.bidSelector)
+            if let bidResponse, let bidSelector = Registries.bidSelector.typed.active.first {
+                self.completeWithSelectedBid(
+                    in: bidResponse,
+                    selector: bidSelector,
+                    requestDate: requestDate,
+                    requestServerURL: requestServerURL
+                ) { bidResponse, error in
+                    completion(bidResponse, error)
+                    Prebid.shared.callEventDelegateAsync_prebidBidRequestDidFinishWith(
+                        requestData: rtbRequestData,
+                        responseData: serverResponse.rawData
+                    )
+                }
+                return
+            }
 
+            if let bidResponse {
                 // filterOutUncachedBids applies to Original API only. Rendering API renders
                 // creatives directly from the bid's own markup and never depends on Prebid
                 // Cache to display an ad, so a cache failure there is not a demand failure.
@@ -154,6 +168,90 @@ class BidRequesterImpl: NSObject, BidRequester {
                 requestData: rtbRequestData,
                 responseData: serverResponse.rawData
             )
+        }
+    }
+
+    /// Completes the request with the winner that `selector` chooses among the bids the ad unit can use.
+    ///
+    /// The selector is called once, on the main thread, and its decision is final: if it chooses no bid,
+    /// a bid it wasn't given, or a bid without the targeting the ad unit needs, the request completes
+    /// with an error and no bid wins. The SDK's default choice is never used.
+    private func completeWithSelectedBid(
+        in bidResponse: BidResponse,
+        selector: PrebidBidSelecting,
+        requestDate: Date,
+        requestServerURL: String,
+        completion: @escaping (BidResponse?, Error?) -> Void
+    ) {
+        let allBids = bidResponse.allBids ?? []
+        
+        // The same cache requirement as without a selector: filterOutUncachedBids applies to Original API
+        // only, since Rendering API renders the bid's own markup.
+        let requiresServerCache = sdkConfiguration.filterOutUncachedBids
+            && adUnitConfiguration.adConfiguration.isOriginalAPI
+        let eligibleBids = requiresServerCache ? allBids.filter(\.hasSuccessfulServerCache) : allBids
+        
+        if eligibleBids.count < allBids.count {
+            Log.warn("Ignored \(allBids.count - eligibleBids.count) bids without successful Prebid Cache entries.")
+        }
+        
+        guard !eligibleBids.isEmpty else {
+            completion(nil, allBids.isEmpty ? PBMError.noWinningBid() : PBMError.noCachedBids())
+            return
+        }
+        
+        let context = BidSelectionContext(
+            configId: adUnitConfiguration.configId,
+            adFormats: adUnitConfiguration.adConfiguration.adFormats
+        )
+        let requiresAdServerTargeting = !adUnitConfiguration.adConfiguration.rendersWithoutAdServer
+        
+        // Holds self until the selection is done: the owner may release the requester once it gets a response.
+        let select = { [self] in
+            guard let selectedBid = selector.selectBid(from: eligibleBids, context: context) else {
+                Log.info("[\(PluginCapability.bidSelector)] \(selector.pluginInfo) chose no bid.")
+                completion(nil, PBMError.noWinningBid())
+                return
+            }
+            
+            guard eligibleBids.contains(where: { $0 === selectedBid }) else {
+                Log.warn("[\(PluginCapability.bidSelector)] \(selector.pluginInfo) chose a bid that isn't one of the bids it was given. No bid wins.")
+                completion(nil, PBMError.noWinningBid())
+                return
+            }
+            
+            switch SelectedBidTargeting.make(from: selectedBid.targetingInfo ?? [:]) {
+            case .success(let targeting):
+                selectedBid.selectedBidTargetingInfo = targeting
+            case .failure(let failure) where requiresAdServerTargeting:
+                Log.warn("[\(PluginCapability.bidSelector)] The bid that \(selector.pluginInfo) chose has no valid targeting: \(failure.message).")
+                completion(nil, PBMError.invalidTargeting(failure.message))
+                return
+            case .failure:
+                // The ad unit renders the bid itself and doesn't use its targeting
+                break
+            }
+            
+            if requiresAdServerTargeting && !selectedBid.isWinning {
+                let reason = "it lacks one of \(TargetingKey.winningBidMarkers.joined(separator: ", "))"
+                Log.warn("[\(PluginCapability.bidSelector)] The bid that \(selector.pluginInfo) chose has no valid targeting: \(reason).")
+                selectedBid.selectedBidTargetingInfo = nil
+                completion(nil, PBMError.invalidTargeting(reason))
+                return
+            }
+            
+            bidResponse.commitSelectedBid(selectedBid, from: eligibleBids)
+            
+            updateTimeouts(from: bidResponse, requestDate: requestDate, requestServerURL: requestServerURL)
+            applyPassthroughSDKConfiguration(from: bidResponse)
+            
+            completion(bidResponse, nil)
+        }
+        
+        if Thread.isMainThread {
+            select()
+        } else {
+            DispatchQueue.main.async(execute: select)
         }
     }
 

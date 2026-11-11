@@ -16,14 +16,21 @@
 #import <XCTest/XCTest.h>
 #import "SwiftImport.h"
 
-// A plain Objective-C class adopting PrebidBidSelecting, proving the @objc protocol
-// is usable from Objective-C, not just declarable there.
+// A plain Objective-C bid selector, proving that apps written in Objective-C can implement and register one.
 @interface ObjCHighestPriceBidSelector : NSObject <PrebidBidSelecting>
+
+@property (nonatomic, assign) NSInteger registerCount;
+@property (nonatomic, assign) NSInteger unregisterCount;
+
 @end
 
 @implementation ObjCHighestPriceBidSelector
 
-- (Bid * _Nullable)selectBidFrom:(NSArray<Bid *> * _Nonnull)bids {
+- (PrebidPluginInfo *)pluginInfo {
+    return [[PrebidPluginInfo alloc] initWithName:@"com.example.objc-selector" version:@"1.0"];
+}
+
+- (Bid * _Nullable)selectBidFrom:(NSArray<Bid *> * _Nonnull)bids context:(BidSelectionContext * _Nonnull)context {
     Bid *best = nil;
     for (Bid *bid in bids) {
         if (best == nil || bid.price > best.price) {
@@ -33,6 +40,14 @@
     return best;
 }
 
+- (void)onRegister {
+    self.registerCount += 1;
+}
+
+- (void)onUnregister {
+    self.unregisterCount += 1;
+}
+
 @end
 
 @interface PrebidBidSelectingObjCTest : XCTestCase
@@ -40,74 +55,23 @@
 
 @implementation PrebidBidSelectingObjCTest
 
-- (void)setUp {
-    // Hermetic regardless of what other test suites leave in the shared singleton --
-    // isWinning's marker set only includes hb_cache_id when this is true, and these
-    // fixtures deliberately don't set that marker.
-    Prebid.shared.useCacheForReportingWithRenderingAPI = NO;
-}
-
-- (void)testAdoptableAndSettableFromObjC {
+- (void)testRegisterAndUnregisterFromObjC {
     ObjCHighestPriceBidSelector *selector = [[ObjCHighestPriceBidSelector alloc] init];
 
-    AdUnitConfig *config = [[AdUnitConfig alloc] initWithConfigId:@"test-config-id"];
-    config.bidSelector = selector;
+    [Prebid registerPlugin:selector as:PluginCapability.bidSelector];
 
-    XCTAssertEqualObjects(config.bidSelector, selector);
+    XCTAssertTrue([Prebid containsPlugin:selector as:PluginCapability.bidSelector]);
+    XCTAssertEqual(selector.registerCount, 1);
+
+    [Prebid unregisterPlugin:selector as:PluginCapability.bidSelector];
+
+    XCTAssertFalse([Prebid containsPlugin:selector as:PluginCapability.bidSelector]);
+    XCTAssertEqual(selector.unregisterCount, 1);
 }
 
-- (void)testSelectBidCallableFromObjC {
-    ObjCHighestPriceBidSelector *selector = [[ObjCHighestPriceBidSelector alloc] init];
-
-    NSDictionary *markedBid = @{
-        @"id": @"marked-bid",
-        @"impid": @"imp-1",
-        @"price": @0.75,
-        @"adm": @"<html></html>",
-        @"w": @300,
-        @"h": @250,
-        @"ext": @{
-            @"prebid": @{
-                @"targeting": @{@"hb_bidder": @"openx", @"hb_pb": @"0.75"},
-                @"type": @"banner"
-            }
-        }
-    };
-    NSDictionary *unmarkedBid = @{
-        @"id": @"unmarked-bid",
-        @"impid": @"imp-2",
-        @"price": @2.00,
-        @"adm": @"<html></html>",
-        @"w": @300,
-        @"h": @250,
-        @"ext": @{
-            @"prebid": @{
-                @"type": @"banner"
-            }
-        }
-    };
-    NSDictionary *responseDict = @{
-        @"id": @"response-id",
-        @"seatbid": @[
-            @{
-                @"bid": @[markedBid, unmarkedBid],
-                @"seat": @"openx"
-            }
-        ],
-        @"cur": @"USD"
-    };
-
-    BidResponse *bidResponse = [[BidResponse alloc] initWithJsonDictionary:responseDict];
-
-    // Default (no selector): the marker-driven bid wins.
-    XCTAssertEqualWithAccuracy(bidResponse.winningBid.price, 0.75, 0.001);
-
-    [bidResponse applyBidSelector:selector];
-
-    // Once the ObjC-adopted selector is applied, the highest-price (unmarked) bid wins instead --
-    // proving the protocol method is actually invoked, not just adoptable.
-    XCTAssertEqualObjects(bidResponse.bidSelector, selector);
-    XCTAssertEqualWithAccuracy(bidResponse.winningBid.price, 2.00, 0.001);
+- (void)testCapabilityAndResultCodeAreVisibleFromObjC {
+    XCTAssertEqualObjects(PluginCapability.bidSelector.name, @"bidSelector");
+    XCTAssertEqual(ResultCodePrebidDemandInvalidTargeting, 12);
 }
 
 @end

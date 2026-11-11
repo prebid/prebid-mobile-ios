@@ -68,7 +68,7 @@ class SKOverlayInterstitialManager {
                 .values
                 .forEach { [weak self] value in
                     if let bid = Bid.bid(from: value),
-                       let hbUUID = bid.targetingInfo?["hb_uuid"],
+                       let hbUUID = bid.targetingInfo?[TargetingKey.vastCacheId],
                        html.contains(hbUUID) {
                         self?.presentSKOverlay(using: bid, in: adView)
                     }

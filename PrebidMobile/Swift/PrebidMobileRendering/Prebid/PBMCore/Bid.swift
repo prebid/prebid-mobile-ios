@@ -62,9 +62,15 @@ public class Bid: NSObject {
     }
     
     /// Targeting information that needs to be passed to the ad server SDK.
+    ///
+    /// For a bid chosen by a `PrebidBidSelecting` plugin, it also has the generic keys (`hb_pb`,
+    /// `hb_bidder`, ...) that the SDK filled in from the bid's bidder-specific keys.
     public var targetingInfo: [String : String]? {
-        bid.ext?.prebid?.targeting?.compactMapValues { $0 as? String }
+        selectedBidTargetingInfo ?? bid.ext?.prebid?.targeting?.compactMapValues { $0 as? String }
     }
+    
+    /// Set when a bid selector chose this bid. See `SelectedBidTargeting`.
+    var selectedBidTargetingInfo: [String : String]?
     
   /// Targeting information that needs to be passed to the ad server SDK.
     public var meta: [String : Any]? {
@@ -117,18 +123,7 @@ public class Bid: NSObject {
             return false
         }
         
-        var winningBidMarkers = ["hb_pb", "hb_bidder"]
-        
-        if Prebid.shared.useCacheForReportingWithRenderingAPI {
-            winningBidMarkers.append("hb_cache_id")
-        }
-
-        for markerKey in winningBidMarkers {
-            if targetingInfo[markerKey] == nil {
-                return false
-            }
-        }
-        return true
+        return TargetingKey.winningBidMarkers.allSatisfy { targetingInfo[$0] != nil }
     }
     
     public var hasSuccessfulServerCache: Bool {

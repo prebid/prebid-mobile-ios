@@ -56,6 +56,11 @@ import Foundation
     /// The Prebid Server returned bids, but none had successful cache entries.
     /// This is the "all bids filtered" outcome of `Prebid.shared.filterOutUncachedBids`.
     case prebidDemandNoCachedBids = 11
+    
+    /// The bid that the registered `PrebidBidSelecting` plugin chose lacks the targeting keywords the
+    /// ad server needs (`hb_pb` and `hb_bidder`, plus `hb_cache_id` when cache reporting is on), so no
+    /// keywords were attached.
+    case prebidDemandInvalidTargeting = 12
 
     /// The structure of the response received is invalid.
     case prebidInvalidResponseStructure = 1000
@@ -105,6 +110,8 @@ import Foundation
             return "Prebid unknown error occurred"
         case .prebidDemandNoCachedBids:
             return "Prebid Server returned no cached bids"
+        case .prebidDemandInvalidTargeting:
+            return "The selected bid has no valid targeting keywords"
         case .prebidInvalidResponseStructure:
             return "Response structure is invalid"
         case .prebidInternalSDKError:

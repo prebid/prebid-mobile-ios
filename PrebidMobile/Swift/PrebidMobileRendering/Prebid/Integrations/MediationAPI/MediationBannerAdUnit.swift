@@ -123,13 +123,7 @@ public class MediationBannerAdUnit : NSObject {
         get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
-
-    /// A publisher-supplied strategy for choosing the winning bid. See `PrebidBidSelecting`.
-    public var bidSelector: PrebidBidSelecting? {
-        get { adUnitConfig.bidSelector }
-        set { adUnitConfig.bidSelector = newValue }
-    }
-
+    
     // MARK: Arbitrary ORTB Configuration
     
     /// Sets the impression-level OpenRTB configuration string for the ad unit.

@@ -118,12 +118,6 @@ public class BannerView:
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
 
-    /// A publisher-supplied strategy for choosing the winning bid. See `PrebidBidSelecting`.
-    public var bidSelector: PrebidBidSelecting? {
-        get { adUnitConfig.bidSelector }
-        set { adUnitConfig.bidSelector = newValue }
-    }
-
     public weak var delegate: BannerViewDelegate?
     public weak var videoPlaybackDelegate: BannerViewVideoPlaybackDelegate?
     
@@ -188,6 +182,7 @@ public class BannerView:
     ) {
         adUnitConfig = AdUnitConfig(configId: configID, size: adSize)
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
+        adUnitConfig.adConfiguration.rendersWithoutAdServer = eventHandler is BannerEventHandlerStandalone
 
         self.eventHandler = eventHandler
         super.init(frame: frame)

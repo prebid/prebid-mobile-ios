@@ -81,7 +81,9 @@ public class BidInfo: NSObject {
     /// each bid request. It identifies this request, not an auction. `nil` when no response reached
     /// the ad unit: the request failed or timed out, the response did not parse, or
     /// `Prebid.shared.filterOutUncachedBids` removed every bid, which is reported as
-    /// `.prebidDemandNoBids` or `.prebidDemandNoCachedBids` without the response.
+    /// `.prebidDemandNoBids` or `.prebidDemandNoCachedBids` without the response. Also `nil` when the
+    /// registered `PrebidBidSelecting` plugin chose no bid (`.prebidDemandNoBids`) or a bid without the
+    /// keywords the ad server needs (`.prebidDemandInvalidTargeting`).
     public private(set) var requestId: String?
 
     /// Ad id (`adid`) of the attached bid, or `nil` when none was designated.

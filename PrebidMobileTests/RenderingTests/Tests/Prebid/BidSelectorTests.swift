@@ -17,276 +17,520 @@ import XCTest
 
 @testable import PrebidMobile
 
-private final class StubBidSelector: PrebidBidSelecting {
+private final class StubBidSelector: NSObject, PrebidBidSelecting {
+
+    let pluginInfo: PrebidPluginInfo
+
     private let selection: ([Bid]) -> Bid?
 
-    init(_ selection: @escaping ([Bid]) -> Bid?) {
+    private(set) var calls: [(bids: [Bid], context: BidSelectionContext, isMainThread: Bool)] = []
+    private(set) var registerCount = 0
+    private(set) var unregisterCount = 0
+
+    init(name: String = "test-selector", _ selection: @escaping ([Bid]) -> Bid?) {
+        self.pluginInfo = PrebidPluginInfo(name: name, version: "1.0")
         self.selection = selection
     }
 
-    func selectBid(from bids: [Bid]) -> Bid? {
-        selection(bids)
+    func selectBid(from bids: [Bid], context: BidSelectionContext) -> Bid? {
+        calls.append((bids, context, Thread.isMainThread))
+        return selection(bids)
     }
+
+    func onRegister() {
+        registerCount += 1
+    }
+
+    func onUnregister() {
+        unregisterCount += 1
+    }
+}
+
+/// Stands for an ad server event handler, e.g. the GAM one.
+private final class AdServerBannerEventHandler: NSObject, BannerEventHandler {
+    
+    weak var loadingDelegate: BannerEventLoadingDelegate?
+    weak var interactionDelegate: BannerEventInteractionDelegate?
+    
+    var adSizes: [CGSize] = []
+    
+    func requestAd(with bidResponse: BidResponse?) {}
+    
+    func trackImpression() {}
 }
 
 class BidSelectorTests: XCTestCase {
 
+    private let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+
+    private var sdkConfiguration: Prebid!
+
+    override func setUp() {
+        super.setUp()
+
+        sdkConfiguration = Prebid.mock
+        try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)
+        sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
+    }
+
     override func tearDown() {
-        super.tearDown()
-        Targeting.shared.forceSdkToChooseWinner = false
+        sdkConfiguration.filterOutUncachedBids = false
         Prebid.reset()
+
+        super.tearDown()
     }
 
-    // MARK: - Characterization: default (no selector) behavior is unchanged
+    // MARK: - Registration
 
-    func testNoSelectorByDefault_defaultMarkerLogicPicksWinner() {
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: nil)
-        ])
+    func testRegisterAndUnregister() {
+        let selector = StubBidSelector { $0.first }
 
-        XCTAssertNil(bidResponse.bidSelector)
-        XCTAssertNotNil(bidResponse.winningBid)
-        XCTAssertEqual(bidResponse.winningBid?.targetingInfo?["hb_bidder"], "openx")
+        Prebid.register(selector, as: .bidSelector)
+
+        XCTAssertTrue(Prebid.contains(selector, as: .bidSelector))
+        XCTAssertEqual(selector.registerCount, 1)
+
+        Prebid.unregister(selector, as: .bidSelector)
+
+        XCTAssertFalse(Prebid.contains(selector, as: .bidSelector))
+        XCTAssertEqual(selector.unregisterCount, 1)
     }
 
-    func testNoSelectorByDefault_unmarkedBidDoesNotWin() {
-        // A bid with no hb_pb/hb_bidder markers is not treated as winning by the
-        // SDK's default logic, even if its price is higher -- this must remain true
-        // when bidSelector is nil.
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "unmarked", price: 2.00, bidder: nil, cache: nil)
-        ])
+    func testOnlyOneSelectorIsRegistered() {
+        let first = StubBidSelector(name: "first") { $0.first }
+        let second = StubBidSelector(name: "second") { $0.last }
 
-        XCTAssertNil(bidResponse.bidSelector)
-        XCTAssertNil(bidResponse.winningBid)
+        Prebid.register(first, as: .bidSelector)
+        Prebid.register(second, as: .bidSelector)
+
+        XCTAssertTrue(Prebid.contains(first, as: .bidSelector))
+        XCTAssertFalse(Prebid.contains(second, as: .bidSelector), "A second selector is ignored while one is registered")
+        XCTAssertEqual(second.registerCount, 0)
+
+        Prebid.unregister(first, as: .bidSelector)
+        Prebid.register(second, as: .bidSelector)
+
+        XCTAssertTrue(Prebid.contains(second, as: .bidSelector))
     }
 
-    // MARK: - New behavior: selector overrides default marker-driven winner
+    // MARK: - Without a selector
 
-    func testSelectorOverridesDefaultWinner() {
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: nil),
-            Self.bidDictionary(id: "unmarked", price: 2.00, bidder: nil, cache: nil)
-        ])
+    func testWithoutSelectorTheServerWinnerWins() {
+        let response = requestBids(with: [Self.serverWinner, Self.runnerUp])
 
-        // Default: the marker-driven bid wins, even though it's not the highest price.
-        XCTAssertEqual(bidResponse.winningBid?.targetingInfo?["hb_bidder"], "openx")
+        XCTAssertNil(response.error)
+        XCTAssertEqual(response.bidResponse?.winningBid?.price, 0.75)
+        XCTAssertEqual(response.bidResponse?.targetingInfo?["hb_bidder"], "openx")
+        // The losing bid's keys are merged in, as before
+        XCTAssertEqual(response.bidResponse?.targetingInfo?["hb_pb_appnexus"], "2.00")
+    }
 
-        // Selector: always prefer the highest-price bid, regardless of markers.
+    // MARK: - Selection
+
+    func testSelectorChoosesTheWinner() {
         let selector = StubBidSelector { bids in bids.max { $0.price < $1.price } }
-        bidResponse.applyBidSelector(selector)
+        Prebid.register(selector, as: .bidSelector)
 
-        XCTAssertTrue(bidResponse.bidSelector === selector)
-        XCTAssertEqual(bidResponse.winningBid?.price, 2.00)
+        let response = requestBids(with: [Self.serverWinner, Self.runnerUp])
+
+        XCTAssertNil(response.error)
+        XCTAssertEqual(response.bidResponse?.winningBid?.price, 2.00)
+
+        XCTAssertEqual(selector.calls.count, 1, "The selector is called once per auction")
+        XCTAssertEqual(selector.calls.first?.bids.count, 2)
+        XCTAssertTrue(selector.calls.first?.isMainThread ?? false)
+        XCTAssertEqual(selector.calls.first?.context.configId, configId)
+        XCTAssertEqual(selector.calls.first?.context.adFormats, [.banner])
     }
 
-    func testSelectorReturningNil_resultsInNoWinningBid() {
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: nil)
-        ])
+    func testTargetingComesFromTheSelectedBidOnly() {
+        Prebid.register(StubBidSelector { bids in bids.max { $0.price < $1.price } }, as: .bidSelector)
 
-        bidResponse.applyBidSelector(StubBidSelector { _ in nil })
+        let response = requestBids(with: [Self.serverWinner, Self.runnerUp])
+        let targeting = response.bidResponse?.targetingInfo
 
-        XCTAssertNil(bidResponse.winningBid)
+        // The generic keys are filled in from the selected bid's bidder-specific keys
+        XCTAssertEqual(targeting?["hb_pb"], "2.00")
+        XCTAssertEqual(targeting?["hb_bidder"], "appnexus")
+        XCTAssertEqual(targeting?["hb_size"], "320x50")
+        XCTAssertEqual(targeting?["hb_cache_id"], "appnexus-cache-id")
+        XCTAssertEqual(targeting?["hb_cache_host"], "prebid-cache.example.com")
+        XCTAssertEqual(targeting?["hb_cache_path"], "/cache")
+        XCTAssertEqual(targeting?["hb_pb_appnexus"], "2.00")
+
+        // Nothing comes from the server's winner, not even a key the selected bid lacks
+        XCTAssertNil(targeting?["hb_deal"])
+        XCTAssertNil(targeting?["hb_pb_openx"])
+        XCTAssertNil(targeting?["hb_bidder_openx"])
+        XCTAssertNil(targeting?["hb_deal_openx"])
+
+        // Integrations that read the winning bid's own keys (e.g. mediation interstitials) see the same set
+        XCTAssertEqual(response.bidResponse?.winningBid?.targetingInfo, targeting)
+        XCTAssertTrue(response.bidResponse?.winningBid?.isWinning ?? false)
     }
-
-    func testApplyBidSelectorNil_restoresDefaultMarkerLogic() {
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: nil),
-            Self.bidDictionary(id: "unmarked", price: 2.00, bidder: nil, cache: nil)
-        ])
-
-        bidResponse.applyBidSelector(StubBidSelector { bids in bids.max { $0.price < $1.price } })
-        XCTAssertEqual(bidResponse.winningBid?.price, 2.00)
-
-        bidResponse.applyBidSelector(nil)
-
-        XCTAssertNil(bidResponse.bidSelector)
-        XCTAssertEqual(bidResponse.winningBid?.targetingInfo?["hb_bidder"], "openx")
-    }
-
-    // MARK: - Selector takes precedence over Targeting.forceSdkToChooseWinner
 
     func testSelectorTakesPrecedenceOverForceSdkToChooseWinner() {
         Targeting.shared.forceSdkToChooseWinner = true
+        defer { Targeting.shared.forceSdkToChooseWinner = false }
+        Prebid.register(StubBidSelector { bids in bids.max { $0.price < $1.price } }, as: .bidSelector)
 
-        // No bid carries the full marker set, so default logic would report `.prebidDemandNoBids`
-        // via `AdUnit.setUp` once `forceSdkToChooseWinner` is true. A selector should still be
-        // able to pick a winner regardless of that flag.
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "unmarked", price: 2.00, bidder: nil, cache: nil)
-        ])
+        let response = requestBids(with: [Self.serverWinner, Self.runnerUp])
 
-        bidResponse.applyBidSelector(StubBidSelector { bids in bids.first })
-
-        XCTAssertNotNil(bidResponse.winningBid)
-        XCTAssertEqual(bidResponse.winningBid?.price, 2.00)
+        XCTAssertEqual(response.bidResponse?.winningBid?.price, 2.00)
     }
 
-    // MARK: - Selector is consulted again after cache filtering, not bypassed
+    func testSelectorChoosingNoBidEndsTheAuctionWithoutWinner() {
+        Prebid.register(StubBidSelector { _ in nil }, as: .bidSelector)
 
-    func testSelectorConsultedAgainAfterRemoveBidsWithoutSuccessfulCache() {
-        let cache: [String: Any] = ["bids": ["url": "https://prebid-cache/cache?uuid=cache-id", "cacheId": "cache-id"]]
+        let response = requestBids(with: [Self.serverWinner, Self.runnerUp])
 
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: cache),
-            Self.bidDictionary(id: "unmarked", price: 2.00, bidder: nil, cache: cache)
-        ])
-
-        let selector = StubBidSelector { bids in bids.max { $0.price < $1.price } }
-        bidResponse.applyBidSelector(selector)
-        XCTAssertEqual(bidResponse.winningBid?.price, 2.00)
-
-        // Both bids have a successful server cache entry, so neither is removed here --
-        // what matters is that recomputation after filtering still goes through the
-        // selector rather than silently reverting to default marker-driven selection.
-        let removed = bidResponse.removeBidsWithoutSuccessfulCache()
-
-        XCTAssertEqual(removed, 0)
-        XCTAssertTrue(bidResponse.bidSelector === selector)
-        XCTAssertEqual(bidResponse.winningBid?.price, 2.00)
+        XCTAssertNil(response.bidResponse, "The SDK doesn't fall back to the server's winner")
+        XCTAssertEqual(response.error as NSError?, PBMError.noWinningBid() as NSError?)
+        XCTAssertEqual(PBMError.demandResult(from: response.error), .prebidDemandNoBids)
     }
 
-    func testSelectorConsultedAgainAfterRemoveBidsWithoutSuccessfulCache_bidRemoved() {
-        let cache: [String: Any] = ["bids": ["url": "https://prebid-cache/cache?uuid=cache-id", "cacheId": "cache-id"]]
+    func testSelectorChoosingABidItWasNotGivenEndsTheAuctionWithoutWinner() {
+        let staleBid = BidResponse(jsonDictionary: Self.responseDictionary(with: [Self.runnerUp])).allBids![0]
+        Prebid.register(StubBidSelector { _ in staleBid }, as: .bidSelector)
 
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: cache),
-            // This bid has no cache entry and will be filtered out by removeBidsWithoutSuccessfulCache().
-            Self.bidDictionary(id: "unmarked", price: 2.00, bidder: nil, cache: nil)
-        ])
+        let response = requestBids(with: [Self.serverWinner, Self.runnerUp])
 
-        let selector = StubBidSelector { bids in bids.max { $0.price < $1.price } }
-        bidResponse.applyBidSelector(selector)
-        XCTAssertEqual(bidResponse.winningBid?.price, 2.00)
-
-        _ = bidResponse.removeBidsWithoutSuccessfulCache()
-
-        // The higher-price bid is gone; the selector -- still active -- now falls back to
-        // the remaining marker-driven bid, proving it was re-invoked with the filtered set
-        // rather than the response silently keeping the old (now-removed) winner.
-        XCTAssertEqual(bidResponse.allBids?.count, 1)
-        XCTAssertEqual(bidResponse.winningBid?.price, 0.75)
-        XCTAssertEqual(bidResponse.winningBid?.targetingInfo?["hb_bidder"], "openx")
+        XCTAssertNil(response.bidResponse)
+        XCTAssertEqual(response.error as NSError?, PBMError.noWinningBid() as NSError?)
+        XCTAssertNil(staleBid.selectedBidTargetingInfo)
     }
 
-    func testSelectorReturningNilAfterRemoveBidsWithoutSuccessfulCache_noFallbackWinner() {
-        let cache: [String: Any] = ["bids": ["url": "https://prebid-cache/cache?uuid=cache-id", "cacheId": "cache-id"]]
+    func testSelectorIsCalledOnTheMainThreadWhenTheResponseArrivesOnAnotherThread() {
+        let selector = StubBidSelector { $0.first }
+        Prebid.register(selector, as: .bidSelector)
 
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: cache),
-            // This bid has no cache entry and will be filtered out by removeBidsWithoutSuccessfulCache().
-            Self.bidDictionary(id: "unmarked", price: 2.00, bidder: nil, cache: nil)
-        ])
+        let connection = MockServerConnection(onPost: [{ _, _, _, callback in
+            DispatchQueue.global().async {
+                callback(BidResponseTransformer.buildResponse(Self.responseString(with: [Self.serverWinner])))
+            }
+        }])
 
-        // The selector only accepts the uncached bid, so it picks nothing once that bid is gone.
-        bidResponse.applyBidSelector(StubBidSelector { bids in bids.first { $0.price == 2.00 } })
-        XCTAssertEqual(bidResponse.winningBid?.price, 2.00)
+        // The requester's owner keeps it alive until the response arrives
+        let requester = makeRequester(connection: connection)
+        
+        let completed = expectation(description: "requestBids completed")
+        requester.requestBids { bidResponse, error in
+            XCTAssertNotNil(bidResponse)
+            XCTAssertNil(error)
+            completed.fulfill()
+        }
+        waitForExpectations(timeout: 5)
 
-        _ = bidResponse.removeBidsWithoutSuccessfulCache()
-
-        // Without a selector, the highest-price cached bid would be promoted in place of the
-        // filtered winner. The selector's nil is final, so nothing is promoted.
-        XCTAssertEqual(bidResponse.allBids?.count, 1)
-        XCTAssertNil(bidResponse.winningBid)
-        XCTAssertFalse(bidResponse.topBidWasFiltered)
-        XCTAssertNil(bidResponse.targetingInfo?["hb_bidder"])
+        XCTAssertEqual(selector.calls.count, 1)
+        XCTAssertTrue(selector.calls.first?.isMainThread ?? false)
     }
 
-    // MARK: - Selector must not leave stale winner-marker keys in targetingInfo
+    // MARK: - Eligible bids
 
-    func testSelectorPickingUnmarkedBid_doesNotLeakOldWinnerMarkers() {
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: nil),
-            Self.bidDictionary(id: "unmarked", price: 2.00, bidder: nil, cache: nil)
-        ])
+    func testOriginalAPIWithFilterOutUncachedBidsOffersCachedBidsOnly() {
+        sdkConfiguration.filterOutUncachedBids = true
+        let selector = StubBidSelector { $0.first }
+        Prebid.register(selector, as: .bidSelector)
 
-        // Selector picks the unmarked bid, which has no targetingInfo of its own.
-        let selector = StubBidSelector { bids in bids.max { $0.price < $1.price } }
-        bidResponse.applyBidSelector(selector)
+        let response = requestBids(with: [Self.serverWinner, Self.runnerUp], isOriginalAPI: true)
 
-        XCTAssertEqual(bidResponse.winningBid?.price, 2.00)
-        // The "marked" bid is no longer the winner -- its hb_bidder/hb_pb markers must not
-        // survive into the merged targetingInfo, or the ad server would be targeted with a
-        // different bid than the one `winningBid` actually reports.
-        XCTAssertNil(bidResponse.targetingInfo?["hb_bidder"])
-        XCTAssertNil(bidResponse.targetingInfo?["hb_pb"])
+        // The server's winner has no Prebid Cache entry, so the selector never sees it
+        XCTAssertEqual(selector.calls.first?.bids.count, 1)
+        XCTAssertEqual(selector.calls.first?.bids.first?.price, 2.00)
+        XCTAssertEqual(response.bidResponse?.winningBid?.price, 2.00)
+        XCTAssertEqual(response.bidResponse?.allBids?.count, 1)
+        XCTAssertFalse(response.bidResponse?.topBidWasFiltered ?? true)
     }
 
-    func testDefaultLogic_stillReportsWinnerMarkers() {
-        // Characterization: when no selector is active, the actual winner's own markers
-        // must still flow through untouched -- the leak fix only strips markers from bids
-        // that are *not* the winner.
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: nil)
-        ])
+    func testNoCachedBidPromotionWhenTheSelectorChoosesNoBid() {
+        sdkConfiguration.filterOutUncachedBids = true
+        Prebid.register(StubBidSelector { _ in nil }, as: .bidSelector)
 
-        XCTAssertEqual(bidResponse.targetingInfo?["hb_bidder"], "openx")
-        XCTAssertEqual(bidResponse.targetingInfo?["hb_pb"], "0.75")
+        let response = requestBids(with: [Self.serverWinner, Self.runnerUp], isOriginalAPI: true)
+
+        XCTAssertNil(response.bidResponse, "The cached runner-up is not promoted in place of the selector's decision")
+        XCTAssertEqual(response.error as NSError?, PBMError.noWinningBid() as NSError?)
     }
 
-    // MARK: - Selector must not be able to hand back a bid that isn't in the provided array
+    func testSelectorIsNotCalledWhenNoBidIsCached() {
+        sdkConfiguration.filterOutUncachedBids = true
+        let selector = StubBidSelector { $0.first }
+        Prebid.register(selector, as: .bidSelector)
 
-    func testSelectorReturningForeignBid_isRejected() {
-        // A bid from an entirely separate response -- e.g. one a publisher's selector
-        // implementation retained from a previous auction -- must never become the winner.
-        let staleResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "stale", price: 5.00, bidder: "stale_bidder", cache: nil)
-        ])
-        let staleBid = staleResponse.allBids![0]
+        let response = requestBids(with: [Self.serverWinner], isOriginalAPI: true)
 
-        let bidResponse = Self.makeBidResponse([
-            Self.bidDictionary(id: "marked", price: 0.75, bidder: "openx", cache: nil)
-        ])
+        XCTAssertTrue(selector.calls.isEmpty)
+        XCTAssertEqual(response.error as NSError?, PBMError.noCachedBids() as NSError?)
+    }
 
-        bidResponse.applyBidSelector(StubBidSelector { _ in staleBid })
+    func testRenderingAPIHasNoServerCacheRequirement() {
+        sdkConfiguration.filterOutUncachedBids = true
+        let selector = StubBidSelector { $0.first }
+        Prebid.register(selector, as: .bidSelector)
 
-        XCTAssertNil(bidResponse.winningBid)
-        XCTAssertNil(bidResponse.targetingInfo?["hb_bidder"])
+        let response = requestBids(with: [Self.serverWinner, Self.runnerUp], isOriginalAPI: false)
+
+        XCTAssertEqual(selector.calls.first?.bids.count, 2)
+        XCTAssertEqual(response.bidResponse?.winningBid?.price, 0.75)
+    }
+
+    // MARK: - Targeting validation
+
+    func testBidWithoutWinnerKeysIsInvalidForAnAdServer() {
+        Prebid.register(StubBidSelector { bids in bids.first { $0.price == 3.00 } }, as: .bidSelector)
+
+        let response = requestBids(with: [Self.serverWinner, Self.bidWithoutTargeting])
+
+        XCTAssertNil(response.bidResponse)
+        XCTAssertEqual(PBMError.demandResult(from: response.error), .prebidDemandInvalidTargeting)
+    }
+
+    func testCacheIdIsRequiredWhenCacheReportingIsOn() {
+        Prebid.shared.useCacheForReportingWithRenderingAPI = true
+        // The server's winner has no hb_cache_id
+        Prebid.register(StubBidSelector { $0.first }, as: .bidSelector)
+
+        let response = requestBids(with: [Self.serverWinner])
+
+        XCTAssertNil(response.bidResponse)
+        XCTAssertEqual(PBMError.demandResult(from: response.error), .prebidDemandInvalidTargeting)
+    }
+
+    func testBidWithoutTargetingWinsWhenRenderedWithoutAnAdServer() {
+        Prebid.register(StubBidSelector { bids in bids.first { $0.price == 3.00 } }, as: .bidSelector)
+
+        let response = requestBids(with: [Self.serverWinner, Self.bidWithoutTargeting], rendersWithoutAdServer: true)
+
+        XCTAssertNil(response.error)
+        XCTAssertEqual(response.bidResponse?.winningBid?.price, 3.00)
+        XCTAssertNil(response.bidResponse?.targetingInfo, "The server winner's keys are not used")
+    }
+
+    func testRenderingAdUnitsWithoutAnAdServerAreMarked() {
+        let standaloneBanner = BannerView(frame: .zero, configID: configId, adSize: CGSize(width: 320, height: 50))
+        let gamBanner = BannerView(
+            frame: .zero,
+            configID: configId,
+            adSize: CGSize(width: 320, height: 50),
+            eventHandler: AdServerBannerEventHandler()
+        )
+        let standaloneInterstitial = InterstitialRenderingAdUnit(configID: configId)
+        let standaloneRewarded = RewardedAdUnit(configID: configId)
+
+        XCTAssertTrue(standaloneBanner.adUnitConfig.adConfiguration.rendersWithoutAdServer)
+        XCTAssertFalse(gamBanner.adUnitConfig.adConfiguration.rendersWithoutAdServer)
+        XCTAssertTrue(standaloneInterstitial.adUnitConfig.adConfiguration.rendersWithoutAdServer)
+        XCTAssertTrue(standaloneRewarded.adUnitConfig.adConfiguration.rendersWithoutAdServer)
+        XCTAssertTrue((standaloneBanner.adUnitConfig.copy() as! AdUnitConfig).adConfiguration.rendersWithoutAdServer)
+    }
+
+    // MARK: - Selected bid targeting
+
+    func testServerWinnerKeepsItsKeys() {
+        let targeting = [
+            "hb_pb": "0.75", "hb_bidder": "openx", "hb_size": "300x250",
+            "hb_pb_openx": "0.75", "hb_bidder_openx": "openx", "hb_size_openx": "300x250",
+        ]
+
+        XCTAssertEqual(try SelectedBidTargeting.make(from: targeting).get(), targeting)
+    }
+
+    func testGenericKeysAreFilledInFromBidderSpecificKeys() {
+        let targeting = [
+            "hb_pb_rubicon": "1.20",
+            "hb_bidder_rubicon": "rubicon",
+            "hb_size_rubicon": "300x250",
+            "hb_format_rubicon": "video",
+            "hb_deal_rubicon": "deal-1",
+            "hb_cache_id_rubicon": "cache-1",
+            "hb_uuid_rubicon": "uuid-1",
+            "hb_cache_host_rubico": "prebid-cache.example.com",
+            "hb_cache_path_rubico": "/cache",
+            "hb_env_rubicon": "mobile-app",
+        ]
+
+        let result = try? SelectedBidTargeting.make(from: targeting).get()
+
+        XCTAssertEqual(result, targeting.merging([
+            "hb_pb": "1.20",
+            "hb_bidder": "rubicon",
+            "hb_size": "300x250",
+            "hb_format": "video",
+            "hb_deal": "deal-1",
+            "hb_cache_id": "cache-1",
+            "hb_uuid": "uuid-1",
+            "hb_cache_host": "prebid-cache.example.com",
+            "hb_cache_path": "/cache",
+            "hb_env": "mobile-app",
+        ]) { $1 })
+    }
+
+    func testBidderAliasResolvesToItsOwnKeys() {
+        let targeting = [
+            "hb_pb_appnexus2": "1.50",
+            "hb_bidder_appnexus2": "appnexus2",
+        ]
+
+        let result = try? SelectedBidTargeting.make(from: targeting).get()
+
+        XCTAssertEqual(result?["hb_bidder"], "appnexus2")
+        XCTAssertEqual(result?["hb_pb"], "1.50")
+    }
+
+    func testTruncatedBidderSpecificKeysAreResolved() {
+        // Prebid Server truncates keys to 20 characters by default
+        let targeting = [
+            "hb_bidder_averylongb": "averylongbidder",
+            "hb_pb_averylongbidde": "0.50",
+            "hb_cache_id_averylon": "cache-1",
+        ]
+
+        let result = try? SelectedBidTargeting.make(from: targeting).get()
+
+        XCTAssertEqual(result?["hb_bidder"], "averylongbidder")
+        XCTAssertEqual(result?["hb_pb"], "0.50")
+        XCTAssertEqual(result?["hb_cache_id"], "cache-1")
+    }
+
+    func testKeysOfOtherFamiliesAreNotMistakenForAKey() {
+        let targeting = [
+            "hb_bidder_openx": "openx",
+            "hb_pb_cat_dur_openx": "1.00_food_30s",
+        ]
+
+        let result = try? SelectedBidTargeting.make(from: targeting).get()
+
+        XCTAssertEqual(result?["hb_bidder"], "openx")
+        XCTAssertNil(result?["hb_pb"])
+    }
+
+    func testBidWithoutBidderKeysIsLeftAsIs() {
+        let targeting = ["custom_key": "value"]
+
+        XCTAssertEqual(try SelectedBidTargeting.make(from: targeting).get(), targeting)
+    }
+
+    func testSeveralBiddersAreAmbiguous() {
+        let targeting = [
+            "hb_bidder_openx": "openx",
+            "hb_bidder_rubicon": "rubicon",
+        ]
+
+        XCTAssertEqual(
+            SelectedBidTargeting.make(from: targeting),
+            .failure(.ambiguousBidder(codes: ["openx", "rubicon"]))
+        )
+    }
+
+    func testSeveralTruncatedFormsOfAKeyAreAmbiguous() {
+        let targeting = [
+            "hb_bidder_appnexus": "appnexus",
+            "hb_pb_appn": "1.00",
+            "hb_pb_appnex": "2.00",
+        ]
+
+        XCTAssertEqual(
+            SelectedBidTargeting.make(from: targeting),
+            .failure(.ambiguousKey("hb_pb", candidates: ["hb_pb_appn", "hb_pb_appnex"]))
+        )
     }
 
     // MARK: - Helpers
 
-    private static func makeBidResponse(_ bidDictionaries: [[String: Any]]) -> BidResponse {
-        BidResponse(jsonDictionary: [
-            "id": "response-id",
-            "seatbid": [
-                [
-                    "bid": bidDictionaries,
-                    "seat": "openx"
-                ]
-            ],
-            "cur": "USD"
-        ])
+    private typealias Response = (bidResponse: BidResponse?, error: Error?)
+
+    private func makeRequester(
+        connection: PrebidServerConnectionProtocol,
+        isOriginalAPI: Bool = false,
+        rendersWithoutAdServer: Bool = false
+    ) -> BidRequester {
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        adUnitConfig.adConfiguration.isOriginalAPI = isOriginalAPI
+        adUnitConfig.adConfiguration.rendersWithoutAdServer = rendersWithoutAdServer
+
+        return Factory.createBidRequester(
+            connection: connection,
+            sdkConfiguration: sdkConfiguration,
+            targeting: Targeting.shared,
+            adUnitConfiguration: adUnitConfig
+        )
     }
 
-    private static func bidDictionary(
+    private func requestBids(
+        with bids: [[String: Any]],
+        isOriginalAPI: Bool = false,
+        rendersWithoutAdServer: Bool = false
+    ) -> Response {
+        let connection = MockServerConnection(onPost: [{ _, _, _, callback in
+            callback(BidResponseTransformer.buildResponse(Self.responseString(with: bids)))
+        }])
+
+        var response: Response = (nil, nil)
+        let completed = expectation(description: "requestBids completed")
+
+        makeRequester(
+            connection: connection,
+            isOriginalAPI: isOriginalAPI,
+            rendersWithoutAdServer: rendersWithoutAdServer
+        ).requestBids { bidResponse, error in
+            response = (bidResponse, error)
+            completed.fulfill()
+        }
+        waitForExpectations(timeout: 5)
+
+        return response
+    }
+
+    /// The winner Prebid Server picked: generic and bidder-specific keys, a deal, no Prebid Cache entry.
+    private static let serverWinner: [String: Any] = bid(id: "openx-bid", price: 0.75, targeting: [
+        "hb_pb": "0.70", "hb_bidder": "openx", "hb_size": "300x250", "hb_deal": "openx-deal",
+        "hb_pb_openx": "0.70", "hb_bidder_openx": "openx", "hb_size_openx": "300x250", "hb_deal_openx": "openx-deal",
+    ])
+
+    /// A higher bid that Prebid Server didn't pick: bidder-specific keys only, with a Prebid Cache entry.
+    private static let runnerUp: [String: Any] = bid(id: "appnexus-bid", price: 2.00, targeting: [
+        "hb_pb_appnexus": "2.00",
+        "hb_bidder_appnexus": "appnexus",
+        "hb_size_appnexus": "320x50",
+        "hb_cache_id_appnexus": "appnexus-cache-id",
+        "hb_cache_host_appnex": "prebid-cache.example.com",
+        "hb_cache_path_appnex": "/cache",
+    ], cache: ["bids": ["url": "https://prebid-cache.example.com/cache?uuid=appnexus-cache-id", "cacheId": "appnexus-cache-id"]])
+
+    /// A bid without any targeting keys.
+    private static let bidWithoutTargeting: [String: Any] = bid(id: "no-targeting-bid", price: 3.00, targeting: nil)
+
+    private static func bid(
         id: String,
         price: Double,
-        bidder: String?,
-        cache: [String: Any]?
+        targeting: [String: String]?,
+        cache: [String: Any]? = nil
     ) -> [String: Any] {
         var prebid: [String: Any] = ["type": "banner"]
-
-        if let bidder {
-            prebid["targeting"] = [
-                "hb_bidder": bidder,
-                "hb_pb": "\(NSString(format: "%4.2f", price))"
-            ]
-        }
-
-        if let cache {
-            prebid["cache"] = cache
-        }
+        prebid["targeting"] = targeting
+        prebid["cache"] = cache
 
         return [
-            "id": "test-bid-id-\(id)",
-            "impid": "test-imp-id-\(id)",
+            "id": id,
+            "impid": "imp-id",
             "price": price,
             "adm": "<html></html>",
-            "w": 300,
-            "h": 250,
-            "ext": ["prebid": prebid]
+            "w": 320,
+            "h": 50,
+            "ext": ["prebid": prebid],
         ]
+    }
+
+    private static func responseDictionary(with bids: [[String: Any]]) -> [String: Any] {
+        [
+            "id": "response-id",
+            "seatbid": [["bid": bids, "seat": "prebid"]],
+            "cur": "USD",
+        ]
+    }
+
+    private static func responseString(with bids: [[String: Any]]) -> String {
+        let data = try! JSONSerialization.data(withJSONObject: responseDictionary(with: bids))
+        return String(data: data, encoding: .utf8)!
     }
 }

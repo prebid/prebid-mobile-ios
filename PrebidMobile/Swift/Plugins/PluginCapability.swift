@@ -28,6 +28,12 @@ public final class PluginCapability: NSObject {
     /// whatever its version.
     public static let renderer = PluginCapability(registry: Registries.renderer)
     
+    /// Bid selectors: objects that implement `PrebidBidSelecting`.
+    ///
+    /// Selectors are identified by `pluginInfo`, i.e. name and version. At most one selector is registered
+    /// at a time: while one is registered, registering another is ignored. Unregister the current one first.
+    public static let bidSelector = PluginCapability(registry: Registries.bidSelector)
+    
     /// The capability name, used in logs.
     public let name: String
     
@@ -51,6 +57,14 @@ enum Registries {
     static let renderer = TypedPluginRegistry<any PrebidMobilePluginRenderer>(PluginRegistry(
         name: "renderer",
         identify: { PrebidPluginInfo(name: $0.name, version: "") }
+    ))
+    
+    static let bidSelector = TypedPluginRegistry<any PrebidBidSelecting>(PluginRegistry(
+        name: "bidSelector",
+        identify: { $0.pluginInfo },
+        capacity: 1,
+        onRegister: { $0.onRegister?() },
+        onUnregister: { $0.onUnregister?() }
     ))
 }
 

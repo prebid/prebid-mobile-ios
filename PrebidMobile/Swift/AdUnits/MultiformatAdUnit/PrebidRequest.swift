@@ -28,10 +28,7 @@ public class PrebidRequest: NSObject {
     
     /// A flag that determines whether SKOverlay should be supported for interstitials
     public var supportSKOverlayForInterstitial: Bool = false
-
-    /// A publisher-supplied strategy for choosing the winning bid. See `PrebidBidSelecting`.
-    public var bidSelector: PrebidBidSelecting?
-
+    
     // MARK: - Internal properties
     
     private(set) var bannerParameters: BannerParameters?
