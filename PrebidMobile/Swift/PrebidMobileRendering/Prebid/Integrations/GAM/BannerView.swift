@@ -182,6 +182,7 @@ public class BannerView:
     ) {
         adUnitConfig = AdUnitConfig(configId: configID, size: adSize)
         adUnitConfig.adConfiguration.bannerParameters.api = PrebidConstants.supportedRenderingBannerAPISignals
+        adUnitConfig.adConfiguration.rendersWithoutAdServer = eventHandler is BannerEventHandlerStandalone
 
         self.eventHandler = eventHandler
         super.init(frame: frame)

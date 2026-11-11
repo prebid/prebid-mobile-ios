@@ -78,6 +78,8 @@ class BaseInterstitialAdUnit:
         eventHandler: PrimaryAdRequesterProtocol
     ) {
         adUnitConfig = AdUnitConfig(configId: configID)
+        adUnitConfig.adConfiguration.rendersWithoutAdServer = eventHandler is InterstitialEventHandlerStandalone
+            || eventHandler is RewardedEventHandlerStandalone
         blocksLockToken = NSObject()
         
         self.eventHandler = eventHandler

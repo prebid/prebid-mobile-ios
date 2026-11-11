@@ -119,6 +119,19 @@ public class BidResponse: NSObject {
         return removedBids
     }
 
+    /// Makes `bid`, which a bid selector chose from `eligibleBids`, the winner of this response.
+    ///
+    /// Only the eligible bids are kept, and the targeting info is the selected bid's alone: the bids
+    /// that lost contribute no keys.
+    func commitSelectedBid(_ bid: Bid, from eligibleBids: [Bid]) {
+        allBids = eligibleBids
+        topBidWasFiltered = false
+        winningBid = bid
+
+        let targetingInfo = bid.targetingInfo ?? [:]
+        self.targetingInfo = targetingInfo.isEmpty ? nil : targetingInfo
+    }
+
     private func updateWinningBidAndTargetingInfo(from bids: [Bid]) {
         setWinningBid(bids.first(where: { $0.isWinning }), from: bids)
     }

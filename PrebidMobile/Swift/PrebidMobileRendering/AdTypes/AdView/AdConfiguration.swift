@@ -25,6 +25,10 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     var isOriginalAPI = false
     
+    /// Whether the ad unit renders the winning bid itself, with no ad server involved. Such an ad unit
+    /// doesn't need the targeting keywords that ad servers match.
+    var rendersWithoutAdServer = false
+    
     public var adFormats: Set<AdFormat> = [.banner]
     
     /**

@@ -55,8 +55,8 @@ class WinNotifierImpl: NSObject, WinNotifier {
         }
 
         let targeting = bid.targetingInfo ?? [:]
-        let uuidUrl = cacheUrl(fromTargeting: targeting, idKey: "hb_uuid")
-        let cacheUrlValue = cacheUrl(fromTargeting: targeting, idKey: "hb_cache_id")
+        let uuidUrl = cacheUrl(fromTargeting: targeting, idKey: TargetingKey.vastCacheId)
+        let cacheUrlValue = cacheUrl(fromTargeting: targeting, idKey: TargetingKey.cacheId)
 
         var chainedNotifications = adMarkupConsumer
         chainedNotifications = chainNotificationAction(notificationUrl: bid.nurl, onResult: chainedNotifications)
@@ -76,8 +76,8 @@ class WinNotifierImpl: NSObject, WinNotifier {
     }
 
     static func cacheUrl(fromTargeting targeting: [String: String], idKey: String) -> String? {
-        guard let host = targeting["hb_cache_host"],
-              let path = targeting["hb_cache_path"],
+        guard let host = targeting[TargetingKey.cacheHost],
+              let path = targeting[TargetingKey.cachePath],
               let uuid = targeting[idKey] else {
             return nil
         }

@@ -234,7 +234,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
             }
             
             let impressionTrackingPayload = PrebidImpressionTracker.Payload(
-                cacheID: bidResponse.winningBid?.targetingInfo?["hb_cache_id"]
+                cacheID: bidResponse.winningBid?.targetingInfo?[TargetingKey.cacheId]
             )
             
             self.impressionTracker.register(payload: impressionTrackingPayload)

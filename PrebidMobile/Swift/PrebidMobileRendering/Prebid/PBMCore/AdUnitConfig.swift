@@ -146,6 +146,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.winningBidAdFormat = self.adConfiguration.winningBidAdFormat
         clone.adConfiguration.adFormats = self.adConfiguration.adFormats
         clone.adConfiguration.isOriginalAPI = self.adConfiguration.isOriginalAPI
+        clone.adConfiguration.rendersWithoutAdServer = self.adConfiguration.rendersWithoutAdServer
         clone.adConfiguration.size = self.adConfiguration.size
         clone.adConfiguration.isBuiltInVideo = self.adConfiguration.isBuiltInVideo
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd

@@ -48,5 +48,9 @@ extension Prebid {
         Prebid.shared.creativeFactoryTimeoutPreRenderContent = 30.0
         
         Prebid.shared.eventDelegate = nil
+        
+        for bidSelector in Registries.bidSelector.typed.active {
+            Prebid.unregister(bidSelector, as: .bidSelector)
+        }
     }
 }
