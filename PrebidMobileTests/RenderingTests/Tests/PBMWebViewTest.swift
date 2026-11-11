@@ -43,9 +43,9 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     let openxURL = URL(string: "openx.com")!
     
     let testEmptyString = ""
-    let testHTML = "<HTML><body style='margin: 0; padding: 0;'><div id=\"ad\">\n<a href=\"http://openx.com/product/ad-server/\">\n<img src=\"http://i-cdn.openx.com/5a7/5a731840-5ae7-4dca-ba66-6e959bb763e2/93e/93e8623e977d43df87d8c6087142e838.png\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\"></a>\n</div></body></HTML>"
-    let testHTMLMissingOpeningTag = "<body style='margin: 0; padding: 0;'><div id=\"ad\">\n<a href=\"http://openx.com/product/ad-server/\">\n<img src=\"http://i-cdn.openx.com/5a7/5a731840-5ae7-4dca-ba66-6e959bb763e2/93e/93e8623e977d43df87d8c6087142e838.png\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\"></a>\n</div></body></HTML>"
-    let testHTMLMissingClosingTag = "<HTML><body style='margin: 0; padding: 0;'><div id=\"ad\">\n<a href=\"http://openx.com/product/ad-server/\">\n<img src=\"http://i-cdn.openx.com/5a7/5a731840-5ae7-4dca-ba66-6e959bb763e2/93e/93e8623e977d43df87d8c6087142e838.png\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\"></a>\n</div></body>"
+    let testHTML = "<HTML><body style='margin: 0; padding: 0;'><div id=\"ad\">\n<a href=\"http://openx.com/product/ad-server/\">\n<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\"></a>\n</div></body></HTML>"
+    let testHTMLMissingOpeningTag = "<body style='margin: 0; padding: 0;'><div id=\"ad\">\n<a href=\"http://openx.com/product/ad-server/\">\n<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\"></a>\n</div></body></HTML>"
+    let testHTMLMissingClosingTag = "<HTML><body style='margin: 0; padding: 0;'><div id=\"ad\">\n<a href=\"http://openx.com/product/ad-server/\">\n<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\"></a>\n</div></body>"
     
     var expectationWebViewFailed: XCTestExpectation?
     var expectationWebViewReadyToDisplay: XCTestExpectation?
@@ -58,23 +58,31 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     
     private var logToFile: LogToFileLock?
     
-    override func setUp() {
-        super.setUp()
-        PrebidJSLibraryManager.shared.downloadLibraries()
-    }
-    
     override func tearDown() {
         expectationCommandExecuted = nil
         logToFile = nil
         
-        PrebidJSLibraryManager.shared.downloadLibraries()
         super.tearDown()
     }
     
+    private func makeWebView(frame: CGRect = .zero, creativeModel: CreativeModel? = nil,
+                             targeting: Targeting = .shared) -> WebView {
+        let webView = WebView(frame: frame, creativeModel: creativeModel, targeting: targeting)
+        webView.libraryManager = MockPrebidJSLibraryManager.bundledMRAID()
+        return webView
+    }
+
+    private func waitForMRAID(_ webView: WebView) {
+        let ready = expectation(for: NSPredicate { _, _ in
+            webView.mraidState == .defaultState
+        }, evaluatedWith: webView)
+        wait(for: [ready], timeout: 30)
+    }
+
     // MARK: - Test Initial Settings
     
     func testRequiredProperties() {
-        let webView = WebView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let webView = makeWebView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         let webViewConfig = webView.internalWebView.configuration
         
         //MRAID-required properties
@@ -320,7 +328,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testChangeToMRAIDState() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         
         XCTAssertEqual(webView.mraidState, .notEnabled)
         webView.changeToMRAIDState(.defaultState)
@@ -329,7 +337,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     
     // MARK: - Test UIGestureRecognizerDelegate
     func testsGestureRecognizerDelegate() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         
         XCTAssertTrue(webView.gestureRecognizer(UIGestureRecognizer(), shouldRecognizeSimultaneouslyWith:UIGestureRecognizer()))
     }
@@ -360,7 +368,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         logToFile = nil
         logToFile = .init()
         
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
         
         //Fake a tap on the webview
@@ -409,7 +417,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     // MARK: - Test WKNavigationDelegate
     
     func testDecidePolicyForNavigationActionUnprocessingCases(){
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         logToFile = .init()
         
         // Test: no url
@@ -445,7 +453,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testDecidePolicyForNavigationActionMRAIDLink(){
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         expectationWebViewReceivedMRAIDLink = expectation(description: "expectationWebViewShouldOpenMRAID")
@@ -466,7 +474,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testDecidePolicyForNavigationActionExternalLink(){
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         expectationWebViewShouldOpenExternalLink = expectation(description: "expectationWebViewShouldOpenExternal")
@@ -487,7 +495,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testDidFinishNavigationReadyToDisplay() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         XCTAssertNotEqual(webView.state, .loaded)
         
@@ -501,7 +509,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testDidFinishNavigation() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         webView.state = .loaded;
@@ -517,7 +525,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testDidFailNavigation() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         expectationWebViewFailed = expectation(description: "expectationWebViewFailed")
@@ -533,7 +541,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     // MARK: - GestureRecognizer
     
     func testInvokeRecordTapEvent() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         
         // Test: should react only on internal tap recognizer
         XCTAssertFalse(webView.wasRecentlyTapped())
@@ -549,7 +557,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     // MARK: - Test methods
     
     func testExpand() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         XCTAssertEqual(webView.mraidState, .notEnabled)
         
         // TESTS: state must change
@@ -557,19 +565,14 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         let expandedPredicate = NSPredicate { object, _ in (object as? WebView)?.mraidState == .expanded }
         expectation(for: expandedPredicate, evaluatedWith: webView, handler: nil)
         
-        // FIXME: Investigate cause of different webview states per OS version
-        // Older OSes fire [WebView webView:didFinishNavigation:] earlier
-        // than we are expecting.
-        let osVersion = Int(UIDevice.current.systemVersion.split(separator: ".")[0])!
-        let expectedState = (osVersion >= 10) ? WebViewState.loading : WebViewState.loaded
-        let loadingPredicate = NSPredicate { object, _ in (object as? WebView)?.state == expectedState }
-        expectation(for: loadingPredicate, evaluatedWith: webView, handler: nil)
-        
-        webView.expand(openxURL)
-        
-        waitForExpectations(timeout: 10)
+        // A local document avoids external navigation and makes completion observable.
+        let loadedPredicate = NSPredicate { object, _ in (object as? WebView)?.state == .loaded }
+        expectation(for: loadedPredicate, evaluatedWith: webView, handler: nil)
+        webView.expand(URL(string: "data:text/html,<html><body>expanded</body></html>")!)
+        XCTAssertEqual(webView.state, .loading)
+        waitForExpectations(timeout: 30)
     }
-    
+
     func testExpandGlobalQueue() {
         
         class MockWebView: WebView {
@@ -601,7 +604,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testExpandInvalidMRAID() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         XCTAssertEqual(webView.mraidState, .notEnabled)
@@ -618,7 +621,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     // MARK: -  Methods
     
     func testInjectMRAIDForExpandContentEmptyFile() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         
         webView.libraryManager = nil
         
@@ -637,7 +640,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     func testLoadHTMLNil() {
         logToFile = .init()
         
-        let webView = WebView()
+        let webView = makeWebView()
         webView.loadHTML(nil, baseURL: nil, injectMraidJs: false)
         
         let log = Log.getLogFileAsString() ?? ""
@@ -647,7 +650,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testLoadHTMLEmpty() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.loadHTML("", baseURL:nil, injectMraidJs: false)
         
         XCTAssertEqual(webView.mraidState, .notEnabled)
@@ -655,7 +658,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testLoadHTMLValid() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
         
         self.expectationWebViewReadyToDisplay = expectation(description:"expectationWebViewReadyToDisplay")
@@ -670,7 +673,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testLoadHTMLGlobalQueue() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
         
         expectationWebViewReadyToDisplay = expectation(description:"expectationWebViewReadyToDisplay")
@@ -688,7 +691,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testLoadHTMLValidWithMRAID() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
         
         expectationWebViewReadyToDisplay = expectation(description:"expectationWebViewReadyToDisplay")
@@ -700,12 +703,13 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         
         waitForExpectations(timeout: 5, handler: { _ in
             XCTAssertEqual(webView.state, .loaded)
-            XCTAssertEqual(webView.mraidState, .defaultState)
         })
+        waitForMRAID(webView)
+        XCTAssertEqual(webView.mraidState, .defaultState)
     }
     
     func testLoadHTMLValidWithInvalidMRAID() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
         
         expectationWebViewFailed = expectation(description: "expectationWebViewFailed")
@@ -726,7 +730,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     // MARK: - MRAID
     
     func testMRAID_error() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
         
         webView.loadHTML(testHTML, baseURL:nil, injectMraidJs: true)
@@ -743,10 +747,8 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testMRAID_getResizeProperties() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
-        
-        webView.loadHTML(testHTML, baseURL:nil, injectMraidJs: true)
         
         // MRAID.js not yet loaded -- expect nil
         
@@ -759,7 +761,9 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         
         waitForExpectations(timeout: 3)
         
-        // MRAID.js loaded while waiting for the previous expectation -- expect proper result now
+        // Wait explicitly for script injection before reading MRAID properties.
+        webView.loadHTML("<html><body></body></html>", baseURL: nil, injectMraidJs: true)
+        waitForMRAID(webView)
         
         let exp = expectation(description:"expectationResizeProperties")
         
@@ -772,7 +776,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testMRAID_getResizePropertiesError() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
         
         // Do not initialize MRAID
@@ -789,10 +793,8 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testMRAID_getExpandProperties() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
-        
-        webView.loadHTML(testHTML, baseURL:nil, injectMraidJs: true)
         
         // MRAID.js not yet loaded -- expect nil
         
@@ -805,7 +807,9 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         
         waitForExpectations(timeout: 3)
         
-        // MRAID.js loaded while waiting for the previous expectation -- expect proper result now
+        // Wait explicitly for script injection before reading MRAID properties.
+        webView.loadHTML("<html><body></body></html>", baseURL: nil, injectMraidJs: true)
+        waitForMRAID(webView)
         
         let exp = expectation(description:"expectationResizeProperties")
         
@@ -818,7 +822,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testMRAID_getExpandPropertiesError() {
-        let webView = WebView()
+        let webView = makeWebView()
         webView.delegate = self
         
         // Do not initialize MRAID
@@ -845,7 +849,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
         let frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
         
         let targeting = Targeting.shared
-        let webView = WebView(frame: frame, creativeModel: nil, targeting: targeting)
+        let webView = makeWebView(frame: frame, creativeModel: nil, targeting: targeting)
         webView.delegate = self
         
         let window: UIWindow = {
@@ -899,7 +903,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testMRAID_onViewableChangeTrue() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         let commandBlock = {
@@ -915,7 +919,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testMRAID_onExposureChangeTrue() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         let commandBlock = {
@@ -931,7 +935,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testMRAID_updatePlacementType() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         let commandBlock = {
@@ -947,7 +951,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testAudioVolumeChange() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         let volumeKeyPath = "outputVolume"
@@ -968,7 +972,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     func testGetCurrentAppOrientation() {
         let frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
         
-        let webView = WebView(frame: frame)
+        let webView = makeWebView(frame: frame)
         webView.delegate = self
         
         let window: UIWindow = {
@@ -1005,7 +1009,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     // MARK: - Other
     
     func testUIApplicationDidChangeStatusBarOrientationNotification() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         // Prepare
@@ -1029,7 +1033,7 @@ class PBMWebViewTest : XCTestCase, WebViewDelegate {
     }
     
     func testLayoutSubviews() {
-        let webView = WebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
+        let webView = makeWebView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
         webView.delegate = self
         
         let commandBlock = {

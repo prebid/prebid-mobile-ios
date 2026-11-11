@@ -259,7 +259,6 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
             XCTFail("Unexpected request for \(urlRequest)")
         }
         
-        PrebidJSLibraryManager.shared.downloadLibraries()
         
         let serverConnection = PrebidServerConnection()
         serverConnection.protocolClasses.append(MockServerURLProtocol.self)
@@ -269,7 +268,11 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         pbmCreativeModel.displayDurationInSeconds = 30
         pbmCreativeModel.html = "<html>test html</html>"
         
-        self.htmlCreative = MockPBMHTMLCreative(creativeModel:pbmCreativeModel, transaction:UtilitiesForTesting.createEmptyTransaction())
+        let webView = WebView()
+        webView.libraryManager = MockPrebidJSLibraryManager.bundledMRAID()
+        self.htmlCreative = MockPBMHTMLCreative(creativeModel: pbmCreativeModel,
+                                               transaction: UtilitiesForTesting.createEmptyTransaction(),
+                                               webView: webView, sdkConfiguration: Prebid.mock)
         self.htmlCreative.creativeResolutionDelegate = self
         self.htmlCreative.creativeViewDelegate = self
         
@@ -329,17 +332,18 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
     
     func testClickthrough() {
         Functions.application = nil
-        self.expectationDownloadCompleted = self.expectation(description: "expectationCreativeReady")
-        self.expectationCreativeWasClicked = self.expectation(description: "Expected creativeWasClicked to be called")
-        
-        self.htmlCreative.setupView()
-        self.htmlCreative.display(rootViewController:mockViewController)
-        
-        let webView = self.htmlCreative.view as! WebView
-        self.htmlCreative.webView(webView, receivedClickthroughLink:self.clickThroughURL)
-        self.waitForExpectations(timeout: 5, handler: nil)
+        let ready = expectation(description: "expectationCreativeReady")
+        expectationDownloadCompleted = ready
+        htmlCreative.setupView()
+        wait(for: [ready], timeout: 30)
+
+        expectationCreativeWasClicked = expectation(description: "Expected creativeWasClicked to be called")
+        htmlCreative.display(rootViewController: mockViewController)
+        let webView = htmlCreative.view as! WebView
+        htmlCreative.webView(webView, receivedClickthroughLink: clickThroughURL)
+        wait(for: [expectationCreativeWasClicked], timeout: 5)
     }
-    
+
     func testClickthroughOpening() {
         testClickthroughOpening(useExternalBrowser: false)
     }

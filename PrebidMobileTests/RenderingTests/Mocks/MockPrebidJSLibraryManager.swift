@@ -14,6 +14,7 @@
   */
 
 import Foundation
+import XCTest
 
 @testable import PrebidMobile
 
@@ -22,8 +23,21 @@ class MockPrebidJSLibraryManager: PrebidJSLibraryManager {
     var omsdkScript: String?
     var mraidScript: String?
     
+    /// Use the SDK's bundled script without sharing the downloaded library cache.
+    static func bundledMRAID(file: StaticString = #filePath, line: UInt = #line) -> MockPrebidJSLibraryManager {
+        let manager = MockPrebidJSLibraryManager()
+        do {
+            let url = try XCTUnwrap(Bundle(for: WebView.self).url(forResource: "mraid", withExtension: "js"),
+                                    file: file, line: line)
+            manager.mraidScript = try String(contentsOf: url, encoding: .utf8)
+        } catch {
+            XCTFail("Could not load bundled MRAID: \(error)", file: file, line: line)
+        }
+        return manager
+    }
+
     override func getMRAIDLibrary() -> String? {
-        return omsdkScript
+        return mraidScript
     }
     
     override func getOMSDKLibrary() -> String? {
