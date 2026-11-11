@@ -8,7 +8,7 @@ repository does not require CocoaPods, a Podfile, or a generated Pods project.
 
 | Package product | Exact version |
 | --- | --- |
-| GoogleMobileAds | 13.11.0 |
+| GoogleMobileAds | 13.12.0 |
 | GoogleInteractiveMediaAds | 3.33.0 |
 | AppLovinSDK | 13.6.4 |
 | GoogleUserMessagingPlatform (Google dependency) | 3.1.0 |
