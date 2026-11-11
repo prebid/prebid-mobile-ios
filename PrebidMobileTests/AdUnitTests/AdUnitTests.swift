@@ -417,36 +417,43 @@ class AdUnitTests: XCTestCase {
     
     func testFetchDemandResumeAutoRefresh() {
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
-        //given
-        let expectedFetchDemandCount = 2
-        let exception = expectation(description: "\(#function)")
-        exception.expectedFulfillmentCount = expectedFetchDemandCount
-        exception.assertForOverFulfill = false
-        
+        defer { AdUnitSwizzleHelper.toggleCheckRefreshTime() }
+
         Prebid.shared.prebidServerAccountId = "1001"
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.setAutoRefreshMillis(time: 800.0)
-        let testObject: AnyObject = () as AnyObject
-        
+        let requester = MockBidRequester(expectedCalls: [
+            { $0(nil, nil) },
+            { $0(nil, nil) }
+        ])
+        let adUnit = AdUnit(bidRequester: requester, configId: "1001-1",
+                            size: CGSize(width: 300, height: 250), adFormats: [.banner])
+        adUnit.setAutoRefreshMillis(time: 800)
+        defer { adUnit.stopAutoRefresh() }
+
+        let initialFetch = expectation(description: "Initial fetch")
+        let resumedFetch = expectation(description: "Fetch after resuming")
         var fetchDemandCount = 0
-        
-        //when
-        adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
+        adUnit.fetchDemand { [weak adUnit] _ in
             fetchDemandCount += 1
-            exception.fulfill()
+            adUnit?.stopAutoRefresh()
+            if fetchDemandCount == 1 {
+                initialFetch.fulfill()
+            } else {
+                resumedFetch.fulfill()
+            }
         }
-        
-        adUnit.stopAutoRefresh()
-        sleep(1)
+        wait(for: [initialFetch], timeout: 5)
+
+        // Keep the run loop moving while paused, so an incorrectly running timer is observable.
+        let paused = expectation(description: "Paused longer than the refresh interval")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { paused.fulfill() }
+        wait(for: [paused], timeout: 5)
+        XCTAssertEqual(fetchDemandCount, 1)
+
         adUnit.resumeAutoRefresh()
-        
-        waitForExpectations(timeout: 10, handler: nil)
-        AdUnitSwizzleHelper.toggleCheckRefreshTime()
-        
-        //then
-        XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
+        wait(for: [resumedFetch], timeout: 5)
+        XCTAssertEqual(fetchDemandCount, 2)
     }
-    
+
     func testFetchDemandBidsAutoRefresh() {
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
