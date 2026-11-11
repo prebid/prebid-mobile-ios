@@ -350,10 +350,11 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         learnMoreButton.PBMAddBottomRightConstraintsWithMarginSize(CGSize(width: -25.0, height: -25.0))
     }
 
-    private func updateProgressBar() {
+    func updateProgressBar() {
         progressBar?.removeFromSuperview()
+        progressBar = nil
 
-        if !(adConfiguration?.isRewarded ?? false) {
+        if !shouldShowProgressBar() {
             return
         }
 
@@ -375,6 +376,23 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
                                                 marginSize: CGSize(width: 25.0, height: -25.0))
 
         self.progressBar = progressBar
+    }
+
+    private func shouldShowProgressBar() -> Bool {
+        guard let adConfiguration else { return false }
+        let visibilityOverride = adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisibleOverride
+
+        if adConfiguration.isRewarded {
+            // Preserve the SDK's existing behavior: shown by default, opt-out via an explicit override.
+            return visibilityOverride?.boolValue ?? true
+        }
+
+        if adConfiguration.presentAsInterstitial {
+            // Preserve the SDK's existing behavior: hidden by default, opt-in via an explicit override.
+            return visibilityOverride?.boolValue ?? false
+        }
+
+        return false
     }
 
     private func updateWatchAgainButton() {
@@ -623,7 +641,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
             }
         }
 
-        if adConfiguration?.isRewarded ?? false {
+        if shouldShowProgressBar() {
             progressBar?.duration = CGFloat(progressBarDuration.doubleValue)
         }
     }
@@ -860,7 +878,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         let playingTime = CGFloat(CMTimeGetSeconds(currentTime))
         let remainingTime = CGFloat(progressBarDuration.doubleValue) - playingTime
 
-        if adConfiguration?.isRewarded ?? false {
+        if shouldShowProgressBar() {
 
             // Update progress bar
             if remainingTime >= 0 {
@@ -869,6 +887,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
                 if progressBar?.superview != nil {
                     progressBar?.removeFromSuperview()
                 }
+                progressBar = nil
             }
         }
 
