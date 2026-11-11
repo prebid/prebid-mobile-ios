@@ -240,4 +240,98 @@ class PBMVastLoaderCheckForAds : XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
         XCTAssertEqual(firedURL1, "http://response1/noAds?code=900&cb=12345")
     }
+
+    func testNoAdsAfterNestedWrappersRequestsEveryWrapperError() {
+        let first = wrapperVast("http://wrapper/one", errors: [
+            "http://error/one?code=[ERRORCODE]", "http://error/two?code=%5berrorcode%5d", "  "
+        ])
+        let second = wrapperVast("http://wrapper/two", errors: ["http://error/three?code=[ERRORCODE]"])
+        let empty = "<VAST version=\"4.3\"><Error><![CDATA[http://error/empty?code=[ERRORCODE]]]></Error></VAST>"
+
+        assertWrapperRequests(rootXML: first, responses: ["http://wrapper/one": second, "http://wrapper/two": empty],
+                              expectedErrorURLs: ["http://error/one?code=303", "http://error/two?code=303",
+                                                  "http://error/three?code=303", "http://error/empty?code=303"])
+    }
+
+    func testNoAdsWithoutRootErrorStillRequestsWrapperError() {
+        assertWrapperRequests(rootXML: wrapperVast("http://wrapper/one", errors: ["http://error/one?code=[ERRORCODE]"]),
+                              responses: ["http://wrapper/one": "<VAST version=\"4.3\"/>"],
+                              expectedErrorURLs: ["http://error/one?code=303"])
+    }
+
+    func testSuccessfulWrapperDoesNotRequestNoAdErrors() throws {
+        let inlineData = try XCTUnwrap(UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_inline_ad.xml"))
+        assertWrapperRequests(rootXML: wrapperVast("http://wrapper/one", errors: ["http://error/one?code=[ERRORCODE]"]),
+                              responses: ["http://wrapper/one": String(decoding: inlineData, as: UTF8.self)],
+                              expectedErrorURLs: [], expectNoAds: false)
+    }
+
+    func testNoAdsDoesNotRequestSuccessfulSiblingWrapperError() throws {
+        let inlineData = try XCTUnwrap(UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_inline_ad.xml"))
+        let root = "<VAST version=\"4.3\">"
+            + wrapperAdXML("http://wrapper/empty", errors: ["http://error/empty?code=[ERRORCODE]"])
+            + wrapperAdXML("http://wrapper/filled", errors: ["http://error/filled?code=[ERRORCODE]"])
+            + "</VAST>"
+        assertWrapperRequests(rootXML: root,
+                              responses: ["http://wrapper/empty": "<VAST version=\"4.3\"/>",
+                                          "http://wrapper/filled": String(decoding: inlineData, as: UTF8.self)],
+                              expectedErrorURLs: ["http://error/empty?code=303"])
+    }
+
+    func testNoAdsReportsBothEmptySiblingBranches() {
+        let root = "<VAST version=\"4.3\">"
+            + wrapperAdXML("http://wrapper/one", errors: ["http://error/one?code=[ERRORCODE]"])
+            + wrapperAdXML("http://wrapper/two", errors: ["http://error/two?code=[ERRORCODE]"])
+            + "</VAST>"
+        assertWrapperRequests(rootXML: root,
+                              responses: ["http://wrapper/one": "<VAST version=\"4.3\"/>",
+                                          "http://wrapper/two": "<VAST version=\"4.3\"/>"],
+                              expectedErrorURLs: ["http://error/one?code=303", "http://error/two?code=303"])
+    }
+
+    private func wrapperVast(_ url: String, errors: [String]) -> String {
+        "<VAST version=\"4.3\">" + wrapperAdXML(url, errors: errors) + "</VAST>"
+    }
+
+    private func wrapperAdXML(_ url: String, errors: [String]) -> String {
+        let errorXML = errors.map { "<Error><![CDATA[\($0)]]></Error>" }.joined()
+        return "<Ad id=\"1\"><Wrapper><AdSystem>test</AdSystem>" + errorXML
+            + "<VASTAdTagURI><![CDATA[\(url)]]></VASTAdTagURI></Wrapper></Ad>"
+    }
+
+    private func assertWrapperRequests(rootXML: String, responses: [String: String],
+                                       expectedErrorURLs: [String], expectNoAds: Bool = true) {
+        let connection = UtilitiesForTesting.createConnectionForMockedTest()
+        vastAdsBuilder = VastAdsBuilder(connection: connection)
+        var rules = responses.map { url, xml in
+            MockServerRule(urlNeedle: url, mimeType: MockServerMimeType.XML.rawValue,
+                           connectionID: connection.internalID, strResponse: xml)
+        }
+        for expectedURL in expectedErrorURLs {
+            let called = expectation(description: expectedURL)
+            let rule = MockServerRule(fireAndForgetURLNeedle: expectedURL, connectionID: connection.internalID)
+            rule.mockServerReceivedRequestHandler = { request in
+                XCTAssertEqual(request.url?.absoluteString, expectedURL)
+                called.fulfill()
+            }
+            rules.append(rule)
+        }
+        MockServer.shared.resetRules(rules)
+        MockServer.shared.notFoundRule.mockServerReceivedRequestHandler = { request in
+            XCTFail("Unexpected request: \(request)")
+        }
+        let completed = expectation(description: "VAST load completed")
+        vastAdsBuilder?.buildAds(Data(rootXML.utf8)) { ads, error in
+            if expectNoAds {
+                XCTAssertNil(ads)
+                XCTAssertEqual(error?.localizedDescription, "One or more responses had no ads")
+            } else {
+                XCTAssertNil(error)
+                XCTAssertEqual(ads?.count, 1)
+            }
+            completed.fulfill()
+        }
+        waitForExpectations(timeout: 3)
+    }
+
 }
