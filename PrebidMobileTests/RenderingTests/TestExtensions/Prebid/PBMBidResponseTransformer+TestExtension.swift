@@ -53,9 +53,16 @@ extension BidResponseTransformer {
     /// bidder-suffixed targeting keys, as Prebid Server sends with `includebidderkeys` on.
     static var twoBiddersResponse: PrebidServerResponse {
         let winningBidFragment = "{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":0.1091000000051168,\"adm\":\"<html><div>You Won! This is a test bid</div></html>\",\"adid\":\"test-ad-id-12345\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"openx\",\"hb_bidder_openx\":\"openx\",\"hb_env\":\"mobile-app\",\"hb_env_openx\":\"mobile-app\",\"hb_pb\":\"0.10\",\"hb_pb_openx\":\"0.10\",\"hb_size\":\"300x250\",\"hb_size_openx\":\"300x250\"},\"type\":\"banner\"}}}],\"seat\":\"openx\"}"
-        let runnerUpBidFragment = "{\"bid\":[{\"id\":\"test-bid-id-2\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":0.05,\"adm\":\"<html><div>Runner-up</div></html>\",\"adid\":\"test-ad-id-2\",\"crid\":\"test-creative-id-2\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder_appnexus\":\"appnexus\",\"hb_pb_appnexus\":\"0.05\",\"hb_size_appnexus\":\"300x250\"},\"type\":\"banner\"}}}],\"seat\":\"appnexus\"}"
-        return buildResponse("{\"id\":\"B4A2D3F4-41B6-4D37-B68B-EE8893E85C31\",\"seatbid\":[\(winningBidFragment),\(runnerUpBidFragment)],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":62,\"appnexus\":70}}}")
+        return buildResponse("{\"id\":\"B4A2D3F4-41B6-4D37-B68B-EE8893E85C31\",\"seatbid\":[\(winningBidFragment),\(bidderKeysOnlyBidFragment)],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":62,\"appnexus\":70}}}")
     }
+
+    /// A single bid that carries only its bidder-suffixed targeting keys, so no bid is designated
+    /// as the winning bid and the response's merged targeting holds only those keys.
+    static var bidderKeysOnlyResponse: PrebidServerResponse {
+        return buildResponse("{\"id\":\"B4A2D3F4-41B6-4D37-B68B-EE8893E85C31\",\"seatbid\":[\(bidderKeysOnlyBidFragment)],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"appnexus\":70}}}")
+    }
+
+    private static let bidderKeysOnlyBidFragment = "{\"bid\":[{\"id\":\"test-bid-id-2\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":0.05,\"adm\":\"<html><div>Runner-up</div></html>\",\"adid\":\"test-ad-id-2\",\"crid\":\"test-creative-id-2\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder_appnexus\":\"appnexus\",\"hb_pb_appnexus\":\"0.05\",\"hb_size_appnexus\":\"300x250\"},\"type\":\"banner\"}}}],\"seat\":\"appnexus\"}"
     
     /// The same winning bid as `someValidResponse`, typed as video.
     static var someValidVideoResponse: PrebidServerResponse {
