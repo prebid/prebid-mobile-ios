@@ -569,4 +569,89 @@ class AdUnitTests: XCTestCase {
         XCTAssertEqual(adUnit.adPosition, adUnitConfig.adPosition)
         XCTAssertEqual(adUnitConfig.adPosition, .footer)
     }
+
+    // MARK: - A late response after a timeout and a retry
+    
+    func testLateErrorDoesNotCompleteTimedOutFetchAgain() {
+        let bidRequester = MockDeferredBidRequester()
+        let adUnit = AdUnit(bidRequester: bidRequester, configId: "test-config-id", size: .zero, adFormats: [])
+        
+        withExtendedLifetime(adUnit) {
+            let results = timeOutThenRetryAtOnce(adUnit)
+            
+            bidRequester.respond(with: nil, error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNetworkConnectionLost))
+            drainMainQueue()
+            
+            XCTAssertEqual(results.first, [.prebidDemandTimedOut])
+            XCTAssertEqual(results.second, [.prebidInternalSDKError])
+        }
+    }
+    
+    func testLateBidDoesNotCompleteTimedOutFetchAgain() {
+        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") else {
+            return XCTFail("Couldn't load `sample_ortb_native_with_win_event.json` file.")
+        }
+        
+        let bidRequester = MockDeferredBidRequester()
+        let adUnit = AdUnit(bidRequester: bidRequester, configId: "test-config-id", size: .zero, adFormats: [])
+        
+        withExtendedLifetime(adUnit) {
+            let results = timeOutThenRetryAtOnce(adUnit)
+            
+            bidRequester.respond(with: BidResponse(jsonDictionary: json), error: nil)
+            drainMainQueue()
+            
+            XCTAssertEqual(results.first, [.prebidDemandTimedOut])
+            XCTAssertEqual(results.second, [.prebidInternalSDKError])
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    /// The result codes each fetch completed with, one per call.
+    private final class FetchResults {
+        var first: [ResultCode] = []
+        var second: [ResultCode] = []
+    }
+    
+    /// Lets the first fetch time out, then fetches again at once. The retry fails, as the first
+    /// request is still out, and the test then decides how that request answers.
+    private func timeOutThenRetryAtOnce(_ adUnit: AdUnit) -> FetchResults {
+        let accountId = Prebid.shared.prebidServerAccountId
+        addTeardownBlock {
+            Prebid.shared.prebidServerAccountId = accountId
+        }
+        Prebid.shared.prebidServerAccountId = "test-account-id"
+        Prebid.shared.timeoutMillis = 100
+        
+        let results = FetchResults()
+        let firstCompleted = expectation(description: "first fetch completed")
+        let secondCompleted = expectation(description: "second fetch completed")
+        // The result arrays count the calls; a repeated call must fail an assertion, not the run
+        firstCompleted.assertForOverFulfill = false
+        secondCompleted.assertForOverFulfill = false
+        
+        adUnit.fetchDemand(completionBidInfo: { bidInfo in
+            results.first.append(bidInfo.resultCode)
+            firstCompleted.fulfill()
+        })
+        wait(for: [firstCompleted], timeout: 2)
+        
+        adUnit.fetchDemand(completionBidInfo: { bidInfo in
+            results.second.append(bidInfo.resultCode)
+            secondCompleted.fulfill()
+        })
+        wait(for: [secondCompleted], timeout: 1)
+        
+        return results
+    }
+    
+    /// Runs what the main queue already holds, so a repeated completion would have arrived by now.
+    private func drainMainQueue() {
+        let drained = expectation(description: "main queue drained")
+        DispatchQueue.main.async {
+            drained.fulfill()
+        }
+        wait(for: [drained], timeout: 1)
+    }
 }

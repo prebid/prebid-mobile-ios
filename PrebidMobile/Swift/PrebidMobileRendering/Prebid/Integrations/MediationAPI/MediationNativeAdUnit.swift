@@ -20,8 +20,11 @@ import Foundation
 @objcMembers
 public class MediationNativeAdUnit : NSObject {
     
-    var completion: ((BidInfo) -> Void)?
     let mediationDelegate: PrebidMediationDelegate
+    
+    /// The native request of the fetch that has not completed yet. Weak, so that a request released
+    /// before it answers (after `nativeAdUnit` was replaced) does not block later fetches.
+    private weak var requestInFlight: NativeRequest?
     
     // MARK: - Public Properties
     
@@ -135,6 +138,9 @@ public class MediationNativeAdUnit : NSObject {
     }
     
     /// Makes bid request for the native ad unit and setups mediation parameters.
+    ///
+    /// If an earlier fetch has not completed yet, `completion` is called at once with
+    /// `.prebidSDKMisusePreviousFetchNotCompletedYet` and the earlier fetch carries on.
     /// - Parameter completion: The completion handler to call with the result code.
     public func fetchDemand(completion: ((ResultCode) -> Void)?) {
         baseFetchDemand(completion: completion.map { completion in { completion($0.resultCode) } })
@@ -142,6 +148,9 @@ public class MediationNativeAdUnit : NSObject {
     
     /// Makes bid request for the native ad unit and setups mediation parameters. Like `fetchDemand(completion:)`,
     /// but provides the full `BidInfo` (including the winning-bid economics) instead of only the result code.
+    ///
+    /// If an earlier fetch has not completed yet, `completion` is called at once with
+    /// `.prebidSDKMisusePreviousFetchNotCompletedYet` and the earlier fetch carries on.
     /// - Parameter completion: A closure called with a `BidInfo` object representing the fetched demand.
     public func fetchDemandBidInfo(completion: @escaping (_ bidInfo: BidInfo) -> Void) {
         baseFetchDemand(completion: completion)
@@ -150,32 +159,50 @@ public class MediationNativeAdUnit : NSObject {
     // MARK: - Private Methods
     
     private func baseFetchDemand(completion: ((BidInfo) -> Void)?) {
-        self.completion = completion
+        // The native request runs one bid request at a time, so a second one would fail there
+        guard requestInFlight == nil else {
+            Log.warn("\(String(describing: self)): the previous fetch has not completed yet.")
+            completeWithResult(BidInfo(resultCode: .prebidSDKMisusePreviousFetchNotCompletedYet), completion: completion)
+            return
+        }
         
         mediationDelegate.cleanUpAdObject()
         
+        requestInFlight = nativeAdUnit
+        
+        // Each fetch keeps its own completion here, so its result can't reach another fetch
         nativeAdUnit.fetchDemand { [weak self] bidInfo in
             guard let self = self else { return }
             
+            self.requestInFlight = nil
+            
             guard bidInfo.resultCode == .prebidDemandFetchSuccess else {
-                self.completeWithResult(bidInfo)
+                self.completeWithResult(bidInfo, completion: completion)
                 return
             }
+            
+            // When the bid can't be read back from the cache, nothing is attached to the ad object.
+            // A response with bids but no designated winner gets here: it is reported as success,
+            // but no bid was cached.
+            let noBidInfo = BidInfo.create(resultCode: .prebidDemandNoBids, requestId: bidInfo.requestId)
             
             guard let kvResultDict = bidInfo.targetingKeywords,
                   let cacheId = kvResultDict[PrebidLocalCacheIdKey],
                   CacheManager.shared.isValid(cacheId: cacheId) else {
                       Log.error("\(String(describing: self)): no cache in kvResultDict.")
+                      self.completeWithResult(noBidInfo, completion: completion)
                       return
                   }
             
             guard let bidString = CacheManager.shared.get(cacheId: cacheId) else {
                 Log.error("\(String(describing: self)): no bid for given cache id.")
+                self.completeWithResult(noBidInfo, completion: completion)
                 return
             }
             
             guard var fetchDemandInfo = Utils.shared.getDictionaryFromString(bidString) else {
                 Log.error("\(String(describing: self)): parsing bid string to bid dictionary failed.")
+                self.completeWithResult(noBidInfo, completion: completion)
                 return
             }
             
@@ -188,16 +215,16 @@ public class MediationNativeAdUnit : NSObject {
             ]
         
             if self.mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {
-                self.completeWithResult(bidInfo)
+                self.completeWithResult(bidInfo, completion: completion)
             } else {
                 let newBidInfo = BidInfo.create(resultCode: .prebidWrongArguments, requestId: bidInfo.requestId)
-                self.completeWithResult(newBidInfo)
+                self.completeWithResult(newBidInfo, completion: completion)
             }
         }
     }
     
-    private func completeWithResult(_ bidInfo: BidInfo) {
-        guard let completion = self.completion else {
+    private func completeWithResult(_ bidInfo: BidInfo, completion: ((BidInfo) -> Void)?) {
+        guard let completion else {
             return
         }
         
