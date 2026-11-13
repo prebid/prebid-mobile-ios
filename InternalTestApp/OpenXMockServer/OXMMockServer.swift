@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-import RxSwift
+import Combine
 
 public enum ResponseType: String {
     case regular
@@ -22,7 +22,7 @@ public enum ResponseType: String {
 
 public final class PBMMockServer {
     private let requestManager = MockServerManager()
-    private let disposeBag = DisposeBag()
+    private var cancellables = Set<AnyCancellable>()
     
     public init() {
         
@@ -30,51 +30,37 @@ public final class PBMMockServer {
     
     public func getLogs() {
         requestManager.makeRequestWithParsing(method: .get, endpoint: .getLogs())
-            .catch { error -> Observable<Requests> in
-                print(error.localizedDescription)
-                return .empty()
-            }
-            .subscribe(onNext: { _ in
-                
-            })
-            .disposed(by: disposeBag)
+            .sink(receiveCompletion: Self.logFailure, receiveValue: { (_: Requests) in })
+            .store(in: &cancellables)
     }
-    
+
     public func setRandomNoBids() {
         requestManager.makeRequestWithParsing(method: .post, endpoint: .setRandomNoBids())
-            .catch { error -> Observable<Requests> in
-                print(error.localizedDescription)
-                return .empty()
-            }
-            .subscribe(onNext: { _ in
-            })
-            .disposed(by: disposeBag)
+            .sink(receiveCompletion: Self.logFailure, receiveValue: { (_: Requests) in })
+            .store(in: &cancellables)
     }
-    
+
     public func cancelRandomNoBids() {
         requestManager.makeRequestWithParsing(method: .get, endpoint: .cancelRandomNoBids())
-            .catch { error -> Observable<Requests> in
-                print(error.localizedDescription)
-                return .empty()
-            }
-            .subscribe(onNext: { _ in
-            })
-            .disposed(by: disposeBag)
+            .sink(receiveCompletion: Self.logFailure, receiveValue: { (_: Requests) in })
+            .store(in: &cancellables)
     }
-    
+
     public func addMockResponse(auid: String, mock: String, type: ResponseType = .regular) {
         let parameters = ["auid": auid, "mock": mock, "type": type.rawValue]
         requestManager.makeRequestWithParsing(method: .post, endpoint: .addMock(),
                                               parameters: parameters)
-            .catch { error -> Observable<AddMockResponse> in
-                print(error.localizedDescription)
-                return .empty()
-            }
-            .subscribe(onNext: { addMockResponse in
+            .sink(receiveCompletion: Self.logFailure, receiveValue: { (addMockResponse: AddMockResponse) in
                 if addMockResponse.result {
                     print("Success adding mock")
                 }
             })
-            .disposed(by: disposeBag)
+            .store(in: &cancellables)
+    }
+
+    private static func logFailure(_ completion: Subscribers.Completion<Error>) {
+        if case .failure(let error) = completion {
+            print(error.localizedDescription)
+        }
     }
 }

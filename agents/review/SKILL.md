@@ -30,7 +30,7 @@ Identify the PR type:
 ## Step 2 — Run the standard checks
 
 ```bash
-# Build all XCFrameworks (catches CocoaPods + SPM + Carthage regressions)
+# Build all XCFrameworks (checks Xcode framework targets and distributable Swift interfaces)
 ./scripts/buildPrebidMobile.sh
 
 # PR test suite (must pass; re-run once if only PBMBidRequesterTest.testBanner_300x250 fails)

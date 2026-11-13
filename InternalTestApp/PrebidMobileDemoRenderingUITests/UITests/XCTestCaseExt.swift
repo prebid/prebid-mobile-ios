@@ -148,9 +148,10 @@ extension XCTestCase {
             app.launchArguments.append("-keyUITests")
             
             app.launch()
-            interruptionMonitor = addMonitorClosure("System Dialog") {
-                (alert) -> Bool in
-                alert.buttons["Don’t Allow"].tap()
+            interruptionMonitor = addMonitorClosure("Tracking Permission") { alert in
+                let denyTrackingButton = alert.buttons["Don’t Allow"]
+                guard denyTrackingButton.exists else { return false }
+                denyTrackingButton.tap()
                 return true
             }
             app.navigationBars.firstMatch.tap()

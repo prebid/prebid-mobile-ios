@@ -22,12 +22,52 @@ import WebKit
 /// (`PBMWebView`, `PBMMRAIDController`), over a fixed set of inputs. See `WebViewParityExpectations`.
 class WebViewParityTests: XCTestCase {
 
+    // Each probe replaces window.mraid completely. Keep one page per test case
+    // so the 50 inputs do not repeatedly start and tear down WebKit processes.
+    private var propertyProbeWebView: WebView!
+    private var propertyProbeWindow: UIWindow?
+
+    private func preparePropertyProbes() throws {
+        propertyProbeWebView = WebView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        // Keep the probe attached while executing JavaScript, rather than let
+        // WebKit suspend an offscreen page between navigation and evaluation.
+        let controller = UIViewController()
+        controller.view.addSubview(propertyProbeWebView)
+        let window = UIWindow(frame: propertyProbeWebView.frame)
+        window.rootViewController = controller
+        propertyProbeWindow = window
+        window.isHidden = false
+        // Give the probes a loaded document instead of racing JavaScript against
+        // WebKit's initial, implicit about:blank navigation.
+        let loaded = XCTNSPredicateExpectation(
+            predicate: NSPredicate { [weak self] _, _ in self?.propertyProbeWebView?.state == .loaded },
+            object: nil
+        )
+        propertyProbeWebView.loadHTML("<!doctype html><html><body></body></html>", baseURL: nil, injectMraidJs: false)
+        guard XCTWaiter.wait(for: [loaded], timeout: 10) == .completed else {
+            throw NSError(domain: "WebViewParityTests", code: 1,
+                          userInfo: [NSLocalizedDescriptionKey: "The JavaScript probe document did not finish loading"])
+        }
+    }
+
+    override func tearDown() {
+        propertyProbeWebView?.internalWebView.stopLoading()
+        propertyProbeWindow?.isHidden = true
+        propertyProbeWindow?.rootViewController = nil
+        propertyProbeWindow = nil
+        propertyProbeWebView = nil
+        super.tearDown()
+    }
+
     func testOutputMatchesObjectiveCOriginals() throws {
         let actualLines = WebViewParityDump.dump().split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
-        let expectedLines = WebViewParityExpectations.expected.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
+        let expectedLines = WebViewParityExpectations.expectedForCurrentOS.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
 
         // The resize results depend on the screen size; the expectations were captured on a 402x874 pt screen (iPhone 17 / 17 Pro).
         try XCTSkipUnless(actualLines.first == expectedLines.first, "Parity expectations were captured on a different screen size")
+
+        XCTAssertTrue(WebViewParityExpectations.expected.contains(WebViewParityExpectations.legacyMalformedPercentLine),
+                      "The iOS 27 replacement in expectedForCurrentOS no longer matches a captured line")
 
         XCTAssertEqual(actualLines.count, expectedLines.count)
         for (actual, expected) in zip(actualLines, expectedLines) {
@@ -36,7 +76,8 @@ class WebViewParityTests: XCTestCase {
     }
 
     /// Runs the JavaScript expressions captured from the Objective-C original through the Swift port.
-    func testJavaScriptPropertiesMatchObjectiveCOriginal() {
+    func testJavaScriptPropertiesMatchObjectiveCOriginal() throws {
+        try preparePropertyProbes()
         let lines = WebViewParityExpectations.javaScriptProperties.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
         XCTAssertEqual(lines.count, 50)
 
@@ -63,7 +104,8 @@ class WebViewParityTests: XCTestCase {
     /// original then sent `-integerValue`/`-boolValue` to an `NSNull`, an array or a dictionary and crashed the host app with
     /// "unrecognized selector" (probed one at a time, 7 of 7 crashed). The port treats such a value as unusable: the
     /// completion handler gets `nil`.
-    func testUnsupportedValueTypesInJSPropertiesAreRejected() {
+    func testUnsupportedValueTypesInJSPropertiesAreRejected() throws {
+        try preparePropertyProbes()
         let expandLiterals = ["{width:null,height:250}", "{width:{},height:1}", "{width:[1],height:2}", "{width:NaN,height:Infinity}"]
         for literal in expandLiterals {
             XCTAssertNil(expandProperties(forLiteral: literal), literal)
@@ -80,7 +122,7 @@ class WebViewParityTests: XCTestCase {
     // MARK: - Helpers
 
     private func expandProperties(forLiteral literal: String) -> MRAIDExpandProperties? {
-        let webView = WebView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let webView = propertyProbeWebView!
         let setup = expectation(description: "setup")
         webView.internalWebView.evaluateJavaScript("window.mraid = { getExpandProperties: function() { return \(literal); } }; 1;") { _, _ in
             setup.fulfill()
@@ -98,7 +140,7 @@ class WebViewParityTests: XCTestCase {
     }
 
     private func resizeProperties(forLiteral literal: String) -> MRAIDResizeProperties? {
-        let webView = WebView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let webView = propertyProbeWebView!
         let setup = expectation(description: "setup")
         webView.internalWebView.evaluateJavaScript("window.mraid = { getResizeProperties: function() { return \(literal); } }; 1;") { _, _ in
             setup.fulfill()

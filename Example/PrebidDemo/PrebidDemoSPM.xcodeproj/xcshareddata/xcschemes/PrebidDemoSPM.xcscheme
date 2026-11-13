@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0012D8AE2E214EBE007013F3"
+               BlueprintIdentifier = "C8CE71E55F1D5E6441739EC5"
                BuildableName = "PrebidDemoSPM.app"
                BlueprintName = "PrebidDemoSPM"
-               ReferencedContainer = "container:PrebidDemo.xcodeproj">
+               ReferencedContainer = "container:PrebidDemoSPM.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,10 +44,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0012D8AE2E214EBE007013F3"
+            BlueprintIdentifier = "C8CE71E55F1D5E6441739EC5"
             BuildableName = "PrebidDemoSPM.app"
             BlueprintName = "PrebidDemoSPM"
-            ReferencedContainer = "container:PrebidDemo.xcodeproj">
+            ReferencedContainer = "container:PrebidDemoSPM.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,10 +61,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0012D8AE2E214EBE007013F3"
+            BlueprintIdentifier = "C8CE71E55F1D5E6441739EC5"
             BuildableName = "PrebidDemoSPM.app"
             BlueprintName = "PrebidDemoSPM"
-            ReferencedContainer = "container:PrebidDemo.xcodeproj">
+            ReferencedContainer = "container:PrebidDemoSPM.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

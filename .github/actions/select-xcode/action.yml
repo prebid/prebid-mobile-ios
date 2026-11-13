@@ -1,0 +1,19 @@
+name: Select Xcode
+description: Select the Xcode version in .xcode-version for the rest of the job, and export it as XCODE_VERSION.
+
+runs:
+  using: composite
+  steps:
+    - name: Select Xcode from .xcode-version
+      shell: bash
+      run: |
+        version="$(tr -d '[:space:]' < "$GITHUB_WORKSPACE/.xcode-version")"
+        developer_dir="/Applications/Xcode_${version}.app/Contents/Developer"
+        if [[ ! -d "$developer_dir" ]]; then
+          echo "::error file=.xcode-version::Xcode ${version} is not installed on this runner."
+          ls -d /Applications/Xcode*.app
+          exit 1
+        fi
+        echo "XCODE_VERSION=$version" >> "$GITHUB_ENV"
+        echo "DEVELOPER_DIR=$developer_dir" >> "$GITHUB_ENV"
+        echo "Selected $developer_dir"
