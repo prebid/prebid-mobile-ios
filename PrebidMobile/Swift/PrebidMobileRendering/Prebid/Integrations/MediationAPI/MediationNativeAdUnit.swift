@@ -159,8 +159,7 @@ public class MediationNativeAdUnit : NSObject {
     // MARK: - Private Methods
     
     private func baseFetchDemand(completion: ((BidInfo) -> Void)?) {
-        // The native request runs one bid request at a time. A second one would fail there,
-        // and on its way it would reset the state the first one's timeout relies on.
+        // The native request runs one bid request at a time, so a second one would fail there
         guard requestInFlight == nil else {
             Log.warn("\(String(describing: self)): the previous fetch has not completed yet.")
             completeWithResult(BidInfo(resultCode: .prebidSDKMisusePreviousFetchNotCompletedYet), completion: completion)

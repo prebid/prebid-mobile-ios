@@ -29,3 +29,30 @@ class MockPBMBidRequester: NSObject, BidRequesterProtocol {
         completion(bidResponse, nil)
     }
 }
+
+/// A bid requester that answers only when the test says so. Like `BidRequesterImpl`, it runs one request
+/// at a time and fails another one at once with `requestInProgress`.
+class MockDeferredBidRequester: NSObject, BidRequesterProtocol {
+    
+    private var pendingCompletion: ((BidResponse?, Error?) -> Void)?
+
+    var hasPendingRequest: Bool {
+        pendingCompletion != nil
+    }
+
+    func requestBids(completion: @escaping (BidResponse?, Error?) -> Void) {
+        guard pendingCompletion == nil else {
+            completion(nil, PBMError.requestInProgress())
+            return
+        }
+        
+        pendingCompletion = completion
+    }
+    
+    /// Answers the request that is still out.
+    func respond(with bidResponse: BidResponse?, error: Error?) {
+        let completion = pendingCompletion
+        pendingCompletion = nil
+        completion?(bidResponse, error)
+    }
+}
