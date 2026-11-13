@@ -9,11 +9,6 @@ permissions:
   contents: read
   pull-requests: read
 
-env:
-  # Keep both in sync: XCODE_VERSION keys the package cache.
-  XCODE_VERSION: "26.5"
-  DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
-
 jobs:
   select:
     name: Select Checks
@@ -50,6 +45,7 @@ jobs:
               - '.github/workflows/PR_checks.yml'
               - '.github/workflows/PR_checks_jobs.yml'
               - '.github/actions/**'
+              - '.xcode-version'
 
   build:
     name: Build PrebidMobile Frameworks
@@ -58,6 +54,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
         with:
@@ -79,6 +77,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: ./.github/actions/select-xcode
       - name: Build SPM Package
         run: ./scripts/buildPrebidMobilePackage.sh
 
@@ -89,6 +89,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: ./.github/actions/select-xcode
       - name: Build consumer against candidate packages
         run: ./scripts/verifySPM.sh
 
@@ -99,6 +101,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
         with:
@@ -117,12 +121,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run Quick Unit Tests for Frameworks
         run: ./scripts/testPrebidMobile.sh --latest --quick
+      - name: Upload simulator diagnostics
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulator-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+          path: generated/log/simulator-diagnostics
+          if-no-files-found: ignore
+          retention-days: 7
 
   unit-test-full:
     name: Run All Unit Tests for Frameworks
@@ -133,12 +147,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run All Unit Tests for Frameworks
         run: ./scripts/testPrebidMobile.sh --latest
+      - name: Upload simulator diagnostics
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulator-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+          path: generated/log/simulator-diagnostics
+          if-no-files-found: ignore
+          retention-days: 7
 
   unit-test-adapters:
     name: Run Unit Tests for Adapters
@@ -149,6 +173,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
         with:
@@ -165,6 +191,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
         with:
@@ -181,6 +209,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Select Xcode
+        uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
         with:

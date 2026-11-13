@@ -72,9 +72,11 @@ published packages afterward.
 
 GAM/AdMob frameworks and their unit tests depend on GoogleMobileAds. MAX frameworks
 and tests depend on AppLovinSDK. Both native demo apps, the SPM demo, and both
-InternalTestApp variants depend on all three vendor SDKs. Unit tests that import
-GoogleMobileAds link that product explicitly. UI tests obtain their dependencies
-through the tested app. OpenXMockServer and its tests use only system frameworks.
+InternalTestApp variants depend on all three vendor SDKs. The adapter unit tests run
+without a host app and link GoogleMobileAds explicitly. `InternalTestAppTests` and
+`PrebidDemoTests` import it but do not link it: they run inside their host app and use
+its copy, so a test run has one SDK state. UI tests obtain their dependencies through
+the tested app. OpenXMockServer and its tests use only system frameworks.
 
 Native and published Prebid products share module/framework names. Keeping the
 consumer in a separate project gives both command-line and Xcode builds separate
@@ -92,21 +94,27 @@ release. `verifyDependencyIsolation.sh` checks that the committed workspace lock
 pins no published Prebid package, and that the consumer takes Google Mobile Ads and
 AppLovin from the adapters package.
 
-Google Mobile Ads and the User Messaging Platform ship as static binaries. In Debug,
-the GAM and AdMob adapter frameworks are built as static frameworks
-(`MACH_O_TYPE = staticlib`), so those SDKs are linked once, into the app or the test
-bundle. Linked into dynamic adapter frameworks, as CocoaPods also did, every adapter
-framework and the app each carried a copy with its own state: the runtime reported
-about 800 `Class … is implemented in both` warnings at launch, and SDK singletons
-such as `MobileAds.shared` were separate objects per image. Xcode embeds an empty
+Google Mobile Ads and the User Messaging Platform ship as static binaries. The GAM
+and AdMob adapter targets are built as static frameworks in Debug and Release
+(`MACH_O_TYPE = $(PREBID_ADAPTER_MACH_O_TYPE)`, which defaults to `staticlib`), so
+those SDKs are linked once, into the app or the adapter test bundle. Linked into
+dynamic adapter frameworks, as CocoaPods also did, every adapter framework and the
+app each carried a copy with its own state: the runtime reported about 800
+`Class … is implemented in both` warnings at launch, and SDK singletons such as
+`MobileAds.shared` were separate objects per image. Xcode embeds an empty
 placeholder for a static framework listed under Embed Frameworks; nothing loads it.
 
-Release builds keep dynamic adapter frameworks, which the XCFramework archives need.
-App and test targets therefore keep Xcode's package diamond diagnostic disabled:
-with dynamic adapters, Xcode would otherwise synthesize a dynamic wrapper without
-`-ObjC`, strip Google's Objective-C symbols, and fail to link the adapter
-frameworks. Each Google/AppLovin consumer explicitly retains `-ObjC`. Runtime checks
-of the Google SDKs should use Debug, where only one copy is linked. None of this
+`buildPrebidMobile.sh` passes `PREBID_ADAPTER_MACH_O_TYPE=mh_dylib`, so the
+distributed XCFrameworks stay dynamic. Only the two adapter targets read that
+setting; overriding `MACH_O_TYPE` itself on the command line would also change the
+package targets in that build.
+
+AppLovinSDK ships as a dynamic framework, so only one copy is loaded however the
+MAX adapter is linked, and the MAX adapter stays a dynamic framework. App and
+test targets keep Xcode's package diamond diagnostic disabled: with it enabled, Xcode
+moves AppLovinSDK, which both the MAX adapter and the apps use, into a synthesized
+dynamic wrapper, and `PrebidDemoObjectiveC`, which uses AppLovin classes directly,
+fails to link. Each Google/AppLovin consumer explicitly retains `-ObjC`. None of this
 changes the linking requirements of the published adapters. The standalone SPM
 consumer links each package product once, into the app, so it keeps Xcode's
 defaults, as a customer app would.

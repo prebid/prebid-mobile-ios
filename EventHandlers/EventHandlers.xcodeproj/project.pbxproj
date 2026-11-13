@@ -1007,13 +1007,14 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = "$(PREBID_ADAPTER_MACH_O_TYPE)";
 				MARKETING_VERSION = 3.4.1;
 				MODULEMAP_FILE = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
+				PREBID_ADAPTER_MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileGAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1046,12 +1047,14 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = "$(PREBID_ADAPTER_MACH_O_TYPE)";
 				MARKETING_VERSION = 3.4.1;
 				MODULEMAP_FILE = "";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
+				PREBID_ADAPTER_MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileGAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1209,12 +1212,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = "$(PREBID_ADAPTER_MACH_O_TYPE)";
 				MARKETING_VERSION = 3.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
+				PREBID_ADAPTER_MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileAdMobAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = None;
@@ -1248,11 +1252,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = "$(PREBID_ADAPTER_MACH_O_TYPE)";
 				MARKETING_VERSION = 3.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
+				PREBID_ADAPTER_MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileAdMobAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = None;

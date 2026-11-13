@@ -48,6 +48,12 @@ echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
 # with our SPM libraries that can mess up this build process"
 schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers" "PrebidMobileAdMobAdapters" "PrebidMobileMAXAdapters")
 
+# The GAM and AdMob adapter targets are static libraries by default, so the demo and internal apps
+# link Google Mobile Ads only once. The distributed XCFrameworks remain dynamic.
+# Only those two targets read PREBID_ADAPTER_MACH_O_TYPE; overriding MACH_O_TYPE itself
+# would also change the package targets in the build.
+ADAPTER_MACH_O_TYPE="PREBID_ADAPTER_MACH_O_TYPE=mh_dylib"
+
 for(( n=0; n<${#schemes[@]}; n++ ))
 do
 	
@@ -59,6 +65,7 @@ do
 	defines_module=YES \
 	SKIP_INSTALL=NO \
 	BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+	"$ADAPTER_MACH_O_TYPE" \
 	-workspace PrebidMobile.xcworkspace \
 	-clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
 	-disableAutomaticPackageResolution \
@@ -80,6 +87,7 @@ do
 	defines_module=YES \
 	SKIP_INSTALL=NO \
 	BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+	"$ADAPTER_MACH_O_TYPE" \
 	-workspace PrebidMobile.xcworkspace \
 	-clonedSourcePackagesDirPath "$PWD/.swiftpm-cache" \
 	-disableAutomaticPackageResolution \

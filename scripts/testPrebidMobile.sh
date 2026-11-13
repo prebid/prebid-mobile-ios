@@ -46,8 +46,7 @@ echo -e "\n${GREEN}Creating simulator${NC} \n"
 source ./scripts/simulator.sh
 create_test_simulator
 # Complete first-boot migration before compiling and launching the test bundle.
-xcrun simctl boot "$SIMULATOR_ID"
-xcrun simctl bootstatus "$SIMULATOR_ID" -b
+boot_test_simulator
 
 if [ "$run_only_PR_tests" != "YES" ]; then
     echo -e "\n${GREEN}Clean build\n"

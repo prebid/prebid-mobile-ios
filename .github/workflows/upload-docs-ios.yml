@@ -9,9 +9,6 @@ on:
   # Manual run: generates the docs from the selected branch, normally master.
   workflow_dispatch:
 
-env:
-  XCODE_VERSION: "26.5.0"
-
 jobs:
   upload-docs:
 
@@ -21,9 +18,7 @@ jobs:
     - name: Checkout current branch
       uses: actions/checkout@v4
     - name: Select Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with: 
-          xcode-version: ${{ env.XCODE_VERSION }}
+      uses: ./.github/actions/select-xcode
     - name: Install Jazzy
       run: |
         # mustache 1.1.3 breaks jazzy 0.15.4 at startup (realm/jazzy#1435).

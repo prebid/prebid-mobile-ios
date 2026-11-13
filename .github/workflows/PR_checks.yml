@@ -18,6 +18,7 @@ on:
       - 'InternalTestApp/**'
       - '.github/workflows/**'
       - '.github/actions/**'
+      - '.xcode-version'
     types: [opened, reopened, synchronize, ready_for_review, labeled, unlabeled]
 
 # A label change other than run-full-tests gets a group of its own, so it cannot cancel a run in progress.

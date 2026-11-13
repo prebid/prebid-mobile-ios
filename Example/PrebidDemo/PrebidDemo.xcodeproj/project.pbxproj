@@ -186,7 +186,6 @@
 		C38D69C929362B7700E82B31 /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38D69C429362B7700E82B31 /* TestCases.swift */; };
 		C3ACBEAF2937A6DE00A9BAE2 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ACBEAE2937A6DE00A9BAE2 /* UIApplication+Extensions.swift */; };
 		D7339154D955541F64CF45D0 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = CD7F6FB7002B6E8E951D11B8 /* GoogleMobileAds */; };
-		D76A9268AAB82C0102A44559 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 87ECE5F213EF2020C9D6F974 /* GoogleMobileAds */; };
 		F442F3C11B90D158B34AA8ED /* AppLovinSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 966E5373EFAF0071924A1AE8 /* AppLovinSDK */; };
 		FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4E0231EB4BB00CAA05B /* Constants.swift */; };
 /* End PBXBuildFile section */
@@ -539,7 +538,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D76A9268AAB82C0102A44559 /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1283,7 +1281,6 @@
 			);
 			name = PrebidDemoTests;
 			packageProductDependencies = (
-				87ECE5F213EF2020C9D6F974 /* GoogleMobileAds */,
 			);
 			productName = PrebidDemoSwiftTests;
 			productReference = FA12E4E6231EB52D00CAA05B /* PrebidDemoTests.xctest */;
@@ -2071,11 +2068,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0012D9242E2159C0007013F3 /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */;
 			productName = GoogleInteractiveMediaAds;
-		};
-		87ECE5F213EF2020C9D6F974 /* GoogleMobileAds */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5595F64EEC8A31F20B6953AF /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
-			productName = GoogleMobileAds;
 		};
 		966E5373EFAF0071924A1AE8 /* AppLovinSDK */ = {
 			isa = XCSwiftPackageProductDependency;
