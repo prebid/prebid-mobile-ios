@@ -162,7 +162,9 @@ host keeps its self-signed-certificate exception; other hosts use default trust.
 characters in GET and POST parameters without contacting the mock server.
 
 The test scripts create their simulator through `scripts/simulator.sh`, which deletes
-it by its ID when the script exits, on failure too. Its defaults can be overridden
+it by its ID when the script exits, on failure too. The deletion gives up after
+2 minutes, so a stalled CoreSimulator cannot hold the job open, and the script keeps
+its own exit status. Its defaults can be overridden
 through the environment: `PREBID_SIMULATOR_NAME`, `PREBID_SIMULATOR_DEVICE_TYPE`,
 and `PREBID_TEST_RUNTIME`. The runtime defaults to the latest installed one; set
 `PREBID_TEST_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-26-5` to use the CI runtime
