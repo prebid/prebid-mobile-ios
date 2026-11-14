@@ -20,8 +20,14 @@ import PrebidMobile
 
 final class GMATests: XCTestCase {
     
+    /// The latest GMA SDK version the GAM Event Handlers were tested with. Update it when the GMA SDK is bumped.
+    private let latestTestedGMAVersion = GoogleMobileAds.VersionNumber(
+        majorVersion: 13,
+        minorVersion: 12,
+        patchVersion: 0
+    )
+
     func testGMAVersion() {
-        let latestTestedGMAVersion = GAMUtils.latestTestedGMAVersion()
         let currentGMAVersion = MobileAds.shared.versionNumber
         
         if MobileAds.shared.isSDKVersionAtLeast(

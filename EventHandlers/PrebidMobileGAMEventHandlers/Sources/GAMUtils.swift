@@ -76,15 +76,6 @@ public class GAMUtils: NSObject {
         Log.error(error.localizedDescription)
     }
     
-    // Added for tests
-    static func latestTestedGMAVersion() -> GoogleMobileAds.VersionNumber {
-        GoogleMobileAds.VersionNumber(
-            majorVersion: 13,
-            minorVersion: 12,
-            patchVersion: 0
-        )
-    }
-    
     // MARK: Private Methods
     
     private func getPrebidTargeting(from request: GAMRequestWrapper) -> [String: Any] {

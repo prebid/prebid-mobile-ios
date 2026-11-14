@@ -50,15 +50,6 @@ public class PrebidAdMobMediationBaseAdapter: NSObject, GoogleMobileAds.Mediatio
         GoogleMobileAds.CustomEventExtras.self
     }
         
-    // Added for tests
-    static func latestTestedGMAVersion() -> GoogleMobileAds.VersionNumber {
-        GoogleMobileAds.VersionNumber(
-            majorVersion: 13,
-            minorVersion: 12,
-            patchVersion: 0
-        )
-    }
-    
     required public override init() {
         super.init()
     }
