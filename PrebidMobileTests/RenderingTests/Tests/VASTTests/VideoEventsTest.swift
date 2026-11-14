@@ -18,11 +18,13 @@ import XCTest
 
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class VideoEventsTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
+class VideoEventsTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate, TransactionDelegate {
     
     let viewController = MockViewController()
+    var adWindow: UIWindow?
     let modalManager = ModalManager()
     var pbmVideoCreative:VideoCreative!
+    var transaction: Transaction?
     var expectationVideoDidComplete:XCTestExpectation!
     var expectationCreativeDidComplete:XCTestExpectation!
     var expectationDownloadCompleted:XCTestExpectation!
@@ -32,9 +34,14 @@ class VideoEventsTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
         super.setUp()
         
         MockServer.shared.reset()
+        // The ad's view goes into `viewController.view`; the viewability tracker counts it as visible only on screen.
+        adWindow = UtilitiesForTesting.showOnScreen(viewController)
     }
     
     override func tearDown() {
+        adWindow?.isHidden = true
+        adWindow = nil
+        transaction = nil
         MockServer.shared.reset()
         
         Prebid.reset()
@@ -44,7 +51,6 @@ class VideoEventsTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
     
     func testTypes() {
         self.continueAfterFailure = true
-        Prebid.forcedIsViewable = true
         defer { Prebid.reset() }
         
         
@@ -89,6 +95,8 @@ class VideoEventsTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
             }
         }
         
+        // Only the tracker fulfills this: the creative forwards the loaded event when it creates its Open Measurement
+        // session.
         let expectationVideoAdLoaded = expectation(description:"expectationVideoAdLoaded")
         eventTracker.mock_trackVideoAdLoaded = { _ in
             expectationVideoAdLoaded.fulfill()
@@ -110,41 +118,47 @@ class VideoEventsTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
         
         creativeModel.eventTracker = eventTracker
         
-        let transaction = UtilitiesForTesting.createEmptyTransaction()
-        transaction.creativeModels = [creativeModel]
-        
-        //Get a Creative
-        
-        let creativeFactory = CreativeFactory(serverConnection:connection, transaction: transaction, finishedCallback: { creatives, error in
-            
-            if (error != nil) {
-                XCTFail("error: \(error?.localizedDescription ?? "")")
-            }
-            
-            self.expectationDownloadCompleted.fulfill()
-            expectationVideoAdLoaded.fulfill()
-            guard let pbmVideoCreative = creatives?.first as? VideoCreative else {
-                XCTFail("Could not cast creative as VideoCreative")
-                return
-            }
-            
-            pbmVideoCreative.creativeViewDelegate = self
-            pbmVideoCreative.videoView.videoViewDelegate = self
-            self.pbmVideoCreative = pbmVideoCreative
-            
-            DispatchQueue.main.async {
-                self.pbmVideoCreative.display(rootViewController: self.viewController)
-                self.pbmVideoCreative.videoView.avPlayer.volume = 0.33
-            }
-        })
+        // The transaction runs the creative factory and then, on the main thread, creates its first creative's native
+        // Open Measurement session, which makes the creative track the loaded event. The mock wrapper supplies that
+        // session. `TransactionImpl.init` still reads `OpenMeasurementWrapper.shared`; the test replaces the wrapper
+        // after that and before the factory starts.
+        let transaction = Factory.createTransaction(serverConnection: connection,
+                                                    adConfiguration: adConfiguration,
+                                                    models: [creativeModel])
+        transaction.measurementWrapper = MockMeasurementWrapper()
+        transaction.delegate = self
+        self.transaction = transaction
         
         DispatchQueue.global().async {
-            creativeFactory.start()
+            transaction.startCreativeFactory()
         }
         
         self.waitForExpectations(timeout: 10, handler:nil)
     }
     
+    //MARK: - TransactionDelegate
+    func transactionReadyForDisplay(_ transaction: Transaction) {
+        self.expectationDownloadCompleted.fulfill()
+        guard let pbmVideoCreative = transaction.getFirstCreative() as? VideoCreative else {
+            XCTFail("Could not cast creative as VideoCreative")
+            return
+        }
+
+        pbmVideoCreative.creativeViewDelegate = self
+        pbmVideoCreative.videoView.videoViewDelegate = self
+        self.pbmVideoCreative = pbmVideoCreative
+
+        DispatchQueue.main.async {
+            self.viewController.view.addSubview(self.pbmVideoCreative.view!)
+            self.pbmVideoCreative.display(rootViewController: self.viewController)
+            self.pbmVideoCreative.videoView.avPlayer.volume = 0.33
+        }
+    }
+
+    func transactionFailedToLoad(_ transaction: Transaction, error: Error) {
+        XCTFail("error: \(error.localizedDescription)")
+    }
+
     
     //MARK: - CreativeViewDelegate
     func creativeDidComplete(_ creative: AbstractCreative) {

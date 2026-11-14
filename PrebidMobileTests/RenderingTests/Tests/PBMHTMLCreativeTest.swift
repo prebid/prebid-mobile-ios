@@ -90,7 +90,6 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
     
     func testDisplay_triggersImpression() {
         
-        Prebid.forcedIsViewable = true
         defer { Prebid.reset() }
         
         let impressionExpectation = self.expectation(description: "Should have triggered an impression")
@@ -111,6 +110,10 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
             self.mockWebView.delegate?.webViewReadyToDisplay(self.mockWebView!)
         }
         
+        // The creative's view is in `mockViewController.view`; the viewability tracker counts it only on screen.
+        let window = UtilitiesForTesting.showOnScreen(mockViewController)
+        defer { window.isHidden = true }
+
         self.htmlCreative.display(rootViewController: UIViewController())
         
         self.waitForExpectations(timeout: 1)
@@ -264,19 +267,22 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         serverConnection.protocolClasses.append(MockServerURLProtocol.self)
         
         //Test
+        self.htmlCreative = makeHTMLCreative()
+        self.htmlCreative.creativeResolutionDelegate = self
+        self.htmlCreative.creativeViewDelegate = self
+
+    }
+
+    private func makeHTMLCreative() -> MockPBMHTMLCreative {
         let pbmCreativeModel = CreativeModel(adConfiguration: AdConfiguration())
         pbmCreativeModel.displayDurationInSeconds = 30
         pbmCreativeModel.html = "<html>test html</html>"
         
         let webView = WebView()
         webView.libraryManager = MockPrebidJSLibraryManager.bundledMRAID()
-        self.htmlCreative = MockPBMHTMLCreative(creativeModel: pbmCreativeModel,
-                                               transaction: UtilitiesForTesting.createEmptyTransaction(),
-                                               webView: webView, sdkConfiguration: Prebid.mock)
-        self.htmlCreative.creativeResolutionDelegate = self
-        self.htmlCreative.creativeViewDelegate = self
-        
-        Prebid.forcedIsViewable = false
+        return MockPBMHTMLCreative(creativeModel: pbmCreativeModel,
+                                   transaction: UtilitiesForTesting.createEmptyTransaction(),
+                                   webView: webView, sdkConfiguration: Prebid.mock)
     }
     
     override func tearDown() {
@@ -395,17 +401,18 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
     }
     
     func testViewability() {
+        // A shown window with a parent view that has real bounds. One creative is inside the parent, the other
+        // completely outside it; both stay in the hierarchy, so only their position differs.
+        let parentWindow = UIWindow(frame: CGRect(x: 0.0, y: 0.0, width: 320, height: 480))
+        parentWindow.isHidden = false
+        defer { parentWindow.isHidden = true }
+        let parentView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 200, height: 200))
+        parentWindow.addSubview(parentView)
+
         self.htmlCreative.setupView()
         self.htmlCreative.creativeResolutionDelegate = nil
-        
-        let parentWindow = UIWindow()
-        let parentView = UIView()
-        
-        parentWindow.frame  = CGRect(x: 0.0, y: 0.0, width: 100, height: 100)
         self.htmlCreative.view?.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 50)
-        
         parentView.addSubview(self.htmlCreative.view!)
-        parentWindow.addSubview(parentView)
         
         self.expectationCreativeDidDisplay = self.expectation(description: "Expected creativeDidDisplay to be called")
         
@@ -414,14 +421,21 @@ class PBMHTMLCreativeTest : XCTestCase, CreativeResolutionDelegate, CreativeView
         
         self.waitForExpectations(timeout: 1, handler: nil)
         
-        self.htmlCreative.view?.removeFromSuperview()
-        self.htmlCreative.view?.frame = CGRect(x: 101.0, y: 101.0, width: 100, height: 100)
-        
-        parentView.addSubview(self.htmlCreative.view!)
+        // Outside the parent. A fresh creative: the impression is one-shot, so the creative above could not report
+        // another one anyway.
+        let outsideCreative = makeHTMLCreative()
+        outsideCreative.creativeViewDelegate = self
+        outsideCreative.setupView()
+        outsideCreative.view?.frame = CGRect(x: parentView.bounds.maxX + 1, y: parentView.bounds.maxY + 1,
+                                             width: 100, height: 100)
+        parentView.addSubview(outsideCreative.view!)
+        XCTAssertFalse(outsideCreative.view!.frame.intersects(parentView.bounds), "Sanity: the creative is outside the parent")
+        XCTAssertNotNil(outsideCreative.view?.window, "Sanity: the creative is in the shown window")
         
         self.expectationCreativeDidDisplay = self.expectation(description: "Expected creativeDidDisplay should not be called")
         self.expectationCreativeDidDisplay.isInverted = true
-        viewabilityTracker.checkViewability()
+        let outsideTracker = CreativeViewabilityTrackerImpl(creative: outsideCreative)
+        outsideTracker.checkViewability()
         
         self.waitForExpectations(timeout: 1, handler: nil)
     }

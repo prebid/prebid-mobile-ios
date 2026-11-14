@@ -45,8 +45,6 @@ class PBMVideoViewPlaybackStateTest: XCTestCase, CreativeResolutionDelegate {
 
     override func setUp() {
         MockServer.shared.reset()
-        // Viewability is driven by the real view hierarchy in this suite.
-        Prebid.forcedIsViewable = false
     }
 
     override func tearDown() {

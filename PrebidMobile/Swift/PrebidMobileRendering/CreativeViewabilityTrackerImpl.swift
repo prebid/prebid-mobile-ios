@@ -91,11 +91,6 @@ final class CreativeViewabilityTrackerImpl: NSObject, CreativeViewabilityTracker
     }
 
     private func isVisibleView(_ view: UIView?) -> Bool {
-#if DEBUG
-        if Prebid.forcedIsViewable {
-            return true
-        }
-#endif
         guard let view else {
             return false
         }

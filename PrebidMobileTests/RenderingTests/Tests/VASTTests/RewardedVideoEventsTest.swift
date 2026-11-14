@@ -23,6 +23,7 @@ import CoreFoundation
 class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
     
     let vc = UIViewController()
+    var adWindow: UIWindow?
     
     var vastRequestSuccessfulExpectation:XCTestExpectation!
     
@@ -45,18 +46,21 @@ class RewardedVideoEventsTest : XCTestCase, CreativeViewDelegate {
         
         MockServer.shared.reset()
         Prebid.reset()
+        // The ad's view goes into `vc.view`; the viewability tracker counts it as visible only on screen.
+        adWindow = UtilitiesForTesting.showOnScreen(vc)
     }
     
     override func tearDown() {
         super.tearDown()
         
+        adWindow?.isHidden = true
+        adWindow = nil
         MockServer.shared.reset()
         Prebid.reset()
     }
     
     func testEvents() {
         self.initExpectations()
-        Prebid.forcedIsViewable = true
         defer { Prebid.reset() }
         
         

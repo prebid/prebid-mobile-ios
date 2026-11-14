@@ -91,6 +91,16 @@ typealias JsonDictionary = [String:Any]
         return transaction;
     }
     
+    /// Shows `viewController` as the root of a window on screen. The viewability tracker counts a view as visible only
+    /// when it is in a window, so a test that expects an impression or playback puts the ad's view inside
+    /// `viewController.view`. Hide the returned window when the test ends.
+    class func showOnScreen(_ viewController: UIViewController) -> UIWindow {
+        let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
+        window.rootViewController = viewController
+        window.isHidden = false
+        return window
+    }
+
     class func createHTMLCreative(with model: CreativeModel) -> AbstractCreative {
         return HTMLCreative(creativeModel: model,
                                transaction:UtilitiesForTesting.createEmptyTransaction())

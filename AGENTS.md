@@ -155,6 +155,8 @@ GitHub Actions (Xcode 26.5.0, macOS 26):
 
 Check: when the issue-1444 changes are complete, `grep -rn "#if DEBUG" PrebidMobile EventHandlers` lists only logging and test-only factory functions; until then, `#if DEBUG` blocks also hold the Debug-only parts of the seams those changes still have to remove. Global state that tests still change, such as the `Functions.application` override and `PrebidServerConnection.shared.protocolClasses`, is listed in the playbook; do not add more. A test that changes `PrebidServerConnection.shared.protocolClasses` restores it in a teardown block; prefer a connection of the test's own. Seams that are fine as they are, the remaining ones, the ones the issue-1444 changes still have to remove, and how tests replaced the ones that were removed: `docs/migration/playbook.md`, "Test seams in SDK sources".
 
+For tests that need viewability: a creative's impression uses the legacy visibility check, under which a view with no area can count (when its position falls within its ancestors' bounds and nothing visible sits above it at window level), so give the ad a size and assert it. Put the ad on screen with `UtilitiesForTesting.showOnScreen(_:)`. In the unhosted `PrebidMobileTests` configuration a modal presentation has been observed not to complete (animated or not, also with a key window), so anything that needs a presented modal on screen needs a hosted test. To test what code does when it presents a modal, present from a `MockPresentedViewController`, which records the presented controller, not from a view controller in a window.
+
 ## ObjC → Swift migration
 
 Migration docs live in `docs/migration/`. Keep them current throughout every working session:
