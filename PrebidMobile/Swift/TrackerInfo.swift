@@ -19,26 +19,29 @@ class TrackerInfo: NSObject {
 
     var URL : String?
     var dateCreated : Date?
-    var expired = false
+    private(set) var expired = false
     var numberOfTimesFired = 0
     private var expirationTimer : Timer?
-    private static let trackerExpirationInterval : TimeInterval = 3600
+    static let trackerExpirationInterval : TimeInterval = 3600
     
-    init(URL: String) {
+    /// - Parameter scheduleExpirationTimer: Schedules the one-shot timer that marks the tracker expired after
+    ///   `trackerExpirationInterval`. The tracker manager creates a tracker on the main thread when it first enters
+    ///   the retry queue, so the timer runs on the main run loop; retries keep the same tracker and its timer.
+    init(URL: String, scheduleExpirationTimer: (TimeInterval, @escaping (Timer) -> Void) -> Timer) {
         self.URL = URL
         self.dateCreated = Date()
         super.init()
-        createExpirationTimer()
+        createExpirationTimer(scheduleExpirationTimer)
     }
-    func createExpirationTimer(){
-        expirationTimer = Timer.scheduledTimer(withTimeInterval: TrackerInfo.trackerExpirationInterval, repeats: false, block: { [weak self] timer in
+    private func createExpirationTimer(_ scheduleExpirationTimer: (TimeInterval, @escaping (Timer) -> Void) -> Timer){
+        expirationTimer = scheduleExpirationTimer(TrackerInfo.trackerExpirationInterval) { [weak self] timer in
             timer.invalidate()
             guard let strongSelf = self else {
                 Log.debug("FAILED TO ACQUIRE strongSelf for TrackerInfo")
                 return
             }
             strongSelf.expired = true
-        })
+        }
     }
     
     deinit {
