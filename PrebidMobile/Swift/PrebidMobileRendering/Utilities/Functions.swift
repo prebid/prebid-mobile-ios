@@ -327,33 +327,6 @@ class Functions: NSObject {
         return false
         #endif
     }
-
-    // MARK: -
-
-    static func checkCertificateChallenge(_ challenge: URLAuthenticationChallenge,
-                                                 completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        // Check if mock server host
-        guard challenge.protectionSpace.host == "10.0.2.2" else {
-            completionHandler(.performDefaultHandling, nil)
-            return
-        }
-        
-        var certificateHost: String?
-        if let serverTrust = challenge.protectionSpace.serverTrust,
-           let certificate = SecTrustGetCertificateAtIndex(serverTrust, 0),
-           let summary = SecCertificateCopySubjectSummary(certificate) {
-            certificateHost = summary as String
-        }
-        
-        let credential = challenge.protectionSpace.serverTrust.map {
-            URLCredential(trust: $0)
-        }
-        
-        // Only allow when involving 10.0.2.2 mock server host
-        if certificateHost == "10.0.2.2" {
-            completionHandler(.useCredential, credential)
-        }
-    }
 }
 
 private enum JSONNode: Decodable {

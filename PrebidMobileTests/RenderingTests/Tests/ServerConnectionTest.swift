@@ -704,6 +704,344 @@ class ServerConnectionTest_Redirect: XCTestCase {
 
 // MARK: Utilities
 
+// The caller may release a connection while its request is in flight (`PrebidServerConnection().get(...)`).
+// The callback must still fire, once.
+class ServerConnectionReleasedBeforeResponseTest: XCTestCase {
+
+    func testGetCallbackFiresAfterConnectionIsReleased() {
+        assertCallbackFiresAfterConnectionIsReleased { connection, url, callback in
+            connection.get(url, timeout: 10, callback: callback)
+        }
+    }
+
+    func testHeadCallbackFiresAfterConnectionIsReleased() {
+        assertCallbackFiresAfterConnectionIsReleased { connection, url, callback in
+            connection.head(url, timeout: 10, callback: callback)
+        }
+    }
+
+    func testPostCallbackFiresAfterConnectionIsReleased() {
+        assertCallbackFiresAfterConnectionIsReleased { connection, url, callback in
+            connection.post(url, data: Data("body".utf8), timeout: 10, callback: callback)
+        }
+    }
+
+    func testDownloadCallbackFiresAfterConnectionIsReleased() {
+        assertCallbackFiresAfterConnectionIsReleased { connection, url, callback in
+            connection.download(url, callback: callback)
+        }
+    }
+
+    // Covers the fixture: a hold released before its request starts answers the request at once and keeps no
+    // reference to the protocol that loaded it.
+    func testHoldReleasedBeforeTheRequestStartsAnswersAtOnce() {
+        let requestStarted = XCTestExpectation(description: "The request reached the URL protocol")
+        let callbackFired = XCTestExpectation(description: "The callback fired")
+        let hold = HeldResponseURLProtocol.Hold(onStart: { requestStarted.fulfill() })
+        let callbacks = CallbackGate()
+        HeldResponseURLProtocol.register(hold)
+        addTeardownBlock {
+            callbacks.close()
+            HeldResponseURLProtocol.unregister(hold)
+        }
+
+        hold.release()
+
+        let connection = PrebidServerConnection(userAgentService: MockUserAgentService())
+        connection.protocolClasses = [HeldResponseURLProtocol.self]
+        connection.get(hold.url, timeout: 10) { response in
+            callbacks.accept { count in
+                XCTAssertEqual(count, 1, "The callback fired once")
+                XCTAssertNil(response.error)
+                XCTAssertEqual(response.statusCode, 200)
+                if count == 1 {
+                    callbackFired.fulfill()
+                }
+            }
+        }
+
+        wait(for: [requestStarted, callbackFired], timeout: 5)
+        XCTAssertFalse(hold.isRetainingLoader, "The hold keeps no loader once it has answered")
+    }
+
+    private func assertCallbackFiresAfterConnectionIsReleased(
+        file: StaticString = #filePath,
+        line: UInt = #line,
+        send: (PrebidServerConnection, String, @escaping (PrebidServerResponse) -> Void) -> Void
+    ) {
+        // The URL protocol holds the response until `hold.release()`. The hold's token is in the URL, so only this
+        // test's request reaches this hold: a late request from another test fails at once instead.
+        let requestStarted = XCTestExpectation(description: "The request reached the URL protocol")
+        let callbackFired = XCTestExpectation(description: "The callback fired")
+        let secondCallback = XCTestExpectation(description: "The callback fired again")
+        secondCallback.isInverted = true
+        let hold = HeldResponseURLProtocol.Hold(onStart: { requestStarted.fulfill() })
+        let callbacks = CallbackGate()
+        HeldResponseURLProtocol.register(hold)
+
+        // Runs when the test ends, also after a failed wait. Once it has run, no callback asserts or fulfills, no
+        // request can attach to the hold, and the hold no longer references a protocol.
+        addTeardownBlock {
+            callbacks.close()
+            HeldResponseURLProtocol.unregister(hold)
+        }
+
+        weak var weakConnection: PrebidServerConnection?
+        do {
+            let connection = PrebidServerConnection(userAgentService: MockUserAgentService())
+            connection.protocolClasses = [HeldResponseURLProtocol.self]
+            weakConnection = connection
+            send(connection, hold.url) { response in
+                callbacks.accept { count in
+                    if count == 1 {
+                        XCTAssertNil(response.error, file: file, line: line)
+                        XCTAssertEqual(response.statusCode, 200, file: file, line: line)
+                        callbackFired.fulfill()
+                    } else {
+                        secondCallback.fulfill()
+                    }
+                }
+            }
+        }
+
+        // Without a started request there is nothing to test. Releasing the hold anyway would let a late request
+        // find it already released, so end the hold before returning.
+        guard XCTWaiter(delegate: self).wait(for: [requestStarted], timeout: 5) == .completed else {
+            callbacks.close()
+            HeldResponseURLProtocol.unregister(hold)
+            return
+        }
+        XCTAssertNil(weakConnection, "The connection is gone before the response is released", file: file, line: line)
+
+        hold.release()
+        wait(for: [callbackFired], timeout: 5)
+        wait(for: [secondCallback], timeout: 0.5)
+        XCTAssertFalse(hold.isRetainingLoader, "The hold keeps no loader once it has answered", file: file, line: line)
+    }
+}
+
+// Counts callbacks from any thread. `accept` runs each callback's checks under the lock that `close()` takes, so
+// once `close()` has returned (in the test's teardown) no callback asserts or fulfills an expectation.
+private final class CallbackGate {
+    private let lock = NSLock()
+    private var callbacks = 0
+    private var isOpen = true
+
+    func accept(_ body: (_ count: Int) -> Void) {
+        lock.lock()
+        defer { lock.unlock() }
+        guard isOpen else {
+            return
+        }
+        callbacks += 1
+        body(callbacks)
+    }
+
+    func close() {
+        lock.lock()
+        isOpen = false
+        lock.unlock()
+    }
+}
+
+// Answers a request that has a registered hold with 200 and a small text body when its test releases the hold. It
+// answers with an error instead when the hold is not released within `maximumHold`, or when the test ends first.
+// A hold released before its request starts answers the request as soon as it starts. A request without a
+// registered hold, a second request for the same hold, or a request after the test ended fails at once.
+private final class HeldResponseURLProtocol: URLProtocol {
+
+    static let maximumHold: TimeInterval = 10
+
+    final class Hold {
+        enum Outcome {
+            case response
+            case failure(Error)
+        }
+
+        let token = UUID().uuidString
+        var url: String {
+            "http://held.response/\(token)"
+        }
+
+        private let lock = NSLock()
+        private let onStart: () -> Void
+        // The protocol waiting for the outcome. Set only while the hold is unresolved; the protocol refers back to
+        // the hold weakly, so clearing this is all it takes to let both go.
+        private var loader: HeldResponseURLProtocol?
+        private var outcome: Outcome?
+        private var hasStarted = false
+        private var hasEnded = false
+
+        init(onStart: @escaping () -> Void) {
+            self.onStart = onStart
+        }
+
+        /// Whether the hold still references the protocol that loads its request.
+        var isRetainingLoader: Bool {
+            lock.lock()
+            defer { lock.unlock() }
+            return loader != nil
+        }
+
+        /// Called by the URL protocol that loads the request. Returns false when the protocol must fail the request.
+        fileprivate func attach(_ loader: HeldResponseURLProtocol) -> Bool {
+            lock.lock()
+            guard !hasEnded, !hasStarted else {
+                lock.unlock()
+                return false
+            }
+            hasStarted = true
+            // Under the lock, so the test cannot end between the check above and this call.
+            onStart()
+            if let outcome {
+                // Resolved before the request started: answer at once and keep no reference to the protocol.
+                lock.unlock()
+                loader.answer(outcome)
+                return true
+            }
+            self.loader = loader
+            lock.unlock()
+
+            DispatchQueue.global().asyncAfter(deadline: .now() + HeldResponseURLProtocol.maximumHold) { [weak self] in
+                self?.resolve(.failure(URLError(.timedOut)))
+            }
+            return true
+        }
+
+        /// Lets the protocol answer with the response.
+        func release() {
+            resolve(.response)
+        }
+
+        /// Called when the URL loading system stops the request: there is nobody to answer any more.
+        fileprivate func detach(_ loader: HeldResponseURLProtocol) {
+            lock.lock()
+            if self.loader === loader {
+                self.loader = nil
+                if outcome == nil {
+                    outcome = .failure(URLError(.cancelled))
+                }
+            }
+            lock.unlock()
+        }
+
+        /// The test ended: no request may attach any more, and the hold lets go of its protocol even if the
+        /// protocol's thread never runs the cancellation it is sent.
+        fileprivate func end() {
+            lock.lock()
+            hasEnded = true
+            lock.unlock()
+            resolve(.failure(URLError(.cancelled)))
+        }
+
+        // Only the first outcome counts. The protocol waiting for it, if any, gets it once and is let go.
+        private func resolve(_ outcome: Outcome) {
+            lock.lock()
+            guard self.outcome == nil else {
+                lock.unlock()
+                return
+            }
+            self.outcome = outcome
+            let loader = self.loader
+            self.loader = nil
+            lock.unlock()
+            loader?.answer(outcome)
+        }
+    }
+
+    private static let registryLock = NSLock()
+    private static var holds = [String: Hold]()
+
+    static func register(_ hold: Hold) {
+        registryLock.lock()
+        holds[hold.token] = hold
+        registryLock.unlock()
+    }
+
+    static func unregister(_ hold: Hold) {
+        registryLock.lock()
+        holds[hold.token] = nil
+        registryLock.unlock()
+        hold.end()
+    }
+
+    private static func hold(for request: URLRequest) -> Hold? {
+        guard let token = request.url?.lastPathComponent else {
+            return nil
+        }
+        registryLock.lock()
+        defer { registryLock.unlock() }
+        return holds[token]
+    }
+
+    // The thread and run loop mode that started loading: URLProtocol clients expect calls there.
+    private var clientThread: Thread?
+    private var clientModes = [RunLoop.Mode.default.rawValue]
+    private weak var hold: Hold?
+    private var isStopped = false
+
+    override class func canInit(with request: URLRequest) -> Bool {
+        true
+    }
+
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+        request
+    }
+
+    override func startLoading() {
+        clientThread = Thread.current
+        if let mode = RunLoop.current.currentMode, mode != .default {
+            clientModes.append(mode.rawValue)
+        }
+        guard let hold = Self.hold(for: request), hold.attach(self) else {
+            client?.urlProtocol(self, didFailWithError: URLError(.resourceUnavailable))
+            return
+        }
+        self.hold = hold
+    }
+
+    override func stopLoading() {
+        isStopped = true
+        hold?.detach(self)
+    }
+
+    fileprivate func answer(_ outcome: Hold.Outcome) {
+        guard let clientThread else {
+            return
+        }
+        perform(#selector(deliver(_:)), on: clientThread, with: OutcomeBox(outcome), waitUntilDone: false,
+                modes: clientModes)
+    }
+
+    @objc private func deliver(_ box: OutcomeBox) {
+        guard !isStopped else {
+            return
+        }
+        switch box.outcome {
+        case .response:
+            guard let url = request.url,
+                  let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1",
+                                                 headerFields: ["Content-Type": "text/plain"]) else {
+                client?.urlProtocol(self, didFailWithError: URLError(.badURL))
+                return
+            }
+            client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+            client?.urlProtocol(self, didLoad: Data("held".utf8))
+            client?.urlProtocolDidFinishLoading(self)
+        case .failure(let error):
+            client?.urlProtocol(self, didFailWithError: error)
+        }
+    }
+
+    private final class OutcomeBox: NSObject {
+        let outcome: Hold.Outcome
+
+        init(_ outcome: Hold.Outcome) {
+            self.outcome = outcome
+        }
+    }
+}
+
 /**
  *  Creates an `XCTestExpectation` that will fail if fulfilled. This is ideal in situations where
  *  test needs to validate an event does not happen.
