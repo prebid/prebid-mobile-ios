@@ -255,10 +255,11 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         
         var request = URLRequest(url: url)
         request.setValue(userAgentService.userAgent, forHTTPHeaderField: PrebidServerConnection.userAgentHeaderKey)
-        request.setValue("True", forHTTPHeaderField: PrebidServerConnection.isPBMRequestKey)
         
-        // Add this header only in test mode for MOCKED protocols
+        // The SDK marks a request and adds the connection ID only for a connection with mocked protocols (tests);
+        // otherwise it adds neither header itself. The custom headers below can still carry either name.
         if protocolClasses.count > 0 {
+            request.setValue("True", forHTTPHeaderField: PrebidServerConnection.isPBMRequestKey)
             request.addValue(internalID.uuidString, forHTTPHeaderField: PrebidServerConnection.internalIDKey)
         }
         
