@@ -42,7 +42,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     weak var videoDidPauseExpectation: XCTestExpectation?
     weak var videoDidResumeExpectation: XCTestExpectation?
 
-    var adViewManager:AdViewManager!
+    var adViewManager:AdViewManagerImpl!
     var adLoadManager:AdLoadManagerBase!
     var videoCreative: VideoCreative?
     // Creatives started with a bare `AVPlayer()` never registered their KVO observers, so their
@@ -67,7 +67,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     override func setUp() {
         super.setUp()
         
-        adViewManager = Factory.createAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
+        adViewManager = AdViewManagerImpl(connection: PrebidServerConnection(), modalManagerDelegate: nil)
         
         adViewManager.adViewManagerDelegate = self
         onScreenViewController = UIViewController()
@@ -121,7 +121,7 @@ class AdViewManagerTest: XCTestCase, AdViewManagerDelegate {
     }
     
     func testInitDefaults() {
-        let adViewManager = Factory.createAdViewManager(connection: PrebidServerConnection(), modalManagerDelegate: nil)
+        let adViewManager = AdViewManagerImpl(connection: PrebidServerConnection(), modalManagerDelegate: nil)
         XCTAssertNil(adViewManager.externalTransaction)
         XCTAssert(adViewManager.autoDisplayOnLoad == true)
     }

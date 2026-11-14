@@ -33,10 +33,4 @@ protocol CreativeViewabilityTracker: NSObjectProtocol {
      The onExposureChange will be called either exposure changed or isForce is true
      */
     func checkExposure(force: Bool)
-    
-#if DEBUG
-    // Expose for tests
-    func checkViewability()
-#endif
-    
 }

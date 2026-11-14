@@ -66,7 +66,7 @@ class TransactionTests: XCTestCase {
         XCTAssertEqual(model.revenue, revenue)
     }
     
-    func testUpdateAdConfiguration() {
+    func testUpdateAdConfiguration() throws {
         
         let serverConnection = PrebidServerConnection()
         
@@ -76,9 +76,9 @@ class TransactionTests: XCTestCase {
         adConfiguration.autoRefreshDelay = nil
         adConfiguration.autoRefreshMax = nil
         
-        let transaction = UtilitiesForTesting.createTransactionWithHTMLCreativeWithParams(
+        let transaction = try XCTUnwrap(UtilitiesForTesting.createTransactionWithHTMLCreativeWithParams(
             connection: serverConnection,
-            configuration: adConfiguration)
+            configuration: adConfiguration) as? TransactionImpl)
         
         XCTAssertEqual(transaction.adConfiguration.size, CGSize(width: 0, height: 0))
 

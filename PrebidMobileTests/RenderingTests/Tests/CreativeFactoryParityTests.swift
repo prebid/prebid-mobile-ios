@@ -123,13 +123,13 @@ final class CreativeFactoryParityTests: XCTestCase {
             let second = CreativeModel(adConfiguration: adConfiguration)
             second.width = 1
             second.height = 1
-            let transaction = Factory.createTransaction(serverConnection: connection, adConfiguration: adConfiguration, models: [first, second])
+            let transaction = TransactionImpl(serverConnection: connection, adConfiguration: adConfiguration, models: [first, second])
             transaction.updateAdConfiguration()
             lines.append("size.\(width)x\(height) => \(Self.describe(transaction.adConfiguration.size.width)) \(Self.describe(transaction.adConfiguration.size.height))")
         }
         let emptyConfiguration = AdConfiguration()
         emptyConfiguration.size = CGSize(width: 9, height: 8)
-        let emptyTransaction = Factory.createTransaction(serverConnection: connection, adConfiguration: emptyConfiguration, models: [])
+        let emptyTransaction = TransactionImpl(serverConnection: connection, adConfiguration: emptyConfiguration, models: [])
         emptyTransaction.updateAdConfiguration()
         lines.append("size.nomodels => \(emptyTransaction.adConfiguration.size.width) \(emptyTransaction.adConfiguration.size.height)")
 
