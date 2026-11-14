@@ -24,30 +24,28 @@ class AdUnitTests: XCTestCase {
         
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         Prebid.shared.timeoutMillis = 2000
+        Prebid.shared.prebidServerAccountId = ""
     }
 
     func testFetchDemand() {
         //given
         let expectation = expectation(description: "\(#function)")
-        let testObject: AnyObject = () as AnyObject
+        let adObject = NSMutableDictionary()
         var resultCode: ResultCode?
         
-        let expected = ResultCode.prebidDemandFetchSuccess
-        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        AdUnitSwizzleHelper.testScenario = expected
-        AdUnitSwizzleHelper.toggleFetchDemand()
+        let adUnit = makeAdUnit(respondingWith: BidResponseTransformer.makeValidCachedResponse(bidPrice: 0.75).jsonDict)
         
         //when
-        adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
+        adUnit.fetchDemand(adObject: adObject) { (code: ResultCode) in
             resultCode = code
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 5, handler: nil)
-        AdUnitSwizzleHelper.toggleFetchDemand()
         
         //then
-        XCTAssertEqual(expected, resultCode)
+        XCTAssertEqual(resultCode, .prebidDemandFetchSuccess)
+        XCTAssertEqual(adObject["hb_bidder"] as? String, "openx", "The winning bid's targeting is attached to the ad object")
     }
     
     func testFetchDemandBids() {
@@ -56,14 +54,7 @@ class AdUnitTests: XCTestCase {
         var codeResult: ResultCode?
         var kvDictResult: [String:String]?
         
-        let expected = ResultCode.prebidDemandFetchSuccess
-        let expectedKVDictionary = ["key1" : "value1"]
-        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        
-        AdUnitSwizzleHelper.testScenario = expected
-        AdUnitSwizzleHelper.targetingKeywords = expectedKVDictionary
-        
-        AdUnitSwizzleHelper.toggleFetchDemand()
+        let adUnit = makeAdUnit(respondingWith: BidResponseTransformer.makeValidCachedResponse(bidPrice: 0.75).jsonDict)
         
         //when
         adUnit.fetchDemand { bidInfo in
@@ -73,12 +64,11 @@ class AdUnitTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 5, handler: nil)
-        AdUnitSwizzleHelper.toggleFetchDemand()
         
         //then
-        XCTAssertEqual(expected, codeResult)
-        XCTAssertEqual(1, kvDictResult!.count)
-        XCTAssertTrue(NSDictionary(dictionary: kvDictResult!).isEqual(to: expectedKVDictionary))
+        XCTAssertEqual(codeResult, .prebidDemandFetchSuccess)
+        XCTAssertEqual(kvDictResult?["hb_bidder"], "openx")
+        XCTAssertEqual(kvDictResult?["hb_pb"], "0.10")
     }
     
     func testFetchDemandBidInfo() {
@@ -87,34 +77,44 @@ class AdUnitTests: XCTestCase {
         
         var realBidInfo: BidInfo?
         
-        let expected = ResultCode.prebidDemandFetchSuccess
-        let expectedKVDictionary = ["key1" : "value1"]
-        let expectedExp = 5.0
-        let expectedCacheId = UUID().uuidString
+        guard let json = UtilitiesForTesting.loadFileAsDictFromBundle("sample_ortb_native_with_win_event.json") else {
+            XCTFail("Couldn't load `sample_ortb_native_with_win_event.json` file.")
+            return
+        }
         
-        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        
-        AdUnitSwizzleHelper.testScenario = expected
-        AdUnitSwizzleHelper.targetingKeywords = expectedKVDictionary
-        AdUnitSwizzleHelper.exp = expectedExp
-        AdUnitSwizzleHelper.nativeAdCacheId = expectedCacheId
-        
-        AdUnitSwizzleHelper.toggleFetchDemand()
+        let adUnit = makeAdUnit(respondingWith: json, adFormats: [.native])
         
         //when
         adUnit.fetchDemand { bidInfo in
-            expectation.fulfill()
             realBidInfo = bidInfo
+            expectation.fulfill()
         }
         
         waitForExpectations(timeout: 5, handler: nil)
-        AdUnitSwizzleHelper.toggleFetchDemand()
         
         //then
-        XCTAssertEqual(realBidInfo?.resultCode, expected)
-        XCTAssertEqual(realBidInfo?.targetingKeywords, expectedKVDictionary)
-        XCTAssertEqual(realBidInfo?.exp, expectedExp)
-        XCTAssertEqual(realBidInfo?.nativeAdCacheId, expectedCacheId)
+        XCTAssertEqual(realBidInfo?.resultCode, .prebidDemandFetchSuccess)
+        XCTAssertEqual(realBidInfo?.targetingKeywords?["hb_bidder"], "prebid")
+        XCTAssertEqual(realBidInfo?.exp, 116)
+        XCTAssertNotNil(realBidInfo?.nativeAdCacheId, "A native winning bid is cached locally")
+        XCTAssertEqual(realBidInfo?.targetingKeywords?[PrebidLocalCacheIdKey], realBidInfo?.nativeAdCacheId)
+    }
+
+    /// An ad unit whose bid requester answers with `json` instead of calling Prebid Server.
+    private func makeAdUnit(respondingWith json: [String: Any]?, adFormats: Set<AdFormat> = [.banner]) -> AdUnit {
+        Prebid.shared.prebidServerAccountId = "test-account-id"
+        return AdUnit(
+            bidRequester: MockPBMBidRequester(jsonDictionary: json ?? [:]),
+            configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4",
+            size: CGSize(width: 300, height: 250),
+            adFormats: adFormats
+        )
+    }
+
+    /// `setAutoRefreshMillis(time:)` accepts 30 s or more. Tests that wait for a refresh create the dispatcher it
+    /// would create, with an 800 ms interval.
+    private func useShortAutoRefresh(_ adUnit: AdUnit) {
+        adUnit.initDispatcher(refreshTime: 800)
     }
     
     //forceSdkToChooseWinner + Winner = Contains Targeting Info
@@ -387,7 +387,6 @@ class AdUnitTests: XCTestCase {
     }
     
     func testFetchDemandAutoRefresh() {
-        AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
         let expectedFetchDemandCount = 2
         let exception = expectation(description: "\(#function)")
@@ -396,7 +395,7 @@ class AdUnitTests: XCTestCase {
         
         Prebid.shared.prebidServerAccountId = "1001"
         let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.setAutoRefreshMillis(time: 800.0)
+        useShortAutoRefresh(adUnit)
         let testObject: AnyObject = () as AnyObject
         
         var fetchDemandCount = 0
@@ -408,7 +407,6 @@ class AdUnitTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 10, handler: nil)
-        AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
@@ -416,9 +414,6 @@ class AdUnitTests: XCTestCase {
     }
     
     func testFetchDemandResumeAutoRefresh() {
-        AdUnitSwizzleHelper.toggleCheckRefreshTime()
-        defer { AdUnitSwizzleHelper.toggleCheckRefreshTime() }
-
         Prebid.shared.prebidServerAccountId = "1001"
         let requester = MockBidRequester(expectedCalls: [
             { $0(nil, nil) },
@@ -426,7 +421,7 @@ class AdUnitTests: XCTestCase {
         ])
         let adUnit = AdUnit(bidRequester: requester, configId: "1001-1",
                             size: CGSize(width: 300, height: 250), adFormats: [.banner])
-        adUnit.setAutoRefreshMillis(time: 800)
+        useShortAutoRefresh(adUnit)
         defer { adUnit.stopAutoRefresh() }
 
         let initialFetch = expectation(description: "Initial fetch")
@@ -455,7 +450,6 @@ class AdUnitTests: XCTestCase {
     }
 
     func testFetchDemandBidsAutoRefresh() {
-        AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
         let expectedFetchDemandCount = 2
         let exception = expectation(description: "\(#function)")
@@ -464,7 +458,7 @@ class AdUnitTests: XCTestCase {
         
         Prebid.shared.prebidServerAccountId = "1001"
         let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.setAutoRefreshMillis(time: 800.0)
+        useShortAutoRefresh(adUnit)
         
         var fetchDemandCount = 0
         
@@ -474,14 +468,12 @@ class AdUnitTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 10, handler: nil)
-        AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
     }
     
     func testFetchDemandBidsAutoRefreshWithSimilarGlobalTimeout() {
-        AdUnitSwizzleHelper.toggleCheckRefreshTime()
         //given
         let expectedFetchDemandCount = 2
         let exception = expectation(description: "\(#function)")
@@ -498,7 +490,7 @@ class AdUnitTests: XCTestCase {
         
         let bidRequester = MockPBMBidRequester(jsonDictionary: json)
         let adUnit = AdUnit(bidRequester: bidRequester, configId: "1001-1", size: .zero, adFormats: [])
-        adUnit.setAutoRefreshMillis(time: 800)
+        useShortAutoRefresh(adUnit)
         
         var fetchDemandCount = 0
         
@@ -510,7 +502,6 @@ class AdUnitTests: XCTestCase {
         })
 
         waitForExpectations(timeout: 10, handler: nil)
-        AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
@@ -524,7 +515,14 @@ class AdUnitTests: XCTestCase {
         adUnit.setAutoRefreshMillis(time: 30_000)
         
         //then
-        XCTAssertNotNil(adUnit.dispatcher)
+        XCTAssertEqual(adUnit.dispatcher?.repeatInSeconds, 30)
+        XCTAssertEqual(adUnit.dispatcher?.state, .notStarted, "Refreshing starts with the first fetchDemand")
+
+        //when: a new interval replaces the old one
+        adUnit.setAutoRefreshMillis(time: 45_000)
+
+        //then
+        XCTAssertEqual(adUnit.dispatcher?.repeatInSeconds, 45)
     }
 
     func testSetAutoRefreshMillisSmall() {
