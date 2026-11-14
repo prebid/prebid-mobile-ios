@@ -99,14 +99,6 @@ public class Bid: NSObject {
         meta?[Bid.KEY_RENDERER_VERSION] as? String
     }
     
-    // This part is dedicating to test server-side ad configurations.
-    // Need to be removed when ext.prebid.passthrough will be available.
-    #if DEBUG
-    public var testVideoAdConfiguration: ORTBAdConfiguration? {
-        bid.ext?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
-    }
-    #endif
-    
     public var rewardedConfig: ORTBRewardedConfiguration? {
         bid.ext?.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.rewardedConfiguration
     }

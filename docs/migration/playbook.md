@@ -413,7 +413,6 @@ Check, once the issue-1444 changes are complete: `grep -rn "#if DEBUG" PrebidMob
 
 **Still to be removed by the issue-1444 changes:**
 
-- **Legacy `ext.passthrough`.** Debug builds parse `bid.ext.passthrough` into the public, Debug-only `Bid.testVideoAdConfiguration` (`#if DEBUG` in `Bid` and `ORTBBidExt`), and interstitials apply it on top of `ext.prebid.passthrough` (`#if DEBUG` in `InterstitialController`).
 - **`Prebid.forcedIsViewable`**, a `UserDefaults` flag (`Prebid+ForcedViewability.swift`) that makes every view count as viewable. `CreativeViewabilityTrackerImpl` and `ViewExposureChecker` read it under `#if DEBUG`.
 - **The Debug-only TLS challenge handler** in `PrebidServerConnection` and `WebView`, which trusts the `10.0.2.2` certificate of the InternalTestApp mock server through `Functions.checkCertificateChallenge`. `PrebidServerConnection` also runs its Debug URL sessions with itself as delegate.
 - **Protocol requirements declared only in Debug** (`AdViewManager.currentCreative`, `externalTransaction`, both `setupCreative`; `Transaction.updateAdConfiguration()`; `CreativeViewabilityTracker.checkViewability()`).
@@ -435,6 +434,10 @@ Check, once the issue-1444 changes are complete: `grep -rn "#if DEBUG" PrebidMob
 - **`UserAgentDefaults.reset()`** clears the cached user agent and removes it from `UserDefaults`. Only `UserAgentDefaultsTest` (in `UserAgentPersistenceTest.swift`) calls it.
 - **`WebView.jsEvaluatingCompletion`** is a closure that `WebView.evaluateJavaScript(_:)` calls from its completion. Direct calls to `internalWebView.evaluateJavaScript` (the document ready-state check, the `mraid.js` injection and the MRAID commands that pass their own completion) bypass it. Its comment says it exists for testability, and only `PBMWebViewTest` sets it.
 - **`OpenMeasurementEventTracker.init()`**, the initializer without a session, which tracks nothing. The SDK creates trackers with `init(session:)`; `MockMeasurementSession` and `PBMOpenMeasurementEventTrackerTest` (in `OXMOpenMeasurementEventTrackerTest.swift`) use the sessionless one.
+
+**How tests replaced the seams that were removed:**
+
+- **Legacy `ext.passthrough`.** Debug builds parsed `bid.ext.passthrough` into the public, Debug-only `Bid.testVideoAdConfiguration`, and interstitials applied it on top of `ext.prebid.passthrough`. Both are gone, and `ORTBBidExt` no longer reads or writes `ext.passthrough` in any build. `ext.prebid.passthrough` (`Bid.videoAdConfiguration`, `Bid.rewardedConfig`) is unchanged. Release notes: `Bid.testVideoAdConfiguration` was public API in Debug builds only.
 
 ## Post-migration cleanup list
 

@@ -22,17 +22,10 @@ class ORTBBidExt: PBMJsonCodable {
     var bidder: [String : Any]?
     var skadn: ORTBBidExtSkadn?
     
-    // This part is dedicating to test server-side ad configurations.
-    // Need to be removed when ext.prebid.passthrough will be available.
-#if DEBUG
-    var passthrough: [ORTBExtPrebidPassthrough]?
-#endif
-    
     private enum KeySet: String {
         case prebid
         case bidder
         case skadn
-        case passthrough
     }
     
     init() {
@@ -44,9 +37,6 @@ class ORTBBidExt: PBMJsonCodable {
         prebid  = json[.prebid]
         bidder  = json[.bidder]
         skadn   = json[.skadn]
-#if DEBUG
-        passthrough = json.backwardsCompatiblePassthrough(key: .passthrough)
-#endif
     }
     
     var jsonDictionary: [String : Any] {
@@ -55,9 +45,6 @@ class ORTBBidExt: PBMJsonCodable {
         json[.prebid]   = prebid
         json[.bidder]   = bidder
         json[.skadn]    = skadn
-#if DEBUG
-        json[.passthrough] = passthrough
-#endif
         
         return json.dict
     }
