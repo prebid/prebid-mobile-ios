@@ -161,15 +161,74 @@ host keeps its self-signed-certificate exception; other hosts use default trust.
 `OpenXMockServerTests` covers response decoding, HTTP/offline errors, and reserved
 characters in GET and POST parameters without contacting the mock server.
 
-The test scripts create their simulator through `scripts/simulator.sh`, which deletes
-it by its ID when the script exits, on failure too. The deletion gives up after
-2 minutes, so a stalled CoreSimulator cannot hold the job open, and the script keeps
-its own exit status. Its defaults can be overridden
+The test scripts create their simulator through `scripts/simulator.sh`. It first
+deletes every device with exactly the same name that an interrupted run left behind.
+It finds them in the JSON from `simctl list -j devices`, read with `python3` (which
+`verifySPM.sh` also uses), so a name matches only itself: a backslash, a tab, a leading
+space or a non-ASCII character is never treated as another character. If listing,
+reading or deleting those devices fails or times out, the script stops rather than
+create a second device with that name. It then creates the simulator and deletes it by
+its UUID when the script exits, on failure too. Its defaults can be overridden
 through the environment: `PREBID_SIMULATOR_NAME`, `PREBID_SIMULATOR_DEVICE_TYPE`,
 and `PREBID_TEST_RUNTIME`. The runtime defaults to the latest installed one; set
 `PREBID_TEST_RUNTIME=com.apple.CoreSimulator.SimRuntime.iOS-26-5` to use the CI runtime
 on a machine that also has iOS 27 installed. Destinations use the created simulator's
 UUID, so a runtime override cannot accidentally select another device.
+
+Every `simctl` call has a time limit, since a stalled CoreSimulator can stall any of
+them:
+
+| Call | Limit |
+| --- | --- |
+| `list` | 60 s |
+| `create`, `delete` | 120 s each |
+| `bootstatus`, the first boot in `testPrebidMobile.sh` | `PREBID_SIMULATOR_BOOT_TIMEOUT`: a whole number of seconds from 1 to 86400, default 900 |
+| `diagnose`, after a failed boot | 600 s |
+
+A call is never stopped before its limit. Because the shell counts whole seconds, it can
+run up to about 2 s longer. The call's whole process group then gets SIGTERM, SIGKILL
+after 5 s, and up to 5 s more to exit. A process that survives that is reported and left
+running; the script does not wait for it. A call that exits but leaves processes running
+in its group is treated as still running until they finish or are stopped. A stopped
+call returns 124.
+
+After a boot timeout, `testPrebidMobile.sh` exits with status 124, even if collecting
+diagnostics or deleting the simulator fails. Collecting the diagnostics (a `list`, then
+`diagnose`) and deleting the simulator add at most about 14 minutes after the boot
+limit: 12 s to stop the boot wait, then 72, 612 and 132 s for the three calls, each
+including its overrun and shutdown time. Each failed boot writes a new folder, named
+after the time and the simulator's UUID, under `PREBID_SIMULATOR_DIAGNOSTICS_DIR`
+(default `generated/log/simulator-diagnostics/`, which CI uploads). Earlier reports stay
+in their own folders and never mix with the current one.
+
+What a signal does depends on what the script is running when it arrives.
+
+During a `simctl` call, SIGINT, SIGTERM or SIGHUP, sent to the script or to its process
+group (Ctrl-C in a terminal), stops that call, deletes the simulator, and ends the script
+with status 130, 143 or 129. If creation was interrupted before `simctl` printed the
+UUID, the device is found by its exact name.
+
+While a caller runs its own foreground command, such as `xcodebuild`, Bash's default
+handling applies, as it did before these changes. On Bash 3.2:
+
+- SIGTERM or SIGHUP ends the script at once, and the exit trap deletes the simulator.
+  If only the script received the signal, the foreground command keeps running.
+- SIGINT to the process group, such as Ctrl-C, ends the command and the script, and the
+  exit trap deletes the simulator (status 130). This holds when the script is a file, as
+  all four callers are. When the same code runs through `bash -c`, Bash skips the exit
+  trap and the simulator is left behind.
+- SIGINT sent only to the script's process ID is ignored: the command finishes and the
+  script carries on.
+
+The simulator can also be left behind in these cases:
+
+- The script is killed with SIGKILL.
+- Only an outer shell receives the signal, as when a CI runner signals the step's shell
+  and later kills the remaining processes.
+- A signal interrupts the final deletion, including the one that runs after an ordinary
+  exit: the signal stops `simctl delete` and ends the script.
+
+The next run that uses the same name deletes a device left behind.
 
 `DevelopmentFormsTests` covers configuration edits, refresh reset, multiformat
 selection gating, clearing consent values, and cell reuse without stale callbacks
