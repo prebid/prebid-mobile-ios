@@ -17,10 +17,6 @@ import Foundation
 
 class DeepLinkPlusHelper: NSObject {
 
-    // Test seams (the ObjC `+Testing` category). Strong, like the static ivars that backed them.
-    static var application: PBMUIApplicationProtocol?
-    static var connection: PrebidServerConnectionProtocol?
-
     @available(*, unavailable)
     override init() {
         fatalError("init() is unavailable")
@@ -32,12 +28,17 @@ class DeepLinkPlusHelper: NSObject {
         url.scheme?.lowercased() == "deeplink+"
     }
 
+    /// - Parameters:
+    ///   - application: Opens the deep links; the shared application by default.
+    ///   - connection: Visits the tracking URLs; `PrebidServerConnection.shared` by default.
     static func tryHandleDeepLinkPlus(
         _ url: URL,
+        application: PBMUIApplicationProtocol? = Functions.resolvedApplication,
+        connection: PrebidServerConnectionProtocol = PrebidServerConnection.shared,
         completion: @escaping (_ visited: Bool, _ fallbackURL: URL?, _ trackingURLs: [URL]?) -> Void
     ) {
         let urlOpener: ExternalURLOpenerBlock
-        if let application = application ?? Functions.resolvedApplication {
+        if let application {
             urlOpener = ExternalURLOpeners.applicationAsExternalUrlOpener(application)
         } else {
             // Host-less (no UIApplication): ObjC messaged a nil application, so nothing was opened, the
@@ -47,9 +48,7 @@ class DeepLinkPlusHelper: NSObject {
             }
         }
 
-        let trackingUrlVisitor = TrackingURLVisitors.connectionAsTrackingURLVisitor(
-            connection ?? PrebidServerConnection.shared
-        )
+        let trackingUrlVisitor = TrackingURLVisitors.connectionAsTrackingURLVisitor(connection)
 
         let externalLinkHandler = ExternalLinkHandler(
             primaryUrlOpener: urlOpener,
@@ -65,14 +64,14 @@ class DeepLinkPlusHelper: NSObject {
         )
     }
 
-    static func visitTrackingURLs(_ trackingURLs: [URL]) {
-        visitTrackingUrlStrings(urlArrayToUrlStringArray(trackingURLs) ?? [])
+    static func visitTrackingURLs(_ trackingURLs: [URL],
+                                  connection: PrebidServerConnectionProtocol = PrebidServerConnection.shared) {
+        visitTrackingUrlStrings(urlArrayToUrlStringArray(trackingURLs) ?? [], connection: connection)
     }
 
-    static func visitTrackingUrlStrings(_ trackingUrlStrings: [String]) {
-        let visitorBlock = TrackingURLVisitors.connectionAsTrackingURLVisitor(
-            connection ?? PrebidServerConnection.shared
-        )
+    static func visitTrackingUrlStrings(_ trackingUrlStrings: [String],
+                                        connection: PrebidServerConnectionProtocol = PrebidServerConnection.shared) {
+        let visitorBlock = TrackingURLVisitors.connectionAsTrackingURLVisitor(connection)
         visitorBlock(trackingUrlStrings)
     }
 
