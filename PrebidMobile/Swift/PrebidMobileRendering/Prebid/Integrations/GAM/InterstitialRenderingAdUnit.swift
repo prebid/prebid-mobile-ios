@@ -125,7 +125,7 @@ public class InterstitialRenderingAdUnit: NSObject, BaseInterstitialAdUnitProtoc
     
     private let baseAdUnit: BaseInterstitialAdUnit
     
-    // NOTE: exposed for tests
+    // The configuration the public properties read and write.
     var adUnitConfig: AdUnitConfig {
         baseAdUnit.adUnitConfig
     }

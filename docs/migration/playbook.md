@@ -399,6 +399,43 @@ comm -23 \
   <(find PrebidMobile/Objc -name '*.m' | sed 's|.*/||; s|\.m$||' | sort -u)
 ```
 
+## Test seams in SDK sources
+
+`#if DEBUG` is conditional compilation: a block exists only in builds where the `DEBUG` compilation condition is set, and that follows the app's build configuration, not our tests. CocoaPods and SwiftPM compile the SDK from source with the app's configuration. Their standard Debug configuration defines `DEBUG` for the SDK target, so a publisher's Debug build compiles every `#if DEBUG` block in and their Release build leaves it out. With custom configurations it depends on the SDK target's effective compiler flags. Rules for code that exists so tests can reach into the SDK (also in `AGENTS.md`, "Test seams"):
+
+1. No `#if DEBUG` that changes runtime behavior or the public API. `#if DEBUG` is for logging and test-only factory functions.
+2. No global mutable state or `UserDefaults` flags as test seams.
+3. Dependencies come in through an initializer or a property that defaults to the production implementation. Tests reach internal members through `@testable import`.
+4. If a test needs a seam only to avoid a heavy subsystem (WebKit, AVFoundation, the network), first look for a fixture or a test level that does not use it.
+5. A value that only tests read lives in the test target.
+
+Check, once the issue-1444 changes are complete: `grep -rn "#if DEBUG" PrebidMobile EventHandlers` lists `TrackerManager`'s test-only factory (`makeForTesting` and the initializer it calls) and `SDKConsoleLogger` (logging), nothing else. Until then, `#if DEBUG` blocks also hold the Debug-only parts of the seams listed under "Still to be removed by the issue-1444 changes" below.
+
+**Still to be removed by the issue-1444 changes:**
+
+- **Legacy `ext.passthrough`.** Debug builds parse `bid.ext.passthrough` into the public, Debug-only `Bid.testVideoAdConfiguration` (`#if DEBUG` in `Bid` and `ORTBBidExt`), and interstitials apply it on top of `ext.prebid.passthrough` (`#if DEBUG` in `InterstitialController`).
+- **`Prebid.forcedIsViewable`**, a `UserDefaults` flag (`Prebid+ForcedViewability.swift`) that makes every view count as viewable. `CreativeViewabilityTrackerImpl` and `ViewExposureChecker` read it under `#if DEBUG`.
+- **The Debug-only TLS challenge handler** in `PrebidServerConnection` and `WebView`, which trusts the `10.0.2.2` certificate of the InternalTestApp mock server through `Functions.checkCertificateChallenge`. `PrebidServerConnection` also runs its Debug URL sessions with itself as delegate.
+- **Protocol requirements declared only in Debug** (`AdViewManager.currentCreative`, `externalTransaction`, both `setupCreative`; `Transaction.updateAdConfiguration()`; `CreativeViewabilityTracker.checkViewability()`).
+- **`AdUnit.fetchDemand` swizzling.** Both public `fetchDemand` methods and `checkRefreshTime(_:)` are `dynamic` so that tests can swizzle them (`AdUnitSwizzleHelper`, `Swizzling`).
+- **The adapters' `latestTestedGMAVersion()`** in `GAMUtils` and `PrebidAdMobMediationBaseAdapter`, which only `GMATests` and `AdMobGMATests` read.
+- **`DeepLinkPlusHelper.application` and `.connection`**, static overrides that tests set and never reset.
+- **`TrackerManager.queuedTrackerInfosForTesting`**, inside `TrackerManager`'s `#if DEBUG` block, which lets tests reach into the retry queue and mark trackers expired.
+
+**Seams that follow the rules** and stay: `TrackerManager.makeForTesting` (network, retry timer and reachability), `LocationManager.init(locationManager:)`, `CreativeFactoryJob.start(timeInterval:)`, `HTMLCreative`'s `webView:` convenience initializer, `SDKConsoleLogger.isDebugBuild`, `AdUnit.init(bidRequester:configId:size:adFormats:)`, `PrebidServerConnection.protocolClasses`, and the `adUnitConfig` / `getConfiguration()` accessors on `RewardedAdUnit`, `InterstitialRenderingAdUnit` and `PrebidAdUnit`.
+
+**Remaining seams that break rule 2** (follow-up work, not done here):
+
+- **`Functions.application`** (`Functions+Testing.swift`) is a global static override, not gated by `DEBUG`. `Functions.resolvedApplication` reads it, and so do `statusBarHeight`, `safeAreaInsets`, `deviceMaxSize`, `WebView`'s orientation reads, `MRAIDController`'s resize frame and `DeepLinkPlusHelper` when its static `application` is not set. Replacing it means passing an application through `WebView`, `MRAIDController` and the creative's clickthrough path. Until then, every test that sets it resets it (`defer`, or `tearDown` in `PBMHTMLCreativeTest`). The overloads that take an `application:` already exist for the `Functions` helpers; prefer them in new tests.
+- **Mutating `PrebidServerConnection.shared.protocolClasses`.** `protocolClasses` is an instance property, but the shared connection is global. `BannerViewTest.testRenderingPipelineIsBuiltFromThePerBidCopy` appends `MockServerURLProtocol` to it for the length of the test, because the video pipeline it exercises loads media through the shared connection, and a teardown block restores the original classes. A new test passes its own connection where the code under test accepts one, and restores the shared one in a teardown block where it cannot.
+
+**Cleanup candidates** (members that exist for tests; recorded here, not changed):
+
+- **`Host.reset()`** clears the custom tracking and non-tracking server URLs of `Host.shared`. Its comment says it is for unit tests, and only tests call it (the `Prebid.reset()` test extension and `PBMBidRequesterTest`).
+- **`UserAgentDefaults.reset()`** clears the cached user agent and removes it from `UserDefaults`. Only `UserAgentDefaultsTest` (in `UserAgentPersistenceTest.swift`) calls it.
+- **`WebView.jsEvaluatingCompletion`** is a closure that `WebView.evaluateJavaScript(_:)` calls from its completion. Direct calls to `internalWebView.evaluateJavaScript` (the document ready-state check, the `mraid.js` injection and the MRAID commands that pass their own completion) bypass it. Its comment says it exists for testability, and only `PBMWebViewTest` sets it.
+- **`OpenMeasurementEventTracker.init()`**, the initializer without a session, which tracks nothing. The SDK creates trackers with `init(session:)`; `MockMeasurementSession` and `PBMOpenMeasurementEventTrackerTest` (in `OXMOpenMeasurementEventTrackerTest.swift`) use the sessionless one.
+
 ## Post-migration cleanup list
 
 Items that are not worth porting and should be deleted once the migration is over (do not port them, do not extend them):

@@ -206,7 +206,7 @@ public class PrebidAdUnit: NSObject {
         adUnit.adUnitConfig.gpid = request.gpid
     }
     
-    // For tests, SDK internal
+    // The configuration the request is applied to. Internal: tests read it through `@testable import`.
     func getConfiguration() -> AdUnitConfig {
         return adUnit.adUnitConfig
     }

@@ -143,6 +143,18 @@ GitHub Actions (Xcode 26.5.0, macOS 26):
 - Branch names starting with `bump-to` trigger full test suite + UI/integration tests
 - Version tags run the SPM sync (`SPM.yml`): the SPM demo must build against local copies of both packages before anything is pushed to `prebid-mobile-ios-sdk` and `prebid-mobile-ios-adapters`, and GitHub releases are created only after the demo also builds against the published packages
 
+## Test seams
+
+`DEBUG` does not mean "our tests". `#if DEBUG` is conditional compilation: the code exists only in builds where the `DEBUG` compilation condition is set. CocoaPods and SwiftPM compile the SDK from source with the app's own build configuration. Their standard Debug configuration defines `DEBUG` for the SDK target, so a publisher's Debug build compiles the SDK's `#if DEBUG` code in and their Release build leaves it out, and publishers would be debugging code that does not ship. With custom configurations it depends on the SDK target's effective compiler flags. Rules for code that exists so tests can reach into `PrebidMobile/` or `EventHandlers/`:
+
+- No `#if DEBUG` that changes runtime behavior or the public API. `#if DEBUG` is for logging and test-only factory functions.
+- No global mutable state or `UserDefaults` flags as test seams.
+- Dependencies come in through an initializer or a property that defaults to the production implementation. Tests reach internal members through `@testable import`.
+- If a test needs a seam only to avoid a heavy subsystem (WebKit, AVFoundation, the network), first look for a fixture or a test level that does not use it.
+- A value that only tests read (such as the latest GMA version the adapters were tested with) lives in the test target.
+
+Check: when the issue-1444 changes are complete, `grep -rn "#if DEBUG" PrebidMobile EventHandlers` lists only logging and test-only factory functions; until then, `#if DEBUG` blocks also hold the Debug-only parts of the seams those changes still have to remove. Global state that tests still change, such as the `Functions.application` override and `PrebidServerConnection.shared.protocolClasses`, is listed in the playbook; do not add more. A test that changes `PrebidServerConnection.shared.protocolClasses` restores it in a teardown block; prefer a connection of the test's own. Seams that are fine as they are, the remaining ones, and the ones the issue-1444 changes still have to remove: `docs/migration/playbook.md`, "Test seams in SDK sources".
+
 ## ObjC → Swift migration
 
 Migration docs live in `docs/migration/`. Keep them current throughout every working session:

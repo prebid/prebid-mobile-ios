@@ -79,7 +79,7 @@ final class CreativeFactoryJob: NSObject, CreativeResolutionDelegate {
         start(timeInterval: getTimeInterval())
     }
 
-    /// For internal use only
+    /// Starts with the given timeout instead of the one `start()` reads from the SDK configuration.
     func start(timeInterval: TimeInterval) {
         startTimer(timeInterval: timeInterval)
 
