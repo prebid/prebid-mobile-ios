@@ -51,6 +51,18 @@ for scheme in PrebidDemoObjectiveC InternalTestApp-Skadn; do
         CODE_SIGNING_ALLOWED=NO
 done
 
+# PrebidMobile.framework loads OMSDK_Prebidorg.framework through @rpath, so every app has to
+# embed it. Xcode and `xcodebuild test` run an app with the build products folder on the dyld
+# search path, where the framework always is, so an app that does not embed it still builds
+# and runs there and fails only when installed on its own.
+products="$PWD/.build/development-apps/Build/Products/Debug-iphonesimulator"
+for app in PrebidDemoSwift PrebidDemoObjectiveC InternalTestApp InternalTestApp-Skadn; do
+    if [[ ! -f "$products/$app.app/Frameworks/OMSDK_Prebidorg.framework/OMSDK_Prebidorg" ]]; then
+        echo "$app.app does not embed OMSDK_Prebidorg.framework; it would fail to launch outside Xcode." >&2
+        exit 1
+    fi
+done
+
 if [[ "$with_spm_demo" == "YES" ]]; then
     ./scripts/buildPrebidSPM.sh CODE_SIGNING_ALLOWED=NO
 fi
