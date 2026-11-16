@@ -30,9 +30,12 @@ class GADRewardedAdWrapperTest: XCTestCase {
         func adMetadataDidChange(_ ad: GoogleMobileAds.AdMetadataProvider) {}
     }
     
+    private class DummyFullScreenContentDelegate: NSObject, GoogleMobileAds.FullScreenContentDelegate {}
+    
     func testProperties() {        
         let propTests: [BasePropTest<GADRewardedAdWrapper>] = [
             RefProxyPropTest(keyPath: \.adMetadataDelegate, value: DummyMetadataDelegate()),
+            RefProxyPropTest(keyPath: \.fullScreenContentDelegate, value: DummyFullScreenContentDelegate()),
         ]
         
         guard let rewardedAd = GADRewardedAdWrapper(

@@ -72,10 +72,15 @@ public class GAMInterstitialEventHandler :
     }
             
     public func show(from controller: UIViewController?) {
-        if let controller = controller,
-           let interstitial = embeddedInterstitial {
-            interstitial.present(from: controller)
+        guard let controller = controller,
+              let interstitial = embeddedInterstitial else {
+            // The ad unit has already reported willPresentAd and waits for a dismiss
+            // before it shows another ad.
+            interactionDelegate?.didDismissAd()
+            return
         }
+        
+        interstitial.present(from: controller)
     }
     
     public func requestAd(with bidResponse: BidResponse?) {
@@ -105,7 +110,6 @@ public class GAMInterstitialEventHandler :
             adManagerRequestConfiguration: adManagerRequestConfiguration
         )
         
-        currentInterstitialAd.fullScreenContentDelegate = self
         currentInterstitialAd.appEventDelegate = self
         
         currentInterstitialAd.load(request: request, completion:{ [weak self] ad, error in
@@ -122,6 +126,8 @@ public class GAMInterstitialEventHandler :
     
     func interstitial(didReceive ad: GAMInterstitialAdWrapper) {
         if requestInterstitial === ad {
+            // The wrapper forwards the delegate to the GMA ad, which exists only after the load.
+            ad.fullScreenContentDelegate = self
             primaryAdReceived()
         }
     }
@@ -143,6 +149,22 @@ public class GAMInterstitialEventHandler :
             name == Constants.appEventValue {
             appEventDetected()
         }
+    }
+    
+    // MARK: - GADFullScreenContentDelegate
+    
+    public func adDidDismissFullScreenContent(_ ad: GoogleMobileAds.FullScreenPresentingAd) {
+        interactionDelegate?.didDismissAd()
+    }
+    
+    public func ad(
+        _ ad: GoogleMobileAds.FullScreenPresentingAd,
+        didFailToPresentFullScreenContentWithError error: Error
+    ) {
+        Log.error(error.localizedDescription)
+        // The ad unit has already reported willPresentAd and waits for a dismiss
+        // before it shows another ad.
+        interactionDelegate?.didDismissAd()
     }
     
     func appEventDetected() {
