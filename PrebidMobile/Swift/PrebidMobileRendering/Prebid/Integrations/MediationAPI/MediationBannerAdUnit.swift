@@ -294,7 +294,7 @@ public class MediationBannerAdUnit : NSObject {
     ) {
         guard bidRequester == nil else {
             // The running fetch keeps its own completion and is left alone.
-            Log.warn("The previous fetch for this ad unit has not completed yet. This call is ignored.")
+            Log.warn("The previous fetch for this ad unit has not completed yet. This call completes with prebidSDKMisusePreviousFetchNotCompletedYet.")
             deliver(BidInfo(resultCode: .prebidSDKMisusePreviousFetchNotCompletedYet), to: completion)
             return
         }

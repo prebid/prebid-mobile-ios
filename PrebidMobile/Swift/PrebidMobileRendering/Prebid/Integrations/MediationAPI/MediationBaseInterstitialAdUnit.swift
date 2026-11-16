@@ -167,12 +167,8 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     ) {
         guard bidRequester == nil else {
             // The running fetch keeps its own completion and is left alone.
-            Log.warn("The previous fetch for this ad unit has not completed yet. This call is ignored.")
-            if let completion {
-                DispatchQueue.main.async {
-                    completion(BidInfo(resultCode: .prebidSDKMisusePreviousFetchNotCompletedYet))
-                }
-            }
+            Log.warn("The previous fetch for this ad unit has not completed yet. This call completes with prebidSDKMisusePreviousFetchNotCompletedYet.")
+            deliver(BidInfo(resultCode: .prebidSDKMisusePreviousFetchNotCompletedYet), to: completion)
             return
         }
         
@@ -236,15 +232,18 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     }
 
     private func completeWithResult(_ bidInfo: BidInfo) {
-        if let completion = self.completion {
-            DispatchQueue.main.async {
-                completion(bidInfo)
-            }
+        deliver(bidInfo, to: completion)
+        markLoadingFinished()
+    }
+    
+    private func deliver(_ bidInfo: BidInfo, to completion: ((BidInfo) -> Void)?) {
+        guard let completion else {
+            return
         }
         
-        self.completion = nil
-        
-        markLoadingFinished()
+        DispatchQueue.main.async {
+            completion(bidInfo)
+        }
     }
     
     private func markLoadingFinished() {

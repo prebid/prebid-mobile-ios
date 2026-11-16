@@ -218,34 +218,26 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate!)
 
         // A first fetch whose request is held until the test answers it
-        var heldCallback: PrebidServerResponseCallback?
-        let requestSent = XCTestExpectation(description: "held bid request sent")
-        let heldConnection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            heldCallback = callback
-            requestSent.fulfill()
-        }])
-        let runningFetchCompleted = XCTestExpectation(description: "running fetch completed")
-        var runningFetchResults: [BidInfo] = []
-        adUnit.fetchDemandBidInfo(connection: heldConnection,
+        let heldRequest = HeldRequest()
+        let runningFetch = FetchRecorder(expectedCalls: 1)
+        adUnit.fetchDemandBidInfo(connection: heldRequest.connection,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting)
         { bidInfo in
-            runningFetchResults.append(bidInfo)
-            runningFetchCompleted.fulfill()
+            runningFetch.record(bidInfo)
         }
 
         let rejected = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
 
         XCTAssertEqual(rejected?.resultCode, .prebidSDKMisusePreviousFetchNotCompletedYet)
         assertNoBidAttached(rejected)
-        XCTAssertTrue(runningFetchResults.isEmpty, "The running fetch has not been answered yet")
+        XCTAssertTrue(runningFetch.results.isEmpty, "The running fetch has not been answered yet")
 
         // The running fetch is left alone and still reports to its own completion
-        wait(for: [requestSent], timeout: 1)
-        heldCallback?(BidResponseTransformer.someValidResponse)
-        wait(for: [runningFetchCompleted], timeout: 1)
+        heldRequest.respond(with: BidResponseTransformer.someValidResponse, in: self)
+        wait(for: [runningFetch.completed], timeout: 1)
 
-        XCTAssertEqual(runningFetchResults.map(\.resultCode), [.prebidDemandFetchSuccess])
+        XCTAssertEqual(runningFetch.results.map(\.resultCode), [.prebidDemandFetchSuccess])
         XCTAssertEqual(adObject?.keywords?.contains("hb_pb:0.10"), true)
     }
 

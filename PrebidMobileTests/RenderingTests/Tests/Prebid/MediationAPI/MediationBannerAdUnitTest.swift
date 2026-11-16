@@ -639,68 +639,6 @@ class MediationBannerAdUnitTest: XCTestCase {
     }
 }
 
-/// Records every call of a fetch completion.
-private final class FetchRecorder {
-    let firstCall = XCTestExpectation(description: "first completion call")
-    let completed: XCTestExpectation
-    private(set) var results: [BidInfo] = []
-    private let expectedCalls: Int
-
-    init(expectedCalls: Int) {
-        self.expectedCalls = expectedCalls
-        completed = XCTestExpectation(description: "completion called \(expectedCalls) time(s)")
-    }
-
-    func record(_ bidInfo: BidInfo) {
-        results.append(bidInfo)
-
-        if results.count == 1 {
-            firstCall.fulfill()
-        }
-        if results.count == expectedCalls {
-            completed.fulfill()
-        }
-        if results.count > expectedCalls {
-            XCTFail("Unexpected completion call with \(bidInfo.resultCode.name())")
-        }
-    }
-}
-
-/// A connection that answers `responses` at once, then holds the next request until the test
-/// answers it with `respond(with:in:)`. Holding a request keeps its fetch in progress.
-private final class HeldRequest {
-    private let sent = XCTestExpectation(description: "held bid request sent")
-    private var hasWaitedForSend = false
-    private(set) var connection: MockServerConnection!
-    private var callback: PrebidServerResponseCallback?
-
-    init(after responses: [PrebidServerResponse] = []) {
-        var handlers: [MockServerConnection.PostHandler_NoContentType] = responses.map { response in
-            { (url, data, timeout, callback) in callback(response) }
-        }
-        handlers.append { [weak self] (url, data, timeout, callback) in
-            self?.callback = callback
-            self?.sent.fulfill()
-        }
-        connection = MockServerConnection(onPost: handlers)
-    }
-
-    /// Waits until the held request has been sent. Can be called more than once.
-    func waitUntilSent(in testCase: XCTestCase) {
-        guard !hasWaitedForSend else {
-            return
-        }
-
-        testCase.wait(for: [sent], timeout: 1)
-        hasWaitedForSend = true
-    }
-
-    func respond(with response: PrebidServerResponse, in testCase: XCTestCase) {
-        waitUntilSent(in: testCase)
-        callback?(response)
-    }
-}
-
 /// A mediation delegate whose ad view the test can replace or release.
 private final class ReplaceableAdViewMediationDelegate: PrebidMediationDelegate {
     var adView: UIView?
