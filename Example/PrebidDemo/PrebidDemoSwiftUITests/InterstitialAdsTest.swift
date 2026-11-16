@@ -51,22 +51,25 @@ class InterstitialAdsTest: BaseAdsTest {
     }
     
     override func checkAd(testCase: String) {
-        XCTAssert(
-            app.webViews.element.waitForExistence(timeout: 10),
-            assertFailedMessage(testCase: testCase,reason: "Interstitial Web View is not displayed")
+        assertElementExists(
+            app.webViews.element,
+            testCase: testCase,
+            reason: "Interstitial Web View is not displayed"
         )
         
         if let closeButton {
-            XCTAssert(
-                app.buttons[closeButton].waitForExistence(timeout: 10),
-                assertFailedMessage(testCase: testCase, reason: "Close button is not displayed")
+            assertElementExists(
+                app.buttons[closeButton],
+                testCase: testCase,
+                reason: "Close button is not displayed"
             )
         }
         
         if let labelText {
-            XCTAssert(
-                app.staticTexts[labelText].waitForExistence(timeout: 10),
-                assertFailedMessage(testCase: testCase, reason: "`\(labelText)` is not displayed")
+            assertElementExists(
+                app.staticTexts[labelText],
+                testCase: testCase,
+                reason: "`\(labelText)` is not displayed"
             )
         }
     }

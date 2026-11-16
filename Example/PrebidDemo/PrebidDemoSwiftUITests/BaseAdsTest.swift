@@ -16,6 +16,13 @@
 import XCTest
 
 class BaseAdsTest: XCTestCase {
+
+    private enum Timeout {
+        static let navigation: TimeInterval = 15
+        static let adLoad: TimeInterval = 60
+    }
+
+    private static let adStatusAccessibilityIdentifier = "prebid-demo-ad-status"
     
     let app = XCUIApplication()
     let testCases = TestCases()
@@ -35,11 +42,53 @@ class BaseAdsTest: XCTestCase {
     func assertFailedMessage(testCase: String, reason: String) -> String {
         return "Ad Failed \(testCase): \(reason)"
     }
+
+    func assertElementExists(
+        _ element: XCUIElement,
+        testCase: String,
+        reason: String,
+        timeout: TimeInterval = Timeout.adLoad
+    ) {
+        let adStatus = app.otherElements[Self.adStatusAccessibilityIdentifier]
+        let elementExists = element.waitForExistence(timeout: timeout)
+
+        if !elementExists, let failureMessage = Self.failureMessage(from: adStatus) {
+            XCTFail(assertFailedMessage(testCase: testCase, reason: failureMessage))
+            return
+        }
+
+        XCTAssertTrue(
+            elementExists,
+            assertFailedMessage(testCase: testCase, reason: reason)
+        )
+    }
     
     private func goToAd(testCase: String) {
         app.launch()
-        app.searchFields.element.tap()
-        app.searchFields.element.typeText(testCase)
-        app.tables.element(boundBy: 0).cells.element(boundBy: 0).tap()
+
+        let searchField = app.searchFields.element
+        XCTAssertTrue(
+            searchField.waitForExistence(timeout: Timeout.navigation),
+            "Search field is not displayed"
+        )
+        searchField.tap()
+        searchField.typeText(testCase)
+
+        let firstMatchingCase = app.tables.element(boundBy: 0).cells.element(boundBy: 0)
+        XCTAssertTrue(
+            firstMatchingCase.waitForExistence(timeout: Timeout.navigation),
+            "Integration case '\(testCase)' is not displayed"
+        )
+        firstMatchingCase.tap()
+    }
+
+    private static func failureMessage(from statusElement: XCUIElement) -> String? {
+        guard statusElement.exists,
+              let status = statusElement.value as? String,
+              status.hasPrefix("failed: ") else {
+            return nil
+        }
+
+        return String(status.dropFirst("failed: ".count))
     }
 }
