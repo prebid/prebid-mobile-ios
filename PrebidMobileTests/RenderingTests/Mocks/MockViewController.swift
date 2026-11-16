@@ -36,10 +36,13 @@ class MockViewController : UIViewController {
     }
 }
 
+// Records the controller passed to `present` instead of presenting it.
 class MockPresentedViewController: MockViewController {
     var presentVC: UIViewController?
+
     override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
         presentVC = viewControllerToPresent
+        expectationDidPresentViewController?.fulfill()
     }
     
     override var presentedViewController: UIViewController? {

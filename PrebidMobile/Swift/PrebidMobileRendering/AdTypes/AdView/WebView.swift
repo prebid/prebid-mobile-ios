@@ -375,14 +375,6 @@ class WebView: UIView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandle
         }
     }
 
-    #if DEBUG
-    func webView(_ webView: WKWebView,
-                        didReceive challenge: URLAuthenticationChallenge,
-                        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        Functions.checkCertificateChallenge(challenge, completionHandler: completionHandler)
-    }
-    #endif
-
     // MARK: - WKScriptMessageHandler
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {

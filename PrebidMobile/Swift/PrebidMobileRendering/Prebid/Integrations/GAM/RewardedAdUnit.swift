@@ -94,7 +94,7 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
 
     // MARK: Internal Properties
     
-    // Note: exposed for tests
+    // The configuration the public properties read and write.
     var adUnitConfig: AdUnitConfig {
         baseAdUnit.adUnitConfig
     }

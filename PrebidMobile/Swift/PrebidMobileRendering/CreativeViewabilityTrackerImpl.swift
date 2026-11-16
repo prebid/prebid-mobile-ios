@@ -70,7 +70,7 @@ final class CreativeViewabilityTrackerImpl: NSObject, CreativeViewabilityTracker
         timer?.invalidate()
     }
 
-    // Selector target of the polling timer, so it exists in Release too; only the protocol requirement is DEBUG-only.
+    // Selector target of the polling timer.
     @objc func checkViewability() {
         // Don't waste time on exposure calculation when it's not needed.
         if isViewabilityMode {
@@ -91,11 +91,6 @@ final class CreativeViewabilityTrackerImpl: NSObject, CreativeViewabilityTracker
     }
 
     private func isVisibleView(_ view: UIView?) -> Bool {
-#if DEBUG
-        if Prebid.forcedIsViewable {
-            return true
-        }
-#endif
         guard let view else {
             return false
         }

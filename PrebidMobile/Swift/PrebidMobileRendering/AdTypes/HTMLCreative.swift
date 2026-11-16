@@ -45,6 +45,7 @@ class HTMLCreative: AbstractCreativeImpl, WebViewDelegate {
         rewardedConfig = adConfiguration?.rewardedConfig
     }
 
+    // `webView`, when given, replaces the web view the creative would create.
     convenience init(creativeModel: CreativeModel,
                      transaction: Transaction,
                      webView: WebView?,

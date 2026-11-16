@@ -44,13 +44,4 @@ protocol AdViewManager: CreativeViewDelegate {
     func unmute()
     
     func handleExternalTransaction(_ transaction: Transaction)
-    
-    // Exposed for tests
-#if DEBUG
-    weak var currentCreative: AbstractCreative? { get set }
-    var externalTransaction: Transaction? { get set }
-    
-    func setupCreative(_ creative: AbstractCreative)
-    func setupCreative(_ creative: AbstractCreative, withThread thread: ThreadProtocol)
-#endif
 }

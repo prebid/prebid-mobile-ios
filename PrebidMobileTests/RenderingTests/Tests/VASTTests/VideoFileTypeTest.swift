@@ -21,6 +21,7 @@ import XCTest
 class VideoFileTypeTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
     
     let viewController = MockViewController()
+    var adWindow: UIWindow?
     var pbmVideoCreative:VideoCreative!
     var expectationVideoDidComplete:XCTestExpectation!
     var expectationDownloadCompleted:XCTestExpectation!
@@ -30,9 +31,13 @@ class VideoFileTypeTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
         super.setUp()
         
         MockServer.shared.reset()
+        // The ad's view goes into `viewController.view`; the viewability tracker counts it as visible only on screen.
+        adWindow = UtilitiesForTesting.showOnScreen(viewController)
     }
     
     override func tearDown() {
+        adWindow?.isHidden = true
+        adWindow = nil
         MockServer.shared.reset()
         
         Prebid.reset()
@@ -41,7 +46,6 @@ class VideoFileTypeTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
     }
     
     func testTypes() {
-        Prebid.forcedIsViewable = true
         defer { Prebid.reset() }
 
         self.continueAfterFailure = true
@@ -111,6 +115,7 @@ class VideoFileTypeTest : XCTestCase, CreativeViewDelegate, VideoViewDelegate {
                     self.pbmVideoCreative = pbmVideoCreative
                     
                     DispatchQueue.main.async {
+                        self.viewController.view.addSubview(self.pbmVideoCreative.view!)
                         self.pbmVideoCreative.display(rootViewController: self.viewController)
                     }
                 }

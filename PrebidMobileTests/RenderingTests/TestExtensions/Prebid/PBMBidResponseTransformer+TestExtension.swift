@@ -67,6 +67,14 @@ extension BidResponseTransformer {
         return buildResponse("{\"id\":\"B4A2D3F4-41B6-4D37-B68B-EE8893E85C31\",\"seatbid\":[\(winningBidFragment)],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":62}}}")
     }
     
+    /// The winning banner bid of `makeValidResponse`, plus the `hb_cache_id` that the Original API's ad units require
+    /// of a winning bid (they turn on `useCacheForReportingWithRenderingAPI`).
+    static func makeValidCachedResponse(bidPrice: Float) -> PrebidServerResponse {
+        let body = String(decoding: makeValidResponse(bidPrice: bidPrice).rawData ?? Data(), as: UTF8.self)
+            .replacingOccurrences(of: "\"targeting\":{", with: "\"targeting\":{\"hb_cache_id\":\"test-cache-id\",")
+        return buildResponse(body)
+    }
+
     static func makeNativeValidResponse(bidPrice: Float, noWinningBidProperties: Bool = false) -> PrebidServerResponse {
         let winningBidFragment = noWinningBidProperties ? "" : "{\"bid\":[{\"id\":\"test-bid-id-1\",\"impid\":\"8BBB0D42-5A73-45AC-B275-51B299A74C32\",\"price\":\(bidPrice),\"adm\":\"<html><div>You Won! This is a test bid</div></html>\",\"adid\":\"test-ad-id-12345\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"openx\",\"hb_bidder_openx\":\"openx\",\"hb_env\":\"mobile-app\",\"hb_env_openx\":\"mobile-app\",\"hb_pb\":\"0.10\",\"hb_pb_openx\":\"0.10\",\"hb_size\":\"300x250\",\"hb_size_openx\":\"300x250\"},\"type\":\"native\"},\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099}}}],\"seat\":\"openx\"}"
         return buildResponse("{\"id\":\"B4A2D3F4-41B6-4D37-B68B-EE8893E85C31\",\"seatbid\":[\(winningBidFragment)],\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":62}}}")

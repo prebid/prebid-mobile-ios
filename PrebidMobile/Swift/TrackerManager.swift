@@ -28,10 +28,13 @@ class TrackerManager: NSObject {
     typealias  OnComplete = ((Bool) -> Void)?
     typealias NetworkRequestExecutor = (URLRequest, @escaping (Error?) -> Void) -> Void
     typealias RetryTimerScheduler = (TimeInterval, @escaping (Timer) -> Void) -> Timer
+    typealias ExpirationTimerScheduler = (TimeInterval, @escaping (Timer) -> Void) -> Timer
 
     private let executeNetworkRequest: NetworkRequestExecutor
     private let scheduleRetryTimer: RetryTimerScheduler
     private let isNetworkReachable: () -> Bool
+    // Schedules each queued tracker's one-shot expiration timer (see `TrackerInfo`).
+    private let scheduleExpirationTimer: ExpirationTimerScheduler
 
     private static let trackerManagerRetryInterval : TimeInterval = 300
     private static let trackerManagerMaximumNumberOfRetries = 3
@@ -58,6 +61,13 @@ class TrackerManager: NSObject {
             )
         }
         isNetworkReachable = { Reachability.shared.isNetworkReachable }
+        scheduleExpirationTimer = { timeInterval, block in
+            Timer.scheduledTimer(
+                withTimeInterval: timeInterval,
+                repeats: false,
+                block: block
+            )
+        }
         super.init()
     }
 
@@ -65,10 +75,12 @@ class TrackerManager: NSObject {
     private init(
         executeNetworkRequest: @escaping NetworkRequestExecutor,
         scheduleRetryTimer: @escaping RetryTimerScheduler,
+        scheduleExpirationTimer: @escaping ExpirationTimerScheduler,
         isNetworkReachable: @escaping () -> Bool
     ) {
         self.executeNetworkRequest = executeNetworkRequest
         self.scheduleRetryTimer = scheduleRetryTimer
+        self.scheduleExpirationTimer = scheduleExpirationTimer
         self.isNetworkReachable = isNetworkReachable
         super.init()
     }
@@ -78,18 +90,15 @@ class TrackerManager: NSObject {
     static func makeForTesting(
         executeNetworkRequest: @escaping NetworkRequestExecutor,
         scheduleRetryTimer: @escaping RetryTimerScheduler,
+        scheduleExpirationTimer: @escaping ExpirationTimerScheduler,
         isNetworkReachable: @escaping () -> Bool
     ) -> TrackerManager {
         TrackerManager(
             executeNetworkRequest: executeNetworkRequest,
             scheduleRetryTimer: scheduleRetryTimer,
+            scheduleExpirationTimer: scheduleExpirationTimer,
             isNetworkReachable: isNetworkReachable
         )
-    }
-
-    /// Trackers waiting for the retry timer, exposed so tests can simulate expiration.
-    var queuedTrackerInfosForTesting: [TrackerInfo] {
-        trackerArray.map(\.trackerInfo)
     }
     #endif
     
@@ -142,7 +151,7 @@ class TrackerManager: NSObject {
             }
 
             let pendingTracker = PendingTracker(
-                trackerInfo: TrackerInfo(URL: URL),
+                trackerInfo: TrackerInfo(URL: URL, scheduleExpirationTimer: strongSelf.scheduleExpirationTimer),
                 completion: completion
             )
             strongSelf.queueTrackerInfoForRetry(pendingTracker)

@@ -104,12 +104,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
         impressionTracker.stop()
     }
     
-    // TODO: dynamic is used by tests
-    
     /// Makes bid request  and provides the result as a `BidInfo` object.
     ///
     /// - Parameter completionBidInfo: A closure called with a `BidInfo` object representing the fetched demand.
-    dynamic public func fetchDemand(completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void) {
+    public func fetchDemand(completionBidInfo: @escaping (_ bidInfo: BidInfo) -> Void) {
         baseFetchDemand { bidInfo in
             DispatchQueue.main.async {
                 completionBidInfo(bidInfo)
@@ -122,7 +120,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     /// - Parameters:
     ///   - adObject: The ad object for which demand is being fetched.
     ///   - completion: A closure called with the result code indicating the outcome of the demand fetch.
-    dynamic public func fetchDemand(
+    public func fetchDemand(
         adObject: AnyObject,
         completion: @escaping(_ result: ResultCode) -> Void
     ) {
@@ -394,7 +392,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
         }
     }
     
-    dynamic func checkRefreshTime(_ time: Double) -> Bool {
+    func checkRefreshTime(_ time: Double) -> Bool {
         return time >= AdUnit.PB_MIN_RefreshTime
     }
     

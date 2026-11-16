@@ -35,9 +35,4 @@ protocol Transaction: NSObjectProtocol {
     func getCreative(after: AbstractCreative) -> AbstractCreative?
     func revenueForCreative(after: AbstractCreative) -> String?
     func resetAdConfiguration(_ adConfiguration: AdConfiguration)
-    
-#if DEBUG
-    // Exposed for tests (`TransactionImpl.updateAdConfiguration`)
-    func updateAdConfiguration()
-#endif
 }

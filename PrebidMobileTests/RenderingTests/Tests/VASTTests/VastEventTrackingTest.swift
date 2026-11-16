@@ -23,6 +23,7 @@ import CoreFoundation
 class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
   
     let vc = UIViewController()
+    var adWindow: UIWindow?
     let modalManager = ModalManager()
     
     var creativeFactory: CreativeFactory?
@@ -38,9 +39,13 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
         super.setUp()
         
         self.expectations = [XCTestExpectation]()
+        // The ad's view goes into `vc.view`; the viewability tracker counts it as visible only on screen.
+        self.adWindow = UtilitiesForTesting.showOnScreen(vc)
     }
     
     override func tearDown() {
+        self.adWindow?.isHidden = true
+        self.adWindow = nil
         self.creativeFactory = nil
         self.expectations.removeAll()
         
@@ -50,7 +55,6 @@ class VastEventTrackingTest : XCTestCase, CreativeViewDelegate {
     }
     
     func testEvents() {
-        Prebid.forcedIsViewable = true
         defer { Prebid.reset() }
 
         modalManager.modalViewControllerClass = MockPBMModalViewController.self

@@ -37,7 +37,6 @@ extension Prebid {
         
         Prebid.shared.useCacheForReportingWithRenderingAPI = false
         
-        Prebid.forcedIsViewable = false
         Prebid.shared.clearCustomHeaders()
         Prebid.shared.clearStoredBidResponses()
         Prebid.shared.includeWinners = false

@@ -20,6 +20,9 @@ import AVFoundation
 class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDelegate, VideoViewDelegate {
     
     var vc: UIViewController?
+    var adWindow: UIWindow?
+    // Events the creative tracked, recorded by the event tracker `setupVideoCreative` attaches.
+    let trackedEvents = TrackedEventRecorder()
     let connection = UtilitiesForTesting.createConnectionForMockedTest()
     
     var videoCreative:VideoCreative!
@@ -37,12 +40,12 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
     
     override func setUp() {
         MockServer.shared.reset()
-        Prebid.forcedIsViewable = true
     }
 
     override func tearDown() {
         MockServer.shared.reset()
-        Prebid.forcedIsViewable = false
+        self.adWindow?.isHidden = true
+        self.adWindow = nil
         self.videoCreative = nil
         self.expectationDownloadCompleted = nil
         self.expectationCreativeReady = nil
@@ -126,7 +129,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(rootViewController: UIViewController())
+        displayOnScreen()
         
         guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
@@ -140,10 +143,17 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute:{
             XCTAssertFalse(self.isVideoViewCompletedDisplay)
+            // On screen the video is playing, so the pause below is what stops it.
+            XCTAssertEqual(videoView.playbackState, .playing)
+            XCTAssertNotEqual(videoView.avPlayer.rate, 0)
             videoView.pause()
+            XCTAssertEqual(videoView.playbackState, .paused)
+            XCTAssertEqual(videoView.avPlayer.rate, 0)
         })
         
         waitForExpectations(timeout: 8, handler:nil)
+        XCTAssertEqual(videoView.playbackState, .paused, "The video is still paused after its end time")
+        XCTAssertEqual(trackedEvents.events.filter { $0 == .pause }.count, 1)
     }
     
     func testUnpauseVideo() {
@@ -162,7 +172,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(rootViewController: UIViewController())
+        displayOnScreen()
         
         guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
@@ -202,7 +212,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         }
         self.waitForExpectations(timeout: 10, handler:nil)
 
-        self.videoCreative?.display(rootViewController: UIViewController())
+        displayOnScreen()
 
         guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
@@ -254,7 +264,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         }
         self.waitForExpectations(timeout: 10, handler:nil)
 
-        self.videoCreative?.display(rootViewController: UIViewController())
+        displayOnScreen()
 
         guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
@@ -305,7 +315,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(rootViewController: UIViewController())
+        displayOnScreen()
         
         guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
@@ -318,7 +328,14 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         
         DispatchQueue.main.asyncAfter(deadline: .now() + expectedStoppedDely, execute:{
             XCTAssertFalse(self.isVideoViewCompletedDisplay)
+            // On screen the video is playing, so the stop below is what ends it, before the video's own end.
+            XCTAssertEqual(videoView.playbackState, .playing)
+            XCTAssertNotEqual(videoView.avPlayer.rate, 0)
             videoView.stop()
+            XCTAssertTrue(self.isVideoViewCompletedDisplay, "stop() completes the display at once")
+            XCTAssertEqual(videoView.playbackState, .finished)
+            XCTAssertEqual(videoView.avPlayer.rate, 0)
+            XCTAssertTrue(self.trackedEvents.events.contains(.skip))
         })
         
         waitForExpectations(timeout: expectedVideoDuration + expectedStoppedDely + 0.5, handler:nil)
@@ -342,7 +359,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         }
         self.waitForExpectations(timeout: 10, handler:nil)
         
-        self.videoCreative?.display(rootViewController: UIViewController())
+        displayOnScreen()
         
         guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
@@ -355,11 +372,18 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         self.expectationVideoViewCompletedDisplay?.isInverted = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + expectedStoppedDely, execute:{
+            // On screen the video is playing, so the close button below is what stops it.
+            XCTAssertEqual(videoView.playbackState, .playing)
+            XCTAssertNotEqual(videoView.avPlayer.rate, 0)
             videoView.stop(onCloseButton: event)
             XCTAssertFalse(self.isVideoViewCompletedDisplay)
+            XCTAssertEqual(videoView.playbackState, .paused)
+            XCTAssertEqual(videoView.avPlayer.rate, 0)
         })
         
         waitForExpectations(timeout: expectedVideoDuration + expectedStoppedDely + 0.5, handler:nil)
+        XCTAssertEqual(videoView.playbackState, .paused, "The video does not resume after the close button")
+        XCTAssertEqual(trackedEvents.events.filter { $0 == event }.count, 1)
     }
     
     func testIsMuted() {
@@ -861,6 +885,9 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         //Create model
         let model = CreativeModel(adConfiguration:adConfiguration)
         model.videoFileURL = videoFileURL
+        let eventTracker = MockPBMAdModelEventTracker(creativeModel: model, serverConnection: connection)
+        eventTracker.mock_trackEvent = { [trackedEvents] in trackedEvents.record($0) }
+        model.eventTracker = eventTracker
         
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadCompleted")
         
@@ -881,6 +908,16 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         wait(for: [self.expectationDownloadCompleted!], timeout: 15)
     }
     
+    // Puts the ad on screen and displays it: the viewability tracker pauses an ad that is not in a window.
+    private func displayOnScreen() {
+        let rootViewController = UIViewController()
+        adWindow = UtilitiesForTesting.showOnScreen(rootViewController)
+        if let adView = videoCreative.view {
+            rootViewController.view.addSubview(adView)
+        }
+        videoCreative.display(rootViewController: rootViewController)
+    }
+
     private func setupVideoDurationTest(expectedDuration: Double) {
         
         //Wait for creativeReady
@@ -891,7 +928,7 @@ class PBMVideoViewTest: XCTestCase, CreativeResolutionDelegate, CreativeViewDele
         }
         self.waitForExpectations(timeout: 15, handler:nil)
         
-        self.videoCreative?.display(rootViewController: UIViewController())
+        displayOnScreen()
         
         guard let videoView = self.videoCreative.view as? VideoView else {
             XCTFail("Couldn't get Video View")
@@ -1015,4 +1052,22 @@ private final class StatusProbeVideoDelegate: NSObject, VideoViewDelegate {
     func videoViewWasTapped() {}
     func videoViewCurrentPlayingTime(_ currentPlayingTime: NSNumber) {}
     func learnMoreWasClicked() {}
+}
+
+// Collects tracked events; the video view can track them off the main thread.
+final class TrackedEventRecorder {
+    private let lock = NSLock()
+    private var recorded: [TrackingEvent] = []
+
+    var events: [TrackingEvent] {
+        lock.lock()
+        defer { lock.unlock() }
+        return recorded
+    }
+
+    func record(_ event: TrackingEvent) {
+        lock.lock()
+        recorded.append(event)
+        lock.unlock()
+    }
 }

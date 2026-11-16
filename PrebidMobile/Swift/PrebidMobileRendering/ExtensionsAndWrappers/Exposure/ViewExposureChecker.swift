@@ -37,12 +37,6 @@ class ViewExposureChecker: NSObject {
         clippedRect  = view.bounds
         obstructions = []
 
-#if DEBUG
-        if Prebid.forcedIsViewable {
-            return Factory.createViewExposure(exposureFactor: 1, visibleRectangle: view.bounds, occlusionRectangles: nil)
-        }
-#endif
-
         guard !view.isHidden, view.superview != nil, isOnForeground() else {
             return Factory.ViewExposureType.zeroExposure()
         }

@@ -82,12 +82,6 @@ class InterstitialController:
         adConfiguration.adConfiguration.rewardedConfig = RewardedConfig(ortbRewarded: bid.rewardedConfig)
         videoControlsConfig.initialize(with: bid.videoAdConfiguration)
         
-        // This part is dedicating to test server-side ad configurations.
-        // Need to be removed when ext.prebid.passthrough will be available.
-        #if DEBUG
-        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
-        #endif
-        
         transactionFactory = Factory.createTransactionFactory(
             bid: bid,
             adConfiguration: adConfiguration,

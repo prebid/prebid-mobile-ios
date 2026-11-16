@@ -390,7 +390,7 @@ class BannerViewTest: XCTestCase {
         displayView.loadAd()
         waitForExpectations(timeout: Prebid.shared.creativeFactoryTimeoutPreRenderContent + 5)
 
-        guard let rendered = displayView.renderedAdConfiguration, let manager = displayView.adViewManager else {
+        guard let rendered = displayView.renderedAdConfiguration, let manager = displayView.adViewManager as? AdViewManagerImpl else {
             return XCTFail("Expected the rendering copy and the ad view manager after a successful load")
         }
         XCTAssertFalse(rendered === config.adConfiguration, "Sanity: the copy is a different instance")

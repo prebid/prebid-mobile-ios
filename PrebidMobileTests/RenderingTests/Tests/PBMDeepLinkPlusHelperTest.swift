@@ -65,12 +65,9 @@ class PBMDeepLinkPlusHelperTest: XCTestCase {
             ]
         )
         
-        DeepLinkPlusHelper.application = mockApplication
-        DeepLinkPlusHelper.connection = mockConnection
-        
         let deepLinkResolved = expectation(description: "deepLinkResolved")
         
-        DeepLinkPlusHelper.tryHandleDeepLinkPlus(demoURL) { (visited, fallbackURL, fallbackTrackingURLs) in
+        DeepLinkPlusHelper.tryHandleDeepLinkPlus(demoURL, application: mockApplication, connection: mockConnection) { (visited, fallbackURL, fallbackTrackingURLs) in
             XCTAssertTrue(visited)
             XCTAssertNil(fallbackURL)
             XCTAssertNil(fallbackTrackingURLs)
@@ -99,12 +96,9 @@ class PBMDeepLinkPlusHelperTest: XCTestCase {
         
         let mockConnection = MockServerConnection()
         
-        DeepLinkPlusHelper.application = mockApplication
-        DeepLinkPlusHelper.connection = mockConnection
-        
         let deepLinkResolved = expectation(description: "deepLinkResolved")
         
-        DeepLinkPlusHelper.tryHandleDeepLinkPlus(demoURL) { (visited, fallbackURL, fallbackTrackingURLs) in
+        DeepLinkPlusHelper.tryHandleDeepLinkPlus(demoURL, application: mockApplication, connection: mockConnection) { (visited, fallbackURL, fallbackTrackingURLs) in
             XCTAssertFalse(visited)
             XCTAssertEqual(fallbackURL, URL(string: "http://mobile.twitter.com"))
             XCTAssertNotNil(fallbackTrackingURLs)
@@ -135,9 +129,7 @@ class PBMDeepLinkPlusHelperTest: XCTestCase {
             ]
         )
         
-        DeepLinkPlusHelper.connection = mockConnection
-        
-        DeepLinkPlusHelper.visitTrackingURLs(links)
+        DeepLinkPlusHelper.visitTrackingURLs(links, connection: mockConnection)
         
         waitForExpectations(timeout: 1)
     }

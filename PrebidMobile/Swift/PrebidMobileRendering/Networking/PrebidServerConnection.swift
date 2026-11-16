@@ -105,8 +105,9 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         request.setValue(contentType, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
         let session = createSession(timeout)
-        let task = session.uploadTask(with: request, from: data) { [weak self] data, response, error in
-            self?.proccessResponse(request, urlResponse: response, responseData: data, error: error, fullServerCallback: callback)
+        let task = session.uploadTask(with: request, from: data) { data, response, error in
+            PrebidServerConnection.proccessResponse(request, urlResponse: response, responseData: data, error: error,
+                                                    fullServerCallback: callback)
         }
         
         task.resume()
@@ -120,9 +121,9 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         request.setValue(PrebidServerConnection.contentTypeVal, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
         let session = createSession(PrebidConstants.FIRE_AND_FORGET_TIMEOUT)
-        let task = session.dataTask(with: request) { [weak self] data, response, error in
-            self?.proccessResponse(request, urlResponse: response,
-                                   responseData: data, error: error, fullServerCallback: callback)
+        let task = session.dataTask(with: request) { data, response, error in
+            PrebidServerConnection.proccessResponse(request, urlResponse: response,
+                                                    responseData: data, error: error, fullServerCallback: callback)
         }
         
         task.resume()
@@ -141,15 +142,17 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         request.setValue(PrebidServerConnection.contentTypeVal, forHTTPHeaderField: PrebidServerConnection.contentTypeKey)
         
         let session = createSession(timeout)
-        let task = session.dataTask(with: request) { [weak self] data, response, error in
-            self?.proccessResponse(request, urlResponse: response,
-                                   responseData: data, error: error, fullServerCallback: callback)
+        let task = session.dataTask(with: request) { data, response, error in
+            PrebidServerConnection.proccessResponse(request, urlResponse: response,
+                                                    responseData: data, error: error, fullServerCallback: callback)
         }
         
         task.resume()
     }
     
-    private func proccessResponse(_ request: URLRequest, urlResponse: URLResponse?,
+    // Static, and the request closures do not capture the connection: the callback must run even when the caller
+    // released the connection before the response arrived.
+    private static func proccessResponse(_ request: URLRequest, urlResponse: URLResponse?,
                                   responseData: Data?, error: Error?,
                                   fullServerCallback: PrebidServerResponseCallback) {
         
@@ -217,13 +220,7 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         config.timeoutIntervalForRequest = timeout
         config.protocolClasses = protocolClasses
         
-        #if DEBUG
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 5
-        return URLSession(configuration: config, delegate: self, delegateQueue: queue)
-        #else
         return URLSession(configuration: config)
-        #endif
     }
     
     // When the request cannot be created, the callback still runs, with the error, so a caller waiting
@@ -258,10 +255,11 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         
         var request = URLRequest(url: url)
         request.setValue(userAgentService.userAgent, forHTTPHeaderField: PrebidServerConnection.userAgentHeaderKey)
-        request.setValue("True", forHTTPHeaderField: PrebidServerConnection.isPBMRequestKey)
         
-        // Add this header only in test mode for MOCKED protocols
+        // The SDK marks a request and adds the connection ID only for a connection with mocked protocols (tests);
+        // otherwise it adds neither header itself. The custom headers below can still carry either name.
         if protocolClasses.count > 0 {
+            request.setValue("True", forHTTPHeaderField: PrebidServerConnection.isPBMRequestKey)
             request.addValue(internalID.uuidString, forHTTPHeaderField: PrebidServerConnection.internalIDKey)
         }
         
@@ -272,10 +270,4 @@ public class PrebidServerConnection: NSObject, PrebidServerConnectionProtocol, U
         
         return request
     }
-    
-    #if DEBUG
-    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        Functions.checkCertificateChallenge(challenge, completionHandler: completionHandler)
-    }
-    #endif
 }

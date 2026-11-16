@@ -105,7 +105,7 @@ class LocationManager: NSObject {
         }
     }
     
-    // NOTE: Used for tests only
+    // Uses the given location manager instead of the `CLLocationManager` that `shared` sets up.
     // `locationManager` should be initialized from main thread only.
     init(locationManager: LocationManagerProtocol) {
         super.init()

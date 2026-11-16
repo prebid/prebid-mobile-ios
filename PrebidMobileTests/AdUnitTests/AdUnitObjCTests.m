@@ -18,9 +18,8 @@ limitations under the License.
 
 // Declared here instead of importing "PrebidMobileTests-Swift.h": that header also lists the Swift mocks that subclass
 // SDK classes which are not part of the public API, and ObjC cannot see those superclasses.
-@interface AdUnitSwizzleHelper : NSObject
-@property (class, nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *targetingKeywords;
-+ (void)toggleFetchDemand;
+@interface AdUnitObjCTestHelper : NSObject
++ (AdUnit *)adUnitWithWinningBid;
 @end
 
 @interface AdUnitObjCTests : XCTestCase
@@ -37,27 +36,29 @@ AdUnit *adUnit;
 
 - (void)tearDown {
     [Targeting.shared clearUserKeywords];
+    Prebid.shared.prebidServerAccountId = @"";
 }
 
 - (void)testFetchDemand {
     
     //given
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    NSObject *testObject = [[NSObject alloc] init];
+    NSMutableDictionary *adObject = [[NSMutableDictionary alloc] init];
     __block ResultCode resultCode;
-    [AdUnitSwizzleHelper toggleFetchDemand];
+    Prebid.shared.prebidServerAccountId = @"test-account-id";
+    AdUnit *adUnitWithBid = [AdUnitObjCTestHelper adUnitWithWinningBid];
     
     //when
-    [adUnit fetchDemandWithAdObject:testObject completion:^(enum ResultCode result) {
+    [adUnitWithBid fetchDemandWithAdObject:adObject completion:^(enum ResultCode result) {
         resultCode = result;
         [expectation fulfill];
     }];
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
-    [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
     XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
+    XCTAssertEqualObjects(@"openx", adObject[@"hb_bidder"]);
 }
 
 - (void)testFetchDemandBids {
@@ -66,24 +67,21 @@ AdUnit *adUnit;
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     __block ResultCode resultCode;
     __block NSDictionary<NSString *, NSString *> *kvDictResult;
-    [AdUnitSwizzleHelper toggleFetchDemand];
-    
-    AdUnitSwizzleHelper.targetingKeywords = @{@"key1" : @"value1"};
+    Prebid.shared.prebidServerAccountId = @"test-account-id";
+    AdUnit *adUnitWithBid = [AdUnitObjCTestHelper adUnitWithWinningBid];
     
     //when
-    [adUnit fetchDemandWithCompletionBidInfo:^(PBMBidInfo * _Nonnull bidInfo) {
+    [adUnitWithBid fetchDemandWithCompletionBidInfo:^(PBMBidInfo * _Nonnull bidInfo) {
         resultCode = bidInfo.resultCode;
         kvDictResult = bidInfo.targetingKeywords;
         [expectation fulfill];
     }];
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
-    [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
     XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
-    XCTAssertEqual(1, kvDictResult.count);
-    XCTAssertEqualObjects(@"value1", kvDictResult[@"key1"]);
+    XCTAssertEqualObjects(@"openx", kvDictResult[@"hb_bidder"]);
 
 }
 
