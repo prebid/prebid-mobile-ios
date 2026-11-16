@@ -8,6 +8,10 @@ runs:
       shell: bash
       run: |
         version="$(tr -d '[:space:]' < "$GITHUB_WORKSPACE/.xcode-version")"
+        if [[ -z "$version" ]]; then
+          echo "::error file=.xcode-version::.xcode-version is empty; it must name an Xcode version, such as 26.5."
+          exit 1
+        fi
         developer_dir="/Applications/Xcode_${version}.app/Contents/Developer"
         if [[ ! -d "$developer_dir" ]]; then
           echo "::error file=.xcode-version::Xcode ${version} is not installed on this runner."

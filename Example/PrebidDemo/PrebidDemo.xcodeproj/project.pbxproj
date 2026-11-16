@@ -37,11 +37,8 @@
 		530E7210292F8DC30025B44D /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3603F292EACEB001C1183 /* PrebidMobile.framework */; };
 		530E7211292F8DC30025B44D /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3603F292EACEB001C1183 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		530E7213292F8DC40025B44D /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */; };
-		530E7214292F8DC40025B44D /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		530E7215292F8DC60025B44D /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36044292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework */; };
-		530E7216292F8DC60025B44D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36044292EACF0001C1183 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		530E7217292F8DC70025B44D /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36045292EACF0001C1183 /* PrebidMobileMAXAdapters.framework */; };
-		530E7218292F8DC70025B44D /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36045292EACF0001C1183 /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		533784C82AC2C883009A8650 /* GAMOriginalAPIMultiformatNativeStylesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533784C72AC2C883009A8650 /* GAMOriginalAPIMultiformatNativeStylesViewController.swift */; };
 		533784CC2AC2CFF5009A8650 /* GAMOriginalAPIMultiformatNativeStylesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 533784CB2AC2CFF5009A8650 /* GAMOriginalAPIMultiformatNativeStylesViewController.m */; };
 		533E0FBE29111B36000CC24F /* PrebidGMASDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533E0FBD29111B36000CC24F /* PrebidGMASDKTests.swift */; };
@@ -109,9 +106,7 @@
 		5399290D2926682F0078053C /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5399290B2926682F0078053C /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53992912292668520078053C /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5399290F292668520078053C /* PrebidMobileAdMobAdapters.framework */; };
 		53992914292668520078053C /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53992910292668520078053C /* PrebidMobileGAMEventHandlers.framework */; };
-		53992915292668520078053C /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53992910292668520078053C /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53992916292668520078053C /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53992911292668520078053C /* PrebidMobileMAXAdapters.framework */; };
-		53992917292668520078053C /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53992911292668520078053C /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		539F960129DEE1DA0061E7A5 /* GAMOriginalAPIMultiformatBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F960029DEE1DA0061E7A5 /* GAMOriginalAPIMultiformatBannerViewController.swift */; };
 		539F960329DEE3D40061E7A5 /* GAMOriginalAPIMultiformatInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539F960229DEE3D40061E7A5 /* GAMOriginalAPIMultiformatInterstitialViewController.swift */; };
 		539F960629DEEA0A0061E7A5 /* GAMOriginalAPIMultiformatBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 539F960529DEEA0A0061E7A5 /* GAMOriginalAPIMultiformatBannerViewController.m */; };
@@ -170,7 +165,6 @@
 		53F35F4F2926D5C0001C1183 /* MAXNativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F4E2926D5C0001C1183 /* MAXNativeViewController.m */; };
 		53F35F512926D702001C1183 /* MAXNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F35F502926D702001C1183 /* MAXNativeAdView.xib */; };
 		53F35F57292792D6001C1183 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F56292792D6001C1183 /* SettingsViewController.m */; };
-		53F36047292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53F36043292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		902B7FE1124C94CF090DABE2 /* AppLovinSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 9B69620BA8C7CF2C0D19E5F2 /* AppLovinSDK */; };
 		9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49027B561A9003DCCCC /* TestExtensions.swift */; };
 		9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */; };
@@ -214,10 +208,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				530E7214292F8DC40025B44D /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 				530E7211292F8DC30025B44D /* PrebidMobile.framework in Embed Frameworks */,
-				530E7216292F8DC60025B44D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
-				530E7218292F8DC70025B44D /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,9 +220,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				5399290D2926682F0078053C /* PrebidMobile.framework in Embed Frameworks */,
-				53992915292668520078053C /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
-				53992917292668520078053C /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
-				53F36047292EACF0001C1183 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1620,7 +1608,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L9295BF929;
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PrebidDemoSwift/Supporting files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Prebid Demo Swift";
@@ -1657,7 +1644,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L9295BF929;
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PrebidDemoSwift/Supporting files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Prebid Demo Swift";
@@ -1694,7 +1680,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L9295BF929;
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PrebidDemoObjectiveC/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1729,7 +1714,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L9295BF929;
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PrebidDemoObjectiveC/Supporting files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1926,17 +1910,12 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				INFOPLIST_FILE = PrebidDemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1952,17 +1931,12 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				INFOPLIST_FILE = PrebidDemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -112,6 +112,8 @@ product paths; no `LocalPrebid` build-folder override is needed.
 ```bash
 ./scripts/verifyDevelopmentApps.sh # compile demo, internal, Skadn, and test/UI-test targets
 ./scripts/verifyDevelopmentApps.sh --with-spm-demo # also build the standalone published consumer
+./scripts/verifyDependencyIsolation.sh # check that the native and published package graphs stay separate
+./scripts/testDevelopmentSupport.sh # run the internal app's form, mock-server and settings smoke tests
 ```
 
 PR CI runs `verifyDevelopmentApps.sh` without `--with-spm-demo`: the SPM demo compiles the

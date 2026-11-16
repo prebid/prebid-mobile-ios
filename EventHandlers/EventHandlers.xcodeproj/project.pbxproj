@@ -622,7 +622,6 @@
 			mainGroup = 34B64D4224F7D95800FDD9F4;
 			packageReferences = (
 				2B4EEE88FCC8E0950101B5A8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
-				AD344A395BC42A36079F84CE /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */,
 				B0A1F40247CCA5C7D96ADA70 /* XCRemoteSwiftPackageReference "AppLovin-MAX-Swift-Package" */,
 				69A2DB23CDAF938E6A5AE3FF /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */,
 			);
@@ -808,7 +807,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				INFOPLIST_FILE = PrebidMobileGAMEventHandlersTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -840,7 +838,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				INFOPLIST_FILE = PrebidMobileGAMEventHandlersTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1087,11 +1084,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = "$(PREBID_ADAPTER_MACH_O_TYPE)";
 				MARKETING_VERSION = 3.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
+				PREBID_ADAPTER_MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileMAXAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1125,11 +1124,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = "$(PREBID_ADAPTER_MACH_O_TYPE)";
 				MARKETING_VERSION = 3.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
+				PREBID_ADAPTER_MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileMAXAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1148,7 +1149,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
@@ -1174,7 +1174,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
@@ -1278,7 +1277,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1310,7 +1308,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1416,14 +1413,6 @@
 			requirement = {
 				kind = exactVersion;
 				version = 3.1.0;
-			};
-		};
-		AD344A395BC42A36079F84CE /* XCRemoteSwiftPackageReference "swift-package-manager-google-interactive-media-ads-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-ios.git";
-			requirement = {
-				kind = exactVersion;
-				version = 3.33.0;
 			};
 		};
 		B0A1F40247CCA5C7D96ADA70 /* XCRemoteSwiftPackageReference "AppLovin-MAX-Swift-Package" */ = {

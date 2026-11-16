@@ -9,7 +9,9 @@
 #
 # create_test_simulator installs an EXIT trap that deletes the simulator, and every simctl call
 # handles SIGINT, SIGTERM and SIGHUP while it runs. A sourcing script must not set its own traps
-# for EXIT or for those signals.
+# for EXIT or for those signals. The callers use create_test_simulator and boot_test_simulator;
+# every other function and variable here starts with simulator_ or SIMULATOR_, so that it cannot
+# clash with a caller's names.
 
 PREBID_SIMULATOR_NAME="${PREBID_SIMULATOR_NAME:-iPhone-17-Pro-PrebidMobile}"
 PREBID_SIMULATOR_DEVICE_TYPE="${PREBID_SIMULATOR_DEVICE_TYPE:-com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro}"
@@ -29,9 +31,9 @@ SIMULATOR_STOP_GRACE=5
 
 SIMULATOR_ID=""            # UUID of the simulator this script created
 SIMULATOR_CREATING=""      # name given to a simctl create whose UUID is not known yet
-SIMULATOR_TIMED_GROUP=""   # process group run_with_timeout is waiting for
+SIMULATOR_TIMED_GROUP=""   # process group simulator_run_with_timeout is waiting for
 SIMULATOR_TIMED_REAPED=0   # 1 once that group's leader has been waited for
-SIMULATOR_LAUNCHING=0      # 1 while run_with_timeout starts that group
+SIMULATOR_LAUNCHING=0      # 1 while simulator_run_with_timeout starts that group
 SIMULATOR_LAUNCH_MARK=""   # value of $! just before that start
 SIMULATOR_LAST_JOB=""
 SIMULATOR_PAUSE_PID=""
@@ -48,12 +50,12 @@ SIMULATOR_TEMP_DIR=""
 create_test_simulator() {
     local name="${1:-$PREBID_SIMULATOR_NAME}" output status=0
     trap simulator_exit_trap EXIT
-    delete_simulators_named "$name" || return
+    simulator_delete_named "$name" || return
     simulator_make_temp_dir || return
     output="$SIMULATOR_TEMP_DIR/create.out"
     # Until the UUID is read, the exit trap finds an interrupted creation by its name.
     SIMULATOR_CREATING="$name"
-    run_with_timeout "$SIMULATOR_CREATE_TIMEOUT" xcrun simctl create "$name" "$PREBID_SIMULATOR_DEVICE_TYPE" \
+    simulator_run_with_timeout "$SIMULATOR_CREATE_TIMEOUT" xcrun simctl create "$name" "$PREBID_SIMULATOR_DEVICE_TYPE" \
         ${PREBID_TEST_RUNTIME:+"$PREBID_TEST_RUNTIME"} > "$output" || status=$?
     if (( status != 0 )); then
         echo "Could not create simulator $name (status $status)." >&2
@@ -83,12 +85,12 @@ simulator_exit_trap() {
     if [[ -n "$SIMULATOR_ID" ]]; then
         local id="$SIMULATOR_ID"
         SIMULATOR_ID=""
-        run_with_timeout "$SIMULATOR_DELETE_TIMEOUT" xcrun simctl delete "$id" >/dev/null 2>&1 \
+        simulator_run_with_timeout "$SIMULATOR_DELETE_TIMEOUT" xcrun simctl delete "$id" >/dev/null 2>&1 \
             || echo "Could not delete simulator $id (status $?)." >&2
     elif [[ -n "$SIMULATOR_CREATING" ]]; then
         local name="$SIMULATOR_CREATING"
         SIMULATOR_CREATING=""
-        delete_simulators_named "$name" \
+        simulator_delete_named "$name" \
             || echo "Could not delete simulator $name, whose creation did not finish." >&2
     fi
     simulator_remove_temp_dir
@@ -97,13 +99,13 @@ simulator_exit_trap() {
 
 # Deletes every simulator named $1. Fails if listing or deleting fails or times out, or if a
 # device with that name is still listed afterwards.
-delete_simulators_named() {
+simulator_delete_named() {
     local name="$1" id status=0
     simulator_list_ids "$name" || return
     [[ -n "$SIMULATOR_FOUND_IDS" ]] || return 0
     for id in $SIMULATOR_FOUND_IDS; do
         echo "Deleting simulator $name ($id)." >&2
-        run_with_timeout "$SIMULATOR_DELETE_TIMEOUT" xcrun simctl delete "$id" || status=$?
+        simulator_run_with_timeout "$SIMULATOR_DELETE_TIMEOUT" xcrun simctl delete "$id" || status=$?
         if (( status != 0 )); then
             echo "Could not delete simulator $id (status $status)." >&2
             return "$status"
@@ -123,7 +125,7 @@ simulator_list_ids() {
     SIMULATOR_FOUND_IDS=""
     simulator_make_temp_dir || return
     list="$SIMULATOR_TEMP_DIR/devices.json"
-    run_with_timeout "$SIMULATOR_LIST_TIMEOUT" xcrun simctl list -j devices > "$list" || status=$?
+    simulator_run_with_timeout "$SIMULATOR_LIST_TIMEOUT" xcrun simctl list -j devices > "$list" || status=$?
     if (( status != 0 )); then
         echo "Could not list simulators (status $status)." >&2
         return "$status"
@@ -165,7 +167,8 @@ for devices in runtimes.values():
 }
 
 simulator_is_uuid() {
-    [[ ${#1} -eq 36 && "$1" != *[!0-9A-Fa-f-]* ]]
+    local pattern='^[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+    [[ "$1" =~ $pattern ]]
 }
 
 simulator_make_temp_dir() {
@@ -184,7 +187,7 @@ simulator_remove_temp_dir() {
 # The command and anything it leaves running in its group get $1 seconds (a whole number); after
 # that the group is stopped and this returns 124, never earlier than $1 seconds. SIGINT, SIGTERM
 # and SIGHUP stop the group as well, then end the script. macOS runners have no coreutils timeout.
-run_with_timeout() {
+simulator_run_with_timeout() {
     local seconds="$1" start="$SECONDS" pid status=0
     shift
     simulator_trap_signals
@@ -214,7 +217,7 @@ run_with_timeout() {
             if (( SIMULATOR_TIMED_REAPED )); then
                 echo "'$1' exited, but left processes running for over $seconds s." >&2
             fi
-            stop_process_group "$pid" "$SIMULATOR_TIMED_REAPED"
+            simulator_stop_process_group "$pid" "$SIMULATOR_TIMED_REAPED"
             SIMULATOR_TIMED_GROUP=""
             simulator_untrap_signals
             return 124
@@ -233,7 +236,7 @@ run_with_timeout() {
 # long again. Unless $2 says the leader was already waited for, the leader is signalled directly
 # too, in case it left the group. A process that survives that is left running; nothing here
 # waits for it.
-stop_process_group() {
+simulator_stop_process_group() {
     local group="$1" reaped="${2:-0}"
     simulator_signal_group TERM "$group" "$reaped"
     if ! simulator_wait_gone "$group" "$reaped"; then
@@ -315,8 +318,8 @@ simulator_on_signal() {
     exit "$1"
 }
 
-# Stops the command run_with_timeout is waiting for, including one whose start was interrupted
-# before its process group was recorded.
+# Stops the command simulator_run_with_timeout is waiting for, including one whose start was
+# interrupted before its process group was recorded.
 simulator_stop_running() {
     local group
     if [[ -n "$SIMULATOR_PAUSE_PID" ]]; then
@@ -333,14 +336,14 @@ simulator_stop_running() {
     if [[ -n "$SIMULATOR_TIMED_GROUP" ]]; then
         group="$SIMULATOR_TIMED_GROUP"
         SIMULATOR_TIMED_GROUP=""
-        stop_process_group "$group" "$SIMULATOR_TIMED_REAPED"
+        simulator_stop_process_group "$group" "$SIMULATOR_TIMED_REAPED"
     fi
 }
 
 # Prints $2 as a number of seconds, or fails if it is not a whole number from 1 to 86400. Leading
 # zeros are decimal, so "08" is 8 rather than an invalid octal number. The range is checked before
 # any arithmetic, so a huge value cannot wrap around.
-whole_seconds() {
+simulator_whole_seconds() {
     local name="$1" value="$2" digits=""
     case "$value" in
         "" | *[!0-9]*) ;;
@@ -358,8 +361,8 @@ whole_seconds() {
 # instead of holding the runner until the job timeout.
 boot_test_simulator() {
     local status=0 timeout
-    timeout="$(whole_seconds PREBID_SIMULATOR_BOOT_TIMEOUT "$PREBID_SIMULATOR_BOOT_TIMEOUT")" || return 2
-    run_with_timeout "$timeout" xcrun simctl bootstatus "$SIMULATOR_ID" -b || status=$?
+    timeout="$(simulator_whole_seconds PREBID_SIMULATOR_BOOT_TIMEOUT "$PREBID_SIMULATOR_BOOT_TIMEOUT")" || return 2
+    simulator_run_with_timeout "$timeout" xcrun simctl bootstatus "$SIMULATOR_ID" -b || status=$?
     if (( status == 0 )); then
         return 0
     fi
@@ -368,14 +371,14 @@ boot_test_simulator() {
     else
         echo "Simulator $SIMULATOR_ID failed to boot (status $status)." >&2
     fi
-    collect_simulator_diagnostics || echo "Could not collect simulator diagnostics." >&2
+    simulator_collect_diagnostics || echo "Could not collect simulator diagnostics." >&2
     return "$status"
 }
 
 # Writes the simulator's state and logs to a new folder under PREBID_SIMULATOR_DIAGNOSTICS_DIR,
 # named after the time and the simulator, so that a report never includes another run's files.
 # Each simctl call is bounded too, since it can stall on the same CoreSimulator state.
-collect_simulator_diagnostics() {
+simulator_collect_diagnostics() {
     local logs="$HOME/Library/Logs/CoreSimulator" dir stamp
     stamp="$(date +%Y%m%d-%H%M%S)"
     if ! mkdir -p "$PREBID_SIMULATOR_DIAGNOSTICS_DIR" 2>/dev/null \
@@ -384,11 +387,11 @@ collect_simulator_diagnostics() {
         return 1
     fi
     echo "Writing simulator diagnostics to $dir" >&2
-    run_with_timeout "$SIMULATOR_LIST_TIMEOUT" xcrun simctl list -j devices > "$dir/devices.json" 2>&1 || true
+    simulator_run_with_timeout "$SIMULATOR_LIST_TIMEOUT" xcrun simctl list -j devices > "$dir/devices.json" 2>&1 || true
     grep -A6 "\"udid\" : \"$SIMULATOR_ID\"" "$dir/devices.json" >&2 || true
     cp "$logs/CoreSimulator.log" "$dir/" 2>/dev/null || true
     cp -R "$logs/$SIMULATOR_ID" "$dir/device-logs" 2>/dev/null || true
-    run_with_timeout "$SIMULATOR_DIAGNOSE_TIMEOUT" simctl_diagnose -b --no-archive --timeout=300 \
+    simulator_run_with_timeout "$SIMULATOR_DIAGNOSE_TIMEOUT" simulator_diagnose -b --no-archive --timeout=300 \
         --output="$dir/simctl-diagnose" --udid="$SIMULATOR_ID" > "$dir/simctl-diagnose.out" 2>&1 \
         || echo "simctl diagnose did not complete (status $?); see simctl-diagnose.out." >&2
     if [[ -f "$dir/CoreSimulator.log" ]]; then
@@ -399,6 +402,6 @@ collect_simulator_diagnostics() {
 
 # simctl diagnose waits for ENTER after its privacy notice and exits without collecting
 # anything when stdin is closed.
-simctl_diagnose() {
+simulator_diagnose() {
     printf '\n' | xcrun simctl diagnose "$@"
 }

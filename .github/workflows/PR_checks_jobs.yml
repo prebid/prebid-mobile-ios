@@ -58,8 +58,6 @@ jobs:
         uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Build Prebid Mobile Frameworks
         run: ./scripts/buildPrebidMobile.sh
       - name: Upload logs on failure
@@ -105,8 +103,6 @@ jobs:
         uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Compile apps and test targets
         run: ./scripts/verifyDevelopmentApps.sh
       - name: Test development support code
@@ -125,18 +121,11 @@ jobs:
         uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run Quick Unit Tests for Frameworks
         run: ./scripts/testPrebidMobile.sh --latest --quick
       - name: Upload simulator diagnostics
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: simulator-diagnostics-${{ github.job }}-${{ github.run_attempt }}
-          path: generated/log/simulator-diagnostics
-          if-no-files-found: ignore
-          retention-days: 7
+        uses: ./.github/actions/upload-simulator-diagnostics
 
   unit-test-full:
     name: Run All Unit Tests for Frameworks
@@ -151,18 +140,11 @@ jobs:
         uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run All Unit Tests for Frameworks
         run: ./scripts/testPrebidMobile.sh --latest
       - name: Upload simulator diagnostics
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: simulator-diagnostics-${{ github.job }}-${{ github.run_attempt }}
-          path: generated/log/simulator-diagnostics
-          if-no-files-found: ignore
-          retention-days: 7
+        uses: ./.github/actions/upload-simulator-diagnostics
 
   unit-test-adapters:
     name: Run Unit Tests for Adapters
@@ -177,8 +159,6 @@ jobs:
         uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run Unit Tests for Adapters
         run: ./scripts/testPrebidMobileAdapters.sh
 
@@ -195,8 +175,6 @@ jobs:
         uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run Smoke UI Tests - Swift Demo App
         run: ./scripts/testPrebidDemo.sh -ui -l
 
@@ -213,7 +191,5 @@ jobs:
         uses: ./.github/actions/select-xcode
       - name: Cache Swift packages
         uses: ./.github/actions/cache-swift-packages
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
       - name: Run Integration Tests - Swift Demo App
         run: ./scripts/testPrebidDemo.sh -l
