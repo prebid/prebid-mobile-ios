@@ -10,15 +10,17 @@ echo -e "\n\n${GREEN}BUILD LOCAL SPM PACKAGE${NC}\n\n"
 #
 # buildPrebidSPM.sh builds the PrebidDemoSPM app, which consumes the *published*
 # package via XCRemoteSwiftPackageReference — it never compiles this working tree.
-# buildPrebidMobile.sh builds via CocoaPods/Xcode, where the generated
+# buildPrebidMobile.sh builds the Xcode framework targets, where the generated
 # PrebidMobile-Swift.h transitively re-exports umbrella headers that SPM does not.
 #
-# Neither catches a source file that compiles under CocoaPods but fails under SPM
+# Neither catches a source file that compiles in an Xcode framework target but fails under SPM
 # (e.g. an ObjC file relying on a removed header for its UIKit visibility). This
 # script compiles Package.swift directly to close that gap.
 #
 # swift build uses the host toolchain, so the iOS simulator triple and SDK must be
-# passed explicitly to both swiftc and clang.
+# passed explicitly to both swiftc and clang. Pass them to the build engine too:
+# newer SwiftPM defaults to Swift Build, which selects XCFramework slices before
+# invoking the compiler. Compiler-only -target flags leave it targeting macOS.
 
 SDK_PATH="$(xcrun --sdk iphonesimulator --show-sdk-path)"
 TRIPLE="arm64-apple-ios15.0-simulator"
@@ -43,6 +45,6 @@ SWIFT_BUILD_FLAGS=(
     -Xswiftc -F -Xswiftc "${PWD}/${OMSDK_SLICE}"
 )
 
-swift build --target PrebidMobile "${SWIFT_BUILD_FLAGS[@]}"
+swift build --force-resolved-versions --triple "${TRIPLE}" --sdk "${SDK_PATH}" --target PrebidMobile "${SWIFT_BUILD_FLAGS[@]}"
 
 echo "✅ SPM package build succeeded"

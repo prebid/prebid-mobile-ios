@@ -29,7 +29,6 @@ env:
   TARGET_BRANCH: main
   GH_TOKEN_PREBID_MOBILE: ${{ github.token }}
 
-  XCODE_VERSION: "26.5.0"
 
 jobs:
   resolve_version:
@@ -90,9 +89,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: ${{ env.XCODE_VERSION }}
+        uses: ./.github/actions/select-xcode
       - name: Build Prebid SPM Demo against the local packages
         run: ./scripts/verifySPM.sh "${{ needs.resolve_version.outputs.version }}"
 
@@ -311,9 +308,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}
+        uses: ./.github/actions/select-xcode
       - name: Build Prebid SPM Demo
         run: ./scripts/buildPrebidSPM.sh
       - name: Upload logs on failure

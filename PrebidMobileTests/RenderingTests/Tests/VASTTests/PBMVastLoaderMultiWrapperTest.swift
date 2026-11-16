@@ -65,7 +65,9 @@ class PBMVastLoaderMultiWrapperTest: XCTestCase {
             requester.buildAdsArray(data)
         }
         
-        self.waitForExpectations(timeout: 1, handler: nil)
+        withExtendedLifetime((requester, adLoadManager)) {
+            self.waitForExpectations(timeout: 1, handler: nil)
+        }
     }
 
     // A wrapper whose tag URI cannot become a URL fails the load, instead of leaving it without a result.
@@ -110,6 +112,10 @@ class PBMVastLoaderMultiWrapperTest: XCTestCase {
         """
         requester.buildAdsArray(Data(document.utf8))
 
-        wait(for: [loadFailed], timeout: 2)
+        // Production retains these through the load manager. Keep the standalone
+        // test fixtures alive until the asynchronous invalid-request callback runs.
+        withExtendedLifetime((requester, adLoadManager)) {
+            wait(for: [loadFailed], timeout: 2)
+        }
     }
 }

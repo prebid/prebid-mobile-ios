@@ -17,7 +17,6 @@ import UIKit
 import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileAdMobAdapters
-import Alamofire
 
 enum GADAdSizeType {
     case regular

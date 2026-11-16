@@ -1,0 +1,12 @@
+name: Upload simulator diagnostics
+description: "Upload the simulator diagnostics that scripts/simulator.sh writes when a boot does not finish. Call it with `if: failure()`."
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/upload-artifact@v4
+      with:
+        name: simulator-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+        path: generated/log/simulator-diagnostics
+        if-no-files-found: ignore
+        retention-days: 7

@@ -16,8 +16,6 @@
 import Foundation
 import UIKit
 
-import SVProgressHUD
-
 // AdapterViewController is designed to be a generic and agnostic VC for the displaying of a third party SDK's Banner or Interstitial.
 // It has a UIView to display banners inside of as well as a show button to display interstitials with.
 // Its setupAction(_ button: UIButton, _ name: String) method allows it to add a button representing a third party event (such as MoPub's interstitialDidExpire event)
@@ -89,17 +87,9 @@ class AdapterViewController: UIViewController, ConfigurableViewController {
         } else {
             self.loadAdClosure?()
         }
-        
-        if (UserDefaults.standard.bool(forKey: AppSettingsKeys.showHUD)) {
-            SVProgressHUD.show()
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        if (UserDefaults.standard.bool(forKey: AppSettingsKeys.showHUD)) {
-            SVProgressHUD.dismiss()
-        }
-        
         self.postActionClosure?()
         
         super.viewWillDisappear(animated)

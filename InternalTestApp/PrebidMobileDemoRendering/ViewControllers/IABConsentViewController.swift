@@ -14,86 +14,51 @@
  */
 
 import UIKit
-import Eureka
 
-final class IABConsentViewController : FormViewController {
+final class IABConsentViewController: FormTableViewController {
+    private var defaultsObserver: NSObjectProtocol?
+    private var defaultsRows: [(String, FormRow)] = []
+
+    deinit {
+        if let observer = defaultsObserver { NotificationCenter.default.removeObserver(observer) }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        createForm()
-        
-        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [weak self] notification in
-            guard let self = self else {
-                return
-            }
-            self.tcf1_cmpPresentRow.value = UserDefaults.standard.bool(forKey: IABConsentSettingKey.TCF.v1.cmpPresent)
-            self.tcf1_subjectToGDPRRow.value = UserDefaults.standard.string(forKey: IABConsentSettingKey.TCF.v1.subjectToGDPR) ?? ""
-            self.tcf1_gdprConsentStringRow.value = UserDefaults.standard.string(forKey: IABConsentSettingKey.TCF.v1.consentString) ?? ""
-            
-            self.tcf2_cmpSdkId.value = UserDefaults.standard.string(forKey: IABConsentSettingKey.TCF.v2.cmpSdkId) ?? ""
-            self.tcf2_subjectToGDPRRow.value = UserDefaults.standard.string(forKey: IABConsentSettingKey.TCF.v2.subjectToGDPR) ?? ""
-            self.tcf2_gdprConsentStringRow.value = UserDefaults.standard.string(forKey: IABConsentSettingKey.TCF.v2.consentString) ?? ""
-            
-            self.usPrivacyStringRow.value = UserDefaults.standard.string(forKey: IABConsentSettingKey.usPrivacyString) ?? ""
-        }
-        
-        self.navigationItem.title = "IAB Consent Settings"
-    }
-    
-    // MARK: - Private Methods
-    
-    private func createForm() {
         title = "IAB Consent Settings"
-        
-        form
-            +++ Section("TCF v1")
-            <<< tcf1_cmpPresentRow
-            <<< tcf1_subjectToGDPRRow
-            <<< tcf1_gdprConsentStringRow
-            +++ Section("TCF v2")
-            <<< tcf2_cmpSdkId
-            <<< tcf2_subjectToGDPRRow
-            <<< tcf2_gdprConsentStringRow
-            +++ Section("CCPA")
-            <<< usPrivacyStringRow
-            +++ Section("Testing")
-            <<< keepSettingsRow
-    }
-    
-    private static func textRow(for userDefaultsKey: String, title: String) -> TextRow {
-        return TextRow() { row in
-            row.title = title
-            row.value = UserDefaults.standard.string(forKey: userDefaultsKey) ?? ""
-            row.cell.accessibilityIdentifier = title
-        }.onChange { row in
-            if row.value?.isEmpty ?? true {
-                UserDefaults.standard.removeObject(forKey: userDefaultsKey)
-            } else {
-                UserDefaults.standard.set(row.value, forKey: userDefaultsKey)
+        sections = [
+            FormSection("TCF v1", rows: [
+                defaultsRow(IABConsentSettingKey.TCF.v1.cmpPresent, title: "CMP present", kind: .toggle),
+                defaultsRow(IABConsentSettingKey.TCF.v1.subjectToGDPR, title: "Subject To GDPR"),
+                defaultsRow(IABConsentSettingKey.TCF.v1.consentString, title: "GDPR Consent String")
+            ]),
+            FormSection("TCF v2", rows: [
+                defaultsRow(IABConsentSettingKey.TCF.v2.cmpSdkId, title: "CMP SDK ID"),
+                defaultsRow(IABConsentSettingKey.TCF.v2.subjectToGDPR, title: "Subject To GDPR"),
+                defaultsRow(IABConsentSettingKey.TCF.v2.consentString, title: "GDPR Consent String")
+            ]),
+            FormSection("CCPA", rows: [defaultsRow(IABConsentSettingKey.usPrivacyString, title: "US Privacy String")]),
+            FormSection("Testing", rows: [defaultsRow(IABConsentSettingKey.keepSettings, title: "Keep settings", kind: .toggle)])
+        ]
+        defaultsObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
+            guard let self = self else { return }
+            for (key, row) in self.defaultsRows {
+                row.value = UserDefaults.standard.string(forKey: key) ?? ""
+                row.isOn = UserDefaults.standard.bool(forKey: key)
             }
+            self.refreshVisibleValues()
         }
     }
-    
-    private static func switchRow(for userDefaultsKey: String, title: String) -> SwitchRow {
-        return SwitchRow() { row in
-            row.title = title
-            row.value = UserDefaults.standard.bool(forKey: userDefaultsKey)
-            row.cell.accessibilityIdentifier = title
-        }.onChange { row in
-            UserDefaults.standard.set(row.value, forKey: userDefaultsKey)
+
+    private func defaultsRow(_ key: String, title: String, kind: FormRow.Kind = .text) -> FormRow {
+        let row = FormRow(title, kind: kind, value: UserDefaults.standard.string(forKey: key) ?? "", isOn: UserDefaults.standard.bool(forKey: key))
+        row.identifier = title
+        row.onTextChange = { value in
+            if value.isEmpty { UserDefaults.standard.removeObject(forKey: key) }
+            else { UserDefaults.standard.set(value, forKey: key) }
         }
+        row.onToggle = { UserDefaults.standard.set($0, forKey: key) }
+        defaultsRows.append((key, row))
+        return row
     }
-    
-    private let tcf1_cmpPresentRow = switchRow(for: IABConsentSettingKey.TCF.v1.cmpPresent, title: "CMP present")
-    private let tcf1_subjectToGDPRRow = textRow(for: IABConsentSettingKey.TCF.v1.subjectToGDPR, title: "Subject To GDPR")
-    private let tcf1_gdprConsentStringRow = textRow(for: IABConsentSettingKey.TCF.v1.consentString, title: "GDPR Consent String")
-    
-    private let tcf2_cmpSdkId = textRow(for: IABConsentSettingKey.TCF.v2.cmpSdkId, title: "CMP SDK ID")
-    private let tcf2_subjectToGDPRRow = textRow(for: IABConsentSettingKey.TCF.v2.subjectToGDPR, title: "Subject To GDPR")
-    private let tcf2_gdprConsentStringRow = textRow(for: IABConsentSettingKey.TCF.v2.consentString, title: "GDPR Consent String")
-    
-    private let usPrivacyStringRow = textRow(for: IABConsentSettingKey.usPrivacyString, title: "US Privacy String")
-    
-    private let keepSettingsRow = switchRow(for: IABConsentSettingKey.keepSettings, title: "Keep settings")
 }

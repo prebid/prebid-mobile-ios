@@ -13,6 +13,8 @@
  limitations under the License.
  */
 
+import Foundation
+
 internal enum NetworkError: Error {
     case noConnection
     case parsingError(HTTPURLResponse?)

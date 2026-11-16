@@ -125,8 +125,13 @@ Pods/
 .claude/projects/
 .claude/worktrees/
 
+# Published adapters manifest: consumers resolve their own versions.
 EventHandlers/Package.resolved
 
-# The SPM demo tracks the Prebid packages by branch; pins committed here go stale
-# and make the demo build against an old release.
-PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved
+# Shared SwiftPM checkouts and binary artifacts used by the build scripts.
+.swiftpm-cache/
+
+# Lockfiles written when a project is opened on its own; the workspace lockfile is the
+# source of truth. The SPM demo's must stay ignored: it follows the adapters' main branch.
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+.swiftpm-spm-demo-cache/

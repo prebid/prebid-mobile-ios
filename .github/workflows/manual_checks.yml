@@ -25,9 +25,6 @@ on:
         type: boolean
         default: true
 
-env:
-  XCODE_VERSION: "26.5.0"
-
 jobs:
   build:
     name: Build PrebidMobile Frameworks
@@ -35,9 +32,7 @@ jobs:
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
-      - uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}
+      - uses: ./.github/actions/select-xcode
       - run: ./scripts/buildPrebidMobile.sh
       - name: Upload logs on failure
         if: ${{ failure() }}
@@ -53,10 +48,11 @@ jobs:
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
-      - uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}
+      - uses: ./.github/actions/select-xcode
       - run: ./scripts/testPrebidMobile.sh --latest
+      - name: Upload simulator diagnostics
+        if: ${{ failure() }}
+        uses: ./.github/actions/upload-simulator-diagnostics
 
   smoke_ui_tests:
     name: Run Smoke UI Tests - Swift Demo App
@@ -64,9 +60,7 @@ jobs:
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
-      - uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}
+      - uses: ./.github/actions/select-xcode
       - run: ./scripts/testPrebidDemo.sh -ui -l
 
   integration_tests:
@@ -75,7 +69,5 @@ jobs:
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
-      - uses: maxim-lobanov/setup-xcode@v1
-        with: 
-          xcode-version: ${{ env.XCODE_VERSION }}
+      - uses: ./.github/actions/select-xcode
       - run: ./scripts/testPrebidDemo.sh -l

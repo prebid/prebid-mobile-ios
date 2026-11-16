@@ -1,0 +1,17 @@
+name: Cache Swift packages
+description: Restore and save the SwiftPM checkouts and binary artifacts that the build scripts keep in .swiftpm-cache. Run select-xcode first; the cache key uses the XCODE_VERSION it exports.
+
+runs:
+  using: composite
+  steps:
+    - name: Check the selected Xcode
+      shell: bash
+      run: |
+        if [[ -z "${XCODE_VERSION:-}" ]]; then
+          echo "::error::Run ./.github/actions/select-xcode before cache-swift-packages; XCODE_VERSION is not set."
+          exit 1
+        fi
+    - uses: actions/cache@v4
+      with:
+        path: .swiftpm-cache
+        key: ${{ runner.os }}-xcode-${{ env.XCODE_VERSION }}-spm-${{ hashFiles('PrebidMobile.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}

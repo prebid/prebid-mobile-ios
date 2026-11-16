@@ -12,8 +12,19 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-import Foundation
 
-enum AppSettingsKeys {
-    static let showHUD = "Show_HUD"
+import UIKit
+
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard scene is UIWindowScene else { return }
+
+        // UIKit creates the window from the scene's Main storyboard. Apply the
+        // UI-test speed after that window exists, rather than during app launch.
+        if (UIApplication.shared.delegate as? AppDelegate)?.isUITesting == true {
+            window?.layer.speed = 200
+        }
+    }
 }
