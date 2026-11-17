@@ -289,13 +289,53 @@ class PBMVastLoaderCheckForAds : XCTestCase {
                               expectedErrorURLs: ["http://error/one?code=303", "http://error/two?code=303"])
     }
 
+    func testNoAdsReportsSharedWrapperErrorsOncePerLoad() {
+        let root = "<VAST version=\"4.3\">"
+            + wrapperAdXML("http://wrapper/shared", errors: [
+                "http://error/shared-one?code=[ERRORCODE]", "http://error/shared-two?code=[ERRORCODE]"
+            ], allowMultipleAds: true)
+            + "</VAST>"
+        let branches = "<VAST version=\"4.3\">"
+            + wrapperAdXML("http://wrapper/one", errors: ["http://error/one?code=[ERRORCODE]"])
+            + wrapperAdXML("http://wrapper/two", errors: ["http://error/two?code=[ERRORCODE]"])
+            + "</VAST>"
+        let empty = "<VAST version=\"4.3\"/>"
+        let responses = ["http://wrapper/shared": branches, "http://wrapper/one": empty, "http://wrapper/two": empty]
+
+        let expectedURLs = ["http://error/one?code=303", "http://error/two?code=303",
+                            "http://error/shared-one?code=303", "http://error/shared-two?code=303"]
+        var requestedURLs: [String] = []
+        let record: MockServerConnection.FireAndForgetHandler = { requestedURLs.append($0) }
+        let respond: MockServerConnection.GetHandler = { url, _, completion in
+            guard let xml = responses[url] else {
+                XCTFail("Unexpected wrapper request: \(url)")
+                return
+            }
+            let response = PrebidServerResponse()
+            response.statusCode = 200
+            response.rawData = Data(xml.utf8)
+            DispatchQueue.main.async { completion(response) }
+        }
+        let connection = MockServerConnection(onFireAndForget: Array(repeating: record, count: expectedURLs.count),
+                                              onGet: Array(repeating: respond, count: responses.count))
+        let completed = expectation(description: "VAST load completed")
+        vastAdsBuilder = VastAdsBuilder(connection: connection)
+        vastAdsBuilder?.buildAds(Data(root.utf8)) { ads, error in
+            XCTAssertNil(ads)
+            XCTAssertEqual(error?.localizedDescription, "One or more responses had no ads")
+            completed.fulfill()
+        }
+        wait(for: [completed], timeout: 3)
+        XCTAssertEqual(requestedURLs.sorted(), expectedURLs.sorted())
+    }
+
     private func wrapperVast(_ url: String, errors: [String]) -> String {
         "<VAST version=\"4.3\">" + wrapperAdXML(url, errors: errors) + "</VAST>"
     }
 
-    private func wrapperAdXML(_ url: String, errors: [String]) -> String {
+    private func wrapperAdXML(_ url: String, errors: [String], allowMultipleAds: Bool = false) -> String {
         let errorXML = errors.map { "<Error><![CDATA[\($0)]]></Error>" }.joined()
-        return "<Ad id=\"1\"><Wrapper><AdSystem>test</AdSystem>" + errorXML
+        return "<Ad id=\"1\"><Wrapper allowMultipleAds=\"\(allowMultipleAds)\"><AdSystem>test</AdSystem>" + errorXML
             + "<VASTAdTagURI><![CDATA[\(url)]]></VASTAdTagURI></Wrapper></Ad>"
     }
 
