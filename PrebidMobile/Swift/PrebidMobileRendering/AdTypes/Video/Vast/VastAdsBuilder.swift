@@ -67,7 +67,7 @@ class VastAdsBuilder: NSObject {
 
     private func checkHasNoAdsAndFireURIs(vastResponse: VastResponse, reportedWrappers: inout Set<ObjectIdentifier>) -> Bool {
 
-        var firedNoAdsURI = false
+        var hasNoAds = false
 
         // An empty response reports 303 to its response-level Error URI and to the wrappers that led to it.
 
@@ -79,7 +79,7 @@ class VastAdsBuilder: NSObject {
             var parent: VastResponse? = vastResponse
             while let current = parent {
 
-                if let noAdsResponseURI = current.noAdsResponseURI {
+                if let noAdsResponseURI = current.noAdsResponseURI, !noAdsResponseURI.isEmpty {
                     serverConnection.fireAndForget(VastErrorCode.noAdAfterWrappers.replacingMacro(in: noAdsResponseURI))
                 }
 
@@ -92,14 +92,14 @@ class VastAdsBuilder: NSObject {
                    let wrapper = parentResponse.vastAbstractAds.compactMap({ $0 as? VastWrapperAd })
                     .first(where: { $0.vastResponse === current }),
                    reportedWrappers.insert(ObjectIdentifier(wrapper)).inserted {
-                    for errorURI in wrapper.errorURIs where !errorURI.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    for errorURI in wrapper.errorURIs where !errorURI.isEmpty {
                         serverConnection.fireAndForget(VastErrorCode.noAdAfterWrappers.replacingMacro(in: errorURI))
                     }
                 }
 
                 parent = current.parentResponse
             }
-            firedNoAdsURI = true
+            hasNoAds = true
         } else {
 
             for ad in vastResponse.vastAbstractAds {
@@ -111,7 +111,7 @@ class VastAdsBuilder: NSObject {
                     if let unwrappedVastResponse = unwrappedVASTWrapper.vastResponse {
                         let childHasNoAds = checkHasNoAdsAndFireURIs(vastResponse: unwrappedVastResponse,
                                                                    reportedWrappers: &reportedWrappers)
-                        firedNoAdsURI = firedNoAdsURI || childHasNoAds
+                        hasNoAds = hasNoAds || childHasNoAds
                     } else {
                         Log.error("No vastResponse on Wrapper")
                     }
@@ -119,7 +119,7 @@ class VastAdsBuilder: NSObject {
             }
         }
 
-        return firedNoAdsURI
+        return hasNoAds
     }
 
     // MARK: - Private

@@ -259,6 +259,14 @@ class PBMVastLoaderCheckForAds : XCTestCase {
                               expectedErrorURLs: ["http://error/one?code=303"])
     }
 
+    func testBlankResponseErrorDoesNotSendRequest() throws {
+        let xml = "<VAST version=\"4.3\"><Error>   </Error></VAST>"
+        let response = try XCTUnwrap(VastParser().parseAdsResponse(Data(xml.utf8)))
+        let builder = VastAdsBuilder(connection: MockServerConnection())
+
+        XCTAssertTrue(builder.checkHasNoAdsAndFireURIs(vastResponse: response))
+    }
+
     func testSuccessfulWrapperDoesNotRequestNoAdErrors() throws {
         let inlineData = try XCTUnwrap(UtilitiesForTesting.loadFileAsDataFromBundle("document_with_one_inline_ad.xml"))
         assertWrapperRequests(rootXML: wrapperVast("http://wrapper/one", errors: ["http://error/one?code=[ERRORCODE]"]),
