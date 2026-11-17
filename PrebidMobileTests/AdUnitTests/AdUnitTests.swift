@@ -643,13 +643,4 @@ class AdUnitTests: XCTestCase {
         
         return results
     }
-    
-    /// Runs what the main queue already holds, so a repeated completion would have arrived by now.
-    private func drainMainQueue() {
-        let drained = expectation(description: "main queue drained")
-        DispatchQueue.main.async {
-            drained.fulfill()
-        }
-        wait(for: [drained], timeout: 1)
-    }
 }

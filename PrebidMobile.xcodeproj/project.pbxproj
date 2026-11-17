@@ -241,6 +241,7 @@
 		53CDA4902D11AFD5004766F8 /* MediationUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CDA48A2D11AFD5004766F8 /* MediationUtilsTest.swift */; };
 		53CDA4912D11AFD5004766F8 /* MediationRewardedAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CDA4892D11AFD5004766F8 /* MediationRewardedAdUnitTest.swift */; };
 		53CE09012AD673020018CB75 /* sample_ortb_native_with_win_event.json in Resources */ = {isa = PBXBuildFile; fileRef = 53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */; };
+		5EDC95AA479B41139C946FD3 /* MockDeferredBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24735283624D1EAC42E956 /* MockDeferredBidRequester.swift */; };
 		53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */; };
 		53D3858E30123D4200923255 /* MockCreativeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3858D30123D4200923255 /* MockCreativeViewDelegate.swift */; };
 		53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */; };
@@ -963,6 +964,7 @@
 		53CDA48A2D11AFD5004766F8 /* MediationUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationUtilsTest.swift; sourceTree = "<group>"; };
 		53CDA48B2D11AFD5004766F8 /* MockMediationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMediationUtils.swift; sourceTree = "<group>"; };
 		53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_ortb_native_with_win_event.json; sourceTree = "<group>"; };
+		1F24735283624D1EAC42E956 /* MockDeferredBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDeferredBidRequester.swift; sourceTree = "<group>"; };
 		53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMBidRequester.swift; sourceTree = "<group>"; };
 		53D3858D30123D4200923255 /* MockCreativeViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreativeViewDelegate.swift; sourceTree = "<group>"; };
 		53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
@@ -1542,6 +1544,7 @@
 				922AFC8C27352BE900732C53 /* MockViewController.swift */,
 				539D4C7129B5E23600B6B30E /* MockPBMAbstractCreative.swift */,
 				533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */,
+				1F24735283624D1EAC42E956 /* MockDeferredBidRequester.swift */,
 				53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */,
 				53BFCD322CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift */,
 				534C61432CB5619B0026119A /* MockVideoView.swift */,
@@ -3594,6 +3597,7 @@
 				925D5E1C2737E89500A8A2B5 /* PBMORTBTest.swift in Sources */,
 				47D9A18468F57BD786350961 /* mraid.js in Sources */,
 				925D5E162737E77200A8A2B5 /* DemandResponseInfoTest.swift in Sources */,
+				5EDC95AA479B41139C946FD3 /* MockDeferredBidRequester.swift in Sources */,
 				53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */,
 				B7C9E1A20000000000000002 /* ImageHelperTests.swift in Sources */,
 				53C9250729915466009E6F94 /* PrebidServerStatusRequesterTests.swift in Sources */,

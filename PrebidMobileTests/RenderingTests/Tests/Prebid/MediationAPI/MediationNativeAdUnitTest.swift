@@ -231,7 +231,7 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
         guard let firstRequestCompletion = nativeRequest.completions.first else {
             return XCTFail("The first fetch did not reach the native request")
         }
-        firstRequestCompletion(BidInfo(resultCode: .prebidDemandNoBids, requestId: requestId))
+        firstRequestCompletion(.result(BidInfo(resultCode: .prebidDemandNoBids, requestId: requestId)))
         wait(for: [firstCompleted], timeout: 1)
         drainMainQueue()
 
@@ -265,7 +265,109 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
         XCTAssertNil(capturedByCompletion)
     }
 
-    func testLateResponseAfterTimeoutAndRetryDoesNotCompleteFirstFetchAgain() {
+    func testMediationFetchDoesNotRegisterForNativeAutoRefresh() throws {
+        useTestAccountAndTimeout()
+        let adUnit = MediationNativeAdUnit(configId: configId, mediationDelegate: mediationDelegate!)
+        let nativeRequest = DeferredBidRequesterNativeRequest(configId: configId)
+        adUnit.nativeAdUnit = nativeRequest
+        nativeRequest.adUnit.setAutoRefreshMillis(time: 30_000)
+        let dispatcher = try XCTUnwrap(nativeRequest.adUnit.dispatcher)
+
+        let completed = expectation(description: "mediation fetch completed")
+        var results: [ResultCode] = []
+        adUnit.fetchDemand { result in
+            results.append(result)
+            if results.count == 1 {
+                completed.fulfill()
+            }
+        }
+        XCTAssertTrue(nativeRequest.bidRequester.hasPendingRequest)
+        nativeRequest.bidRequester.respond(with: BidResponse(jsonDictionary: [:]), error: nil)
+        wait(for: [completed], timeout: 1)
+        XCTAssertEqual(results, [.prebidDemandNoBids])
+
+        dispatcher.fireTimer()
+        XCTAssertFalse(nativeRequest.bidRequester.hasPendingRequest)
+        XCTAssertEqual(results, [.prebidDemandNoBids])
+
+        let directFetchAndRefreshCompleted = expectation(description: "direct fetch and refresh completed")
+        directFetchAndRefreshCompleted.expectedFulfillmentCount = 2
+        nativeRequest.adUnit.fetchDemand(completionBidInfo: { bidInfo in
+            XCTAssertEqual(bidInfo.resultCode, .prebidDemandNoBids)
+            directFetchAndRefreshCompleted.fulfill()
+        })
+        nativeRequest.bidRequester.respond(with: BidResponse(jsonDictionary: [:]), error: nil)
+        dispatcher.fireTimer()
+        XCTAssertTrue(nativeRequest.bidRequester.hasPendingRequest)
+        nativeRequest.bidRequester.respond(with: BidResponse(jsonDictionary: [:]), error: nil)
+        wait(for: [directFetchAndRefreshCompleted], timeout: 1)
+        XCTAssertEqual(results, [.prebidDemandNoBids])
+    }
+
+    func testRetryAfterTimeoutReportsBusyUntilLateResponse() {
+        useTestAccountAndTimeout()
+        let adUnit = MediationNativeAdUnit(configId: configId, mediationDelegate: mediationDelegate!)
+        let nativeRequest = DeferredBidRequesterNativeRequest(configId: configId)
+        adUnit.nativeAdUnit = nativeRequest
+
+        var firstResults: [ResultCode] = []
+        let retryCompleted = expectation(description: "retry completed")
+        adUnit.fetchDemandBidInfo { bidInfo in
+            firstResults.append(bidInfo.resultCode)
+            guard firstResults.count == 1 else { return }
+            XCTAssertEqual(bidInfo.resultCode, .prebidDemandTimedOut)
+            XCTAssertTrue(nativeRequest.bidRequester.hasPendingRequest)
+            self.adObject?.keywords = "hb_pb:1.20"
+            self.adObject?.localExtras = [MockMediationConfigIdKey: self.configId]
+
+            adUnit.fetchDemand { result in
+                XCTAssertEqual(result, .prebidSDKMisusePreviousFetchNotCompletedYet)
+                retryCompleted.fulfill()
+            }
+        }
+        wait(for: [retryCompleted], timeout: 2)
+        XCTAssertEqual(adObject?.keywords, "hb_pb:1.20")
+        XCTAssertEqual(adObject?.localExtras?[MockMediationConfigIdKey] as? String, configId)
+
+        let lateError = NSError(domain: NSURLErrorDomain, code: NSURLErrorNetworkConnectionLost)
+        nativeRequest.bidRequester.respond(with: nil, error: lateError)
+        drainMainQueue()
+        drainMainQueue()
+        XCTAssertEqual(firstResults, [.prebidDemandTimedOut])
+
+        let nextCompleted = expectation(description: "new fetch completed")
+        adUnit.fetchDemandBidInfo { bidInfo in
+            XCTAssertEqual(bidInfo.resultCode, .prebidDemandNoBids)
+            nextCompleted.fulfill()
+        }
+        XCTAssertTrue(nativeRequest.bidRequester.hasPendingRequest)
+        nativeRequest.bidRequester.respond(with: BidResponse(jsonDictionary: [:]), error: nil)
+        wait(for: [nextCompleted], timeout: 1)
+    }
+
+    func testRetryAfterNetworkTimeoutCanStartImmediately() {
+        useTestAccountAndTimeout()
+        let adUnit = MediationNativeAdUnit(configId: configId, mediationDelegate: mediationDelegate!)
+        let nativeRequest = DeferredBidRequesterNativeRequest(configId: configId)
+        adUnit.nativeAdUnit = nativeRequest
+
+        let retryCompleted = expectation(description: "retry completed")
+        adUnit.fetchDemand { result in
+            XCTAssertEqual(result, .prebidDemandTimedOut)
+            adUnit.fetchDemand { retryResult in
+                XCTAssertEqual(retryResult, .prebidDemandNoBids)
+                retryCompleted.fulfill()
+            }
+            XCTAssertTrue(nativeRequest.bidRequester.hasPendingRequest)
+            nativeRequest.bidRequester.respond(with: BidResponse(jsonDictionary: [:]), error: nil)
+        }
+        nativeRequest.bidRequester.respond(with: nil, error: URLError(.timedOut))
+        wait(for: [retryCompleted], timeout: 1)
+    }
+
+    // MARK: - Private Methods
+
+    private func useTestAccountAndTimeout() {
         let accountId = Prebid.shared.prebidServerAccountId
         let timeoutMillis = Prebid.shared.timeoutMillis
         let timeoutMillisDynamic = Prebid.shared.timeoutMillisDynamic
@@ -276,50 +378,7 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
         }
         Prebid.shared.prebidServerAccountId = "test-account-id"
         Prebid.shared.timeoutMillis = 100
-
-        let adUnit = MediationNativeAdUnit(configId: configId, mediationDelegate: mediationDelegate!)
-        let nativeRequest = DeferredBidRequesterNativeRequest(configId: configId)
-        adUnit.nativeAdUnit = nativeRequest
-
-        var firstResults: [ResultCode] = []
-        var secondResults: [ResultCode] = []
-        let firstCompleted = expectation(description: "first fetch completed")
-        let secondCompleted = expectation(description: "second fetch completed")
-        // The result arrays count the calls; a repeated call must fail an assertion, not the run
-        firstCompleted.assertForOverFulfill = false
-        secondCompleted.assertForOverFulfill = false
-
-        adUnit.fetchDemandBidInfo { bidInfo in
-            firstResults.append(bidInfo.resultCode)
-            firstCompleted.fulfill()
-        }
-        wait(for: [firstCompleted], timeout: 2)
-        XCTAssertEqual(firstResults, [.prebidDemandTimedOut])
-
-        // Retried at once, the second fetch fails: the first request is still out
-        adUnit.fetchDemandBidInfo { bidInfo in
-            secondResults.append(bidInfo.resultCode)
-            secondCompleted.fulfill()
-        }
-        wait(for: [secondCompleted], timeout: 1)
-        XCTAssertEqual(secondResults, [.prebidInternalSDKError])
-
-        // The first request answers late
-        let lateError = NSError(domain: NSURLErrorDomain, code: NSURLErrorNetworkConnectionLost)
-        nativeRequest.bidRequester.respond(with: nil, error: lateError)
-        // A repeated completion would take two main-queue hops: the native request's, then this unit's
-        drainMainQueue()
-        drainMainQueue()
-
-        XCTAssertEqual(firstResults, [.prebidDemandTimedOut], "The timed-out fetch must not complete again")
-        XCTAssertEqual(secondResults, [.prebidInternalSDKError])
-
-        // Nothing is in flight now, so a new fetch reaches the bid requester
-        adUnit.fetchDemandBidInfo { _ in }
-        XCTAssertTrue(nativeRequest.bidRequester.hasPendingRequest)
     }
-
-    // MARK: - Private Methods
 
     private func makeAdUnit(mediationDelegate: PrebidMediationDelegate, stubbedBidInfo: BidInfo) -> MediationNativeAdUnit {
         let adUnit = MediationNativeAdUnit(configId: configId, mediationDelegate: mediationDelegate)
@@ -434,15 +493,6 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
         XCTAssertNil(bidInfo?.creativeId, file: file, line: line)
         XCTAssertNil(adObject!.localExtras?[MockMediationAdNativeResponseKey], file: file, line: line)
     }
-
-    /// Runs what the main queue already holds, so a second completion would have arrived by now.
-    private func drainMainQueue() {
-        let drained = expectation(description: "main queue drained")
-        DispatchQueue.main.async {
-            drained.fulfill()
-        }
-        wait(for: [drained], timeout: 1)
-    }
 }
 
 /// A native request that runs a stored Prebid Server response through `AdUnit.setUp`,
@@ -450,40 +500,50 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
 private class ReplayingNativeRequest: NativeRequest {
     var response: [String: Any] = [:]
 
-    override func fetchDemand(completionBidInfo: @escaping (BidInfo) -> Void) {
+    override func fetchDemandEvents(
+        adObject: AnyObject?,
+        allowsAutoRefresh: Bool,
+        onEvent: @escaping (FetchEvent) -> Void
+    ) {
         let bidResponse = BidResponse(jsonDictionary: response)
         let resultCode = setUp(nil, with: bidResponse)
         let bidInfo = BidInfo.create(resultCode: resultCode, bidResponse: bidResponse)
 
-        DispatchQueue.main.async {
-            completionBidInfo(bidInfo)
-        }
+        onEvent(.result(bidInfo))
     }
 }
 
 /// A native request that keeps the completions it is given, so a test decides when each request answers.
 private class DeferredNativeRequest: NativeRequest {
-    private(set) var completions: [(BidInfo) -> Void] = []
+    private(set) var completions: [(FetchEvent) -> Void] = []
 
-    override func fetchDemand(completionBidInfo: @escaping (BidInfo) -> Void) {
-        completions.append(completionBidInfo)
+    override func fetchDemandEvents(
+        adObject: AnyObject?,
+        allowsAutoRefresh: Bool,
+        onEvent: @escaping (FetchEvent) -> Void
+    ) {
+        completions.append(onEvent)
     }
 }
 
-/// A native request whose fetches run through `AdUnit.baseFetchDemand`, timeout included, with a bid
+/// A native request whose fetches run through `AdUnit.fetchDemandEvents`, timeout included, with a bid
 /// requester the test answers. `bidRequester` is private to `AdUnit`, so an inner ad unit holds it.
 private class DeferredBidRequesterNativeRequest: NativeRequest {
     let bidRequester = MockDeferredBidRequester()
 
-    private lazy var adUnit = AdUnit(
+    private(set) lazy var adUnit = AdUnit(
         bidRequester: bidRequester,
         configId: adUnitConfig.configId,
         size: nil,
         adFormats: [.native]
     )
 
-    override func fetchDemand(completionBidInfo: @escaping (BidInfo) -> Void) {
-        adUnit.fetchDemand(completionBidInfo: completionBidInfo)
+    override func fetchDemandEvents(
+        adObject: AnyObject?,
+        allowsAutoRefresh: Bool,
+        onEvent: @escaping (FetchEvent) -> Void
+    ) {
+        self.adUnit.fetchDemandEvents(adObject: adObject, allowsAutoRefresh: allowsAutoRefresh, onEvent: onEvent)
     }
 }
 
@@ -491,14 +551,16 @@ private class DeferredBidRequesterNativeRequest: NativeRequest {
 private class MockNativeRequest: NativeRequest {
     var stubbedBidInfo: BidInfo?
 
-    override func fetchDemand(completionBidInfo: @escaping (BidInfo) -> Void) {
+    override func fetchDemandEvents(
+        adObject: AnyObject?,
+        allowsAutoRefresh: Bool,
+        onEvent: @escaping (FetchEvent) -> Void
+    ) {
         guard let stubbedBidInfo else {
             XCTFail("MockNativeRequest: stubbedBidInfo is not set")
             return
         }
 
-        DispatchQueue.main.async {
-            completionBidInfo(stubbedBidInfo)
-        }
+        onEvent(.result(stubbedBidInfo))
     }
 }
