@@ -388,7 +388,7 @@ public class MediationBannerAdUnit : NSObject {
         // The ad view is held weakly, so it can be gone by the time the response arrives.
         guard adView != nil else {
             Log.error("The ad view was released before the bid response arrived.")
-            let bidInfo = BidInfo(
+            let bidInfo = BidInfo.withoutAttachedBid(
                 resultCode: .prebidWrongArguments,
                 requestId: response.rawResponse?.requestID
             )

@@ -17,7 +17,7 @@ import XCTest
 
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MediationInterstitialAdUnitTest: XCTestCase {
+class MediationInterstitialAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
     private let sdkConfiguration: Prebid = {
         let config = Prebid.mock
         try! Host.shared.setHostURL(Prebid.devintServerURL, nonTrackingURLString: nil)

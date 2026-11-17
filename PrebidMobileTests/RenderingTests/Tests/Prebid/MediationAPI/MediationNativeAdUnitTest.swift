@@ -16,7 +16,7 @@
 import XCTest
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MediationNativeAdUnitTest: XCTestCase {
+class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
 
     let configId = "prebidConfigId"
     let requestId = "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31"
@@ -79,7 +79,7 @@ class MediationNativeAdUnitTest: XCTestCase {
     // With `forceSdkToChooseWinner` on, a response without a winning bid is a no-bid that the
     // original API still reports with the response's merged targeting. The native unit attaches
     // nothing in that case, so it must not report that targeting.
-    func testFetchDemandBidInfoReportsNoTargetingWhenSdkMustChooseWinner() {
+    func testFetchDemandBidInfoReportsNoTargetingWhenSdkMustChooseWinner() throws {
         let forceSdkToChooseWinner = Targeting.shared.forceSdkToChooseWinner
         let accountId = Prebid.shared.prebidServerAccountId
         let useCacheForReporting = Prebid.shared.useCacheForReportingWithRenderingAPI
@@ -92,13 +92,15 @@ class MediationNativeAdUnitTest: XCTestCase {
         Targeting.shared.forceSdkToChooseWinner = true
         Prebid.shared.prebidServerAccountId = "test-account-id"
 
-        let nativeRequestBidInfo = fetchOriginalAPIBidInfo(response: BidResponseTransformer.bidderKeysOnlyResponse)
-        XCTAssertEqual(nativeRequestBidInfo?.resultCode, .prebidDemandNoBids)
-        XCTAssertEqual(nativeRequestBidInfo?.targetingKeywords?["hb_pb_appnexus"], "0.05",
+        let nativeRequestBidInfo = try XCTUnwrap(
+            fetchOriginalAPIBidInfo(response: BidResponseTransformer.bidderKeysOnlyResponse)
+        )
+        XCTAssertEqual(nativeRequestBidInfo.resultCode, .prebidDemandNoBids)
+        XCTAssertEqual(nativeRequestBidInfo.targetingKeywords?["hb_pb_appnexus"], "0.05",
                        "Precondition: the original API reports the response's merged targeting")
 
         let adUnit = makeAdUnit(mediationDelegate: mediationDelegate!,
-                                stubbedBidInfo: nativeRequestBidInfo ?? BidInfo(resultCode: .prebidDemandNoBids))
+                                stubbedBidInfo: nativeRequestBidInfo)
 
         let bidInfo = fetchBidInfo(adUnit)
 

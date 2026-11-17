@@ -16,7 +16,7 @@
 import XCTest
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MediationBannerAdUnitTest: XCTestCase {
+class MediationBannerAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
     
     var adObject: MockAdObject?
     var mediationDelegate: PrebidMediationDelegate?

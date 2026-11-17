@@ -17,7 +17,9 @@ import XCTest
 @_spi(PBMInternal) @testable import PrebidMobile
 
 /// Helpers shared by the Mediation API ad unit tests of `fetchDemandBidInfo`.
-extension XCTestCase {
+protocol MediationBidInfoTestHelpers where Self: XCTestCase {}
+
+extension MediationBidInfoTestHelpers {
 
     /// Runs one `fetchDemandBidInfo` against a mocked Prebid Server that answers with `response`,
     /// and returns the `BidInfo` the ad unit reported on the main thread.

@@ -154,12 +154,6 @@ public class BidInfo: NSObject {
         )
     }
     
-    // A Mediation API ad unit reports only what it passed to `setUpAdObject`. Any result other than
-    // `.prebidDemandFetchSuccess` means nothing reached the ad object, so that `BidInfo` carries only
-    // `resultCode` and `requestId`: no targeting, economics, `exp` or events, even when the response
-    // had bids. The two factories below are the only places the Mediation API builds a `BidInfo` from
-    // a response, so that rule holds for every unit.
-
     /// The `BidInfo` a Mediation API banner or interstitial reports.
     /// - Parameters:
     ///   - resultCode: The unit's result.
@@ -172,7 +166,7 @@ public class BidInfo: NSObject {
         attachedTargeting: [String: String]?
     ) -> BidInfo {
         guard resultCode == .prebidDemandFetchSuccess else {
-            return BidInfo(resultCode: resultCode, requestId: bidResponse.rawResponse?.requestID)
+            return withoutAttachedBid(resultCode: resultCode, requestId: bidResponse.rawResponse?.requestID)
         }
 
         return build(
@@ -182,20 +176,9 @@ public class BidInfo: NSObject {
         )
     }
 
-    /// The `BidInfo` a Mediation API native unit reports.
-    /// - Parameters:
-    ///   - resultCode: The unit's result.
-    ///   - nativeRequestBidInfo: What the unit's `NativeRequest` reported. Its targeting is what the
-    ///   unit passes to `setUpAdObject`, so it is reported as is for `.prebidDemandFetchSuccess`.
-    static func create(
-        resultCode: ResultCode,
-        nativeRequestBidInfo: BidInfo
-    ) -> BidInfo {
-        guard resultCode == .prebidDemandFetchSuccess else {
-            return BidInfo(resultCode: resultCode, requestId: nativeRequestBidInfo.requestId)
-        }
-
-        return nativeRequestBidInfo
+    /// Reports only the result code and request ID when a Mediation API ad unit attaches no bid.
+    static func withoutAttachedBid(resultCode: ResultCode, requestId: String?) -> BidInfo {
+        BidInfo(resultCode: resultCode, requestId: requestId)
     }
 
     private static func build(
