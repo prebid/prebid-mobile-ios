@@ -85,6 +85,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     }
     
     /// Makes bid request and setups mediation parameters.
+    ///
+    /// If another fetch for this ad unit is still in progress, `completion` is called at once with
+    /// `.prebidSDKMisusePreviousFetchNotCompletedYet` and that fetch continues.
     /// - Parameters:
     ///   - completion: A closure called with the result code indicating the outcome of the demand fetch.
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
@@ -98,6 +101,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
 
     /// Makes bid request and setups mediation parameters. Like `fetchDemand(completion:)`, but provides
     /// the full `BidInfo` (including the winning-bid economics) instead of only the result code.
+    ///
+    /// If another fetch for this ad unit is still in progress, `completion` is called at once with
+    /// `.prebidSDKMisusePreviousFetchNotCompletedYet` and that fetch continues.
     /// - Parameters:
     ///   - completion: A closure called with a `BidInfo` object representing the fetched demand.
     public func fetchDemandBidInfo(completion: @escaping (_ bidInfo: BidInfo) -> Void) {
@@ -160,7 +166,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         completion: ((BidInfo) -> Void)?
     ) {
         guard bidRequester == nil else {
-            // Request in progress
+            // The running fetch keeps its own completion and is left alone.
+            Log.warn("The previous fetch for this ad unit has not completed yet. This call completes with prebidSDKMisusePreviousFetchNotCompletedYet.")
+            deliver(BidInfo(resultCode: .prebidSDKMisusePreviousFetchNotCompletedYet), to: completion)
             return
         }
         
@@ -224,15 +232,18 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     }
 
     private func completeWithResult(_ bidInfo: BidInfo) {
-        if let completion = self.completion {
-            DispatchQueue.main.async {
-                completion(bidInfo)
-            }
+        deliver(bidInfo, to: completion)
+        markLoadingFinished()
+    }
+    
+    private func deliver(_ bidInfo: BidInfo, to completion: ((BidInfo) -> Void)?) {
+        guard let completion else {
+            return
         }
         
-        self.completion = nil
-        
-        markLoadingFinished()
+        DispatchQueue.main.async {
+            completion(bidInfo)
+        }
     }
     
     private func markLoadingFinished() {

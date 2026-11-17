@@ -214,6 +214,33 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         XCTAssertFalse(adObject!.keywords!.contains("hb_pb_appnexus"))
     }
 
+    func testFetchWhileRequestIsInFlightCompletesWithMisuse() {
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate!)
+
+        // A first fetch whose request is held until the test answers it
+        let heldRequest = HeldRequest()
+        let runningFetch = FetchRecorder(expectedCalls: 1)
+        adUnit.fetchDemandBidInfo(connection: heldRequest.connection,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting)
+        { bidInfo in
+            runningFetch.record(bidInfo)
+        }
+
+        let rejected = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse)
+
+        XCTAssertEqual(rejected?.resultCode, .prebidSDKMisusePreviousFetchNotCompletedYet)
+        assertNoBidAttached(rejected)
+        XCTAssertTrue(runningFetch.results.isEmpty, "The running fetch has not been answered yet")
+
+        // The running fetch is left alone and still reports to its own completion
+        heldRequest.respond(with: BidResponseTransformer.someValidResponse, in: self)
+        wait(for: [runningFetch.completed], timeout: 1)
+
+        XCTAssertEqual(runningFetch.results.map(\.resultCode), [.prebidDemandFetchSuccess])
+        XCTAssertEqual(adObject?.keywords?.contains("hb_pb:0.10"), true)
+    }
+
     private func fetchBidInfo(_ adUnit: MediationBaseInterstitialAdUnit, response: PrebidServerResponse) -> BidInfo? {
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(response)
