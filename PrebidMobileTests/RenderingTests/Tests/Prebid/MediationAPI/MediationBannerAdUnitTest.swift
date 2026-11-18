@@ -16,7 +16,7 @@
 import XCTest
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MediationBannerAdUnitTest: XCTestCase {
+class MediationBannerAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
     
     var adObject: MockAdObject?
     var mediationDelegate: PrebidMediationDelegate?
@@ -357,6 +357,45 @@ class MediationBannerAdUnitTest: XCTestCase {
         XCTAssertNil(adUnit.lastAdView)
     }
 
+    // A bid with only bidder-suffixed keys is not a winning bid, so nothing is attached to the ad
+    // object. The response's merged targeting still holds that bid's keys, and must not be reported.
+    func testFetchDemandBidInfoReportsNoTargetingWithoutAWinningBid() {
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.bidderKeysOnlyResponse)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidDemandNoBids)
+        XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31")
+        assertNoBidAttached(bidInfo)
+        XCTAssertNil(adObject!.keywords)
+        XCTAssertNil(adObject!.localExtras)
+    }
+
+    // Creating an original-API ad unit, which a native mediation unit does, makes a winning bid
+    // require `hb_cache_id`. A bid without it then becomes a no-bid, and its `hb_pb` and
+    // `hb_bidder`, which never reach the ad object, must not be reported either.
+    func testFetchDemandBidInfoReportsNoTargetingForAnUncachedBidOnceCacheIsRequired() {
+        let useCacheForReporting = Prebid.shared.useCacheForReportingWithRenderingAPI
+        addTeardownBlock {
+            Prebid.shared.useCacheForReportingWithRenderingAPI = useCacheForReporting
+        }
+
+        let sdkConfiguration = getSDKConfiguration()
+        _ = MediationNativeAdUnit(configId: testID, mediationDelegate: mediationDelegate!)
+        XCTAssertTrue(Prebid.shared.useCacheForReportingWithRenderingAPI,
+                      "Precondition: creating the native unit turns on the cache requirement")
+
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
+
+        let bidInfo = fetchBidInfo(adUnit, response: BidResponseTransformer.someValidResponse, sdkConfiguration: sdkConfiguration)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidDemandNoBids)
+        XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31")
+        assertNoBidAttached(bidInfo)
+        XCTAssertNil(adObject!.keywords)
+        XCTAssertNil(adObject!.localExtras)
+    }
+
     // MARK: - Every call gets a completion
 
     func testFetchWhileRequestIsInFlightCompletesWithMisuse() {
@@ -525,14 +564,6 @@ class MediationBannerAdUnitTest: XCTestCase {
         XCTAssertNil(adUnit.lastCompletion, "Without the ad view there is nothing to refresh")
     }
 
-    private func fetchBidInfo(_ adUnit: MediationBannerAdUnit, response: PrebidServerResponse) -> BidInfo? {
-        let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
-            callback(response)
-        }])
-
-        return fetchBidInfo(adUnit, connection: connection)
-    }
-
     private func fetchBidInfo(_ adUnit: MediationBannerAdUnit, connection: PrebidServerConnectionProtocol) -> BidInfo? {
         let fetch = startFetch(adUnit, connection: connection)
         wait(for: [fetch.completed], timeout: 1)
@@ -567,21 +598,20 @@ class MediationBannerAdUnitTest: XCTestCase {
         wait(for: [drained], timeout: 1)
     }
 
-    private func assertWinningBidEconomics(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
-        // Values of `BidResponseTransformer.someValidResponse`
-        XCTAssertEqual(bidInfo?.price?.doubleValue, 0.1091, file: file, line: line)
-        XCTAssertEqual(bidInfo?.currency, "USD", file: file, line: line)
-        XCTAssertEqual(bidInfo?.creativeId, "test-creative-id-1", file: file, line: line)
-        XCTAssertEqual(bidInfo?.adId, "test-ad-id-12345", file: file, line: line)
-        XCTAssertEqual(bidInfo?.requestId, "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31", file: file, line: line)
-    }
+    /// - Parameter sdkConfiguration: Defaults to a freshly reset `Prebid.shared`.
+    private func fetchBidInfo(
+        _ adUnit: MediationBannerAdUnit,
+        response: PrebidServerResponse,
+        sdkConfiguration: Prebid? = nil
+    ) -> BidInfo? {
+        let sdkConfiguration = sdkConfiguration ?? getSDKConfiguration()
 
-    private func assertNoBidAttached(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
-        XCTAssertNil(bidInfo?.targetingKeywords, file: file, line: line)
-        XCTAssertNil(bidInfo?.price, file: file, line: line)
-        XCTAssertNil(bidInfo?.currency, file: file, line: line)
-        XCTAssertNil(bidInfo?.creativeId, file: file, line: line)
-        XCTAssertNil(bidInfo?.adId, file: file, line: line)
+        return fetchMediationBidInfo(response: response) { connection, completion in
+            adUnit.fetchDemandBidInfo(connection: connection,
+                                      sdkConfiguration: sdkConfiguration,
+                                      targeting: targeting,
+                                      completion: completion)
+        }
     }
 
     // MARK: - Auto-refresh vs. video creatives

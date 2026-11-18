@@ -16,7 +16,7 @@
 import XCTest
 @_spi(PBMInternal) @testable import PrebidMobile
 
-class MediationNativeAdUnitTest: XCTestCase {
+class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
 
     let configId = "prebidConfigId"
     let requestId = "B4A2D3F4-41B6-4D37-B68B-EE8893E85C31"
@@ -76,6 +76,40 @@ class MediationNativeAdUnitTest: XCTestCase {
         XCTAssertNil(adObject!.localExtras?[MockMediationAdNativeResponseKey])
     }
 
+    // With `forceSdkToChooseWinner` on, a response without a winning bid is a no-bid that the
+    // original API still reports with the response's merged targeting. The native unit attaches
+    // nothing in that case, so it must not report that targeting.
+    func testFetchDemandBidInfoReportsNoTargetingWhenSdkMustChooseWinner() throws {
+        let forceSdkToChooseWinner = Targeting.shared.forceSdkToChooseWinner
+        let accountId = Prebid.shared.prebidServerAccountId
+        let useCacheForReporting = Prebid.shared.useCacheForReportingWithRenderingAPI
+        addTeardownBlock {
+            Targeting.shared.forceSdkToChooseWinner = forceSdkToChooseWinner
+            Prebid.shared.prebidServerAccountId = accountId
+            Prebid.shared.useCacheForReportingWithRenderingAPI = useCacheForReporting
+        }
+
+        Targeting.shared.forceSdkToChooseWinner = true
+        Prebid.shared.prebidServerAccountId = "test-account-id"
+
+        let nativeRequestBidInfo = try XCTUnwrap(
+            fetchOriginalAPIBidInfo(response: BidResponseTransformer.bidderKeysOnlyResponse)
+        )
+        XCTAssertEqual(nativeRequestBidInfo.resultCode, .prebidDemandNoBids)
+        XCTAssertEqual(nativeRequestBidInfo.targetingKeywords?["hb_pb_appnexus"], "0.05",
+                       "Precondition: the original API reports the response's merged targeting")
+
+        let adUnit = makeAdUnit(mediationDelegate: mediationDelegate!,
+                                stubbedBidInfo: nativeRequestBidInfo)
+
+        let bidInfo = fetchBidInfo(adUnit)
+
+        XCTAssertEqual(bidInfo?.resultCode, .prebidDemandNoBids)
+        XCTAssertEqual(bidInfo?.requestId, requestId)
+        assertNoBidAttached(bidInfo)
+        XCTAssertNil(adObject!.localExtras)
+    }
+
     func testFetchDemandReportsResultCodeOfAdObjectSetUp() {
         let adUnit = makeAdUnit(mediationDelegate: MockRejectingMediationDelegate(), stubbedBidInfo: makeCachedBidInfo())
 
@@ -107,6 +141,24 @@ class MediationNativeAdUnitTest: XCTestCase {
             result = bidInfo
             asyncExpectation.fulfill()
         }
+        waitForExpectations(timeout: 1)
+
+        return result
+    }
+
+    /// What an original-API `AdUnit` reports for `response`, as the native unit's `NativeRequest`
+    /// would report it.
+    private func fetchOriginalAPIBidInfo(response: PrebidServerResponse) -> BidInfo? {
+        let bidRequester = MockPBMBidRequester(jsonDictionary: response.jsonDict ?? [:])
+        let adUnit = AdUnit(bidRequester: bidRequester, configId: configId, size: .zero, adFormats: [.native])
+
+        let asyncExpectation = expectation(description: "original-API fetchDemand executed")
+        var result: BidInfo?
+
+        adUnit.fetchDemand(completionBidInfo: { bidInfo in
+            result = bidInfo
+            asyncExpectation.fulfill()
+        })
         waitForExpectations(timeout: 1)
 
         return result

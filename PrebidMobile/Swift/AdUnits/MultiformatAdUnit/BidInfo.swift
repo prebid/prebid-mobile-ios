@@ -141,28 +141,47 @@ public class BidInfo: NSObject {
     
     // MARK: - Internal Zone
     
-    static func create(
-        resultCode: ResultCode,
-        requestId: String?
-    ) -> BidInfo {
-        BidInfo(
-            resultCode: resultCode,
-            requestId: requestId
-        )
-    }
-    
+    /// The `BidInfo` an original-API ad unit reports: the response's targeting, with the economics,
+    /// `exp` and events of the winning bid when there is one.
     static func create(
         resultCode: ResultCode,
         bidResponse: BidResponse
     ) -> BidInfo {
-        create(
+        build(
             resultCode: resultCode,
             bidResponse: bidResponse,
             targetingInfo: bidResponse.targetingInfo
         )
     }
-
+    
+    /// The `BidInfo` a Mediation API banner or interstitial reports.
+    /// - Parameters:
+    ///   - resultCode: The unit's result.
+    ///   - bidResponse: The response the unit handled.
+    ///   - attachedTargeting: The targeting the unit passes to `setUpAdObject` for this response.
+    ///   Reported only for `.prebidDemandFetchSuccess`.
     static func create(
+        resultCode: ResultCode,
+        bidResponse: BidResponse,
+        attachedTargeting: [String: String]?
+    ) -> BidInfo {
+        guard resultCode == .prebidDemandFetchSuccess else {
+            return withoutAttachedBid(resultCode: resultCode, requestId: bidResponse.rawResponse?.requestID)
+        }
+
+        return build(
+            resultCode: resultCode,
+            bidResponse: bidResponse,
+            targetingInfo: attachedTargeting
+        )
+    }
+
+    /// Reports only the result code and request ID when a Mediation API ad unit attaches no bid.
+    static func withoutAttachedBid(resultCode: ResultCode, requestId: String?) -> BidInfo {
+        BidInfo(resultCode: resultCode, requestId: requestId)
+    }
+
+    private static func build(
         resultCode: ResultCode,
         bidResponse: BidResponse,
         targetingInfo: [String: String]?
@@ -183,9 +202,10 @@ public class BidInfo: NSObject {
             bidInfo.addEvent(key: BidInfo.EVENT_IMP, value: impURL)
         }
 
-        // Surface exact economics of the attached bid (original-API analytics). These read the
-        // module-internal ORTB objects, only reachable here inside PrebidMobile, and stay nil unless
-        // a bid was designated (when `topBidFiltered` is true this is the promoted cached runner-up).
+        // Surface exact economics of the attached bid (original and Mediation API analytics). These
+        // read the module-internal ORTB objects, only reachable here inside PrebidMobile, and stay nil
+        // unless a bid was designated (when `topBidFiltered` is true this is the promoted cached
+        // runner-up).
         if let winningBid = bidResponse.winningBid {
             // Read the raw ORTB price (NSNumber) rather than the computed `Bid.price` Float, so the
             // value round-trips exactly and a missing price stays nil instead of becoming 0.0.
