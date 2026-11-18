@@ -72,18 +72,18 @@ class VideoViewMuteTrackingTest: XCTestCase, CreativeResolutionDelegate {
     // was reported to Open Measurement as audible.
     func testMutedStartIsReportedSilent() {
         loadVideoCreative(isMuted: true)
-        applyConfiguredMuteStateBeforeStart()
 
         display()
 
         XCTAssertEqual(spy.startVolumes, [0])
-        XCTAssertEqual(spy.volumeChanges, [], "The start event carries a mute state applied before it")
+        XCTAssertEqual(spy.volumeChanges, [], "The start event carries the configured mute state")
     }
 
-    // The mute state can be applied to the player directly when playback starts, without `mute()`.
-    func testPlayerMutedBeforeStartWithoutMuteIsReportedSilent() {
+    func testMuteBeforeStartDoesNotReportVolumeChange() {
         loadVideoCreative(isMuted: true)
-        videoView.avPlayer.isMuted = true
+        videoView.mute()
+
+        XCTAssertEqual(spy.volumeChanges, [])
 
         display()
 
@@ -99,9 +99,6 @@ class VideoViewMuteTrackingTest: XCTestCase, CreativeResolutionDelegate {
         XCTAssertEqual(spy.startVolumes, [1])
     }
 
-    // The configured mute state of a fullscreen video is applied asynchronously, so it can also
-    // land after the start event. A mute or unmute never changes `AVPlayer.volume`, so the
-    // volume observer doesn't report it.
     func testMuteAndUnmuteAfterStartReportVolumeChanges() {
         loadVideoCreative()
         display()
@@ -113,7 +110,19 @@ class VideoViewMuteTrackingTest: XCTestCase, CreativeResolutionDelegate {
         XCTAssertEqual(spy.volumeChanges, [0, 1])
     }
 
-    // A fullscreen video applies its configured state with `unmute()` even when it already plays with sound.
+    func testStartingPlaybackAgainReportsReappliedMuteState() {
+        loadVideoCreative(isMuted: true, isSoundButtonVisible: true)
+        display()
+
+        tapSoundButton("pbmUnmute")
+        videoView.startPlayback()
+
+        XCTAssertTrue(videoView.isMuted)
+        XCTAssertEqual(spy.startVolumes, [0])
+        XCTAssertEqual(spy.volumeChanges, [1, 0])
+        XCTAssertEqual(spy.muteEvents, [.unmute])
+    }
+
     func testMuteRequestThatKeepsTheStateReportsNoVolumeChange() {
         loadVideoCreative()
         display()
@@ -166,11 +175,8 @@ class VideoViewMuteTrackingTest: XCTestCase, CreativeResolutionDelegate {
         XCTAssertEqual(spy.volumeChanges, [0, 1])
     }
 
-    // VAST defines mute and unmute as the user's action on the mute control. Applying the mute
-    // state configured for the ad, before or after the start event, is not one.
-    func testConfiguredMuteStateTracksNoMuteEvents() {
+    func testProgrammaticMuteChangesTrackNoVASTEvents() {
         loadVideoCreative(isMuted: true, isSoundButtonVisible: true)
-        applyConfiguredMuteStateBeforeStart()
 
         display()
         videoView.unmute()
@@ -194,7 +200,6 @@ class VideoViewMuteTrackingTest: XCTestCase, CreativeResolutionDelegate {
                           isSoundButtonVisible: true,
                           trackingURLs: ["mute": [muteURL], "unmute": [unmuteURL]],
                           serverConnection: serverConnection)
-        applyConfiguredMuteStateBeforeStart()
         display()
         XCTAssertEqual(requestedURLs, [], "A video that starts muted requests no tracking URL")
 
@@ -264,13 +269,6 @@ class VideoViewMuteTrackingTest: XCTestCase, CreativeResolutionDelegate {
         expectationCreativeReady = expectation(description: "expectationCreativeReady")
         videoCreative.setupView()
         wait(for: [expectationCreativeReady!], timeout: 10)
-    }
-
-    // A fullscreen video applies the configured mute state with `mute()` from an asynchronous block,
-    // which can run before playback starts. This test creative is not shown fullscreen, so the
-    // block is played here.
-    private func applyConfiguredMuteStateBeforeStart() {
-        videoView.mute()
     }
 
     // Starts playback: the start event is tracked synchronously.

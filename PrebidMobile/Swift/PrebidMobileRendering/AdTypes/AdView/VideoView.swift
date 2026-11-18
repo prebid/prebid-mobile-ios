@@ -580,9 +580,8 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
         notifyVideoDidStart()
     }
 
-    // VAST defines `mute` and `unmute` as the user's action on the mute control, so only the sound
-    // button tracks them. The mute state configured for the ad is applied through `mute()` and
-    // `unmute()` without them.
+    // VAST `mute` and `unmute` track user actions on the sound button.
+    // `startPlayback()` applies the ad's configured mute state without firing either VAST event.
     @objc private func btnMuteClick(_ button: UIButton) {
         let wasMuted = isMuted
         mute()
@@ -622,7 +621,7 @@ class VideoView: UIView, AVAssetResourceLoaderDelegate, UIGestureRecognizerDeleg
                                                object: Functions.sharedApplication)
 
         let startsMuted = adConfiguration?.videoControlsConfig.isMuted ?? false
-        player.isMuted = startsMuted
+        isMuted = startsMuted
         if startsMuted, let creative {
             creative.creativeViewDelegate?.videoWasMuted?(creative)
         }
