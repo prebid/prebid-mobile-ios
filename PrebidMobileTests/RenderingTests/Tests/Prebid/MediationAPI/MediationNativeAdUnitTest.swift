@@ -162,7 +162,7 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
 
         let bidInfo = fetchBidInfo(adUnit)
 
-        assertNoBidAttached(bidInfo)
+        assertCacheMissResult(bidInfo)
     }
 
     func testFetchDemandBidInfoWhenCachedBidIsGone() {
@@ -171,7 +171,7 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
 
         let bidInfo = fetchBidInfo(adUnit)
 
-        assertNoBidAttached(bidInfo)
+        assertCacheMissResult(bidInfo)
     }
 
     func testFetchDemandBidInfoWhenCachedBidDoesNotParse() {
@@ -179,7 +179,7 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
 
         let bidInfo = fetchBidInfo(adUnit)
 
-        assertNoBidAttached(bidInfo)
+        assertCacheMissResult(bidInfo)
     }
 
     func testFetchDemandWhenNoBidWasCached() {
@@ -242,6 +242,39 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
         // Once the first fetch has completed, a new one reaches the native request
         adUnit.fetchDemandBidInfo { _ in }
         XCTAssertEqual(nativeRequest.completions.count, 2)
+    }
+
+    func testReplacingReleasedNativeRequestAllowsAnotherFetch() throws {
+        let adUnit = MediationNativeAdUnit(configId: configId, mediationDelegate: mediationDelegate!)
+        var firstRequest: DeferredNativeRequest? = DeferredNativeRequest(configId: configId)
+        weak var releasedRequest = firstRequest
+        adUnit.nativeAdUnit = try XCTUnwrap(firstRequest)
+        adUnit.fetchDemandBidInfo { _ in XCTFail("Only the replacement request should complete") }
+        let oldEventHandler = try XCTUnwrap(firstRequest?.completions.first)
+
+        let replacement = DeferredNativeRequest(configId: configId)
+        adUnit.nativeAdUnit = replacement
+        firstRequest = nil
+        XCTAssertNil(releasedRequest)
+
+        let replacementCompleted = expectation(description: "replacement fetch completed")
+        adUnit.fetchDemand { result in
+            XCTAssertEqual(result, .prebidDemandNoBids)
+            replacementCompleted.fulfill()
+        }
+        let replacementEventHandler = try XCTUnwrap(replacement.completions.first)
+        oldEventHandler(.lateResponse)
+
+        let busyCompleted = expectation(description: "overlapping fetch rejected")
+        adUnit.fetchDemand { result in
+            XCTAssertEqual(result, .prebidSDKMisusePreviousFetchNotCompletedYet)
+            busyCompleted.fulfill()
+        }
+        wait(for: [busyCompleted], timeout: 1)
+        XCTAssertEqual(replacement.completions.count, 1)
+
+        replacementEventHandler(.result(BidInfo(resultCode: .prebidDemandNoBids)))
+        wait(for: [replacementCompleted], timeout: 1)
     }
 
     func testFetchDemandBidInfoDoesNotKeepCompletionAfterItRuns() {
@@ -482,15 +515,10 @@ class MediationNativeAdUnitTest: XCTestCase, MediationBidInfoTestHelpers {
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
     }
 
-    private func assertNoBidAttached(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
+    private func assertCacheMissResult(_ bidInfo: BidInfo?, file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertEqual(bidInfo?.resultCode, .prebidDemandNoBids, file: file, line: line)
-        // The request was made, but nothing was attached to the ad object
         XCTAssertEqual(bidInfo?.requestId, requestId, file: file, line: line)
-        XCTAssertNil(bidInfo?.targetingKeywords, file: file, line: line)
-        XCTAssertNil(bidInfo?.nativeAdCacheId, file: file, line: line)
-        XCTAssertNil(bidInfo?.price, file: file, line: line)
-        XCTAssertNil(bidInfo?.currency, file: file, line: line)
-        XCTAssertNil(bidInfo?.creativeId, file: file, line: line)
+        assertNoBidAttached(bidInfo, file: file, line: line)
         XCTAssertNil(adObject!.localExtras?[MockMediationAdNativeResponseKey], file: file, line: line)
     }
 }

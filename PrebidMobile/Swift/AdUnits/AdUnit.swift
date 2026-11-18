@@ -206,9 +206,8 @@ public class AdUnit: NSObject, DispatcherDelegate {
             adServerObject = adObject
         }
         
-        // Belongs to this fetch, not to the ad unit: a later fetch must not reset it
-        // while this fetch's request is still out
-        let resultClaim = FetchResultClaim()
+        // Each fetch gets its own claim so its timeout and response can race to report the result.
+        let resultClaim = OneTimeClaim()
         
         let timeoutHandler = DispatchWorkItem { [weak self] in
             guard self != nil else { return }
@@ -447,24 +446,6 @@ public class AdUnit: NSObject, DispatcherDelegate {
         }
         
         dispatcher.stop()
-    }
-}
-
-/// Decides which of a fetch's timeout and its response reports the fetch's result: the first to claim it.
-/// The timeout runs on the main queue and the response may arrive on another, so the claim is locked.
-private final class FetchResultClaim {
-    
-    private let lock = NSLock()
-    private var isClaimed = false
-    
-    /// Returns `true` to the first caller only.
-    func claim() -> Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        
-        guard !isClaimed else { return false }
-        isClaimed = true
-        return true
     }
 }
 

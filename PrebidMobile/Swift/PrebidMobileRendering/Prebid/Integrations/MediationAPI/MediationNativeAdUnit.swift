@@ -22,17 +22,8 @@ public class MediationNativeAdUnit : NSObject {
     
     let mediationDelegate: PrebidMediationDelegate
     
-    private final class Fetch {
-        // Replacing and releasing the native request allows a later fetch to proceed.
-        weak var request: NativeRequest?
-
-        init(request: NativeRequest) {
-            self.request = request
-        }
-    }
-
     private let fetchLock = NSLock()
-    private var fetchInFlight: Fetch?
+    private weak var requestInFlight: NativeRequest?
     
     // MARK: - Public Properties
     
@@ -147,9 +138,11 @@ public class MediationNativeAdUnit : NSObject {
     
     /// Makes bid request for the native ad unit and setups mediation parameters.
     ///
-    /// Each fetch delivers a single result. Auto-refresh on `nativeAdUnit` applies to direct `NativeRequest` fetches.
+    /// Each mediation fetch delivers a single result and skips auto-refresh registration.
     /// While an earlier mediation request is still running, including after it reports a timeout,
     /// a new fetch completes with `.prebidSDKMisusePreviousFetchNotCompletedYet`.
+    /// If a direct fetch or auto-refresh on `nativeAdUnit` already has a request in progress,
+    /// the mediation fetch clears the ad object and can complete with `.prebidInternalSDKError`.
     /// - Parameter completion: The completion handler to call with the result code.
     public func fetchDemand(completion: ((ResultCode) -> Void)?) {
         baseFetchDemand(completion: completion.map { completion in { completion($0.resultCode) } })
@@ -158,9 +151,11 @@ public class MediationNativeAdUnit : NSObject {
     /// Makes bid request for the native ad unit and setups mediation parameters. Like `fetchDemand(completion:)`,
     /// but provides the full `BidInfo` (including the winning-bid economics) instead of only the result code.
     ///
-    /// Each fetch delivers a single result. Auto-refresh on `nativeAdUnit` applies to direct `NativeRequest` fetches.
+    /// Each mediation fetch delivers a single result and skips auto-refresh registration.
     /// While an earlier mediation request is still running, including after it reports a timeout,
     /// a new fetch completes with `.prebidSDKMisusePreviousFetchNotCompletedYet`.
+    /// If a direct fetch or auto-refresh on `nativeAdUnit` already has a request in progress,
+    /// the mediation fetch clears the ad object and can complete with `.prebidInternalSDKError`.
     /// - Parameter completion: A closure called with a `BidInfo` object representing the fetched demand.
     public func fetchDemandBidInfo(completion: @escaping (_ bidInfo: BidInfo) -> Void) {
         baseFetchDemand(completion: completion)
@@ -170,10 +165,9 @@ public class MediationNativeAdUnit : NSObject {
     
     private func baseFetchDemand(completion: ((BidInfo) -> Void)?) {
         let request = nativeAdUnit
-        let fetch = Fetch(request: request)
         let started = fetchLock.withLock {
-            guard fetchInFlight?.request == nil else { return false }
-            fetchInFlight = fetch
+            guard requestInFlight == nil else { return false }
+            requestInFlight = request
             return true
         }
         guard started else {
@@ -184,27 +178,30 @@ public class MediationNativeAdUnit : NSObject {
         
         mediationDelegate.cleanUpAdObject()
         
-        request.fetchDemandEvents(allowsAutoRefresh: false) { [weak self] event in
+        request.fetchDemandEvents(allowsAutoRefresh: false) { [weak self, weak request] event in
+            guard let self, let request else { return }
+
             switch event {
             case .result(let bidInfo):
+                // Hold the request until setup finishes so the in-flight slot stays occupied.
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
                     let result = self.setUpAdObject(with: bidInfo)
-                    self.finish(fetch)
+                    self.finish(request)
                     completion?(result)
                 }
             case .timeout:
-                self?.completeWithResult(BidInfo(resultCode: .prebidDemandTimedOut), completion: completion)
+                self.completeWithResult(BidInfo(resultCode: .prebidDemandTimedOut), completion: completion)
             case .lateResponse:
-                self?.finish(fetch)
+                self.finish(request)
             }
         }
     }
 
-    private func finish(_ fetch: Fetch) {
+    private func finish(_ request: NativeRequest) {
         fetchLock.withLock {
-            if fetchInFlight === fetch {
-                fetchInFlight = nil
+            if requestInFlight === request {
+                requestInFlight = nil
             }
         }
     }
