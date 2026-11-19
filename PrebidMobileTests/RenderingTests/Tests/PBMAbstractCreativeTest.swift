@@ -229,12 +229,12 @@ class PBMAbstractCreativeEndCardTest: XCTestCase {
         }
         
         video.showAsInterstitial(fromRootViewController: rootViewController, displayProperties: InterstitialDisplayProperties())
-        drainMainQueue()
+        drainMainQueue(timeout: 4)
         XCTAssertNotNil(modalManager.modalViewController)
         
         endCard.showAsInterstitial(fromRootViewController: rootViewController, displayProperties: InterstitialDisplayProperties())
         XCTAssertEqual(modalManager.modalStateStack.count, 1)
-        drainMainQueue()
+        drainMainQueue(timeout: 4)
         
         let endCardPopped = expectation(description: "The end card's state popped")
         endCard.modalManagerDidFinishPopCallback = {
@@ -292,12 +292,4 @@ class PBMAbstractCreativeEndCardTest: XCTestCase {
         return creative
     }
     
-    // ModalManager displays and pops states in main queue blocks, so this runs the ones queued so far.
-    private func drainMainQueue() {
-        let drained = expectation(description: "Main queue drained")
-        DispatchQueue.main.async {
-            drained.fulfill()
-        }
-        waitForExpectations(timeout: 4)
-    }
 }

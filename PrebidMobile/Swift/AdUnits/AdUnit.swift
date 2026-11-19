@@ -46,13 +46,7 @@ public class AdUnit: NSObject, DispatcherDelegate {
     
     private var adServerObject: AnyObject?
     
-    private var lastFetchDemandCompletion: ((_ bidInfo: BidInfo) -> Void)?
-    
-    /// notification flag set to check if the prebid response is received within the specified time
-    private var didReceiveResponse = false
-    
-    /// notification flag set to determine if delegate call needs to be made after timeout delegate is sent
-    private var timeOutSignalSent = false
+    private var lastFetchDemandHandler: ((FetchEvent) -> Void)?
     
     private(set) lazy var impressionTracker = PrebidImpressionTracker(
         isInterstitial: adUnitConfig.adConfiguration.isInterstitialAd
@@ -157,9 +151,33 @@ public class AdUnit: NSObject, DispatcherDelegate {
         adObject: AnyObject? = nil,
         completion: @escaping (_ bidInfo: BidInfo) -> Void
     ) {
+        fetchDemandEvents(adObject: adObject, allowsAutoRefresh: true) { event in
+            switch event {
+            case .result(let bidInfo):
+                completion(bidInfo)
+            case .timeout:
+                completion(BidInfo(resultCode: .prebidDemandTimedOut))
+            case .lateResponse:
+                break
+            }
+        }
+    }
+
+    enum FetchEvent {
+        case result(BidInfo)
+        /// The SDK deadline expired while the bid requester was still running.
+        case timeout
+        case lateResponse
+    }
+
+    func fetchDemandEvents(
+        adObject: AnyObject? = nil,
+        allowsAutoRefresh: Bool,
+        onEvent: @escaping (FetchEvent) -> Void
+    ) {
         if !(self is NativeRequest) {
             if adSizes.contains(where: { $0.width < 0 || $0.height < 0 }) {
-                completion(BidInfo(resultCode: .prebidInvalidSize))
+                onEvent(.result(BidInfo(resultCode: .prebidInvalidSize)))
                 return
             }
         }
@@ -169,31 +187,32 @@ public class AdUnit: NSObject, DispatcherDelegate {
         }
         
         if adUnitConfig.configId.isEmpty || adUnitConfig.configId.containsOnly(.whitespaces) {
-            completion(BidInfo(resultCode: .prebidInvalidConfigId))
+            onEvent(.result(BidInfo(resultCode: .prebidInvalidConfigId)))
             return
         }
         
         if Prebid.shared.prebidServerAccountId.isEmpty || Prebid.shared.prebidServerAccountId.containsOnly(.whitespaces) {
-            completion(BidInfo(resultCode: .prebidInvalidAccountId))
+            onEvent(.result(BidInfo(resultCode: .prebidInvalidAccountId)))
             return
         }
         
-        if !isInitialFetchDemandCallMade {
-            isInitialFetchDemandCallMade = true
-            startDispatcher()
+        if allowsAutoRefresh {
+            if !isInitialFetchDemandCallMade {
+                isInitialFetchDemandCallMade = true
+                startDispatcher()
+            }
+
+            lastFetchDemandHandler = onEvent
+            adServerObject = adObject
         }
         
-        didReceiveResponse = false
-        timeOutSignalSent = false
-        lastFetchDemandCompletion = completion
-        adServerObject = adObject
+        // Each fetch gets its own claim so its timeout and response can race to report the result.
+        let resultClaim = OneTimeClaim()
         
         let timeoutHandler = DispatchWorkItem { [weak self] in
-            guard let self = self else { return }
-            if (!self.didReceiveResponse) {
-                self.timeOutSignalSent = true
-                completion(BidInfo(resultCode: .prebidDemandTimedOut))
-                return
+            guard self != nil else { return }
+            if resultClaim.claim() {
+                onEvent(.timeout)
             }
         }
         
@@ -203,11 +222,16 @@ public class AdUnit: NSObject, DispatcherDelegate {
             timeoutHandler.cancel()
 
             guard let self = self else { return }
-            self.didReceiveResponse = true
+            let reportsResult = resultClaim.claim()
+            defer {
+                if !reportsResult {
+                    onEvent(.lateResponse)
+                }
+            }
             
             guard let bidResponse = bidResponse else {
-                if (!self.timeOutSignalSent) {
-                    completion(BidInfo(resultCode: PBMError.demandResult(from: error)))
+                if reportsResult {
+                    onEvent(.result(BidInfo(resultCode: PBMError.demandResult(from: error))))
                 }
                 
                 return
@@ -238,10 +262,10 @@ public class AdUnit: NSObject, DispatcherDelegate {
             self.impressionTracker.register(payload: impressionTrackingPayload)
             self.impressionTracker.register(eventManager: eventManager)
             
-            if (!self.timeOutSignalSent) {
+            if reportsResult {
                 let resultCode = self.setUp(adObject, with: bidResponse)
                 let bidInfo = BidInfo.create(resultCode: resultCode, bidResponse: bidResponse)
-                completion(bidInfo)
+                onEvent(.result(bidInfo))
             }
         }
         
@@ -397,8 +421,8 @@ public class AdUnit: NSObject, DispatcherDelegate {
     }
     
     func refreshDemand() {
-        if let lastFetchDemandCompletion = lastFetchDemandCompletion {
-            baseFetchDemand(adObject: adServerObject, completion: lastFetchDemandCompletion)
+        if let lastFetchDemandHandler {
+            fetchDemandEvents(adObject: adServerObject, allowsAutoRefresh: true, onEvent: lastFetchDemandHandler)
         }
     }
     

@@ -16,6 +16,14 @@
 import XCTest
 
 extension XCTestCase {
+    /// Runs the work already queued on the main queue.
+    func drainMainQueue(timeout: TimeInterval = 1) {
+        let drained = expectation(description: "main queue drained")
+        DispatchQueue.main.async {
+            drained.fulfill()
+        }
+        wait(for: [drained], timeout: timeout)
+    }
     
     func fulfillOrFail(_ expectation:XCTestExpectation?, _ expectationName:String, file: StaticString = #file, line: UInt = #line) {
         guard let unwrappedExpectation = expectation else {

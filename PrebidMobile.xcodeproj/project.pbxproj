@@ -173,6 +173,7 @@
 		5347473B2BFB4D3D00966658 /* UserAgentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5347473A2BFB4D3D00966658 /* UserAgentService.swift */; };
 		534C613C2CB536F00026119A /* RewardedConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C613B2CB536F00026119A /* RewardedConfig.swift */; };
 		534C61422CB55D980026119A /* BackgroundAwareTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61412CB55D980026119A /* BackgroundAwareTimer.swift */; };
+		FCBC058D023E4153999FF113 /* OneTimeClaim.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1915914C57640F7B472D99C /* OneTimeClaim.swift */; };
 		534C61442CB5619B0026119A /* MockVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61432CB5619B0026119A /* MockVideoView.swift */; };
 		534C61462CB562E40026119A /* CloseActionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534C61452CB562E40026119A /* CloseActionManagerTests.swift */; };
 		53514CC62D01B5B900A480C0 /* InterstitialRenderingAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53514CC52D01B5AF00A480C0 /* InterstitialRenderingAdUnitTest.swift */; };
@@ -243,6 +244,7 @@
 		53CDA4902D11AFD5004766F8 /* MediationUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CDA48A2D11AFD5004766F8 /* MediationUtilsTest.swift */; };
 		53CDA4912D11AFD5004766F8 /* MediationRewardedAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CDA4892D11AFD5004766F8 /* MediationRewardedAdUnitTest.swift */; };
 		53CE09012AD673020018CB75 /* sample_ortb_native_with_win_event.json in Resources */ = {isa = PBXBuildFile; fileRef = 53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */; };
+		5EDC95AA479B41139C946FD3 /* MockDeferredBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24735283624D1EAC42E956 /* MockDeferredBidRequester.swift */; };
 		53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */; };
 		53D3858E30123D4200923255 /* MockCreativeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3858D30123D4200923255 /* MockCreativeViewDelegate.swift */; };
 		53D3C3882C2BEE1E0074D99B /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */; };
@@ -902,6 +904,7 @@
 		5347473A2BFB4D3D00966658 /* UserAgentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentService.swift; sourceTree = "<group>"; };
 		534C613B2CB536F00026119A /* RewardedConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedConfig.swift; sourceTree = "<group>"; };
 		534C61412CB55D980026119A /* BackgroundAwareTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAwareTimer.swift; sourceTree = "<group>"; };
+		B1915914C57640F7B472D99C /* OneTimeClaim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeClaim.swift; sourceTree = "<group>"; };
 		534C61432CB5619B0026119A /* MockVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockVideoView.swift; sourceTree = "<group>"; };
 		534C61452CB562E40026119A /* CloseActionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseActionManagerTests.swift; sourceTree = "<group>"; };
 		53514CC52D01B5AF00A480C0 /* InterstitialRenderingAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialRenderingAdUnitTest.swift; sourceTree = "<group>"; };
@@ -973,6 +976,7 @@
 		53CDA48A2D11AFD5004766F8 /* MediationUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationUtilsTest.swift; sourceTree = "<group>"; };
 		53CDA48B2D11AFD5004766F8 /* MockMediationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMediationUtils.swift; sourceTree = "<group>"; };
 		53CE09002AD673020018CB75 /* sample_ortb_native_with_win_event.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_ortb_native_with_win_event.json; sourceTree = "<group>"; };
+		1F24735283624D1EAC42E956 /* MockDeferredBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDeferredBidRequester.swift; sourceTree = "<group>"; };
 		53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPBMBidRequester.swift; sourceTree = "<group>"; };
 		53D3858D30123D4200923255 /* MockCreativeViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreativeViewDelegate.swift; sourceTree = "<group>"; };
 		53D3C3872C2BEE1E0074D99B /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
@@ -1556,6 +1560,7 @@
 				922AFC8C27352BE900732C53 /* MockViewController.swift */,
 				539D4C7129B5E23600B6B30E /* MockPBMAbstractCreative.swift */,
 				533FDF842A12030C0066ED5A /* MockPrebidJSLibraryManager.swift */,
+				1F24735283624D1EAC42E956 /* MockDeferredBidRequester.swift */,
 				53CE09022AD67ECE0018CB75 /* MockPBMBidRequester.swift */,
 				53BFCD322CFF30C800A3287A /* MockPrebidMobilePluginRenderer.swift */,
 				534C61432CB5619B0026119A /* MockVideoView.swift */,
@@ -2098,6 +2103,7 @@
 				5347473A2BFB4D3D00966658 /* UserAgentService.swift */,
 				E557D4B62ED219CB00E5580A /* UserAgentPersistence.swift */,
 				534C61412CB55D980026119A /* BackgroundAwareTimer.swift */,
+				B1915914C57640F7B472D99C /* OneTimeClaim.swift */,
 				538704222DE05847006EA150 /* LocationManager.swift */,
 				538704292DE0848D006EA150 /* LocationManagerProtocol.swift */,
 				0012D7482E08717A007013F3 /* DeviceAccessManager.swift */,
@@ -3615,6 +3621,7 @@
 				925D5E1C2737E89500A8A2B5 /* PBMORTBTest.swift in Sources */,
 				47D9A18468F57BD786350961 /* mraid.js in Sources */,
 				925D5E162737E77200A8A2B5 /* DemandResponseInfoTest.swift in Sources */,
+				5EDC95AA479B41139C946FD3 /* MockDeferredBidRequester.swift in Sources */,
 				53CE09032AD67ECE0018CB75 /* MockPBMBidRequester.swift in Sources */,
 				B7C9E1A20000000000000002 /* ImageHelperTests.swift in Sources */,
 				53C9250729915466009E6F94 /* PrebidServerStatusRequesterTests.swift in Sources */,
@@ -3904,6 +3911,7 @@
 				53A434782CDABE7900CB381B /* BannerViewImpressionTracker.swift in Sources */,
 				FAEE4D17262DC2B200AD9966 /* NativeRequest.swift in Sources */,
 				534C61422CB55D980026119A /* BackgroundAwareTimer.swift in Sources */,
+				FCBC058D023E4153999FF113 /* OneTimeClaim.swift in Sources */,
 				5BC37AA6271F1D0000444D5E /* MediationBidInfoWrapper.swift in Sources */,
 				5BC37A94271F1D0000444D5E /* BannerEventHandler.swift in Sources */,
 				FAEE4D29262DC2B200AD9966 /* AdViewUtils.swift in Sources */,
