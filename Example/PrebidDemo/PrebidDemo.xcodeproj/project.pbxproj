@@ -165,6 +165,8 @@
 		53F35F4F2926D5C0001C1183 /* MAXNativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F4E2926D5C0001C1183 /* MAXNativeViewController.m */; };
 		53F35F512926D702001C1183 /* MAXNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F35F502926D702001C1183 /* MAXNativeAdView.xib */; };
 		53F35F57292792D6001C1183 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F35F56292792D6001C1183 /* SettingsViewController.m */; };
+		5A0F10012E30000100D3E0A1 /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100D3E0A1 /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5A0F10022E30000100D3E0A1 /* OMSDK_Prebidorg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F10002E30000100D3E0A1 /* OMSDK_Prebidorg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		902B7FE1124C94CF090DABE2 /* AppLovinSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 9B69620BA8C7CF2C0D19E5F2 /* AppLovinSDK */; };
 		9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49027B561A9003DCCCC /* TestExtensions.swift */; };
 		9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */; };
@@ -209,6 +211,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				530E7211292F8DC30025B44D /* PrebidMobile.framework in Embed Frameworks */,
+				5A0F10012E30000100D3E0A1 /* OMSDK_Prebidorg.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,6 +223,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				5399290D2926682F0078053C /* PrebidMobile.framework in Embed Frameworks */,
+				5A0F10022E30000100D3E0A1 /* OMSDK_Prebidorg.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,6 +465,7 @@
 		53F3604C292EACF9001C1183 /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53F3604F292EAD0D001C1183 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53F36057292EAD1C001C1183 /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A0F10002E30000100D3E0A1 /* OMSDK_Prebidorg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OMSDK_Prebidorg.xcframework; path = ../../Frameworks/OMSDK_Prebidorg.xcframework; sourceTree = "<group>"; };
 		5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9205E49027B561A9003DCCCC /* TestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExtensions.swift; sourceTree = "<group>"; };
@@ -1114,6 +1119,7 @@
 				5399290B2926682F0078053C /* PrebidMobile.framework */,
 				5399290F292668520078053C /* PrebidMobileAdMobAdapters.framework */,
 				53992911292668520078053C /* PrebidMobileMAXAdapters.framework */,
+				5A0F10002E30000100D3E0A1 /* OMSDK_Prebidorg.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

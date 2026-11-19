@@ -110,7 +110,7 @@ DerivedData, and package resolution. Command-line consumer builds use
 product paths; no `LocalPrebid` build-folder override is needed.
 
 ```bash
-./scripts/verifyDevelopmentApps.sh # compile demo, internal, Skadn, and test/UI-test targets
+./scripts/verifyDevelopmentApps.sh # compile demo, internal, Skadn, and test/UI-test targets; check the apps embed OMSDK
 ./scripts/verifyDevelopmentApps.sh --with-spm-demo # also build the standalone published consumer
 ./scripts/verifyDependencyIsolation.sh # check that the native and published package graphs stay separate
 ./scripts/testDevelopmentSupport.sh # run the internal app's form, mock-server and settings smoke tests

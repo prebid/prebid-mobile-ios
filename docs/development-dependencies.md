@@ -87,7 +87,10 @@ product paths. When switching from an earlier shared-container layout, use
 Product > Clean Build Folder once in the native workspace to discard any previously
 mixed native/published modules.
 
-`verifyDevelopmentApps.sh` builds five native app/test configurations. Its optional
+`verifyDevelopmentApps.sh` builds five native app/test configurations and checks that
+each of the four apps it builds embeds `OMSDK_Prebidorg.framework`: Xcode and
+`xcodebuild test` find a missing one in the build products folder, so only an app
+installed on its own would fail to launch. Its optional
 `--with-spm-demo` flag also calls `buildPrebidSPM.sh` for the standalone published
 consumer, using separate caches/products. PR CI omits that flag because demo changes
 may use SDK APIs that have not been published. A separate PR job runs `verifySPM.sh`
