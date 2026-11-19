@@ -161,6 +161,15 @@ struct IntegrationCaseManager {
         ),
         
         IntegrationCase(
+            title: "In-App Display Banner Extended ID Provider 320x50",
+            integrationKind: .inApp,
+            adFormat: .displayBanner,
+            configurationClosure: {
+                InAppDisplayBannerExtendedIdProviderViewController()
+            }
+        ),
+        
+        IntegrationCase(
             title: "In-App Video Banner 300x250",
             integrationKind: .inApp,
             adFormat: .videoBanner,

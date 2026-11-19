@@ -32,6 +32,10 @@ class BannerAdsTest: BaseAdsTest {
         testAd(testCase: testCases.inAppDisplayBannerCustomRendererCase)
     }
     
+    public func testInAppBannerAdExtendedIdProvider() {
+        testAd(testCase: testCases.inAppDisplayBannerExtendedIdProviderCase)
+    }
+    
     public func testGamOriginalBannerAd() {
         labelText = "Test mode"
         testAd(testCase: testCases.gamOriginalDisplayBannerCase)
