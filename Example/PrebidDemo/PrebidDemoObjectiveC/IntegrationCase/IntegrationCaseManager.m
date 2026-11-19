@@ -31,6 +31,7 @@
 
 #import "InAppDisplayBannerViewController.h"
 #import "InAppDisplayBannerPluginRendererViewController.h"
+#import "InAppDisplayBannerExtendedIdProviderViewController.h"
 #import "InAppVideoBannerViewController.h"
 #import "InAppDisplayInterstitialViewController.h"
 #import "InAppDisplayInterstitialPluginRendererViewController.h"
@@ -209,6 +210,16 @@
             adFormat:AdFormatDisplayBanner
             configurationClosure:^UIViewController *{
                 return [[InAppDisplayBannerPluginRendererViewController alloc] init];
+            }
+        ],
+        
+        [
+            [IntegrationCase alloc]
+            initWithTitle:@"In-App Display Banner Extended ID Provider 320x50"
+            integrationKind:IntegrationKindInApp
+            adFormat:AdFormatDisplayBanner
+            configurationClosure:^UIViewController *{
+                return [[InAppDisplayBannerExtendedIdProviderViewController alloc] init];
             }
         ],
         

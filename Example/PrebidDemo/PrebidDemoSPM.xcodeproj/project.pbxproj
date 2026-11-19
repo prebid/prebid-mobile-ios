@@ -67,6 +67,8 @@
 		A1DEE1A346545EA0B8022F72 /* AdMobVideoRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6F6AEACA6CACF0CEFE165 /* AdMobVideoRewardedViewController.swift */; };
 		A4C895579D58ABDA5D24D0F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B728A8C74A57DAB52DFAA16 /* LaunchScreen.storyboard */; };
 		A9C97DB92D7E64CFE0268BA1 /* InAppDisplayBannerPluginRendererViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F931EB3C476BD527D63B96E8 /* InAppDisplayBannerPluginRendererViewController.swift */; };
+		98DAF3BA945196FA7E891380 /* SampleExtendedIdProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2324F39E3C4BB5023F5C8E /* SampleExtendedIdProvider.swift */; };
+		0D19CE97199F398028D6B943 /* InAppDisplayBannerExtendedIdProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9329EC7870F09E6B5E909EB /* InAppDisplayBannerExtendedIdProviderViewController.swift */; };
 		AEA77DA61BF1B99F434CD7E3 /* InAppVideoInterstitialLandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A65D93339858DE3D6C3A1 /* InAppVideoInterstitialLandscapeViewController.swift */; };
 		B3B8A88AAAABBF04DB39015C /* GAMDisplayInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37ACB8E678C0AE7D6104C92 /* GAMDisplayInterstitialViewController.swift */; };
 		B43BFE35DB8486FD9D98ACCC /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = E627943B648FC2E6C9270E29 /* GoogleMobileAds */; };
@@ -164,6 +166,8 @@
 		F34E5037A491EE81449DAD03 /* GAMVideoInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMVideoInterstitialViewController.swift; sourceTree = "<group>"; };
 		F5F5CD38C9E253389821CB67 /* SampleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAdView.swift; sourceTree = "<group>"; };
 		F931EB3C476BD527D63B96E8 /* InAppDisplayBannerPluginRendererViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppDisplayBannerPluginRendererViewController.swift; sourceTree = "<group>"; };
+		EA2324F39E3C4BB5023F5C8E /* SampleExtendedIdProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleExtendedIdProvider.swift; sourceTree = "<group>"; };
+		C9329EC7870F09E6B5E909EB /* InAppDisplayBannerExtendedIdProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppDisplayBannerExtendedIdProviderViewController.swift; sourceTree = "<group>"; };
 		FB5A491B708B474B6F7DFD10 /* GAMNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAMNativeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -401,6 +405,8 @@
 				AFC6F1FAE41E2D1C014AD733 /* SampleRenderers */,
 				2D2D8490BA8ADB9F8DD7C244 /* InAppDisplayBannerViewController.swift */,
 				F931EB3C476BD527D63B96E8 /* InAppDisplayBannerPluginRendererViewController.swift */,
+				EA2324F39E3C4BB5023F5C8E /* SampleExtendedIdProvider.swift */,
+				C9329EC7870F09E6B5E909EB /* InAppDisplayBannerExtendedIdProviderViewController.swift */,
 				45E41B869B6BD84B1A2CFB1D /* InAppDisplayInterstitialViewController.swift */,
 				ABC085E95BDDAF3D7E263DD5 /* InAppDisplayInterstitialPluginRendererViewController.swift */,
 				1FB3B6D56053AAE3D83A3C8B /* InAppNativeViewController.swift */,
@@ -557,6 +563,8 @@
 				F79A5B5BDA841983D5D713DE /* MAXVideoInterstitialViewController.swift in Sources */,
 				4B4EE5E31DF52F69B1905A5A /* InAppVideoInterstitialViewController.swift in Sources */,
 				A9C97DB92D7E64CFE0268BA1 /* InAppDisplayBannerPluginRendererViewController.swift in Sources */,
+				98DAF3BA945196FA7E891380 /* SampleExtendedIdProvider.swift in Sources */,
+				0D19CE97199F398028D6B943 /* InAppDisplayBannerExtendedIdProviderViewController.swift in Sources */,
 				125F6447642306638A671591 /* GAMDisplayRewardedViewController.swift in Sources */,
 				CFA3CCE5F86328963DE47403 /* MAXNativeViewController.swift in Sources */,
 				36C08A5FD1960094DE686617 /* GAMOriginalAPIDisplayBannerViewController.swift in Sources */,
