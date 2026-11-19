@@ -97,6 +97,12 @@ public class RewardedAdUnit: NSObject, BaseInterstitialAdUnitProtocol {
         set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
 
+    /// A Boolean value indicating whether the remaining-time indicator is visible for video ads.
+    public var isVideoProgressIndicatorVisible: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isVideoProgressIndicatorVisible = newValue }
+    }
+
     // MARK: Internal Properties
     
     // The configuration the public properties read and write.
