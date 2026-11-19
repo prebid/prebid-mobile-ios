@@ -755,7 +755,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     }
 
     func testEidsPlacementCompatible() throws {
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .compatible)
 
@@ -765,7 +765,7 @@ class ParameterBuilderServiceTest : XCTestCase {
 
     func testEidsPlacementOpenRTB26() throws {
         Targeting.shared.userExt = ["custom": "value"]
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .openRTB26)
 
@@ -774,7 +774,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     }
 
     func testEidsPlacementOpenRTB25() throws {
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .openRTB25)
 
@@ -792,7 +792,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     }
 
     func testEidsPlacementChangeLeavesNoStaleEids() throws {
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         var user = try buildUser(eidsPlacement: .openRTB25)
         XCTAssertNil(user["eids"])
@@ -809,7 +809,7 @@ class ParameterBuilderServiceTest : XCTestCase {
 
     func testEidsPlacementOpenRTB26IncludesUserExtEids() throws {
         Targeting.shared.userExt = ["eids": NSArray(object: publisherEid)]
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .openRTB26)
 
@@ -819,7 +819,7 @@ class ParameterBuilderServiceTest : XCTestCase {
 
     func testEidsPlacementOpenRTB26IncludesGlobalORTBConfigEids() throws {
         Targeting.shared.setGlobalORTBConfig("{\"user\":{\"ext\":{\"eids\":[{\"source\":\"publisher.com\",\"uids\":[{\"id\":\"publisher-uid\",\"atype\":3}]}]}}}")
-        Targeting.shared.setExternalUserIds([sdkExternalUserId])
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
 
         let user = try buildUser(eidsPlacement: .openRTB26)
 
@@ -845,6 +845,135 @@ class ParameterBuilderServiceTest : XCTestCase {
         let twice = ParameterBuilderService.placeEids(in: once, placement: .compatible)
 
         XCTAssertEqual(once as NSDictionary, twice as NSDictionary)
+    }
+
+    // MARK: - Extended ID providers
+
+    func testProviderEidsReachUserEidsWithProvenanceFields() throws {
+        Prebid.register(MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId]), as: .extendedIds)
+
+        let user = try buildUser(eidsPlacement: .compatible)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+        XCTAssertEqual(userExt(user)?["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testStaticEidsPrecedeProviderEids() throws {
+        Targeting.shared.addExternalUserId(
+            ExternalUserId(source: "publisher.com", uids: [UserUniqueID(uniqueId: "publisher-uid", aType: 3)])
+        )
+        Prebid.register(MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId]), as: .extendedIds)
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [publisherEid, sdkEid])
+    }
+
+    func testRawExtendedIdIsSentAsIs() throws {
+        let rawEid = try XCTUnwrap(RawExtendedId(json: try XCTUnwrap(sdkEid as? [String: Any])))
+        Prebid.register(MockExtendedIdProvider(name: "test", extendedIds: [rawEid]), as: .extendedIds)
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testEidThatCantBeEncodedIsSkipped() throws {
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [MockInvalidExtendedId(), sdkExternalUserId]),
+            as: .extendedIds
+        )
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testExternalUserIdWithEmptySourceIsSkipped() throws {
+        Targeting.shared.addExternalUserId(ExternalUserId(source: "", uids: [UserUniqueID(uniqueId: "uid", aType: 1)]))
+        Targeting.shared.addExternalUserId(sdkExternalUserId)
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testEidsAreStaticThenSharedIdThenProvidersInRegistrationOrder() throws {
+        let targeting = Targeting.shared
+        targeting.addExternalUserId(
+            ExternalUserId(source: "publisher.com", uids: [UserUniqueID(uniqueId: "publisher-uid", aType: 3)])
+        )
+        targeting.sendSharedId = true
+        Prebid.register(MockExtendedIdProvider(name: "second", extendedIds: [sdkExternalUserId]), as: .extendedIds)
+        Prebid.register(
+            MockExtendedIdProvider(name: "third", extendedIds: [
+                ExternalUserId(source: "third.com", uids: [UserUniqueID(uniqueId: "third-uid", aType: 1)])
+            ]),
+            as: .extendedIds
+        )
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        let eids = try XCTUnwrap(user["eids"] as? [NSDictionary])
+        XCTAssertEqual(eids.compactMap { $0["source"] as? String }, ["publisher.com", "pubcid.org", "id5-sync.com", "third.com"])
+        XCTAssertEqual(eids[0], publisherEid)
+        XCTAssertEqual(eids[1], targeting.sharedId.toJSONDictionary() as NSDictionary)
+        XCTAssertEqual(eids[2], sdkEid)
+    }
+
+    func testProviderEidThatCantBeSentDoesNotBlockAnotherProvidersEidWithTheSameSource() throws {
+        Prebid.register(
+            MockExtendedIdProvider(name: "first", extendedIds: [MockInvalidExtendedId(source: "id5-sync.com")]),
+            as: .extendedIds
+        )
+        Prebid.register(MockExtendedIdProvider(name: "second", extendedIds: [sdkExternalUserId]), as: .extendedIds)
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testNoEidsWhenEveryIdIsSkipped() throws {
+        Targeting.shared.addExternalUserId(ExternalUserId(source: "", uids: [UserUniqueID(uniqueId: "uid", aType: 1)]))
+        Prebid.register(
+            MockExtendedIdProvider(name: "test", extendedIds: [
+                MockInvalidExtendedId(source: "invalid.com"),
+                MockEmptyExtendedId(source: "empty.com"),
+            ]),
+            as: .extendedIds
+        )
+
+        for placement in [EidsPlacement.openRTB26, .openRTB25, .compatible] {
+            let user = try buildUser(eidsPlacement: placement)
+
+            XCTAssertNil(user["eids"])
+            XCTAssertNil(userExt(user)?["eids"])
+        }
+    }
+
+    func testProviderEidsAreOnlyInUserEidsForOpenRTB26() throws {
+        Prebid.register(MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId]), as: .extendedIds)
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+        XCTAssertNil(userExt(user)?["eids"])
+    }
+
+    func testRequestIsUnchangedWhenNoProviderIsRegistered() throws {
+        Targeting.shared.addExternalUserId(
+            ExternalUserId(source: "publisher.com", uids: [UserUniqueID(uniqueId: "publisher-uid", aType: 3)])
+        )
+        let staticOnly = try buildUser(eidsPlacement: .compatible)
+        XCTAssertEqual(staticOnly["eids"] as? [NSDictionary], [publisherEid])
+        XCTAssertEqual(userExt(staticOnly)?["eids"] as? [NSDictionary], [publisherEid])
+
+        let provider = MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId])
+        Prebid.register(provider, as: .extendedIds)
+        XCTAssertNotEqual(try buildUser(eidsPlacement: .compatible) as NSDictionary, staticOnly as NSDictionary)
+        Prebid.unregister(provider, as: .extendedIds)
+
+        XCTAssertEqual(try buildUser(eidsPlacement: .compatible) as NSDictionary, staticOnly as NSDictionary)
     }
 
     private func buildUser(eidsPlacement: EidsPlacement) throws -> [String: Any] {

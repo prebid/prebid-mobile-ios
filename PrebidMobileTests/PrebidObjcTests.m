@@ -51,6 +51,70 @@ limitations under the License.
 
 @end
 
+@interface PrebidObjcTestsIdProvider : NSObject <ExtendedIdProvider>
+
+@property (nonatomic, readonly) ExtendedIdProviderInfo *providerInfo;
+
+@end
+
+@implementation PrebidObjcTestsIdProvider
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _providerInfo = [[ExtendedIdProviderInfo alloc] initWithName:@"PrebidObjcTestsIdProvider" version:@"1.0"];
+    }
+    return self;
+}
+
+- (NSArray<id<ExtendedId>> *)getExtendedIds {
+    UserUniqueID *uid = [[UserUniqueID alloc] initWithUniqueId:@"objc-id" aType:@1 ext:nil];
+    return @[[[ExternalUserId alloc] initWithSource:@"objc.example.com" uids:@[uid] ext:nil]];
+}
+
+@end
+
+/// An extended ID implemented in Objective-C, not one of the SDK's classes.
+@interface PrebidObjcTestsExtendedId : NSObject <ExtendedId>
+
+@end
+
+@implementation PrebidObjcTestsExtendedId
+
+- (NSString *)source {
+    return @"custom.example.com";
+}
+
+- (NSDictionary<NSString *, id> *)toJSONDictionary {
+    return @{ @"source": self.source, @"uids": @[@{ @"id": @"custom-id", @"atype": @1 }] };
+}
+
+@end
+
+@interface PrebidObjcTestsCustomIdProvider : NSObject <ExtendedIdProvider>
+
+@property (nonatomic, readonly) ExtendedIdProviderInfo *providerInfo;
+@property (nonatomic, strong) NSArray<id<ExtendedId>> *extendedIds;
+
+@end
+
+@implementation PrebidObjcTestsCustomIdProvider
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _providerInfo = [[ExtendedIdProviderInfo alloc] initWithName:@"PrebidObjcTestsCustomIdProvider" version:@"1.0"];
+        _extendedIds = @[];
+    }
+    return self;
+}
+
+- (NSArray<id<ExtendedId>> *)getExtendedIds {
+    return self.extendedIds;
+}
+
+@end
+
 @interface PrebidObjcTests : XCTestCase
 
 @end
@@ -159,6 +223,51 @@ limitations under the License.
     XCTAssertFalse([Prebid containsPlugin:object as:PluginCapability.renderer]);
 }
 
+- (void)testRegisterExtendedIdProvider {
+    //given
+    PrebidObjcTestsIdProvider *provider = [PrebidObjcTestsIdProvider new];
+    
+    //when
+    [Prebid registerPlugin:provider as:PluginCapability.extendedIds];
+    
+    //then
+    XCTAssertTrue([Prebid containsPlugin:provider as:PluginCapability.extendedIds]);
+    XCTAssertTrue([[[Targeting.shared getExtendedIds] valueForKey:@"source"] containsObject:@"objc.example.com"]);
+    
+    //when
+    [Prebid unregisterPlugin:provider as:PluginCapability.extendedIds];
+    
+    //then
+    XCTAssertFalse([Prebid containsPlugin:provider as:PluginCapability.extendedIds]);
+    XCTAssertFalse([[[Targeting.shared getExtendedIds] valueForKey:@"source"] containsObject:@"objc.example.com"]);
+}
+
+- (void)testProviderWithCustomAndRawExtendedIds {
+    //given
+    NSDictionary<NSString *, id> *rawJSON = @{ @"source": @"raw.example.com", @"uids": @[@{ @"id": @"raw-id", @"atype": @1 }] };
+    RawExtendedId *rawId = [[RawExtendedId alloc] initWithJson:rawJSON];
+    XCTAssertNotNil(rawId);
+    XCTAssertEqualObjects(rawId.source, @"raw.example.com");
+    XCTAssertEqualObjects([rawId toJSONDictionary], rawJSON);
+    XCTAssertNil([[RawExtendedId alloc] initWithJson:@{ @"uids": @[] }]);
+    
+    PrebidObjcTestsCustomIdProvider *provider = [PrebidObjcTestsCustomIdProvider new];
+    provider.extendedIds = @[[PrebidObjcTestsExtendedId new], rawId];
+    
+    //when
+    [Prebid registerPlugin:provider as:PluginCapability.extendedIds];
+    NSArray<id<ExtendedId>> *extendedIds = [Targeting.shared getExtendedIds];
+    [Prebid unregisterPlugin:provider as:PluginCapability.extendedIds];
+    
+    //then
+    NSArray *sources = [extendedIds valueForKey:@"source"];
+    XCTAssertTrue([sources containsObject:@"custom.example.com"]);
+    XCTAssertTrue([sources containsObject:@"raw.example.com"]);
+    NSUInteger customIndex = [sources indexOfObject:@"custom.example.com"];
+    XCTAssertLessThan(customIndex, [sources indexOfObject:@"raw.example.com"]);
+    XCTAssertEqualObjects([extendedIds[customIndex] toJSONDictionary][@"uids"][0][@"id"], @"custom-id");
+}
+
 - (void)testPluginInfo {
     PrebidPluginInfo *info = [[PrebidPluginInfo alloc] initWithName:@"plugin" version:@"1.0"];
     
@@ -166,6 +275,7 @@ limitations under the License.
     XCTAssertNotEqualObjects(info, [[PrebidPluginInfo alloc] initWithName:@"plugin" version:@"2.0"]);
     XCTAssertEqualObjects(info.description, @"plugin/1.0");
     XCTAssertEqualObjects(PluginCapability.renderer.name, @"renderer");
+    XCTAssertEqualObjects(PluginCapability.extendedIds.name, @"extendedIds");
 }
 
 @end

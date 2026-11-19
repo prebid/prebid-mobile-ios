@@ -120,14 +120,62 @@ public class Targeting: NSObject {
     
     // MARK: - External User Ids
     
-    /// Sets the external user ID.
-    public func setExternalUserIds(_ externalUserIds: [ExternalUserId]) {
-        self.externalUserIds = externalUserIds
+    /// Adds a static external user ID, replacing the IDs that have the same `source`.
+    ///
+    /// IDs from other sources stay in place, so independent integrations can each manage their own ID.
+    /// Prefer this over `setExternalUserIds(_:)`, which replaces the whole list.
+    ///
+    /// For IDs that change during the session (e.g. an identity SDK that refreshes tokens), implement
+    /// `ExtendedIdProvider` and register it with `Prebid.register(_:as:)` as `.extendedIds`. Identity
+    /// vendors may ship ready-made providers.
+    public func addExternalUserId(_ externalUserId: ExternalUserId) {
+        extendedIdRegistry.staticProvider.addUserId(externalUserId)
     }
     
-    /// Retrieves the external user IDs in a dictionary format suitable for use in JSON.
+    /// Removes the static external user IDs with the given `source`.
+    /// IDs from registered providers are not affected.
+    public func removeExternalUserId(_ source: String) {
+        extendedIdRegistry.staticProvider.removeUserId(source: source)
+    }
+    
+    /// Removes all static external user IDs. IDs from registered providers are not affected.
+    public func clearExternalUserIds() {
+        extendedIdRegistry.staticProvider.clear()
+    }
+    
+    /// Replaces all static external user IDs with the given list.
+    ///
+    /// - Warning: Deprecated, will be removed in 4.0. Use `addExternalUserId(_:)`, `removeExternalUserId(_:)`
+    ///   or `clearExternalUserIds()` instead. This method replaces the whole list, so it can overwrite IDs
+    ///   set by other integrations.
+    @available(*, deprecated, message: "This method is deprecated and will be removed in 4.0. Use `addExternalUserId(_:)`, `removeExternalUserId(_:)` or `clearExternalUserIds()` instead. This method replaces the whole list, so it can overwrite IDs set by other integrations.")
+    public func setExternalUserIds(_ externalUserIds: [ExternalUserId]) {
+        extendedIdRegistry.staticProvider.setUserIds(externalUserIds)
+    }
+    
+    /// Retrieves the static external user IDs in a dictionary format suitable for use in JSON.
+    /// Provider IDs and SharedID are not included.
+    ///
+    /// - Warning: Deprecated, will be removed in 4.0. Use `getExtendedIds()` instead, which returns the IDs
+    ///   the SDK adds to bid requests.
+    @available(*, deprecated, message: "This method is deprecated and will be removed in 4.0. Use `getExtendedIds()` instead, which returns the IDs the SDK adds to bid requests. This method returns only the static IDs.")
     public func getExternalUserIds() -> [[String: Any]]? {
-        externalUserIds.isEmpty ? nil : externalUserIds.map { $0.toJSONDictionary() }
+        let externalUserIds = extendedIdRegistry.staticProvider.externalUserIds
+        return externalUserIds.isEmpty ? nil : externalUserIds.map { $0.toJSONDictionary() }
+    }
+    
+    /// Returns the IDs the SDK adds to bid requests, in order: the static IDs, then SharedID when
+    /// `sendSharedId` is `true`, then the IDs of the providers registered as `.extendedIds`, in
+    /// registration order. An ID is skipped if its source is empty, its JSON is empty or can't be
+    /// encoded, or the `"source"` in its JSON differs from its `source`, and so is a provider's ID whose
+    /// source is already in the list. Calls `getExtendedIds()` on every provider.
+    public func getExtendedIds() -> [ExtendedId] {
+        extendedIdRegistry.getAllExtendedIds(sharedId: sendSharedId ? sharedId : nil)
+    }
+    
+    /// The JSON of the IDs that `getExtendedIds()` returns, for a bid request.
+    func getExtendedIdJSONs() -> [[String: Any]] {
+        extendedIdRegistry.getAllExtendedIdJSONs(sharedId: sendSharedId ? sharedId : nil)
     }
     
     // MARK: - SharedId
@@ -400,8 +448,6 @@ public class Targeting: NSObject {
         
     private var globalORTBConfig: String?
     
-    /// Array of external user IDs.
-    ///
-    /// This property holds the external user IDs associated with the user.
-    private var externalUserIds = [ExternalUserId]()
+    /// The static external user IDs. Providers are registered for all instances, as `.extendedIds`.
+    let extendedIdRegistry = ExtendedIdRegistry()
 }

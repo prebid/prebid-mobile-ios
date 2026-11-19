@@ -154,12 +154,9 @@ class ParameterBuilderService: NSObject {
             bidRequest.user.ext = existingUserExt
         }
 
-        if let externalUserIds = targeting.getExternalUserIds() {
-            bidRequest.user.appendEids(externalUserIds)
-        }
-
-        if targeting.sendSharedId {
-            bidRequest.user.appendEids([targeting.sharedId.toJSONDictionary()])
+        let eids = targeting.getExtendedIdJSONs()
+        if !eids.isEmpty {
+            bidRequest.user.appendEids(eids)
         }
 
         let userKeywords = targeting.getUserKeywords()
