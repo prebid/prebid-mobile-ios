@@ -207,6 +207,95 @@ final class ExtendedIdRegistryTests: XCTestCase {
         XCTAssertEqual(ids(extendedIds), ["id1", "id2", "id3", "shared"])
     }
 
+    func testSecondIdWithTheSameSourceFromOneProviderIsSkipped() {
+        register(MockExtendedIdProvider(name: "test", extendedIds: [
+            createUserId(source: "vendor.com", id: "first"),
+            createUserId(source: "vendor.com", id: "second"),
+        ]))
+
+        XCTAssertEqual(ids(registry.getAllExtendedIds()), ["first"])
+    }
+
+    // MARK: - IDs that can't be sent
+
+    func testProviderIdThatCantBeSentDoesNotTakeItsSource() {
+        let logToFile = LogToFileLock()
+        register(MockExtendedIdProvider(name: "first", extendedIds: [
+            MockInvalidExtendedId(source: "vendor.com"),
+            MockEmptyExtendedId(source: "other.com"),
+        ]))
+        register(MockExtendedIdProvider(name: "second", extendedIds: [
+            createUserId(source: "vendor.com", id: "vendor"),
+            createUserId(source: "other.com", id: "other"),
+        ]))
+
+        let extendedIds = registry.getAllExtendedIds()
+
+        XCTAssertEqual(ids(extendedIds), ["vendor", "other"])
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.contains("Skipping the ID from source vendor.com provided by first/1.0: its JSON can't be encoded."))
+        XCTAssertTrue(log.contains("Skipping the ID from source other.com provided by first/1.0: its JSON is empty."))
+        XCTAssertFalse(log.contains("provided by second/1.0"))
+
+        withExtendedLifetime(logToFile) {}
+    }
+
+    func testStaticIdThatCantBeSentIsSkippedAndDoesNotTakeItsSource() {
+        let logToFile = LogToFileLock()
+        registry.staticProvider.addUserId(ExternalUserId(
+            source: "vendor.com",
+            uids: [UserUniqueID(uniqueId: "static", aType: 1)],
+            ext: ["date": Date()]
+        ))
+        register(MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "vendor.com", id: "provider")]))
+
+        XCTAssertEqual(ids(registry.getAllExtendedIds()), ["provider"])
+        XCTAssertTrue((Log.getLogFileAsString() ?? "").contains("Skipping the ID from source vendor.com in the static IDs: its JSON can't be encoded."))
+
+        withExtendedLifetime(logToFile) {}
+    }
+
+    func testJSONsMatchTheIdsThatAreSent() {
+        registry.staticProvider.addUserId(createUserId(source: "static.com", id: "static"))
+        register(MockExtendedIdProvider(name: "test", extendedIds: [
+            MockInvalidExtendedId(),
+            createUserId(source: "static.com", id: "duplicate"),
+            createUserId(source: "provider.com", id: "provider"),
+        ]))
+
+        let jsons = registry.getAllExtendedIdJSONs()
+
+        XCTAssertEqual(jsons.compactMap { $0["source"] as? String }, ["static.com", "provider.com"])
+        XCTAssertEqual(
+            jsons.map { $0 as NSDictionary },
+            registry.getAllExtendedIds().map { $0.toJSONDictionary() as NSDictionary }
+        )
+    }
+
+    // MARK: - Warnings
+
+    func testProviderWarningIsLoggedOncePerRegistration() {
+        let logToFile = LogToFileLock()
+        let warning = "Skipping the ID from source static.com provided by test/1.0: an ID from this source is already present."
+        registry.staticProvider.addUserId(createUserId(source: "static.com", id: "static"))
+        let provider = MockExtendedIdProvider(name: "test", extendedIds: [createUserId(source: "static.com", id: "provider")])
+        register(provider)
+
+        _ = registry.getAllExtendedIds()
+        _ = registry.getAllExtendedIds()
+        _ = registry.getAllExtendedIdJSONs()
+
+        XCTAssertEqual(occurrences(of: warning, in: Log.getLogFileAsString()), 1)
+
+        Prebid.unregister(provider, as: .extendedIds)
+        register(provider)
+        _ = registry.getAllExtendedIds()
+
+        XCTAssertEqual(occurrences(of: warning, in: Log.getLogFileAsString()), 2)
+
+        withExtendedLifetime(logToFile) {}
+    }
+
     // MARK: - Static IDs
 
     func testAddUserIdReplacesIdsWithSameSource() {
@@ -239,6 +328,19 @@ final class ExtendedIdRegistryTests: XCTestCase {
         registry.staticProvider.setUserIds([])
 
         XCTAssertEqual(ids(registry.getAllExtendedIds()), ["id1"])
+    }
+
+    func testStaticIdsAreKeptAfterEveryProviderIsUnregistered() {
+        registry.staticProvider.addUserId(createUserId(source: "static.com", id: "static"))
+        let provider1 = MockExtendedIdProvider(name: "p1", extendedIds: [createUserId(source: "p1.com", id: "id1")])
+        let provider2 = MockExtendedIdProvider(name: "p2", extendedIds: [createUserId(source: "static.com", id: "id2")])
+        register(provider1)
+        register(provider2)
+
+        Prebid.unregister(provider1, as: .extendedIds)
+        Prebid.unregister(provider2, as: .extendedIds)
+
+        XCTAssertEqual(ids(registry.getAllExtendedIds()), ["static"])
     }
 
     // MARK: - ExtendedIdProviderInfo
@@ -274,5 +376,9 @@ final class ExtendedIdRegistryTests: XCTestCase {
 
     private func ids(_ extendedIds: [ExtendedId]) -> [String] {
         extendedIds.compactMap { ($0 as? ExternalUserId)?.uids.first?.uniqueId }
+    }
+
+    private func occurrences(of text: String, in log: String?) -> Int {
+        (log ?? "").components(separatedBy: text).count - 1
     }
 }

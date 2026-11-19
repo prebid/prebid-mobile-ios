@@ -32,7 +32,8 @@ public final class PluginCapability: NSObject {
     ///
     /// Providers are identified by `providerInfo`, i.e. name and version. Their IDs are sent in every bid
     /// request, after the static IDs set through `Targeting` and SharedID, in the order the providers were
-    /// registered. An ID whose source is already present is skipped.
+    /// registered. An ID whose JSON is empty or can't be encoded is skipped, and so is an ID whose source is
+    /// already present.
     public static let extendedIds = PluginCapability(registry: Registries.extendedIds)
     
     /// The capability name, used in logs.
@@ -64,7 +65,10 @@ enum Registries {
         name: "extendedIds",
         identify: { PrebidPluginInfo(name: $0.providerInfo.name, version: $0.providerInfo.version) },
         onRegister: { $0.onRegister?() },
-        onUnregister: { $0.onUnregister?() }
+        onUnregister: { provider in
+            provider.onUnregister?()
+            ExtendedIdRegistry.providerUnregistered(provider)
+        }
     ))
 }
 

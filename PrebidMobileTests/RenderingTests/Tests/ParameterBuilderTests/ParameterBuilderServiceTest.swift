@@ -898,6 +898,57 @@ class ParameterBuilderServiceTest : XCTestCase {
         XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
     }
 
+    func testEidsAreStaticThenSharedIdThenProvidersInRegistrationOrder() throws {
+        let targeting = Targeting.shared
+        targeting.addExternalUserId(
+            ExternalUserId(source: "publisher.com", uids: [UserUniqueID(uniqueId: "publisher-uid", aType: 3)])
+        )
+        targeting.sendSharedId = true
+        Prebid.register(MockExtendedIdProvider(name: "second", extendedIds: [sdkExternalUserId]), as: .extendedIds)
+        Prebid.register(
+            MockExtendedIdProvider(name: "third", extendedIds: [
+                ExternalUserId(source: "third.com", uids: [UserUniqueID(uniqueId: "third-uid", aType: 1)])
+            ]),
+            as: .extendedIds
+        )
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        let eids = try XCTUnwrap(user["eids"] as? [NSDictionary])
+        XCTAssertEqual(eids.compactMap { $0["source"] as? String }, ["publisher.com", "pubcid.org", "id5-sync.com", "third.com"])
+        XCTAssertEqual(eids[0], publisherEid)
+        XCTAssertEqual(eids[1], targeting.sharedId.toJSONDictionary() as NSDictionary)
+        XCTAssertEqual(eids[2], sdkEid)
+    }
+
+    func testProviderEidThatCantBeSentDoesNotBlockAnotherProvidersEidWithTheSameSource() throws {
+        Prebid.register(
+            MockExtendedIdProvider(name: "first", extendedIds: [MockInvalidExtendedId(source: "id5-sync.com")]),
+            as: .extendedIds
+        )
+        Prebid.register(MockExtendedIdProvider(name: "second", extendedIds: [sdkExternalUserId]), as: .extendedIds)
+
+        let user = try buildUser(eidsPlacement: .openRTB26)
+
+        XCTAssertEqual(user["eids"] as? [NSDictionary], [sdkEid])
+    }
+
+    func testRequestIsUnchangedWhenNoProviderIsRegistered() throws {
+        Targeting.shared.addExternalUserId(
+            ExternalUserId(source: "publisher.com", uids: [UserUniqueID(uniqueId: "publisher-uid", aType: 3)])
+        )
+        let staticOnly = try buildUser(eidsPlacement: .compatible)
+        XCTAssertEqual(staticOnly["eids"] as? [NSDictionary], [publisherEid])
+        XCTAssertEqual(userExt(staticOnly)?["eids"] as? [NSDictionary], [publisherEid])
+
+        let provider = MockExtendedIdProvider(name: "test", extendedIds: [sdkExternalUserId])
+        Prebid.register(provider, as: .extendedIds)
+        XCTAssertNotEqual(try buildUser(eidsPlacement: .compatible) as NSDictionary, staticOnly as NSDictionary)
+        Prebid.unregister(provider, as: .extendedIds)
+
+        XCTAssertEqual(try buildUser(eidsPlacement: .compatible) as NSDictionary, staticOnly as NSDictionary)
+    }
+
     private func buildUser(eidsPlacement: EidsPlacement) throws -> [String: Any] {
         let sdkConfiguration = Prebid.mock
         sdkConfiguration.eidsPlacement = eidsPlacement

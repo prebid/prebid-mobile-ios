@@ -24,8 +24,10 @@ import Foundation
 /// on any thread.
 ///
 /// Provider IDs are sent after the static IDs set through `Targeting` and SharedID, in the order the
-/// providers were registered. Registration order is the only ordering guarantee. An ID whose source is
-/// already present (a static ID, SharedID, or an ID from a provider registered earlier) is skipped.
+/// providers were registered. Registration order is the only ordering guarantee. An ID whose JSON is
+/// empty or can't be encoded is skipped, and so is an ID whose source is already present (a static ID,
+/// SharedID, or an ID from a provider registered earlier). The SDK logs a warning for each skipped ID,
+/// once per registration of the provider.
 ///
 /// Lifecycle:
 /// 1. `onRegister()` is called once after `Prebid.register(_:as:)`, before the provider's IDs are

@@ -34,7 +34,7 @@ public protocol ExtendedId: AnyObject {
 /// An `ExtendedId` backed by a pre-built OpenRTB EID JSON dictionary, for identity libraries that
 /// already produce the EID object, e.g. `["source": "id5-sync.com", "uids": [["id": "...", "atype": 1]]]`.
 @objcMembers
-public class RawExtendedId: NSObject, ExtendedId {
+public final class RawExtendedId: NSObject, ExtendedId {
 
     /// The `source` field of the wrapped JSON.
     public let source: String

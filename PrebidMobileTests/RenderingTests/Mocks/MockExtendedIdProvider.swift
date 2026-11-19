@@ -68,9 +68,27 @@ final class MockMinimalExtendedIdProvider: NSObject, ExtendedIdProvider {
 /// An `ExtendedId` whose JSON `JSONSerialization` can't encode.
 final class MockInvalidExtendedId: NSObject, ExtendedId {
 
-    let source = "invalid.com"
+    let source: String
+
+    init(source: String = "invalid.com") {
+        self.source = source
+    }
 
     func toJSONDictionary() -> [String: Any] {
         ["source": source, "uids": [["id": Date(), "atype": 1]]]
+    }
+}
+
+/// An `ExtendedId` whose JSON is empty.
+final class MockEmptyExtendedId: NSObject, ExtendedId {
+
+    let source: String
+
+    init(source: String) {
+        self.source = source
+    }
+
+    func toJSONDictionary() -> [String: Any] {
+        [:]
     }
 }

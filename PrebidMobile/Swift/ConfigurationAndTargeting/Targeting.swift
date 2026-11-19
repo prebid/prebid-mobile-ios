@@ -144,14 +144,21 @@ public class Targeting: NSObject {
     }
     
     /// Replaces all static external user IDs with the given list.
-    @available(*, deprecated, message: "Replaces the whole list, so it can overwrite IDs set by other integrations. Use `addExternalUserId(_:)`, `removeExternalUserId(_:)` or `clearExternalUserIds()` instead.")
+    ///
+    /// - Warning: Deprecated, will be removed in 4.0. Use `addExternalUserId(_:)`, `removeExternalUserId(_:)`
+    ///   or `clearExternalUserIds()` instead. This method replaces the whole list, so it can overwrite IDs
+    ///   set by other integrations.
+    @available(*, deprecated, message: "This method is deprecated and will be removed in 4.0. Use `addExternalUserId(_:)`, `removeExternalUserId(_:)` or `clearExternalUserIds()` instead. This method replaces the whole list, so it can overwrite IDs set by other integrations.")
     public func setExternalUserIds(_ externalUserIds: [ExternalUserId]) {
         extendedIdRegistry.staticProvider.setUserIds(externalUserIds)
     }
     
     /// Retrieves the static external user IDs in a dictionary format suitable for use in JSON.
-    /// IDs from registered providers, including SharedID, are not included.
-    @available(*, deprecated, message: "Returns only the static IDs. Use `getExtendedIds()` to get every ID sent in bid requests.")
+    /// Provider IDs and SharedID are not included.
+    ///
+    /// - Warning: Deprecated, will be removed in 4.0. Use `getExtendedIds()` instead, which returns every ID
+    ///   sent in bid requests.
+    @available(*, deprecated, message: "This method is deprecated and will be removed in 4.0. Use `getExtendedIds()` instead, which returns every ID sent in bid requests. This method returns only the static IDs.")
     public func getExternalUserIds() -> [[String: Any]]? {
         let externalUserIds = extendedIdRegistry.staticProvider.externalUserIds
         return externalUserIds.isEmpty ? nil : externalUserIds.map { $0.toJSONDictionary() }
@@ -159,10 +166,15 @@ public class Targeting: NSObject {
     
     /// Returns every external user ID sent in bid requests: the static IDs, then SharedID when
     /// `sendSharedId` is `true`, then the IDs of the providers registered as `.extendedIds`, in
-    /// registration order. A provider's ID whose source is already in the list is skipped.
-    /// Calls `getExtendedIds()` on every provider.
+    /// registration order. An ID whose JSON is empty or can't be encoded is skipped, and so is a
+    /// provider's ID whose source is already in the list. Calls `getExtendedIds()` on every provider.
     public func getExtendedIds() -> [ExtendedId] {
         extendedIdRegistry.getAllExtendedIds(sharedId: sendSharedId ? sharedId : nil)
+    }
+    
+    /// The JSON of the IDs that `getExtendedIds()` returns, for a bid request.
+    func getExtendedIdJSONs() -> [[String: Any]] {
+        extendedIdRegistry.getAllExtendedIdJSONs(sharedId: sendSharedId ? sharedId : nil)
     }
     
     // MARK: - SharedId
