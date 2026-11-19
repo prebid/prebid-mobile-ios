@@ -28,7 +28,6 @@ class VastAdsBuilder: NSObject {
 
     private let dispatchQueue = DispatchQueue(label: "PBMVastLoaderQueue")
     private let serverConnection: PrebidServerConnectionProtocol
-    private var requestsPending = 0
     private let maximumWrapperDepth = 5     // Per VAST 4.0 spec section 2.3.4.1
     private var rootResponse: VastResponse?
 
@@ -62,21 +61,25 @@ class VastAdsBuilder: NSObject {
     }
 
     func checkHasNoAdsAndFireURIs(vastResponse: VastResponse) -> Bool {
+        var reportedWrappers: Set<ObjectIdentifier> = []
+        return checkHasNoAdsAndFireURIs(vastResponse: vastResponse, reportedWrappers: &reportedWrappers)
+    }
 
-        var firedNoAdsURI = false
+    private func checkHasNoAdsAndFireURIs(vastResponse: VastResponse, reportedWrappers: inout Set<ObjectIdentifier>) -> Bool {
 
-        // To check no ads responses, we find any response that had an Ad/Inline element that had zero creatives.
-        // Then we walk backward from that response to any preceding wrapper responses that have an errorURI provided.
+        var hasNoAds = false
+
+        // An empty response reports 303 to its response-level Error URI and to the wrappers that led to it.
 
         if vastResponse.vastAbstractAds.count == 0 {
 
-            // If we have no ads, fire noAdsResponseURI on every wrapper up the chain.
-            // First check response itself. then loop up
+            // Walk the response chain, selecting only the wrapper that led to the current response.
+            // Other wrappers in the parent response may belong to successful sibling branches.
 
             var parent: VastResponse? = vastResponse
             while let current = parent {
 
-                if let noAdsResponseURI = current.noAdsResponseURI {
+                if let noAdsResponseURI = current.noAdsResponseURI, !noAdsResponseURI.isEmpty {
                     serverConnection.fireAndForget(VastErrorCode.noAdAfterWrappers.replacingMacro(in: noAdsResponseURI))
                 }
 
@@ -85,9 +88,18 @@ class VastAdsBuilder: NSObject {
                     break
                 }
 
+                if let parentResponse = current.parentResponse,
+                   let wrapper = parentResponse.vastAbstractAds.compactMap({ $0 as? VastWrapperAd })
+                    .first(where: { $0.vastResponse === current }),
+                   reportedWrappers.insert(ObjectIdentifier(wrapper)).inserted {
+                    for errorURI in wrapper.errorURIs where !errorURI.isEmpty {
+                        serverConnection.fireAndForget(VastErrorCode.noAdAfterWrappers.replacingMacro(in: errorURI))
+                    }
+                }
+
                 parent = current.parentResponse
             }
-            firedNoAdsURI = true
+            hasNoAds = true
         } else {
 
             for ad in vastResponse.vastAbstractAds {
@@ -97,7 +109,9 @@ class VastAdsBuilder: NSObject {
 
                     // And it has a response
                     if let unwrappedVastResponse = unwrappedVASTWrapper.vastResponse {
-                        firedNoAdsURI = firedNoAdsURI || checkHasNoAdsAndFireURIs(vastResponse: unwrappedVastResponse)
+                        let childHasNoAds = checkHasNoAdsAndFireURIs(vastResponse: unwrappedVastResponse,
+                                                                   reportedWrappers: &reportedWrappers)
+                        hasNoAds = hasNoAds || childHasNoAds
                     } else {
                         Log.error("No vastResponse on Wrapper")
                     }
@@ -105,7 +119,7 @@ class VastAdsBuilder: NSObject {
             }
         }
 
-        return firedNoAdsURI
+        return hasNoAds
     }
 
     // MARK: - Private
@@ -129,34 +143,10 @@ class VastAdsBuilder: NSObject {
             return
         }
 
-        handleResponse(parsedResponse, forWrapperAd: wrapperAd) { [weak self] error in
-            guard let self else {
-                completionBlock(PBMError.error(description: Self.builderFailedMessage, statusCode: .undefined))
-                return
-            }
-
-            if let error {
-                completionBlock(error)
-                return
-            }
-
-            if wrapperAd != nil {
-                self.dispatchQueue.sync {
-                    self.requestsPending -= 1
-                }
-
-                completionBlock(nil)
-            } else if self.requestsPending == 0 {
-                completionBlock(nil)
-            }
-        }
+        handleResponse(parsedResponse, forWrapperAd: wrapperAd, completion: completionBlock)
     }
 
     private func requestAds(_ vastURL: String?, forWrapperAd wrapperAd: VastWrapperAd, completion: @escaping WrapperCompletion) {
-
-        dispatchQueue.sync {
-            requestsPending += 1
-        }
 
         // `self` is captured strongly by this callback, as in the ObjC (only the blocks around it were weakified).
         serverConnection.get(vastURL, timeout: PrebidConstants.CONNECTION_TIMEOUT_DEFAULT) { serverResponse in
@@ -206,18 +196,28 @@ class VastAdsBuilder: NSObject {
             rootResponse = response
         }
 
-        // If we're not at the max depth then add a request for each wrapper.
-        var hasWrappers = false
-        for case let responseWrapperAd as VastWrapperAd in response.vastAbstractAds {
-            hasWrappers = true
-
-            responseWrapperAd.depth = (wrapperAd?.depth ?? 0) + 1
-
-            requestAds(responseWrapperAd.vastURI, forWrapperAd: responseWrapperAd, completion: completionBlock)
+        let wrappers = response.vastAbstractAds.compactMap { $0 as? VastWrapperAd }
+        guard !wrappers.isEmpty else {
+            completionBlock(nil)
+            return
         }
 
-        if !hasWrappers {
-            completionBlock(nil)
+        // Each response completes once, after all child wrappers complete or the first one fails.
+        var pendingWrappers = wrappers.count
+        var didComplete = false
+        for wrapper in wrappers {
+            wrapper.depth = (wrapperAd?.depth ?? 0) + 1
+            requestAds(wrapper.vastURI, forWrapperAd: wrapper) { error in
+                let shouldComplete = self.dispatchQueue.sync {
+                    guard !didComplete else { return false }
+                    pendingWrappers -= 1
+                    didComplete = error != nil || pendingWrappers == 0
+                    return didComplete
+                }
+                if shouldComplete {
+                    completionBlock(error)
+                }
+            }
         }
     }
 
