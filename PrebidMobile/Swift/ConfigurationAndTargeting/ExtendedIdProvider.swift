@@ -24,16 +24,18 @@ import Foundation
 /// on any thread.
 ///
 /// Provider IDs are sent after the static IDs set through `Targeting` and SharedID, in the order the
-/// providers were registered. Registration order is the only ordering guarantee. An ID whose JSON is
-/// empty or can't be encoded is skipped, and so is an ID whose source is already present (a static ID,
-/// SharedID, or an ID from a provider registered earlier). The SDK logs a warning for each skipped ID,
-/// once per registration of the provider.
+/// providers were registered. Registration order is the only ordering guarantee. An ID is skipped if its
+/// source is empty, its JSON is empty or can't be encoded, or the `"source"` in its JSON differs from its
+/// `source`, and so is an ID whose source is already present (a static ID, SharedID, or an ID from a
+/// provider registered earlier). The SDK logs a warning for each skipped ID, usually once per
+/// registration of the provider.
 ///
 /// Lifecycle:
-/// 1. `onRegister()` is called once after `Prebid.register(_:as:)`, before the provider's IDs are
-///    included in bid requests.
-/// 2. `getExtendedIds()` is called on every bid request.
-/// 3. `onUnregister()` is called after `Prebid.unregister(_:as:)`.
+/// 1. `onRegister()` runs synchronously inside `Prebid.register(_:as:)`, once per registration. The
+///    provider's IDs are used only after it returns.
+/// 2. `getExtendedIds()` is called for every bid request, on any thread, possibly concurrently.
+/// 3. `onUnregister()` runs inside `Prebid.unregister(_:as:)`. Requests already being built may still
+///    call `getExtendedIds()` during or after it, so keep it safe to call (e.g. return an empty array).
 ///
 /// ```swift
 /// final class MyIdProvider: NSObject, ExtendedIdProvider {
@@ -58,13 +60,15 @@ public protocol ExtendedIdProvider: AnyObject {
     /// Returns the provider's current EIDs. May be empty.
     ///
     /// Called on every bid request, so it must return immediately: no network calls, disk I/O,
-    /// or other blocking work. May be called on any thread.
+    /// or other blocking work. May be called on any thread, possibly concurrently.
     @objc func getExtendedIds() -> [ExtendedId]
 
-    /// Called once after the provider is registered, before its IDs are included in bid requests.
+    /// Called synchronously inside `Prebid.register(_:as:)`, once per registration. The provider's IDs are
+    /// used only after it returns.
     @objc optional func onRegister()
 
-    /// Called when the provider is unregistered. Release resources here.
+    /// Called when the provider is unregistered. Requests in progress may still call `getExtendedIds()`
+    /// afterwards, so keep it safe to call.
     @objc optional func onUnregister()
 }
 

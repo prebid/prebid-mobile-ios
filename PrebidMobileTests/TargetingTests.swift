@@ -621,6 +621,33 @@ class TargetingTests: XCTestCase {
     }
     
     @available(*, deprecated)
+    func testSetExternalUserIdsIsNeverSeenHalfApplied() {
+        let targeting = Targeting()
+        let listA = (0..<20).map { createUserId(source: "a\($0).com", id: "a\($0)") }
+        let listB = (0..<20).map { createUserId(source: "b\($0).com", id: "b\($0)") }
+        let sourcesA = listA.map { $0.source }
+        let sourcesB = listB.map { $0.source }
+        targeting.setExternalUserIds(listA)
+    
+        let lock = NSLock()
+        var unexpectedReads = [[String]]()
+        DispatchQueue.concurrentPerform(iterations: 2) { worker in
+            for iteration in 0..<1_000 {
+                if worker == 0 {
+                    targeting.setExternalUserIds(iteration.isMultiple(of: 2) ? listB : listA)
+                } else {
+                    let sources = targeting.getExtendedIds().map { $0.source }
+                    if sources != sourcesA && sources != sourcesB {
+                        lock.withLock { unexpectedReads.append(sources) }
+                    }
+                }
+            }
+        }
+    
+        XCTAssertEqual(unexpectedReads, [])
+    }
+    
+    @available(*, deprecated)
     func testGetExternalUserIdsReturnsOnlyStaticIds() {
         let targeting = Targeting.shared
         XCTAssertNil(targeting.getExternalUserIds())

@@ -22,12 +22,13 @@ import Foundation
 @objc
 public protocol ExtendedId: AnyObject {
 
-    /// The source domain of this EID (e.g. `"criteo.com"`).
+    /// The source domain of this EID (e.g. `"criteo.com"`). An EID with an empty source is not sent.
     @objc var source: String { get }
 
     /// The OpenRTB JSON representation of this EID.
     ///
-    /// An empty dictionary, or one that `JSONSerialization` can't encode, is not sent.
+    /// An empty dictionary, one that `JSONSerialization` can't encode, or one whose `"source"` differs
+    /// from `source` is not sent.
     @objc func toJSONDictionary() -> [String: Any]
 }
 

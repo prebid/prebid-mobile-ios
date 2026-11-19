@@ -92,3 +92,20 @@ final class MockEmptyExtendedId: NSObject, ExtendedId {
         [:]
     }
 }
+
+/// An `ExtendedId` whose `source` and JSON are set independently.
+final class MockCustomExtendedId: NSObject, ExtendedId {
+
+    let source: String
+
+    private let json: [String: Any]
+
+    init(source: String, json: [String: Any]) {
+        self.source = source
+        self.json = json
+    }
+
+    func toJSONDictionary() -> [String: Any] {
+        json
+    }
+}

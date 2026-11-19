@@ -32,8 +32,8 @@ public final class PluginCapability: NSObject {
     ///
     /// Providers are identified by `providerInfo`, i.e. name and version. Their IDs are sent in every bid
     /// request, after the static IDs set through `Targeting` and SharedID, in the order the providers were
-    /// registered. An ID whose JSON is empty or can't be encoded is skipped, and so is an ID whose source is
-    /// already present.
+    /// registered. An ID is skipped if its source is empty, its JSON is empty or can't be encoded, or the
+    /// `"source"` in its JSON differs from its `source`, and so is an ID whose source is already present.
     public static let extendedIds = PluginCapability(registry: Registries.extendedIds)
     
     /// The capability name, used in logs.

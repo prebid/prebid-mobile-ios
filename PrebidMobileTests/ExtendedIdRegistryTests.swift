@@ -240,6 +240,55 @@ final class ExtendedIdRegistryTests: XCTestCase {
         withExtendedLifetime(logToFile) {}
     }
 
+    func testProviderIdWithEmptySourceIsSkipped() {
+        let logToFile = LogToFileLock()
+        register(MockExtendedIdProvider(name: "test", extendedIds: [
+            createUserId(source: "", id: "empty"),
+            MockCustomExtendedId(source: "", json: ["source": "", "uids": [["id": "custom", "atype": 1]]]),
+            createUserId(source: "vendor.com", id: "vendor"),
+        ]))
+
+        XCTAssertEqual(ids(registry.getAllExtendedIds()), ["vendor"])
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertEqual(occurrences(of: "Skipping an ID provided by test/1.0: its source is empty.", in: log), 1)
+        // The source is checked before the JSON is built, so `ExternalUserId` doesn't log its own warning.
+        XCTAssertFalse(log.contains("Empty source. Skipping converting to JSON."))
+
+        withExtendedLifetime(logToFile) {}
+    }
+
+    func testProviderIdWhoseJSONHasAnotherSourceIsSkipped() {
+        let logToFile = LogToFileLock()
+        register(MockExtendedIdProvider(name: "first", extendedIds: [
+            MockCustomExtendedId(source: "vendor.com", json: ["source": "pubcid.org", "uids": [["id": "first", "atype": 1]]]),
+            MockCustomExtendedId(source: "other.com", json: ["uids": [["id": "other", "atype": 1]]]),
+        ]))
+        register(MockExtendedIdProvider(name: "second", extendedIds: [createUserId(source: "vendor.com", id: "second")]))
+
+        let sharedId = createUserId(source: "pubcid.org", id: "shared")
+        let jsons = registry.getAllExtendedIdJSONs(sharedId: sharedId)
+
+        XCTAssertEqual(jsons.compactMap { $0["source"] as? String }, ["pubcid.org", "vendor.com"])
+        XCTAssertEqual(ids(registry.getAllExtendedIds(sharedId: sharedId)), ["shared", "second"])
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.contains("Skipping the ID from source vendor.com provided by first/1.0: the \"source\" in its JSON is different."))
+        XCTAssertTrue(log.contains("Skipping the ID from source other.com provided by first/1.0: the \"source\" in its JSON is different."))
+
+        withExtendedLifetime(logToFile) {}
+    }
+
+    func testStaticIdWithEmptySourceIsSkippedBeforeItsJSONIsBuilt() {
+        let logToFile = LogToFileLock()
+        registry.staticProvider.addUserId(createUserId(source: "", id: "static"))
+
+        XCTAssertTrue(registry.getAllExtendedIds().isEmpty)
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.contains("Skipping an ID in the static IDs: its source is empty."))
+        XCTAssertFalse(log.contains("Empty source. Skipping converting to JSON."))
+
+        withExtendedLifetime(logToFile) {}
+    }
+
     func testStaticIdThatCantBeSentIsSkippedAndDoesNotTakeItsSource() {
         let logToFile = LogToFileLock()
         registry.staticProvider.addUserId(ExternalUserId(
@@ -292,6 +341,31 @@ final class ExtendedIdRegistryTests: XCTestCase {
         _ = registry.getAllExtendedIds()
 
         XCTAssertEqual(occurrences(of: warning, in: Log.getLogFileAsString()), 2)
+
+        withExtendedLifetime(logToFile) {}
+    }
+
+    func testProviderWarningsAreBoundedPerProvider() {
+        let logToFile = LogToFileLock()
+        let firstWarning = "Skipping the ID from source source0.com provided by test/1.0: its JSON is empty."
+        let provider = MockExtendedIdProvider(
+            name: "test",
+            extendedIds: (0..<100).map { MockEmptyExtendedId(source: "source\($0).com") }
+        )
+        register(provider)
+
+        // Up to 100 warnings are kept per provider, so none of these is logged twice.
+        _ = registry.getAllExtendedIds()
+        _ = registry.getAllExtendedIds()
+        XCTAssertEqual(occurrences(of: firstWarning, in: Log.getLogFileAsString()), 1)
+
+        // A 101st warning clears the ones kept before it, so the next request logs them again.
+        provider.extendedIds.append(MockEmptyExtendedId(source: "source100.com"))
+        _ = registry.getAllExtendedIds()
+        XCTAssertEqual(occurrences(of: firstWarning, in: Log.getLogFileAsString()), 1)
+
+        _ = registry.getAllExtendedIds()
+        XCTAssertEqual(occurrences(of: firstWarning, in: Log.getLogFileAsString()), 2)
 
         withExtendedLifetime(logToFile) {}
     }

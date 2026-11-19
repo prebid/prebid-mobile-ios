@@ -156,18 +156,19 @@ public class Targeting: NSObject {
     /// Retrieves the static external user IDs in a dictionary format suitable for use in JSON.
     /// Provider IDs and SharedID are not included.
     ///
-    /// - Warning: Deprecated, will be removed in 4.0. Use `getExtendedIds()` instead, which returns every ID
-    ///   sent in bid requests.
-    @available(*, deprecated, message: "This method is deprecated and will be removed in 4.0. Use `getExtendedIds()` instead, which returns every ID sent in bid requests. This method returns only the static IDs.")
+    /// - Warning: Deprecated, will be removed in 4.0. Use `getExtendedIds()` instead, which returns the IDs
+    ///   the SDK adds to bid requests.
+    @available(*, deprecated, message: "This method is deprecated and will be removed in 4.0. Use `getExtendedIds()` instead, which returns the IDs the SDK adds to bid requests. This method returns only the static IDs.")
     public func getExternalUserIds() -> [[String: Any]]? {
         let externalUserIds = extendedIdRegistry.staticProvider.externalUserIds
         return externalUserIds.isEmpty ? nil : externalUserIds.map { $0.toJSONDictionary() }
     }
     
-    /// Returns every external user ID sent in bid requests: the static IDs, then SharedID when
+    /// Returns the IDs the SDK adds to bid requests, in order: the static IDs, then SharedID when
     /// `sendSharedId` is `true`, then the IDs of the providers registered as `.extendedIds`, in
-    /// registration order. An ID whose JSON is empty or can't be encoded is skipped, and so is a
-    /// provider's ID whose source is already in the list. Calls `getExtendedIds()` on every provider.
+    /// registration order. An ID is skipped if its source is empty, its JSON is empty or can't be
+    /// encoded, or the `"source"` in its JSON differs from its `source`, and so is a provider's ID whose
+    /// source is already in the list. Calls `getExtendedIds()` on every provider.
     public func getExtendedIds() -> [ExtendedId] {
         extendedIdRegistry.getAllExtendedIds(sharedId: sendSharedId ? sharedId : nil)
     }
