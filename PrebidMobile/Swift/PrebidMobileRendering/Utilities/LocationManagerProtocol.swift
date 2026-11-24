@@ -17,7 +17,6 @@ import CoreLocation
 
 protocol LocationManagerProtocol {
     var delegate: CLLocationManagerDelegate? { get set }
-    var location: CLLocation? { get }
     var distanceFilter: CLLocationDistance { get set }
     var desiredAccuracy: CLLocationAccuracy { get set }
     
