@@ -121,6 +121,10 @@ limitations under the License.
 
 @implementation PrebidObjcTests
 
+- (void)tearDown {
+    Prebid.shared.storedAuctionResponse = nil;
+    [super tearDown];
+}
 
 - (void)testAccountId {
     //given
